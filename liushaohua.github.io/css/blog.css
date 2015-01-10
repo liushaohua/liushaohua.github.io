@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+body, html {background-attachment: fixed;background-color: #000000;background-image:url(../image/bg.jpg);background-position: center top;background-repeat: no-repeat;color: #FFFFFF;font-size: 12px;width: 100%;overflow-X:hidden; font-family:宋体;}    
+.head{width:1434px;background:url(../image/banner.jpg) no-repeat;height: 182px;position:fixed;top:0; left:50%; margin-left:-717px;}
+#header{width:1434px;height:182px;margin:0 auto;padding-left:206px;}
+#header h1{float:left;}
+#header h1 a{width:192px;height:177px;background:url(../image/nolight_h.png) no-repeat;display:block;}
+#header h1 a:hover{background:url(../image/light_h.png) no-repeat;}
+#header ul{float:left;padding-top:101px;width:604px;height:28px;margin-left:106px;padding-left:103px;position:relative;}
+#header ul li{float:left;width:93px;height:28px;}
+#header li a{z-index:3;display:block;float:left;width:93px;height:28px;line-height:26px;color:#FFFFFF;font-size:15px;cursor:pointer;text-align:center; text-decoration:none;}
+#header li a:hover{ color:#c8c8c8;}
+#bg{position:absolute;left:102px;z-index:1;background:url(../image/run_box.png) no-repeat;}
+
+#content {height:auto;left:50%;margin-left:-471px;position: absolute;top:179px;width:942px;z-index:-1;}
+#footer{position:absolute;top:650px;background:url(../image/footer_bg.png) no-repeat;height:172px;width:1434px;left:50%;margin-left:-717px;}
+/*blog*/
+.blog_wz{width:748px;height:407px; overflow:scroll;padding-top:15px; overflow-x:hidden;text-align:left;padding-left:12px;color:#848484;float:left;}
+.blog_wzh2{font-size:12px;color:#848484;font-weight:bold;height:30px;line-height:30px;border-bottom:1px solid #564c4c;}
+.blog_wzh2 a{ font-weight:normal;text-decoration:none; cursor:pointer;}
+.blog_wzh2 a:hover{color:#FF0000;}
+.blog_lei{padding-top:12px;padding-left:6px;}
+.blog_lei h2{height:24px;line-height:24px;font-size:16px;font-weight:bold;}
+.blog_lei h2 a{cursor:pointer;text-decoration:none;}
+.blog_lei h2 a:hover{color:#FFFFFF;}
+.blog_lei h3{height:20px;line-height:20px;font-size:12px;font-weight:normal;}
+.blog_lei h3 a{float:right;padding-right:12px;}
+.blog_zw{padding:19px 0 0 0;overflow:hidden;border-bottom:1px solid #848484;margin-right:28px;}
+.blog_zw_left{width:110px;float:left;text-align:center;}
+.blog_zw_left a{width:101px;height:79px;padding:2px;border:1px solid #848484; overflow:hidden;display:block; cursor:pointer;}
+.blog_zw_left span{height:30px;line-height:30px;}
+.blog_zw_right{width:570px;float:right;overflow:hidden;}
+.blog_zw_right p{height:80px;overflow:hidden;}
+.blog_zw_right p a{ line-height:21px; text-decoration:none;cursor:pointer;}
+.blog_zw_right p a:hover{color:#FFFFFF;}
+.blog_zw_right_yd{font-size:14px;line-height:24px;color:#FFFFFF;cursor:pointer;}
+
+.blog_fenlei{width:133px;height:400px;border-left:1px solid #4d4c4c;float:left;margin-left:10px;padding-top:10px;margin-top:10px;}
+.blog_fenlei h2{font-size:12px;color:#848484;height:28px;line-height:28px;padding-left:15px;text-align:left;border-bottom:1px solid #848484;}
+.blog_fenlei ul {padding-top:8px;padding-bottom:20px; }
+.blog_fenlei ul li{background:url(../blog_image/cycle.jpg) no-repeat 14px 8px;text-align:left;font-size:12px;color:#848484;height:22px;line-height:22px;padding-left:24px;}
+.blog_fenlei ul li a{text-decoration:none;cursor:pointer;color:#848482;}
+.blog_fenlei ul li a:hover{color:#FFFFFF;}
