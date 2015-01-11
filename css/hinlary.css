@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+body, html {background-attachment: fixed;background-color: #000000;background-image:url(../image/bg.jpg);background-position: center top;background-repeat: no-repeat;color: #FFFFFF;font-size: 12px;width: 100%;overflow-X:hidden; font-family:宋体;}    
+.head{width:1434px;background:url(../image/banner.jpg) no-repeat;height: 182px;position:fixed;top:0; left:50%; margin-left:-717px;}
+#header{width:1434px;height:182px;margin:0 auto;padding-left:206px;}
+#header h1{float:left;}
+#header h1 a{width:192px;height:177px;background:url(../image/nolight_h.png) no-repeat;display:block;}
+#header h1 a:hover{background:url(../image/light_h.png) no-repeat;}
+#header ul{float:left;padding-top:101px;width:604px;height:28px;margin-left:106px;padding-left:103px;position:relative;}
+#header ul li{float:left;width:93px;height:28px;}
+#header li a{z-index:3;display:block;float:left;width:93px;height:28px;line-height:26px;color:#FFFFFF;font-size:15px;cursor:pointer;text-align:center; text-decoration:none;}
+#header li a:hover{ color:#c8c8c8;}
+#bg{position:absolute;left:102px;z-index:1;background:url(../image/run_box.png) no-repeat;}
+
+#content {height:auto;left:50%;margin-left:-471px;position: absolute;top:179px;width:942px;z-index:-1;}
+
+/*gonggao*/
+.wrap{ width:250px; margin:0 auto;}
+#div1 {width:320px;background:url(../image/gonggao.jpg); height:110px; position:absolute; overflow:hidden; z-index:10; cursor:move;}
+#div2 #div3{width:320px;background:url(../image/gonggao.jpg); height:110px; position:absolute;cursor:move;}
+
+.gratit{width:447px;height:46px;margin-top:12px;float:left;background:url(../image/title_bg.png) no-repeat; background-position: 0 0;}
+#graphic_1, #show, #about,{margin-top: -182px;padding-top: 182px;width:942px;}
+
+.abotit{width:264px;height:46px;margin-top:12px;float:left;background:url(../image/title_bg.png) no-repeat; background-position: 0 -47px;}
+.abso_hi{padding:36px 24px 0 60px; overflow:hidden;clear:both;}
+.abso_hi li{float:left;}
+.absopic{width:172px;padding-right:52px;}
+.absopic a p{ text-align:left; color:#FFFFFF;line-height:20px;}
+.abs_mar{margin-top:5px;}
+.aboblgh{width:300px;overflow:hidden;float:left;padding-right:26px;}
+.aboblo{height:128px;overflow:hidden;width:300px;}
+.aboblo li{ line-height:20px;width:300px;}
+.aboblo li a{ float:left; text-align:left;padding-left:25px;color:#FFFFFF;font-size:12px;background:url(../image/aboutan.png) no-repeat 7px 3px;}
+.aboblo li a:hover{padding-left:34px;background:url(../image/abouthi.png) no-repeat;background-position:14px 3px;}
+.ablobl_npd{padding-top:16px;}
+
+
+#show{ overflow:hidden;}
+.showtit{width:283px;height:46px;margin-top:12px;float:left;background:url(../image/title_bg.png) no-repeat; background-position: 0 -94px;}
+.showtit_hi{padding:30px 24px 0 130px; overflow:hidden;clear:both; }
+.showtit_hi dl{width:214px;height:172px;float:left;overflow:hidden; background:url(../image/Small_frame.png) no-repeat;display:inline;margin-right:16px;padding-bottom:26px;}
+.showtit_hi dl dt{width:202px;height:142px; overflow:hidden; text-align:center; margin:0 auto;padding-top:6px;}
+.showtit_hi dl dd{height:24px;line-height:24px;overflow:hidden;text-align:center;font-size:12px;}
+.showtit_hi dl dd a{ text-decoration:none; color:#FFFFFF;}
+
+#footer{position:absolute;top:1653px;background:url(../image/footer_bg.png) no-repeat;height:172px;width:1434px;left:50%;margin-left:-717px;}
+
+/*hope*/
+#graphic{ height:456px; clear:left;padding-top:18px;}
+#prev{ float:left; width:55px; padding-top:170px;padding-right:34px;padding-left:62px;}
+#prev a{ width:55px; height:55px; background:url(../image/graphicprev.png) no-repeat; display:block; overflow:hidden;} 
+#prev a:hover{background:url(../image/graphicprevhover.png) no-repeat;}
+#next{ float:left; width:55px; padding-top:170px; padding-left:34px;}
+#next a{ width:55px; height:55px; background:url(../image/graphicnext.png) no-repeat; display:block; overflow:hidden;}
+#next a:hover{background:url(../image/graphicnexthover.png)no-repeat;}
+.cont{ width:555px; height:304px;overflow:hidden; float:left; position:relative;left:18px; top:18px; background:#FF0000;}
+.cont li{ float:left;}
+#bigimg{ position:absolute; top:0px; left:0;}
+#bigimg li{width:555px;height:304px; cursor:pointer;}
+.wmd{width:592px;height:338px;background:url(../image/wmd.png) no-repeat;overflow:hidden;float:left;}
+#btn{ margin-top:24px; margin-left:284px;}
+#btn li{ width:21px; height:23px; background:url(../image/graphicpage.png) no-repeat; float:left; margin-right:10px; cursor:pointer; overflow:hidden;}
+#btn .active{background:url(../image/graphicpagehover.png);}
