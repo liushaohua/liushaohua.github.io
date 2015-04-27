@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>私信- 红演圈</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9 maximum-scale=2.0, minimum-scale=0.4, user-scalable=yes" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+  </head>
+  <body class="hyq-messager container">
+  
+	{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+	<div class="content-wrapper-b" style="min-height:50px;">
+	 <!--面包屑-->
+	      <div class="hyq-breadcrumb-bar">
+	        <div class="breadcrumb-box">
+	          <a href="/home/user">我的红演圈</a> &gt; <a href="javascript:;">私信</a>
+	        </div>
+	        <div class="decoration-bar"></div>
+	      </div>
+      </div>
+      
+      <iframe width="980" height="719" style="margin-left:460px;border:none;" src="http://119.254.102.228/hyq_ry/index.html?id={$uid}&name={$uname}&portrait={$uface}&token={$utoken}&fid={$fid}&fface={$fface}"></iframe>
+      
+
+
+
+
+  	<!-- http://119.254.102.228/hyq_ry/index.html?id=6822&name=u1&portrait=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fc52cf7da344bdfe16ffc5b315734e40e%3Fs%3D82 -->
+  	
+	<input type="hidden" id="uid" value="{$uid}">
+	<input type="hidden" id="fid" value="{$fid}">
+	<input type="hidden" id="uname" value="{$uname}">
+	<input type="hidden" id="uface" value="{$uface}">
+	<input type="hidden" id="utoken" value="{$utoken}">
+	<input type="hidden" id="fface" value="{$fface}">
+   {include "common/footer.html"}
+   
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+    <title>私信</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/hyq-misc.js"></script>
+    <style type="text/css">
+    html,body{
+    	background-color: #f3f4f4;
+    	width: 100%;
+    }
+    input[type=text]{
+    	height: 28px;
+    	line-height: 28px;
+    	width: 350px;
+    	border:1px solid #e3e3e3;
+    	float: left;
+    	font-size: 14px;
+    }
+    .form-group{
+    	padding-top: 0px;
+    	margin-top: 0px;
+    	min-height: 30px;
+    }
+    .form_label{
+    	float: left;
+    	width: 60px;
+    	height: 30;
+    	line-height: 30px;
+    	font-size: 14px;
+    	text-align: right:;
+    }
+ 
+    textarea{
+    	border: 1px solid #e3e3e3;
+    	width: 350px;
+    	height: 90px;
+    }
+    </style>
+</head>
+	<body class='hyq-modal-default'>
+		<!-- <input type="button" class="hyq-btn hyq-btn-default" data-toggle=hyq-modal data-target="#modal" value="点"> -->
+	<!--邮箱验证弹窗-->
+	<!-- <div class="hyq-modal hyq-modal-default RdBorderTop" id="modal" role="dialog" style="width:480px;"> -->
+	
+		 
+		<div class="hyq-model-body txt-left">
+			<div class="form-group fl">
+				<span class="form_label">&nbsp;&nbsp;发给：</span><input placeholder="对外经济贸易大学" type="text" id="toWho"/>
+			</div>
+			<div class="form-group fl">
+				<span class="form_label">&nbsp;&nbsp;内容：</span><textarea placeholder="对外经济贸易大学" type="text" id="message"></textarea>
+			</div>
+			<div class="form-group fr" style="margin-right:2em;">
+				<input type="button" class="hyq-btn hyq-btn-default-lg fr" id="send-msg"  value="  发 送  "/>
+			</div>
+			 
+		</div>
+	<!--邮箱验证弹窗结束-->
+	</body>
+	<script>
+
+	var tellParent = function(how){
+
+		//发送成功
+		if(how){
+			parent.$(parent.top.document).trigger({
+				type:"hyq/sms/popup/sent",
+			});
+		}else{
+			parent.$(parent.top.document).trigger({
+				type:"hyq/sms/popup/sent/failure",
+			});
+		}
+	}
+
+
+	$(document).ready(function(){
+		
+		//从URL获取收到发送者ID 和接收者ID
+		var f = $.getUrlParameter('from');
+		var to = $.getUrlParameter('to');
+
+		console.log("收到发送信息的请求，由用户ID为:"+f+" 的用户发送给ID为："+to+" 的用户");
+		$("#send-msg").unbind("click").click(function(){
+			//有了这些信息你就可以爱这么发怎么发了
+			//这句话必须在你的AJAX回调里使用，告诉父窗口发送成功还是失败 
+			tellParent(true);
+		});
+			 
+	});
+	
+	</script>
+</html>

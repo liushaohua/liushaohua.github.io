@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>{$userinfo['nickname']}的个人主页 - 红演圈</title>
+		<meta name="keywords" content="{$userinfo['nickname']}{if $service_arr},{foreach name=service_2 from=$service_arr key=k item=v}{foreach name=service_2_er from=$v key=k0 item=v0}{if k0 neq $smarty.foreach.service_2_er.last }{$v0.service_3_id_name},{else}{$v0.service_3_id_name}{/if}{/foreach}{/foreach},{/if}{if isset($user_role)}{foreach name=list from=$user_role item=v key = key}{if key neq $smarty.foreach.list.last }{$v['name']},{/if}{if key eq $smarty.foreach.list.last}{$v['name']}{/if}{/foreach}{/if}">
+		<meta name="description" content="{$userinfo['nickname']} {foreach name=list from=$user_role item=v key = key}{if key neq $smarty.foreach.list.last }{$v['name']},{/if}{if key eq $smarty.foreach.list.last}{$v['name']}{/if}{/foreach},正在红演圈提供{if $service_arr}{foreach name=service_2 from=$service_arr key=k item=v}{foreach name=service_2_er from=$v key=k0 item=v0}{if k0 neq $smarty.foreach.service_2_er.last }{$v0.service_3_id_name}、{else}{$v0.service_3_id_name}{/if}{/foreach}{/foreach}{/if}文化演艺服务,快来看看">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		
+		<link rel="stylesheet" href="/css/main.css">
+       <script type="text/javascript" src="/js/jquery.js"></script>
+	</head>
+	<body class="my-reds">
+		{include "common/header-new.html"}
+    	{include "common/nav_search.html"}
+        <!-- 主内容栏开始 -->
+		<div class="content-wrapper-index">
+        <!-- 主内容栏开始 -->
+             <div class="content-left-con">
+                
+                <div class="col-divide">
+           
+			   </p>
+			<!-- 三围省市区 -->                <!--dialog start-->
+                <div class="window-bg">
+                </div>
+                <div class="window-con">
+                       <i class="hyq-ic ic-error-50-rd" id="btn-close"></i>
+                       <!--轮播图部分代码开始-->
+            		 	 <div class="fullSlide" >
+							<div class="bd">
+								<div>
+									{foreach $album_list as $v}
+									<div>
+                                     	<img src="{$v.server_url}{$v.path_url}!s800" />
+										<p title="{$v.title}" alt="{$v.title}">{$v.title}</p>
+									</div>
+									{/foreach}
+								</div>
+							</div>
+                          <span class="prev"> </span> <span class="next"> </span>
+                </div>
+             		 </div>
+				<!--dialog end-->
+                 <div class="profile-title">
+                    <h3>TA发布的招募</h3>
+                 </div> 
+			{if !$recruit_list}
+				矮油！TA还没有发布过招募哦！
+			{else}
+                <!--发布过招募-->
+                <div class="rec-list">
+					{foreach $recruit_list as $v}
+                    <div class="recruit-box">
+                        <div class="r-content">
+                            <a href="/recruit/{$v.id}">
+                              <div class="img-box">
+                                  <img  data-lazy="{if $v.cover_path_url neq ''}{$v.cover_server_url}{$v.cover_path_url}!f150{else}http://icon.hotyq.com/v3/recruit-cover-photo.png{/if}" title="" alt="">
+                              </div>
+                              <div class="txt-box">
+                                  <h3 title="" alt="">{$v.name}</h3>
+                                  <p class="service-con">
+										{foreach $v.recruit_service_list as $v0}
+										<span>{$v0.service_2_name}</span>
+										{/foreach}
+                                  </p>
+                                  <div class="bot-ab">
+                                      <em>截止时间</em>
+									  {if $v.status eq 2}
+										<span class="Rd">已过期</span>
+									  {else if $v.status eq 3}
+										<span class="Rd">已关闭</span>
+									  {else}
+										<span>{$v.interview_end_time}</span>
+									  {/if}
+									  <label>{$v.city_name}</label>
+                                  </div>
+                              </div>
+                            </a>
+                            
+                        </div>
+                   </div>
+					{/foreach}
+					<div class="cl"></div>
+                 <!--招募分页-->
+					<div style="" class="cutpage-con">
+					
+						{if isset($page_list)}
+							{if $page_status eq 'true'}
+							<div class="cutpage2" >
+								{if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+								{foreach from=$page_list item=page_info}
+									{if $page_info.current == "yes"}
+									<span class="current">{$page_info.no}</span>
+									{elseif $page_info.position == "begin"}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									<span >...</span>
+									{elseif $page_info.position == "end"}
+									<span >...</span>
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{else}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{/if}
+								{/foreach}
+								{if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+							</div>
+							{/if}
+						{/if}
+					</div>
+                </div>
+            {/if}    
+                
+            
+           </div>
+  			 
+        	<div class="detail-right-con fr">
+				<!--演艺红人榜-->
+                
+				<div class="cl"></div>
+				 <!--Andorid 微信-->
+                {include "html/person_info_right_first.html"}
+				<div class="cl"></div>
+				{include "html/person_info_right_second.html"}
+				<div class="cl"></div>
+				{include "html/person_info_right_third.html"}
+            </div>
+       <!-- 主内容栏结束 -->
+       </div>
+		
+		<input type="hidden" id="has_recruit" value="{$hasRecruit}">
+        <!--发私信窗口-->
+ 		{include "common/home/include_message_box.html"}
+		<!--通用发邀约窗口-->
+		{include "common/home/include_invite_box.html"}
+		
+		<!--尾部开始-->
+		<!-- tips 框 -->
+	    <div class="hyq-tip" id="tip-message">
+	      <i hyq-tip-icon-node></i>
+	      <label class="hyq-tip-msg-node"></label>
+	    </div>
+       {include "common/footer-new.html"}
+		<script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/hyq-placeholder.js"></script>
+		<script src="/js/hyq-modal.js"></script>
+		<script src="/js/hyq-valid-helper.js"></script>
+		<script src="/js/hyq-checkbox-list.js"></script>
+		<script src="/js/hyq-dropdown-list.js"></script>
+		<script src="/js/hyq-dropdown-button.js"></script>
+		<script src="/js/hyq-checkbox.js"></script>
+		<script src="/js/hyq-nice-radio.js"></script>
+		<script src="/js/tmk-html-import.js"></script>       
+		<script src="/js/hyq-extends.js"></script>
+		<script src="/js/hyq-tip.js"></script>
+		<script src="/js/hyq-tabs-lr.js"></script>
+		<script src="/js/hyq-img-cropper.js"></script>
+		<script src="/js/hyq-busy-animate.js"></script>
+		<script src="/js/hyq-album-datastore.js"></script>
+		<script src="/js/hyq-album-manager.js"></script>
+		<script src="/js/hyq-album-viewport.js"></script>
+		<script src="/js/hyq-role-select.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/hyq-percent-pie.js"></script>
+		<script src="/js/hyq-misc.js"></script>
+		<script src="/js/hyq-static-album.js"></script>
+		<script src="/js/jquery.cookie.js"></script>
+		<script src="/js/hyq-pv.js"></script>
+		<script src="/js/state_code.js"></script>	  
+		<script type="text/javascript" src="/js/hyq_collected.js"></script>   
+		<script src="../../sea.js"></script>
+		<script>
+			seajs.config({
+				base: 'js/dist'
+			});
+			seajs.use(['hyq/static/page/favourite/info.js']);
+		</script>
+	</body>
+	
+</html>

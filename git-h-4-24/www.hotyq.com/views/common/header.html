@@ -1,0 +1,148 @@
+<style type="text/css">
+{literal}
+em a div label{cursor:pointer;*cursor:hand;}
+{/literal}
+</style>
+<div class="nav-bar">
+
+        <div class="nav">
+          <a class="main-logo pull-left" href="http://www.hotyq.com/"></a>
+            <div class="nav-items pull-left">
+              <a href="http://www.hotyq.com/" class="nav-item{if isset($active_status) && $active_status eq 'index'} active{/if} ">首页</a>
+              <!-- <a href="/user/" class="nav-item{if isset($active_status) && $active_status eq 'user_index'} active{/if} ">红人</a>  -->
+              <a href="/recruit/" class="nav-item{if isset($active_status) && $active_status eq 'recruit_index'} active{/if} ">招募</a>
+            </div>
+			<!--未登录前登录按钮-->
+            <div class="nav-button-wrapper pull-right" style="display:none; width:205px;" id="yet_login_box">
+              <a class="nav-button f15" href="/account/register" style="margin-right:8px;">注册</a>
+              <span class="nav-button f15 nav-button-with-children">
+                <a href="/account/login">登录</a>
+                <i class="spliter dark-spliter">&nbsp;</i> 
+                <a href="/account/login_sns.php" class="link-qq-sm" target="_blank"></a>
+                <a href="/account/login_sns.php?sns_type=weibo" class="link-weibo-sm" target="_blank"></a>
+              </span>
+            </div>
+            <!--end-->
+            <!--登录面板-->
+            <div class="user-panel" style="display:none" id="has_login_box">
+              <a href="javascript:;" class="avatar">
+              <!--   <img id="login_user_head_icon" src="http://img.hotyq.com/user/46/456/45646/97754aa4bb0a9c93.jpg"/> -->
+                <img id="login_user_head_icon" src="http://icon.hotyq.com/v2/default_M_11.jpg"/>
+              </a>
+             
+              <div class="menu-wrapper">
+                  <div class="arrow"></div>
+                  <ul class="user-panel-menu">
+                      <li  alt="个人管理中心" title="个人管理中心"><a id="my_hyq" href="/home/user"><i class="hyq-ic ic-logo-20 "></i> 我的红演圈</a></li>
+                      <li><a id="my_home" href="/home/user"><i class="hyq-ic ic-home "></i> 我的主页</a></li>
+                      <li><a href="/home/mywork_recruit"><i class="hyq-ic ic-pplane "></i>我发布的招募</a></li>
+                      <li><a href="/home/mywork_apply"><i class="hyq-ic ic-grab "></i>我报名的招募</a></li>
+                      <li><a href="/home/account_binding"><i class="hyq-ic ic-gear "></i>账号设置</a></li>
+                      <li class="spliter"></li>
+                      <li><a href="/account/logout"><i class="hyq-ic ic-quit "></i>退出登录</a></li>
+                  </ul> 
+              </div>
+            
+              <div class="stuff-wrapper">
+                <label id="login_user_nickname" alt="" title="">Yao@年后我啥撒谎</label>
+				<!-- <i alt="红演圈会员级别" title="红演圈会员级别">Lv.<b id="login_user_level">13</b></i> -->
+                <div class="icons-set">
+                  <a href="/home/message" class="email-btn " alt="私信" title="私信"><i></i><span id="msg_num">0</span></a>
+                  <a href="/home/collect_user" class="heart-btn " alt="收藏" title="收藏"><i></i><span id="collect_num">0</span></a>
+                  <a href="/home/mywork_invite" class="hih-btn "  alt="邀约" title="邀约"><i></i><span id="invite_num">0</span></a>
+                </div>
+              </div>
+              <em> 
+                <a id="hyq_percent_pie" href="/home/user/set" class="" alt="" title=""><div id="login_user_percent" hyq-percent-pie fore-color="#ff3300" back-color="#a4a4a4" bg-color="#4d4d4d" font-size="15px" percent="0" R="27" font-color="#ff3300" >
+                </div></a>
+              </em>
+
+            </div>
+            <!--end of user panel -->
+          </div>
+     </div>
+ 
+	 {literal}
+	 <script>
+        $(document).ready(function(){
+			if( typeof($.cookie('hyq_user_info')) != 'undefined' ){
+				$.post('/home/ajax/ajax_home_userprofile.php',{ action:'get_userinfo'},function(data){
+					$(document).trigger("hyq/userstate/changed");
+				});	
+			}
+        	//console.log($.cookie);
+			if(typeof($.cookie('hyq_user_info')) == 'undefined' ){
+				//未登录
+				$('#yet_login_box').css('display','block');
+				$('#has_login_box').css('display','none');
+			}else{
+				//已登录
+				$('#yet_login_box').css('display','none');
+				$('#has_login_box').css('display','block');
+				var cookie_info = $.cookie('hyq_user_info').split('|');
+				//console.log(cookie_info);
+				if(cookie_info[6] != ''){
+					$('#login_user_head_icon').prop('src',cookie_info[6]);
+				}else{
+					//缺省头像
+				}
+				if(cookie_info[2] != ''){
+					$('#login_user_nickname').text(cookie_info[2]).attr('alt',cookie_info[2]).attr('title',cookie_info[2]);
+				}else{
+					//缺省昵称  放id
+					$('#login_user_nickname').text('用户'+cookie_info[0]);
+				}
+				$('#login_user_level').text(cookie_info[3]);
+				if(cookie_info[4] <= 90){
+					$('#login_user_percent').attr('percent',cookie_info[4]).attr('alt','完善个人资料').attr('title','完善个人资料');
+				}else{
+					$('#login_user_percent').attr('percent',cookie_info[4]).attr('alt','更新个人资料').attr('title','更新个人资料');
+				}
+				$('#login_user_percent').attr('percent',cookie_info[4]);
+                //console.log(cookie_info);
+				if(cookie_info[1] == 'user'){
+					$('#my_hyq').prop('href','/home/user');
+					$('#my_home').prop('href','/user/'+cookie_info[0]);
+				}else if(cookie_info[1] == 'org'){
+					$('#hyq_percent_pie').prop('href','/home/org/set');
+					$('#my_hyq').prop('href','/home/org');
+					$('#my_home').prop('href','/org/'+cookie_info[0]);
+				}
+				
+                    var action  = 'get_msg';
+                    $.ajax({
+                         url:'/home/ajax/ajax_home_message.php',
+                        data:{'action':action},
+                        type:'post',
+                        success:function(data){
+								//console.log(data);
+                              $.each(data,function(i,v){
+                                  if(i == 'message'){
+									  if(v == 0){
+										$('#msg_num').text(v);
+									  }else{
+										$('#msg_num').text(v).parent().attr('alt','未读私信('+v+')').attr('title','未读私信('+v+')');
+									  }
+                                  }else if (i == 'collect') {
+									if(v == 0){
+                                       $('#collect_num').text(v);
+									}else{
+									   $('#collect_num').text(v).parent().attr('alt','收藏('+v+')').attr('title','收藏('+v+')');
+									}
+                                  }else if(i == 'reply_invite'){
+									if(v == 0){
+                                        $('#invite_num').text(v);
+									}else{
+										$('#invite_num').text(v).parent().attr('alt','新邀约('+v+')').attr('title','新邀约('+v+')');
+									}
+                                  }                               
+                              });
+                        },
+                        dataType:'json'
+                    });
+
+
+			}
+		});
+	 </script>
+	 {/literal}

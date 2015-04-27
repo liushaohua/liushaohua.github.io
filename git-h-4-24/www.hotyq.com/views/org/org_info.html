@@ -1,0 +1,482 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>{$userinfo.nickname}的机构主页-红演圈</title>
+		<meta name="keywords" content="{$userinfo.nickname},{$orgprofile_info.org_type.name}{if $service_arr},{foreach name=service_2 from=$service_arr key=k item=v}{foreach name=service_2_er from=$v key=k0 item=v0}{if $smarty.foreach.service_2_er.last }{$v0.service_3_id_name}{else}{$v0.service_3_id_name},{/if}{/foreach}{/foreach}{/if}">
+		<meta name="description" content="{$userinfo.nickname} {$orgprofile_info.org_type.name},正在红演圈提供{if $service_arr}{foreach name=service_2 from=$service_arr key=k item=v}{foreach name=service_2_er from=$v key=k0 item=v0}{if k0 neq $smarty.foreach.service_2_er.last }{$v0.service_3_id_name}、{else}{$v0.service_3_id_name}{/if}{/foreach}{/foreach}{/if}文化演艺服务,快来看看">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="shortcut icon" href="/http://www.hotyq.com/favicon.ico">
+		<link rel="stylesheet" href="/css/main.css">
+       <script type="text/javascript" src="/js/jquery.js"></script>
+	   {literal}
+        <script type="text/javascript">
+			$(document).ready(function(){
+				var $ali = $('.bd div div'),
+					$prev = $('.prev'),
+					$next = $('.next'),
+					timer,
+					cIndex,
+					aliLen = $ali.length;
+				$(".list-item").click(function(){
+					cIndex = $(this).index();
+					$(".window-bg,.window-con").show();
+					$('.window-con').show();
+					fnMove(cIndex);
+				});
+			  
+				$("#btn-close").click(function(){
+					$(".window-bg,.window-con").hide();
+				});
+				  
+				$ali.mouseover(function() {
+					clearInterval(timer);
+					$prev.add($next).fadeIn();
+				});
+				
+				$prev.add($next).mouseover(function () {
+					clearInterval(timer);
+				});
+				
+				
+				$prev.add($next).add($ali).mouseout(function() {
+					timer = setTimeout(function () {
+						$prev.add($next).fadeOut();
+					},500);
+					
+				});
+				
+				$prev.click(function () {
+					--cIndex;
+					if (cIndex == -1) {
+						cIndex = aliLen-1;
+					}
+					fnMove(cIndex);
+				});
+				
+				$next.click(function () {
+					++cIndex;
+					if (cIndex > aliLen-1) {
+						cIndex = 0;
+					}
+					fnMove(cIndex);
+				});
+				function fnMove(index) {
+					$ali.eq(index).show().css({'background':$ali.eq(index).attr('_src')}).siblings().hide();
+				}
+
+				$(document).keydown(function (ev) {
+					if (ev.keyCode == 27) {
+						$('#btn-close').click();
+					}
+				});
+			});
+		</script>
+		{/literal}
+	</head>
+	<body class="my-org">
+		{include "common/header.html"} 
+		{include "common/nav_search.html"}
+        <!-- 主内容栏开始 -->
+		<div class="content-wrapper-index">
+        <!-- 主内容栏开始 -->
+             <div class="content-left-con">
+                <div class="org-info-wrap">
+                    <div class="org-info">
+                      <img  class="fl" src="{if $userinfo.icon_server_url}{$userinfo.icon_server_url}{$userinfo.icon_path_url}!150{else}http://icon.hotyq.com/v2/default/150x150.png{/if}" width="150" height="150">
+                      <div class="org-info-txt">
+                          <p class="name-title">
+                              <span>{$userinfo.nickname}</span>
+                              <!--彩色激活图标-->
+                              <!--<a href="javascript:;"><i class="hyq-ic ic-pinfo-sm"></i></a>		
+                              <a href="javascript:;"><i class="hyq-ic ic-mobile-sn"></i></a>-->
+                              <!--灰色未激活图标-->
+                              <a href="javascript:;"><i class="hyq-ic 
+							{if $userinfo.identity_card_status eq 'yes'}	
+							  ic-pinfo-sm
+							{else}
+							  ic-pinfo-sm-muted
+							{/if}	
+							  "></i></a>	
+															  
+                              <a href="javascript:;"><i class="hyq-ic 
+								{if $userinfo.mobile_status eq 'yes'}	
+									ic-mobile-sn
+								{else}
+								  ic-mobile-sn-muted
+								{/if}								
+							  "></i></a>
+                         </p>
+                         <div class="cl"></div>
+                         <p class="loc-addr">www.hotyq.com/org/{$userinfo.id}</p>
+						 <input type="hidden" id="cookie_type" value="">
+						 <input type="hidden" id="hide_userinfo_id" value="{$userinfo.id}">
+                         <p class="role-infor">
+                             <i class="hyq-ic ic-loc"></i><span class="loc">{$orgprofile_info.addrinfo.address}</span>
+                         </p>
+                         <!--最后一个没有竖线-->
+                         <p class="role-infor role-infor2">
+                             <i class="hyq-ic ic-brief-case "></i><span><label>{$orgprofile_info.org_type.name}</label></span>
+                      
+                         </p>
+                         <!--未收藏-->
+                         <a class="profile-collect-a collect_button" id="collect_btn" collect_type="org" dynamic_id="{$userinfo.id}"><i class="hyq-ic ic-heart-k-wt"></i>收藏</a>
+                          <!--已收藏-->
+						<a class="profile-collected-a" id="have_collect_btn" style="display:none;" href="javascript:void(null)"><i class="hyq-ic ic-heart-k-wt"></i>已收藏</a>
+                       <!--私信-->
+                         <a class="profile-letter-a" id="letter_btn" href="javascript:void(null)" userId="{$userinfo.id}"><i class="hyq-ic ic-email-k-wt"></i>私信</a>
+                        <!--邀约-->
+                         <a class="profile-invite-a" id="invite_btn" href="javascript:void(null)" userId="{$userinfo.id}" to_uname="{$userinfo['nickname']}"><i class="hyq-ic ic-hands-k-wt"></i>邀约</a>
+                         <!--编辑-->
+                         <a class="profile-edit-a" id="edit_btn" style="display:none;" href="/home/org/set"><i class="hyq-ic ic-pen-wt"></i>编辑</a>
+                       
+                      </div>
+                      
+                      <a class="report-a" id="report_btn" href="/complain/?source_id={$userinfo.id}&nickname={$userinfo.nickname_r}&type=org" target="_blank">举报</a>
+                      
+                       
+                   </div>
+                </div>	
+              
+                <div class="col-divide">
+           
+                </div>
+      
+               <div class="detail-org-wrap" id="org-detail">
+    				 <div class="found-time">
+                     	<span><label>成立时间&nbsp;:</label><span>&nbsp;{$orgprofile_info.create_time}年</span><em>|</em></span>
+                     <span><label>机构属性&nbsp;:</label>
+							<span>{if $orgprofile_info.legal_person == 'yes'}法人机构{else}非法人机构{/if}		
+							</span>
+						</span>
+                     </div>
+					{if $orgprofile_info.introduce}	
+	   				  <div class="org-text">
+		    			<span class="org-text-title">机构简介&nbsp;:</span>	
+                		<p class="org-text-p">{$orgprofile_info.introduce}</p>
+	                </div>
+					{/if}
+					{if $orgprofile_info.production}
+                    <div class="org-text">
+		    			<span class="org-text-title">主要作品&nbsp;:</span>	
+                		<p class="org-text-p">{$orgprofile_info.production}</p>
+	                </div>
+					{/if}
+					{if $orgprofile_info.honor}
+                    <div class="org-text">
+		    			<span class="org-text-title">主要荣誉&nbsp;:</span>	
+                		<p class="org-text-p">{$orgprofile_info.honor}</p>
+	                </div>
+					{/if}
+   			    </div>
+		
+                <!--他的红服务-->
+                <div class="profile-title">
+                    <h3>TA的红服务</h3>
+                </div>
+				{if $service_arr > 0}
+                <div class="redSer-wrap">
+                  <div class="redSer-con">
+					{foreach name=service_2 from=$service_arr key=k item=v}
+                        <p class="service-p">
+                            <strong>{$k}</strong><br>
+                            <!--最后一个span没有竖线em-->
+								{foreach name=service_2_er from=$v key=k0 item=v0}
+									<!-- {$smarty.foreach.huanhuan.last} -->
+									{if k0 neq $smarty.foreach.service_2_er.last}
+									<span><label>{$v0.service_3_id_name}</label><em>|</em></span>
+									
+									{else}
+									<span><label>{$v0.service_3_id_name}</label></span>
+									{/if}
+                            {/foreach}
+                        </p>
+					{/foreach}
+					</div>
+                </div>
+				{else}
+				矮油！TA还没有选红服务哦！
+				{/if}
+                <div class="profile-title">
+                    <h3>TA的红形象</h3>
+                </div> 
+                <!--ta的红形象-->
+				{if count($album_list) eq 0}
+				矮油！TA还没有红形象哦！
+				{else}
+                 <div class="image-wrap">
+                    <div class="image-list">
+						{foreach $album_list as $v}
+                        <!--图片-->
+                        <div class="list-item">
+                            <a href="javascript:;" class="window-a">
+                                <div class="img-top">
+                                    <img src="{$v.server_url}{$v.path_url}!180">
+                                </div>
+                                <p>{$v.title}</p>
+                            </a>
+                        </div>
+                        {/foreach}
+                        <!--视频-->
+                       <!--  <div class="list-item">
+                            <a href="#" target="_blank">
+                                <div class="img-top">
+                                    <img src="http://icon.hotyq.com/v3/r-video-list.jpg">
+                                    <i class="hyq-ic ic-play-o "></i>
+                                </div>
+                                <p>北京电台飞鱼秀节目主持</p>
+                            </a>
+                        </div> -->
+                    </div>
+                  </div>
+				  {/if}
+                 <!--dialog start-->
+                <div class="window-bg">
+                    
+                </div>
+                <div class="window-con">
+                       <i class="hyq-ic ic-error-50-rd" id="btn-close"></i>
+                       <!--轮播图部分代码开始-->
+            		 	<div class="fullSlide" >
+							<div class="bd">
+								<div>
+									{foreach $album_list as $v}
+									<div>							
+                                    	<img src="{$v.server_url}{$v.path_url}!s800" />
+										<p title="{$v.title}" alt="{$v.title}">{$v.title}</p>
+									</div>
+									{/foreach}
+								</div>
+							</div>
+							<span class="prev"> </span> <span class="next"> </span>
+						</div>
+                </div>
+				<!--dialog end-->
+                 <div class="profile-title">
+                    <h3>TA发布的招募</h3>
+                 </div> 
+			{if !$recruit_list}
+				矮油！TA还没有发布过招募哦！
+			{else}
+                <!--发布过招募-->
+                <div class="rec-list">
+                    {foreach $recruit_list as $v}
+                    <div class="recruit-box">
+                        <div class="r-content">
+                            <a href="/recruit/{$v.id}" target="_blank">
+                              <div class="img-box">
+                                  <img  src="{if $v.cover_path_url neq ''}{$v.cover_server_url}{$v.cover_path_url}!f150{else}http://icon.hotyq.com/v3/recruit-cover-photo.png{/if}" title="" alt="">
+                              </div>
+                              <div class="txt-box">
+                                  <h3 title="" alt="">{$v.name}</h3>
+                                  <p class="service-con">
+										{foreach $v.recruit_service_list as $v0}
+										<span>{$v0.service_2_name}</span>
+										{/foreach}
+                                  </p>
+                                  <div class="bot-ab">
+                                      <em>截止时间</em><span>{$v.interview_end_time}</span><label>{$v.city_name}</label>
+                                  </div>
+                              </div>
+                            </a>
+                            
+                        </div>
+                   </div>
+					{/foreach}
+					<!--招募分页-->
+					<div class="cl"></div>
+					<div class="cutpage-con">
+						{if isset($page_list)}
+							{if $page_status eq 'true'}
+							<div class="cutpage2" >
+								{if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+								{foreach from=$page_list item=page_info}
+									{if $page_info.current == "yes"}
+									<span class="current">{$page_info.no}</span>
+									{elseif $page_info.position == "begin"}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									<span >...</span>
+									{elseif $page_info.position == "end"}
+									<span >...</span>
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{else}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{/if}
+								{/foreach}
+								{if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+							</div>
+							{/if}
+						{/if}
+					</div>
+                </div>
+            {/if}   
+                
+            
+           </div>
+  			 
+        	<div class="detail-right-con fr">
+				<div class="cl"></div>
+                {include "html/person_info_right_first.html"}
+				<div class="cl"></div>
+				{include "html/person_info_right_second.html"}
+				<div class="cl"></div>
+				{include "html/person_info_right_third.html"}
+            </div>
+
+            </div>
+        
+         
+       <!-- 主内容栏结束 -->
+       </div>
+	   <input type="hidden" id="has_recruit" value="">
+        <!--发私信窗口-->
+ 		{include "common/home/include_message_box.html"}
+		<!--通用发邀约窗口-->
+		{include "common/home/include_invite_box.html"}
+		
+		<!--尾部结束-->
+		 <div class="hyq-tip" id="tip-message">
+	      <i hyq-tip-icon-node></i>
+	      <label class="hyq-tip-msg-node"></label>
+	    </div>
+		{include "common/footer-new.html"}
+        <script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/hyq-placeholder.js"></script>
+        <script src="/js/hyq-modal.js"></script>
+        <script src="/js/hyq-valid-helper.js"></script>
+        <script src="/js/hyq-checkbox-list.js"></script>
+        <script src="/js/hyq-dropdown-list.js"></script>
+        <script src="/js/hyq-dropdown-button.js"></script>
+        <script src="/js/hyq-checkbox.js"></script>
+        <script src="/js/hyq-nice-radio.js"></script>
+        <script src="/js/tmk-html-import.js"></script>
+        <script src="/js/hyq-gotop.js"></script>        
+        <script src="/js/hyq-extends.js"></script>
+        <script src="/js/hyq-tip.js"></script>
+        <script src="/js/hyq-tabs-lr.js"></script>
+        <script src="/js/hyq-img-cropper.js"></script>
+        <script src="/js/hyq-busy-animate.js"></script>
+        <script src="/js/hyq-album-datastore.js"></script>
+        <script src="/js/hyq-album-manager.js"></script>
+        <script src="/js/hyq-album-viewport.js"></script>
+        <script src="/js/hyq-role-select.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/hyq-percent-pie.js"></script>
+        <script src="/js/hyq-misc.js"></script>
+        <script src="/js/hyq-static-album.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
+        <script src="/js/hyq-pv.js"></script>
+        <script src="/js/state_code.js"></script>
+		{literal}
+		<script>
+			$(function(){
+				var user_id = $('#hide_userinfo_id').val();
+				if( typeof($.cookie('hyq_user_info')) != 'undefined' ){
+					//alert('登录了');
+					if( $.cookie('hyq_user_info').split('|')[0] == user_id ){
+						//alert('是本人');
+						$('#collect_btn').hide();
+						$('#have_collect_btn').hide();
+						$('#letter_btn').hide();
+						$('#invite_btn').hide();
+						$('#report_btn').hide();
+						$('#edit_btn').show();
+					}else{
+						//不是本人
+						//alert('不是本人');
+						var action = 'get_collected_list';
+						var uid = $.cookie('hyq_user_info').split('|')[0];
+						$.post("/home/ajax/ajax_home_recruit.php",{'action':'get_recruit_list_by_uid','uid':uid},function(data){
+						
+							if (data == 1000) {
+								$('#has_recruit').val('OK');
+							}else{
+								$('#has_recruit').val('');
+							}
+						});		
+						$.post("/home/ajax/ajax_home_collect.php",{ action:action,uid:uid},function(data){
+							//alert(data);
+							//获得该用户的所有收藏机构  再一一比对  针对该机构
+							var collect_user_array = eval('('+data+')');
+							var collect_user_arr = collect_user_array['org'];
+							//alert(collect_user_array);
+							//有一个红人  传递过来红人数组  遍历数组  看这个id在不在数组里面
+							var i = 0;
+							if(data.org != '[]'){
+								for(; i < collect_user_arr.length;i++){
+									if( user_id == collect_user_arr[i]){
+										//替换该元素样式
+										//alert('这个要替换');
+										$('#have_collect_btn').show();
+										$('#collect_btn').hide();
+									}
+								}
+							}
+						});
+					}
+				}else{
+					//alert('没登陆');
+				}
+				///////////////////////////私信//////////////////////////////////////////
+				//当发送私信的按钮被点中
+		        $("#letter_btn").click(function(){
+					if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+						console.log('没登陆');
+						var url = window.location.href;
+						location.href="/account/login?url="+url;				
+					}
+					
+		            //发送事件让发私信的窗口弹出，同事要把用户ID传过去
+					var toUserId = $(this).attr('userId');	  
+		            $(document).trigger({
+						type:"hyq/iframe/doc/sms",
+						//fromUserId:toUserName,//这个ID由PHP判断
+						toUserId:toUserId//这个ID由PHP判断
+		            });
+		        });
+				/////////////////////私信////////////////////////////////////////////////
+				/////////////////////邀约////////////////////////////////////////////////
+			//当发送邀约的按钮被点击时
+				$('#invite_btn').click(function(){
+					if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+						console.log('没登陆');
+						var url = window.location.href;
+						location.href="/account/login?url="+url;				
+					}else{		
+						var userType = $.cookie('hyq_user_info').split('|')[1];
+						//这里要做个判断，判断当前登录的用户有没有招募
+					   if($('#has_recruit').val() == 'OK'){
+							var hasRecruit = true;//可以根据后台的情况判断这个值
+						}else{
+							var hasRecruit = false;//可以根据后台的情况判断这个值
+						} 
+						var toUserId = $(this).attr('userId');
+						var toUserName = $(this).attr('to_uname');
+						// alert(toUserId+toUserName);
+						if(hasRecruit){
+							//alert('应该弹出邀约框');
+							//发送事件让发邀约的窗口弹出，同时要把用户ID传过去
+							$(document).trigger({
+								type:"hyq/doc/invite",
+							    userType:userType,    //当前用户的ID
+								toUserName:toUserName,    
+								toUserId:toUserId      //邀约用户的ID
+							});
+						}else{
+						   // alert('应该弹出没有邀约框');
+							$(document).trigger("hyq/invite/no-recruit/alert");
+						}
+					}	
+				});
+				/////////////////////邀约////////////////////////////////////////////////
+			});
+		</script>
+		{/literal}
+	</body>
+	<script type="text/javascript" src="/js/hyq_collected.js"></script>
+</html>

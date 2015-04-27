@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>JS DEMO </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="http://www.hotyq.com/css/main.css">
+    <script src="http://www.hotyq.com/js/jquery.js"></script>
+    <script src="../hyq-placeholder.js"></script>
+    <script src="../hyq-checkbox.js"></script>
+    <script src="http://www.hotyq.com/js/hyq-dropdown-list.js"></script>
+    <script src="http://www.hotyq.com/js/hyq-checkbox-list.js"></script>
+    <script src="http://www.hotyq.com/js/main.js"></script>
+    <!-- endbuild -->
+    <style>
+      .demo-box {
+        width: 980px;
+        margin: 0 auto;
+        margin-top: 1em;
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-box">
+      <div class="form-group">
+        <h3>Dropdown List 支持Disabled例子</h3>
+      </div>
+      <div class="form-group">
+        <div class="hyq-dropdown-box" placeholder="邀约角色" id="roles">
+          <input type="hidden" name="roles" value="-1">
+          <div type="text" class="hyq-dropdown">
+            <span class="dropdown-value" hyq-title="" title="邀约角色">邀约角色</span>
+          </div>
+          <div class="hyq-dropdown-list">
+            <ul name="role">
+
+              <li value="1">
+                歌剧演员
+              </li>
+              <li value="2" disabled>
+                歌手
+              </li>
+              <li value="3">
+                沙画师
+              </li>
+              <li value="4">
+                行为艺术家
+              </li>
+              <li value="5">
+                作词人
+              </li>
+
+            </ul>
+          </div>
+          
+            <a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+        </div> 
+      </div>
+
+      <div class='form-group'>
+        <input type="button" value="重设" class="hyq-btn hyq-btn-default-lg" id="reset-btn"/>
+      </div>
+
+      <div class='form-group'>
+      
+        <input type="button" value="设置Value=3的项目为Disabled" class="hyq-btn hyq-btn-default-lg" id="dis-btn-3"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="释放Value=3的Disabled项目" class="hyq-btn hyq-btn-dark" id="relieve-btn-3"/>
+      </div>
+
+      <div class='form-group'>
+        <input type="button" value="设置Value=4和5的多个项目为Disabled" class="hyq-btn hyq-btn-default-lg" id="dis-btn-multi"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="释放Value=4和5的多个Disabled项目" class="hyq-btn hyq-btn-dark" id="relieve-btn-multi"/>
+      </div>
+
+
+
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      //重设
+      $("#reset-btn").click(function(){
+          $("#roles").trigger("reset");
+      });
+      //禁用多个
+      $("#dis-btn-multi").click(function(){
+          $("#roles").trigger({
+              type:"set/disabled/values",
+              disabledVals:[4,5]
+          });
+      });
+
+      //解除多个
+      $("#relieve-btn-multi").click(function(){
+          $("#roles").trigger({
+              type:"relieve/disabled/values",
+              relieveVals:[4,5]
+          });
+      });
+     
+      //禁用第三个
+      $('#dis-btn-3').click(function(){
+        $("#roles").trigger({
+          type:'set/disabled/value',
+          disabledVal:3
+        });
+      });
+
+       //解除第三个
+      $("#relieve-btn-3").click(function(){
+        $("#roles").trigger({
+            type:"relieve/disabled/value",
+            relieveVal:3
+        });
+      });
+       
+    });
+  </script>
+</html>

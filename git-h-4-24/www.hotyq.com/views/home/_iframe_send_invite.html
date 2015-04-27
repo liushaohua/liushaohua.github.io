@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="no-js bgGray1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>已邀约</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="stylesheet" href="styles/main.css">
+		<style type="text/css">
+		.hyq-checkbox-list .hyq-dropdown{
+	      width: 150px;
+	      display: block;
+	     }
+	     .sel-div {
+	     	display: table;
+	     	height: auto;
+	     	padding: 0px 0px 10px 0px;
+	     	width: 90%;
+	     	margin-right: 10px;
+	     }
+		</style>
+	</head>
+
+	<body class="bgGray1">	 
+	
+		<form action="" method="post" onSubmit="">
+			<div class="sel-div border-b-das">
+				<div class="hyq-dropdown-box fl" placeholder="请选择您要邀约的招募" style="margin-right:1em; ">
+					<input type="hidden" name="character2" value="-1">
+					<div type="text" class="hyq-dropdown" style="width:200px;">
+						<span class="dropdown-value">请选择您要邀约的招募</span>
+					</div>
+					<div class="hyq-dropdown-list" style="width:100%">
+						<ul>
+							<li value="1">朝朝暮暮</li>
+							<li value="2">阿里豆豆大爬梯</li>
+							<li value="3">募募招招</li>
+							<li value="4">募募招招</li>         
+						</ul>
+					</div>
+					<a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+				</div>
+								<div class="hyq-dropdown-box hyq-checkbox-list fl" placeholder="邀约角色" id="roles">
+			          <input type="hidden" name="roles" value="-1">
+			          <div type="text" class="hyq-dropdown" >
+			              <span class="dropdown-value" hyq-title=""></span>
+			          </div>
+			            <div class="hyq-dropdown-list">
+			              <ul name="role">
+			                <li value="1">话剧演员</li>
+			                <li value="2">歌手</li>
+			                <li value="3">魔术师</li>
+			                <li value="4">作词人</li>
+			              </ul>
+			            </div>
+			            <a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+			    </div>
+			</div>
+			<p class="Blak1 p-left-25 f14">
+				您的联系方式
+			</p>
+
+			<ul class="form-apply">
+				<li>
+					<label for="username" class="f12 Gray6 ">电话：</label>
+					<input  name="username"  class="col-width-350 col-height-20" form-err="a" placeholder="电话" type="text"/>
+				</li>
+				<li>
+					<label for="username" class="f12 Gray6 ">邮箱：</label>
+					<input  name="username"  class="col-width-350 col-height-20" form-err="a" placeholder="邮箱" type="text"/>
+				</li>
+				<li>
+					<label for="username" class=" f12 Gray6 ">微信：</label>
+					<input  name="username"  class="col-width-350 col-height-20" form-err="a" placeholder="微信" type="text"/>
+				</li>
+				<li>
+					<label for="username" class=" f12 Gray6 ">QQ：</label>
+					<input  name="username"  class="col-width-350 col-height-20" form-err="a" placeholder="QQ" type="text"/>
+				</li>
+
+			</ul>
+			<p class="reminder-p fl f14 Gray6 lh24 p-left-25">
+				请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）
+			</p>
+			<p class="row pull-left fr">
+				<input type="button" class="hyq-btn hyq-btn-lg" value="发送" id="send-invite-btn">
+			</p>
+		</form>
+
+		<script src="scripts/jquery.js"></script>
+		<script src="scripts/hyq-tabs.js"></script>
+		<script src="scripts/hyq-placeholder.js"></script>
+		<script src="scripts/hyq-dropdown-list.js"></script>
+		<script src="scripts/hyq-checkbox.js"></script>
+		<script src="scripts/hyq-checkbox-list.js"></script>
+		<script src="scripts/hyq-misc.js"></script>
+		<script src="scripts/main.js"></script>
+		<script >
+
+		var tellParent = function(how){
+
+		//发送成功
+		if(how){
+				parent.$(parent.top.document).trigger({
+					type:"hyq/invite/popup/sent",
+				});
+			}else{
+				parent.$(parent.top.document).trigger({
+					type:"hyq/invite/popup/sent/failure",
+				});
+			}
+		};
+			$(document).ready(function() {
+				//从get参数中获取用户ID
+				var userId = $.getUrlParameter('uid');
+				//角色ID数组
+				var rolesIdArr;
+				//角色名字数组
+				var rolesNameArr;
+
+				//每当你选定的角色改变，这两个只自动被更新
+				$("#roles").on("onchange",function(event){
+					rolesIdArr = event.checkedValueArr;
+					rolesNameArr = event.checkedTextArr;
+				});
+
+				//点击发送按钮
+				$("#send-invite-btn").click(function(){
+					 //这里记性AJAX操作，如果成功
+					if(true){
+					 	tellParent(true);
+					}else{
+						tellParent(false);
+					}
+
+				});
+
+ 
+
+			});
+		</script>
+	</body>
+</html>

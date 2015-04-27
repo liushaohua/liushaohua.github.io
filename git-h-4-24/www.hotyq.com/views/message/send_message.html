@@ -1,0 +1,116 @@
+	<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>发送私信交互页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+		<div align="center">
+			接收者ID：<input type="text" name="receiver" value="" placeholder="请输入数字ID"><br><br>
+			消息内容：<textarea id="message" name="message" rows="3" cols="25" placeholder="随便发，不要客气..."></textarea><br><br>
+			我 的 ID: <input type="text" name="sender" value="1314" placeholder="请输入数字"><br><br>
+			私信类型: <input type="text" name="type_class" value="" placeholder="请输入数字0-3">	
+			<hr>		
+			<input type="button" onclick="return subdata()" value="发送" />
+		</div>
+		<hr>
+		<div align="center">
+			最近联系人列表：
+			<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+			<tr>
+				<td>最近联系人ID</td>
+				<td>我的ID</td>
+				<td>最近联系时间</td>
+				<td>未读私信数</td>
+			</tr>
+			</table>
+		</div>
+	</body>
+	{literal}
+		<script>
+				//联系人列表刷新
+			  function contacts_list(){
+				$.ajax({
+					url:'/ajax/message/ajax_message.php?action=contacts_list',
+					data:'',
+					type:'post',
+					success:function(data){
+						$('#constacts_tab').find('tr:gt(1)').remove();
+						$.each(data,function(i,v){
+							//获取时间
+							/*var otime = new Date((v.last_time)*1000);
+							var timestr = otime.getFullYear()+'-'+otime.getMonth()
+							+'-'+otime.getDate()+' '+otime.getHours()+':'+otime.getHours()+':'+otime.getMinutes()+':'+otime.getSeconds();
+							*/
+							var str = '<tr>';
+								str += '<td>'+v.friend+'</td>';
+								str += '<td>'+v.user+'</td>';
+								str += '<td>'+v.last_time+'</td>';
+								str += '<td>'+v.unread_num+'</td>';
+								str += '</tr>';
+							$('#constacts_tab').append(str);
+						});
+						
+						
+					},
+					dataType:'json'
+				});
+			  }
+			contacts_list();
+			function subdata(){
+				<!-- 发送私信 -->
+				<!-- 获取私信相关内容 -->
+				var rec_id = $("input[name='receiver']").val();
+				var message = $("textarea[name='message']").val();
+				var send_id = $("input[name='sender']").val();
+				var type_class = $("input[name='type_class']").val();
+ 				<!-- ajax传递用户私信 -->
+				if(rec_id.length ==0 && message.length == 0 && send_id == 0){
+					return false;
+				}else{
+					$.ajax({
+						url:'/ajax/message/ajax_message.php?action=send_message',
+						type:'post',
+						data:{'rec_id':rec_id,'message':message,'send_id':send_id,'type_class':type_class},
+						success:function(data){
+							alert(data);
+							if(data == 1000){
+								alert('消息发送成功！');
+								//show();
+							}else{
+								alert('消息发送失败！');
+							}
+						},
+						dataType:'text'
+					});
+				}	
+			}
+			
+			//展示私信
+		
+		   function show(){
+				$.ajax({
+					url:'/ajax/message/ajax_message.php?action=show_message',
+					data:'',
+					type:'post',
+					success:function(data){
+						$('#tab').find('tr:gt(1)').remove();
+						$.each(data,function(i,v){
+							var otr = $('#tab').get(0).insertRow(-1);
+							$.each(v,function(ii,vv){
+								var otd = otr.insertCell(-1);
+								otd.innerHTML = vv;
+							});
+						});
+					},
+					dataType:'json'
+				});
+		   }
+		  //show();
+		</script>
+	{/literal}
+</html>

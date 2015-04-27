@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://xijinke.com/hyq/hyq-ui2/index.html -->
+<html class="no-js">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+        <title>{$q} - 机构搜索 - 红演圈</title>
+        <meta name="description" content="找{$q}相关机构就在红演圈，中国文化演艺服务第一平台，聚集全国文化演艺机构，真实企业认证、即时沟通、全民演艺！">
+        <meta name="keywords" content="{$q}">
+        
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        
+        <link rel="stylesheet" href="/css/main.css">
+        <script type="text/javascript" src="/js/jquery.js"></script>
+
+    </head>
+	<body class="search-reds">
+
+		{include "common/header.html"} 
+	{include "common/nav_search.html"}
+		<!-- 主内容栏开始 -->
+		<div class="content-wrapper-index">
+			{if isset($search_banner)}
+			<img src="{$search_banner}" />
+			{else}
+			<img src="http://icon.hotyq.com/v2/search_banner/search_banner_common.jpg" />
+			{/if}
+			<div class="search-words-con">
+				<span class="">红演圈&nbsp;&gt;&nbsp;找到与</span><p class="search-words">“{$q}”</p><span>相关的信息共</span><span class="Rd">{$search_total_num}</span><span>条</span>
+			</div>
+            <div class="cl"></div>
+			<div class="search-top-gray">
+
+			</div>
+			<!-- 选项卡 -->
+			<ul class="hyq-tabs-search">
+				<li class="hyq-tab-search">
+					<a href="/search/user?q={$tr_q}&from=org" class="first">&nbsp;红人<small>({$search_user_num})</small></a>
+					<i class="hyq-ic ic-staring"></i>
+					<i class="hyq-ic ic-staring-wt"></i>
+					
+					<span></span>
+				</li>
+				<li class="hyq-tab-search active">
+					<a href="#">机构<small>({$search_org_num})</small></a>
+					<i class="hyq-ic ic-tower"></i>
+					<i class="hyq-ic ic-tower-wt"></i>
+					
+					<span></span>
+				</li>
+				<li class="hyq-tab-search">
+					<a href="/search/recruit?q={$tr_q}" class="last">招募<small>({$search_recruit_num})</small></a>
+					<i class="hyq-ic ic-bell-x-bell" style="margin:18px 105px 5px 0px;"></i>
+					<i class="hyq-ic ic-bell-x-bell-wt" style="margin:18px 105px 5px 0px;"></i>
+					
+				</li>
+
+			</ul>
+			<!-- 关联内容-->
+			<div>
+				<div>
+					<!--判断检索条件机构是否为空-->
+				{if count($org_total_list) eq 0}
+					<br>
+					哎呀！没找到符合的机构
+					<br>
+				{else}		
+					 {foreach name=list from=$org_total_list item=v key=key}
+					 {if $key %5 neq 4}
+					<div class="o-list-item">{else}<div class="o-list-item end-of-line">{/if}
+						<a href="/org/{$v.id}" target ="_blank">
+							<div class="img-con">
+								<img src="{if $v.icon_path_url}{$v.icon_server_url}{$v.icon_path_url}!f180{else}http://icon.hotyq.com/v2/default/150x150.png {/if}"/>
+							</div>
+							<div class="info-box">
+								<p>
+									<label alt="{$v.nickname}" title="{$v.nickname}">{$v.nickname}</label>
+								</p>
+								<span>
+									<i class="hyq-ic ic-brief-case"></i> {$v.type_name}
+								</span>
+								<em>
+									{if $v.legal_person eq 'yes'}
+										{if $v.business_card_status eq 'yes'}
+										<i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>								
+										{else}
+										<i class="hyq-ic ic-cinfo-sm-muted" alt="机构未验证" title="机构未验证"></i>
+										{/if}
+									{elseif $v.legal_person eq 'no'}
+										{if $v.identity_card_status eq 'yes'}
+										<i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+										{else}
+										<i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+										{/if}	
+									{else}
+										<i class="hyq-ic ic-cinfo-sm-muted" alt="机构未验证" title="机构未验证"></i>
+									{/if}
+									
+									{if $v.mobile_status eq 'yes'}	
+									<i class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></i>
+									{else}
+									<i class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></i>
+									{/if}
+
+									
+									<b  alt="{$v.address}" title="{$v.address}">
+									{$v.address}							
+									</b>
+								</em>
+							</div>
+						</a>
+					</div>
+					{/foreach}
+					</div>	
+						{if isset($page_list)}
+							{if $page_status == 'true' }
+							<div class="cutpage-con">
+								 <div class="cutpage2" >
+								<!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+								{if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+								{foreach from=$page_list item=page_info}
+									{if $page_info.current == "yes"}
+									<span class="current">{$page_info.no}</span>
+									{elseif $page_info.position == "begin"}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									<span >...</span>
+									{elseif $page_info.position == "end"}
+									<span >...</span>
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{else}
+									<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+									{/if}
+								{/foreach}
+								{if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+							</div>
+						</div>
+						{/if}
+					{/if}
+				{/if}		
+				</div>
+			</div>
+
+			
+
+		</div>
+		<!-- 主内容栏结束 -->
+	
+		{include "common/footer.html"}
+	{literal}		
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".down-expend-btn,.down-foldup-btn,.read-more-info-zk-1").click(function() {
+            $(".down-expend-btn,.down-foldup-btn").toggle();
+            if ($("#reds-details").is(":hidden")) {
+              $("#reds-details").fadeIn();
+            } else {
+              $("#reds-details").fadeOut();
+            }
+          });
+
+			$(".more-filter-zk-js,.more-filter-zk-js-1").click(function(){
+				$(".more-filter-zk-js,.more-filter-zk-js-1").hide();
+				$(this).parent().parent().find(".info-detail-filter-js").fadeIn();  
+			});
+
+			$(".more-filter-sq-js").click(function(){
+				$(this).parent().hide();
+				$(this).parent().parent().find(".more-filter-zk-js,.more-filter-zk-js-1").fadeIn();
+			});
+        });
+		
+
+		{/literal}{if isset($page_list)}{literal}
+		//分页  go 跳转页面
+		$('#go_btn').click(function(){
+			var sum_page = {/literal}{$sum_page}{literal};
+			var page = Number($("#turnTo").val());
+			if(isNaN(page) || page < 1 || page > sum_page){
+				return false;
+			}
+			location.href = '{/literal}{$goto_url}{literal}'+page;
+		});
+		{/literal}{/if}{literal}		
+	</script>
+	{/literal}
+	</body>
+</html>

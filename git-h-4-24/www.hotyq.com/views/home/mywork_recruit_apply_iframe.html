@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>我的收藏 - 机构</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/hyq-tabs.js"></script>
+		<script type="text/javascript" src="/js/hyq-misc.js"></script>
+		<style type="text/css">
+		body{
+			margin:0px;
+			padding:0px;
+			font-size: 12px;
+		}
+
+		.grid-row{
+			 border:1px solid #d7d7d7;
+			 background-color: #fff;
+			border-top:none;
+		}
+		  
+		.grid-row .c1{
+			width: 30%;
+			padding: 0px 10px;
+		}
+		.grid-row .c1 .avt{
+			display: inline-block; 
+			*display: block;
+			margin-left: 3em;
+		}
+		.grid-row .c1 .avt img{
+			width: 30px;
+			height: 30px;
+		}
+		.grid-row .c1 .who{
+			 
+			 margin-left: 1em;
+
+		}
+		.grid-row .c2{
+			width: 20%;
+		}
+		.grid-row .c3{
+			width: 12%;
+		}
+		.grid-row .c4{
+			width: 10%;
+		}
+		.grid-row .c5{
+			width: 14%;
+			float: right;
+			text-align: right;
+			 
+			 
+		}
+
+		.hyq-tabs{
+			background-color: #fff;
+		}
+		.hyq-tabs .hyq-tab a{
+			font-size: 12px;
+			background-color: #fff;
+			border-bottom: none;
+			border-left:none;
+			border-right: 1px solid #d7d7d7;
+		}
+		.hyq-tab-content .hyq-tab-pane{
+			margin: 0px;
+			padding: 0px;
+		}
+		 
+		.hyq-tabs .active a{
+			height: 38px;
+			font-size: 12px;
+			background-color: #f3f4f4;
+			border-left:none;
+			border-right: 1px solid #d7d7d7;
+			border-bottom:2px solid #ff3300;
+		}
+		.grid-row .foldup{
+			position: absolute; 
+			margin: 0px;
+			padding: 0px;
+			font-size: 12px;
+			right: 15px;
+			top:0;
+		}
+		.grid-row .msg-btn{
+			border:1px solid #d7d7d7;
+			background-color: #f7f7f7;
+			height: 20px;
+			line-height: 20px;
+			font-size: 12px;
+			padding: 0px 8px;
+			margin: 0px 20px 0px 0px;
+		}
+
+		.grid-row-pink{
+			border-top: none;
+		}
+		.c6 .tri{
+			border-left:1px solid #d7d7d7;
+			border-top:1px solid #d7d7d7;
+			z-index: 10;
+
+		}
+	 	.grid-box{
+	 		max-height: 200px;
+	 		display: block;
+	 		width: 100%;
+	 		overflow-x:hidden;
+	 		overflow-y:auto;
+	 	}
+
+		</style>
+	</head>
+
+	<body>
+		<!--载入PHP的时候把招募ID赋值给这个隐藏域 供全局使用 -->
+		<input type="hidden" id="current-recruit" value="{$rid}"/>
+		<!-- <input type="hidden" id="message_sender_id" value="{$uid}"/> -->
+		<!--载入PHP的时候把招募ID赋值给这个隐藏域 供全局使用 -->
+	{if $list neq ''}
+		<div class="grid-row" style="border-top:none;background-color:#efefef;">
+
+			<ul class="hyq-tabs">
+				<!--这里是选项卡遍历的地方 ，.hyq-tab 为避免ID冲突，id命名规则  role做前缀，后面加上角色分类的ID -->
+				<!--这个ID与下方  hyq-tab-content里面与选项卡对应内容的ID是一一对应的，这里作为href属性的值，下方作为ID-->
+	        {foreach name=role_list from=$list item=v}
+	        		
+				<li class="hyq-tab 
+				{if $smarty.foreach.role_list.first}
+				 active
+				{/if}
+				">
+	              <a href="#role{$v.parent_role_id}" class="first">{$v.parent_role_name}({$v.num})</a>
+	            </li>
+	            
+			{/foreach}
+	            <!-- <li class="hyq-tab">
+	              <a href="#role2">主持人(120)</a>
+	            </li>
+	            <li class="hyq-tab">
+	              <a href="#role3">舞蹈演员(120)</a>
+	            </li> -->
+			</ul>
+			<label class="foldup"><a href="javascript:;" class="action-hide-me-daddy">&uarr; 收起</a></label>
+		</div>
+
+		
+		<div class="hyq-tab-content" style="background:#efefef;">
+			<!-- .hyq-tab-pane 是选项卡对应的内容块，id一定要和选项卡一一对应 -->
+		{foreach $list as $v}
+			<div class="hyq-tab-pane" id="role{$v['parent_role_id']}">
+					<div class="grid-row" style="background-color:#d7d7d7">
+						<div class="c1">报名人</div>
+						<i></i>
+						<div class="c2">报名时间
+						</div>
+						<i></i>
+						<div class="c3">操作</div>
+						<i></i>
+						<div class="c4 c6">联系方式</div>
+						<i></i>
+						<div class="c5"> </div>
+					</div>
+				<!-- 滚动区域 -->
+				{foreach name=apply_list from=$v['apply_info'] item=vv}
+					<div class="grid-box">
+					<!--  userId 很重要PHP遍历的时候一定要放上去 -->
+						<div class="grid-row" userId="{$vv.uid}" applyId="{$vv.id}">
+							<div class="c1">
+								<a class="avt fl" href="/{$vv.user_type}/{$vv.uid}" target="_blank">
+									<img src="{$vv.u_face}"  />
+								</a>
+								<a href="/{$vv.user_type}/{$vv.uid}" target="_blank" class="who fl">{$vv.u_name}</a>
+							</div>
+							<i></i>
+							<div class="c2">
+								 <span class="time">{$vv.apply_date|date_format:"%Y-%m-%d %H:%M"}</span>
+							</div>
+							<i></i>
+							
+							{if $vv.r_status eq 'waiting'}
+								{if $vv.recruit_status eq 1}
+								<div class="c3">
+									<a href="javascript:;" class="action-confirm">确认</a> &nbsp; 
+									<a href="javascript:;" class="action-decline">拒绝</a>
+								</div>
+								{else}
+								<div class="c3 weak">
+									-
+								</div>
+								{/if}
+							{elseif $vv.r_status eq 'agree'}
+								{if $vv.recruit_status eq 1}
+								<div class="c3">
+									已确认
+								</div>
+								{else}
+								<div class="c3 weak">
+									已确认
+								</div>
+								{/if}
+							{elseif $vv.r_status eq 'refuse'}
+								{if $vv.recruit_status eq 1}
+								<div class="c3">
+									已拒绝
+								</div>
+								{else}
+								<div class="c3 weak">
+									已拒绝
+								</div>
+								{/if}
+							{/if}
+							
+							<i></i>
+							{if $vv.r_status eq 'agree'}
+								<div class="c6 c4">
+									<a href="javascript:;"  class="action-show-contact">查看</a>
+									<span class="tri _hidden"></span>
+								</div>
+							{elseif $vv.r_status eq 'refuse'}
+								<div class="c6 c4">
+									-
+								</div>
+							{elseif $vv.r_status eq 'waiting'}
+								<div class="c6 c4 weak">
+									查看
+								</div>
+							{/if}
+							<i></i>
+							<div class="c5">
+								<a href="javascript:;" class="msg-btn action-msg">私信</a>
+							</div>
+						</div>
+						{if $vv.r_status eq 'agree'}
+						<div class="grid-row-pink _hidden" userId="10">
+						  <label class="c">电话：<span title="{$vv.u_mobile}">{$vv.u_mobile}</span></label>
+						  <label class="c">邮箱：<span title="{$vv.u_email}">{$vv.u_email}</span></label>
+						  <label class="c">微信：<span title="{$vv.u_weixin}">{$vv.u_weixin}</span></label>
+						  <label class="c">QQ：<span title="{$vv.u_qq}">{$vv.u_qq}</span></label>
+						</div>
+						{/if}
+					</div>
+				{/foreach}
+			</div>
+			{/foreach}
+		{else}
+			<div class="grid-row" style="border-top:none" align="center">
+				暂无数据
+			</div>
+		{/if}
+		</div>
+		{literal}
+		<script type="text/javascript">
+		        
+		$(window).load(function(){
+
+			var triggleSizeChangeEvent = function(){
+				parent.$(parent.top.document).trigger({
+			 	type:"hyq/iframe/doc/resizeme",
+			 	itemId:currentId,
+			 	docHeight:$(document.body).height(),
+			 	iframeName:window.name
+			 });
+
+			}
+			/********** 这个ID是从顶端隐藏域中获取的招募ID 非常重要 ******************/
+			////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////
+			//这是JS方法获取地址栏中的参数，不够保险 仅供测试静态页面的时候用
+			//var currentId = $.getUrlParameter('id');
+			//后台环境中 使用注释的这句
+			 var currentId = $("#current-recruit").val();
+			 
+
+			 ////////////////////////////////////////////////////////////////////
+			 ////////////////////////////////////////////////////////////////////
+			 /*********************************/
+
+			 triggleSizeChangeEvent();
+
+			 //通知爹窗口改变大小
+			 $(".hyq-tab").click(function(){
+			 	  triggleSizeChangeEvent();
+			 });
+
+			//查看联系人
+			$(".action-show-contact").click(function(event){
+				 var tar = $(event.target||event.srcElement);
+				 tar.parent().parent().next().toggle();
+				 tar.parent().find(".tri").toggle();
+				 triggleSizeChangeEvent();
+			});
+
+			//点击私信
+			$(".action-msg").click(function(event){
+				console.log(".action-msg被点中");
+				var tar = $(event.target||event.srcElement);
+				//var fromUserId = $('#message_sender_id').val();
+				
+				var toUserId = tar.parent().parent().attr('userId');
+				//console.log("IFRAME 的私信按钮被点击 正在给父窗口发送hyq/iframe/doc/sms 请求发私信");
+				parent.$(parent.top.document).trigger({
+					type:"hyq/iframe/doc/sms",
+					//fromUserId:fromUserId,
+					toUserId:toUserId
+				});
+
+			});
+
+			//收起被点中时通知父窗口隐藏此iframe
+			$(".action-hide-me-daddy").click(function(event){
+				 parent.$(parent.top.document).trigger({
+				 	type:"hyq/iframe/doc/hideme",
+				 	frameName:window.name,
+				 	itemId:currentId,
+				 	pageType:1
+				 });
+			});
+
+		 	//请求父窗口显示确认弹窗 判断是否确认某个用户的报名请求
+		 	//传递招募ID和用户的ID 报名的id
+		 	$(".action-confirm").click(function(event){
+		 		var tar = $(event.target||event.srcElement);
+				var applyId = tar.parent().parent().attr('applyId');
+
+		 		parent.$(parent.top.document).trigger({
+		 			type:"hyq/iframe/doc/popup/confirm/apply",
+		 			recruitId:currentId,
+		 			applyId:applyId
+		 		});
+
+		 	});
+
+		 	//请求父窗口显示确认弹窗 判断是否拒绝某个用户的报名请求
+		 	//传递招募ID和用户的ID
+		 	$(".action-decline").click(function(event){
+		 		var tar = $(event.target||event.srcElement);
+				var userId = tar.parent().parent().attr('userId');
+				var applyId = tar.parent().parent().attr('applyId');
+
+		 		parent.$(parent.top.document).trigger({
+		 			type:"hyq/iframe/doc/popup/confirm/decline",
+		 			recruitId:currentId,
+		 			userId:userId,
+					applyId:applyId
+		 		});
+
+		 	});
+
+		});
+		</script>
+		{/literal}
+	</body>
+</html>

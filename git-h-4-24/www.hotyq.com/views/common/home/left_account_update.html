@@ -1,0 +1,15 @@
+<div class="left-col-200">
+	<div class="right-bar-menu-box">
+		<div class="lead-title-bar">
+			账号设置
+		</div>
+		<ul class="gray-menu-group">
+			<li {if $account_update eq 'auth'}class="active"{/if}>
+				<a href="/home/account_binding">账号验证</a>
+			</li>
+			<li  {if $account_update eq 'pwd'}class="active"{/if}>
+				<a href="/home/account_update_pwd">修改密码</a>
+			</li>
+		</ul>
+	</div>
+</div>

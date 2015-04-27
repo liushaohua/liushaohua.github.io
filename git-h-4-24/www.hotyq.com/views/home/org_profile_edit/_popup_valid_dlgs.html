@@ -1,0 +1,172 @@
+<!--手机验证弹窗-->
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-mobile-modal" role="dialog">
+	<div class="hyq-modal-header GrayBorderBtm txt-left">
+		<label class="f16 pull-left Gray8">&nbsp;&nbsp;手机验证</label>
+		<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<div class='gray-spliter _clb'></div>
+	<div class="hyq-model-body _clb field-fix-width" >
+
+		<br/>
+
+		<div class="form-group field-fix-width-2 txt-left">
+			<div class="field-fix-width-2" style='margin-left:50px;'>
+				<input type="text" name="name" placeholder="请输入11位手机号" onkeyup="this.value=this.value.replace(/\D/g,'')" id="certify_mobile_account">
+				<input type="button" style="width:146px;height:35px;text-align:center" class="hyq-btn hyq-btn-dark" id="get_certify_mobile_btn" onclick="get_certify_mobile_code()" value="获取短信验证码" />
+			</div>
+			<div class="hyq-f-err txt-left" style='margin-left:50px;display:none;' id="certify_mobile_format_tips">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+		</div>
+
+		<div class="form-group field-fix-width-2 txt-left">
+			<div class="field-fix-width-2 field-fix-margin-1" style='margin-left:50px;'>
+				<input type="text" name="name" placeholder="请输入短信验证码" onkeyup="this.value=this.value.replace(/\D/g,'')" id="certify_mobile_code">
+				<input type="button" class="hyq-btn hyq-btn-dark" onclick="email_user_certify_mobile()" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击验证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+			</div>
+			<div class="hyq-f-err txt-left" style='margin-left:50px;display:none;' id="certify_mobile_code_tips">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息</label>
+			</div>
+		</div>
+	</div>
+	<div class="hyq-model-bottom">
+
+	</div>
+</div>
+<!--手机验证弹窗结束-->
+{literal}
+<script type="text/javascript" charset="utf-8">
+	/*----------------邮箱用户认证手机号-----------------*/
+	$("#certify_mobile_account").focus(function(){
+		$("#certify_mobile_format_tips").fadeOut();
+		$("#certify_mobile_code_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#certify_mobile_format_tips").fadeOut();
+				return;
+			}else{
+				var mobile_pattern = new RegExp(/^1[3578]\d{9}$/);
+				if(mobile_pattern.test($(this).val())){
+					$("#certify_mobile_format_tips").fadeOut();
+				}else{
+					$("#certify_mobile_format_tips label").text('请输入正确手机账号!');
+					$("#certify_mobile_format_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	
+	var ss = 60,dateTime = null;
+	function count_down(){
+		if(ss == 0){
+			clearInterval(dateTime);//停止计时器
+			$("#get_certify_mobile_btn").removeAttr("disabled");//启用按钮
+			$("#get_certify_mobile_btn").val("获取短信验证码");
+		}else{
+			ss--;
+			$("#get_certify_mobile_btn").prop("value",ss + "秒后重发");
+		}
+	}
+	//获取手机验证码
+	function get_certify_mobile_code(){
+		//alert(111111111);
+		$("#certify_mobile_account").blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'get_certify_mobile_code','mobile':$("#certify_mobile_account").val()},function(data){
+			//alert(data);
+			if(parseInt(data) == 1000){
+				$("#certify_mobile_format_tips").fadeOut();
+				//换成倒计时
+				$('#get_certify_mobile_btn').prop("disabled", "true");
+				ss = 60;
+				dateTime = setInterval(count_down,1000); 
+			}else{
+				$("#certify_mobile_format_tips label").text(state_list[parseInt(data)]);
+				$("#certify_mobile_format_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+	$("#certify_mobile_code").focus(function(){
+		$("#certify_mobile_code_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#certify_mobile_code_tips").fadeOut();
+				return;
+			}else{
+				if($(this).val().length == 6 && !isNaN($(this).val())){
+					$("#certify_mobile_code_tips").fadeOut();
+				}else{
+					$("#certify_mobile_code_tips label").text('请输入正确的验证码!');
+					$("#certify_mobile_code_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	function email_user_certify_mobile(){
+		$("#certify_mobile_code").blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'email_user_certify_mobile','mobile':$("#certify_mobile_account").val(),'check_code':$("#certify_mobile_code").val()},function(data){
+			if(parseInt(data) == 1000){
+				top.location.href = "/home/recruit/set";
+				$("#certify_mobile_code_tips").fadeOut();
+				$('#valid-mobile-modal').trigger("hyq/modal/close");
+			}else{
+				$("#certify_mobile_code_tips label").text(state_list[parseInt(data)]);
+				$("#certify_mobile_code_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+	$(function(){
+		/////////////////////////决定验证手机box是否弹出///////////////////////////////////
+		  $('.publish_recruit_btn').click(function(){
+				//登录
+				if( typeof($.cookie('hyq_user_info')) != 'undefined' ){
+					//alert('登录了');
+					if( $.cookie('hyq_user_info').split('|')[1] == 'mobile' ){
+						top.location.href = "/home/recruit/set";
+					}else{
+						//alert('邮箱用户');
+						//检验该用户是否验证手机
+						var action = 'mobile_is_checked';
+						//var uid = $.cookie('hyq_user_info').split('|')[0];
+						$.post('/home/ajax/ajax_home_account.php',{ action:action},function(data){
+							//alert(data);
+							//console.log(data);
+							if(data == 0){
+								//alert('手机未验证');
+								//触发弹出框 弹出事件
+								$('#valid-mobile-modal').HYQModal();
+								$('#hyq-global-modal-no-recruit-modal').trigger("hyq/modal/close");//---
+								$('#valid-mobile-modal').trigger('hyq/modal/show');
+							}else{
+								//alert('data不等于0')
+								top.location.href = "/home/recruit/set";
+							}
+						});
+					}
+				}else{
+					//alert('没登陆');
+					//跳转到登录页
+					top.location.href = "/account/login";
+				}
+			});
+		////////////////////////////////////////////////////////////
+	});
+</script>
+{/literal}

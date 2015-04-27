@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.hotyq.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>注册成功页面</title>
+		<meta name="description" content="">
+		<!---->
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+{literal}		
+		<script>
+		//js倒计时执行判断红名片
+		var secs = 5; //倒计时的秒数 
+		function load(){
+			for(var i=secs;i>=0;i--){ 
+			   window.setTimeout('doupdate(' + i + ')', (secs-i) * 1000); 
+			} 
+		}
+		function doupdate(num){ 
+			document.getElementById('showdiv').innerHTML = '将在'+num+'秒钟后自动跳转到我的红名片' ;
+			if(num == 0) { to_card(); }
+		}	 		
+		//发送邮件验证码
+		function send_active_email(){
+			var action = 'send_active_email';
+		   	var userid = $('#account').val();
+			//alert(userid);
+			$.post("/account/ajax/ajax_account.php",{'action':action,'userid':userid},function(data){
+				//alert(data);
+				if(parseInt(data) == 1000){
+					var tip = $("#tip-message").HYQTip();
+					tip.showSuccess("邮件发送成功");		
+				}else{
+					var tip = $("#tip-message").HYQTip();
+					tip.showSuccess("邮件发送失败");
+				}
+			},'text');	
+		}
+		function to_card(){
+			var usertype = $('#usertype').val();
+			if($('#usertype').val() == 'org'){
+				location.href='/home/org/card'
+			}else{
+				location.href='/home/user/card';
+			}
+		}
+		</script>
+{/literal}		
+	</head>
+	<body  onload="load()" style="background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center no-repeat;background-size:cover; min-width:1000px;">
+	{include file="common/header_simple.html"}
+		<div class="content-wrapper _zeroPDTop" >
+			<div class="main-column-a _relativePos" >
+				<!-- 绑定成功 -->
+				<div class="column-wrapper RdBorderBtm ">
+					<div class="row2">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="_bold  f18 Blak2">账号注册成功</label>
+						</div>
+					</div>
+					<div class="red-spliter"></div>
+
+					<div class="row2" style="padding-bottom:0px;" >
+					<div>
+                    <!-- <div class="red-spliter"></div> -->
+
+                    <div style="padding-bottom:0px;" class="row2">
+						<div class="lead-title-sm">
+							&nbsp;&nbsp;&nbsp;<label class="Blak2 f16"> 您可以使用所注册账号登录红演圈</label>
+						</div>
+						<div class="muted-subtitle-box">
+							<input type = "hidden" name = "account" id = "account" value="{$userid}"> 
+							<input type = "hidden" name = "account" id = "usertype" value="{$usertype}"> 
+							<div class="muted-subtitle">
+								<div>我们已将验证邮件发送至邮箱：<label class="Blak4 ">{$account}</label></div>
+								<div>点击邮件内的链接可以即可完成绑定，并可以使用红演圈所有功能</div>
+							</div>
+							<br class="_clb">
+						</div>
+                    </div>
+
+                    <div class="gray-spliter"></div>
+
+                    <div style="padding-bottom:0px;" class="row2">
+                            <div class="lead-title-sm">
+                                &nbsp;&nbsp;&nbsp;<label class="Blak2 f16"> 没有收到验证邮箱，怎么办？</label>
+                            </div>
+                            <div class="muted-subtitle-box">
+                                <div class="muted-subtitle">
+                                     
+                                    <div>1. 看看是否在邮箱的垃圾邮件、广告邮件目录里</div>
+                                    <div>2. 稍等几分钟，若还未收到验证邮件，
+                                        <label class="link-red">
+                                            <a class="Rd" id="resend" data-target="#resend_valid_mail_success_modal" data-toggle="hyq-modal" href="javascript:send_active_email()">重新发送验证邮件</a>
+                                        </label>
+                                    </div>
+                                    <div>3. 还未收到验证邮件，请联系我们，邮箱：<label href="mailto:info@hotyq.com" class="Blak4">info@hotyq.com</label> 电话：<span class=" Blak4">400-888-8888</span></div>
+                                    
+                                    <br class="_clb">
+                                    <br class="_clb">
+                              
+										<div id="showdiv" style="display:block;"></div>                                   
+                                    <br class="_clb">
+                                    <br class="_clb">
+
+                                    <div class="form-group col-md-12">
+
+                                <input type="button" class="hyq-btn hyq-btn-lg f18" value="我的红名片" onclick = "to_card()"/>
+                                <br class="_clb">
+                                    <br class="_clb">
+                            </div>
+                                </div>
+                                <br class="_clb">
+                            </div>
+                    </div>
+
+                </div>
+					</div>
+
+				</div>
+
+			</div><!-- 主栏结束 -->
+	<!-- tips 框 -->
+	<div class="hyq-tip" id="tip-message" >
+		<i hyq-tip-icon-node></i>
+		<label class="hyq-tip-msg-node"></label>
+	</div>	
+			<!-- 通用右边栏 -->
+			<div class="right-column">
+				{include file="html/right_qrcode.html"}
+				
+				{include file="common/right_advantage.html"}
+				<br class='_clb'/>
+			</div>
+		</div>
+    <!-- 通用页脚 -->
+    {include file="common/footer.html"}

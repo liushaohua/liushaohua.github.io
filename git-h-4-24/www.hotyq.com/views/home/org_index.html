@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>我的红演圈 - 红演圈</title>
+		<meta name="description" content="">
+		
+
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+	</head>
+	<body class="per-index org-index">
+	 
+	{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+	 
+	 
+		 <!--头部结束-->
+		<div class="content-wrapper-index">
+			<!-- 主内容栏开始 -->
+			{include "common/home/left_index.html"}
+			<div class="index-right-con fr">
+				<div class="div-info">
+					<div class="index-title">
+						<span>我的资料</span><a href="/home/org/set">编辑</a>
+					</div>
+					<div class="info-con">
+						<img alt="" src="{$user_info['icon_server_url']}{$user_info['icon_path_url']}!f80" >
+						<div class="info-pro">
+							<div class="txt-top">
+								<span>{$user_info['nickname']}</span>
+							</div>
+							<div class="txt-top2">
+								<p class="p-loc">
+								<i class="hyq-ic ic-loc"></i>
+								<span class="org-loc" title="{$address_info['address']}" alt="{$address_info['address']}">{$address_info['address']}</span>
+								<span class="time-f">成立时间：{$org_profile['create_time']}年</span>
+								</p>
+								<p class="p-loc">
+								<i class="hyq-ic ic-brief-case "></i><span>{$org_type}</span>
+								</p>
+							</div>
+
+						</div>
+						<div class="info-state">
+							<!--百分比条，在hyq-percentbar 中设置value的值 36表示36%-->
+							<div class="hyq-percentbar" value="{$user_info['data_percent']}">
+								<div class="hyq-percentbar-value"></div></div>
+							<span>验证状态：</span>
+							<!--如果未验证使用尾巴带muted的一组图标-->
+							{if $org_profile['legal_person']}
+							{if $user_info['business_card_status'] eq 'yes'}
+							<i class="hyq-ic ic-cinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+							{else}
+							<i class="hyq-ic ic-cinfo-sm-muted" alt="机构未验证" title="机构未验证"></i>
+							{/if}
+							{else}
+							{if $user_info['identity_card_status'] eq 'yes'}
+							<i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+							{else}
+							<i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+							{/if}
+							{/if}
+							{if $user_info['mobile_status'] eq 'yes'}
+							<i class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></i>
+							{else}
+							<i class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></i>
+							{/if}
+						</div>
+					</div>
+				</div>
+
+				<div class="div-contact">
+					<div class="index-title">
+						<span>我的联系方式</span>
+						<a href="javascript:;" id="my-contact-toggle-edit">修改/添加</a>
+						<input type="button" class="hyq-btn hyq-btn-sm fr _hidden" id="my-contact-toggle-save" value=" 确定" style="margin-top:8px;">
+					</div>
+					<div class="contact-con " id="my-contact-review">
+						<div class="contact-1">
+							<p>
+								电话:
+							</p>
+							<p class="p-tel" id="contact_mobile_show">
+								{$org_profile['contact_mobile']}
+							</p>
+						</div>
+						<div class="contact-2 border-left1">
+							<p >
+								邮箱:
+							</p>
+							<p class="p-tel" id="contact_email_show">
+								{$org_profile['contact_email']}
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								微信:
+							</p>
+							<p class="p-tel" id="contact_weixin_show">
+								{$org_profile['contact_weixin']}
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								QQ:
+							</p>
+							<p class="p-tel" id="contact_qq_show">
+								{$org_profile['contact_qq']}
+							</p>
+						</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+
+					<div class="contact-con _hidden" id="my-contact-edit">
+						<div class="contact-1">
+							<p>
+								电话:
+							</p>
+							<p class="p-tel form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:115px;" value="{$org_profile['contact_mobile']}" id="contact_mobile">
+							</p>
+						</div>
+						<div class=" contact-2 border-left1">
+							<p>
+								邮箱:
+							</p>
+							<p class="p-tel form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:165px" value="{$org_profile['contact_email']}" id="contact_email">
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								微信:
+							</p>
+							<p class="p-tel form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:120px" value="{$org_profile['contact_weixin']}" id="contact_weixin">
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								QQ:
+							</p>
+							<p class="p-tel form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:140px" value="{$org_profile['contact_qq']}" id="contact_qq">
+							</p>
+						</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+
+
+				</div>
+				<div class="div-hotman">
+					<div class="index-title">
+						<span>据说你喜欢这些红人</span>
+					</div>
+					<div class="hotman-con bgGray1">
+						{foreach from=$recommend_user_list key=key item=u_info name=show}
+						<div class="hotman-list-1 {if $smarty.foreach.show.iteration %4 eq 0} last {/if}">
+							<a href="/user/{$key}" class="hot-man-a">
+							<img width="180" height="180" alt="{$u_info['nickname']}" title="{$u_info['nickname']}" src="{if $u_info['icon_url']}{$u_info['icon_url']}!f180{else}http://icon.hotyq.com/v2/default/150x150.png{/if}">
+							<div class="list-bottom">
+								<ul class="list-li">
+									<li class="fixed-li">
+										<span class="f15 Blak1 lh24 p-right-5">{$u_info['nickname']}</span>
+									</li>
+									<li class="li">
+										<i class="hyq-ic ic-person"></i><span class="f12 Gray6">{$u_info['role_str']}</span>
+									</li>
+								</ul>
+								<div class='reds-list-bottom-bar'>
+										{if $u_info['identity_card_status'] eq 'yes'}
+				                        <i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+				                        {else}
+				                        <i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+				                        {/if}
+									
+										{if $u_info['mobile_status'] eq 'yes'}
+				                        <i class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></i>
+				                        {else}
+				                        <i class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></i>
+				                        {/if}
+									
+									<span  class="reds-state"><em> {$u_info['address']}</em></span>
+								</div>
+							</div>
+							</a>
+						</div>
+						{/foreach}
+						<div class="cl"></div>
+						<p class="p-txt1 _clb">
+							想看更多红人？点<a class="Rd" href="/user/">这里</a>看看
+						</p>
+						<br class='_clb'/>
+						<br class='_clb'/>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- 主内容栏结束 -->
+		</div>
+		<!-- footer -->
+		{include "common/footer.html"} 
+		{literal}
+        <script type="text/javascript">
+		$(function(){
+			$("#my-contact-toggle-edit").click(function(){
+
+				$("#my-contact-edit").slideDown();
+				$("#my-contact-review").slideUp();
+				$("#my-contact-toggle-edit").hide();
+				$("#my-contact-toggle-save").show();
+
+			});
+			$("#my-contact-toggle-save").click(function(){
+				$("#my-contact-edit").slideUp();
+				$("#my-contact-review").slideDown();
+				$("#my-contact-toggle-edit").show();
+				$.post("/home/ajax/ajax_home_orgprofile.php",{'action':'update_org_contact','contact_mobile':$('#contact_mobile').val(),'contact_email':$('#contact_email').val(),'contact_weixin':$('#contact_weixin').val(),'contact_qq':$('#contact_qq').val()},function(data){
+								if(data){
+									$('#contact_mobile_show').text($('#contact_mobile').val());
+									$('#contact_email_show').text($('#contact_email').val());
+									$('#contact_weixin_show').text($('#contact_weixin').val());
+									$('#contact_qq_show').text($('#contact_qq').val());	
+								}else{
+									
+								}
+							},'text');
+				$("#my-contact-toggle-save").hide();
+			});
+		});
+        </script>
+        {/literal}
+	</body>
+</html>

@@ -1,0 +1,1 @@
+define("hyq/static/page/special/zhuanti1/index",[],function(){console.log("\u6211\u662f\u4e13\u98981")});

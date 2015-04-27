@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>JS DEMO </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="http://www.hotyq.com/css/main.css">
+    <script src="http://www.hotyq.com/js/jquery.js"></script>
+    <script src="../hyq-placeholder.js"></script>
+    <script src="../hyq-checkbox.js"></script>
+    <script src="http://www.hotyq.com/js/hyq-dropdown-list.js"></script>
+    <script src="http://www.hotyq.com/js/hyq-checkbox-list.js"></script>
+    <script src="http://www.hotyq.com/js/main.js"></script>
+    <!-- endbuild -->
+    <style>
+      .demo-box {
+        width: 980px;
+        margin: 0 auto;
+        margin-top: 1em;
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-box">
+      <div class="form-group">
+        <h3>CheckBox List 例子</h3>
+      </div>
+      <div class="form-group">
+        <div class="hyq-dropdown-box hyq-checkbox-list fl" placeholder="邀约角色" id="roles">
+          <input type="hidden" name="roles" value="-1">
+          <div type="text" class="hyq-dropdown">
+            <span class="dropdown-value" hyq-title="" title="邀约角色">邀约角色</span>
+          </div>
+          <div class="hyq-dropdown-list" style="display: table;">
+            <ul name="role">
+
+              <li value="1">
+                话剧演员
+              </li>
+
+            </ul>
+          </div>
+          
+            <a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+        </div> 
+      </div>
+
+      <div class='form-group'>
+        <input type="button" value="清除" class="hyq-btn hyq-btn-default-lg" id="clear-btn"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="添加" class="hyq-btn hyq-btn-default-lg" id="add-btn"/>
+      </div>
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var obj1 = {a:"1",b:"2"};
+
+      var obj2 = $.extend(true,{},obj1);
+
+      var obj3 = obj1;
+
+
+      obj1.a="100";
+      console.log("-----1")
+      console.log(obj1);
+      console.log("-----2")
+      console.log(obj2);
+       console.log("-----3")
+      console.log(obj3);
+
+      //清除
+      $("#clear-btn").click(function() {
+        $("#roles").trigger("clear");
+      });
+
+      //侦听change事件
+      $("#roles").on("change",function(event){
+        console.log(event);
+      });
+
+      //添加
+      //假数据
+      var fakeItems = [
+            {
+              id:1,
+              name:"杀手"
+            },
+            {
+              id:2,
+              name:"刺客"
+            },
+            {
+              id:3,
+              name:"法师"
+            }
+          ];
+
+
+      $("#add-btn").click(function(){
+          
+
+          $.each(fakeItems,function(i,e){
+              $("#roles").trigger({
+                type:"addItem",
+                checkBoxName:'role-item',//这个名字怎么起自己把握
+                value:e.id,
+                label:e.name
+              });
+          });
+      });
+    });
+  </script>
+</html>

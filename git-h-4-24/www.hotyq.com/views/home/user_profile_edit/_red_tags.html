@@ -1,0 +1,94 @@
+
+<!--使用三个类来控制 显示状态 rt-first-edit(初次编辑折叠)  rt-review（浏览模式） 用PHP来判断 到底使用那个class -->
+<div class="column-wrapper  rt-review" id="redtags-column">
+	<div class="row handle" >
+		<div class="lead-title">
+			<i class="hyq-ic ic-label-mark"></i>
+			<label class="f18 Blak2">红标签<small class="Gray8">(增加红人魅力指数，提升搜索排名，最多设置20个标签)</small></label>
+			<a href="javascript:void(null)" class="profile-edit-btn pull-right" id="redtags-edit-btn" alt="点击编辑红标签" title="点击编辑红标签"></a>
+			<a href="javascript:void(null)" class="profile-expend-btn pull-right" id="redtags-expend-btn" alt="点击添加红标签" title="点击添加红标签"></a>
+		</div>
+	</div>
+{if $user_tag neq ''}
+	
+		<div class=" row" id="redtags-review-box">
+			<div class="row2 _zeroMgnTop _zeroPDTop">
+			<div class="redtags-review-inner">
+				{foreach $user_tag as $key => $tag}
+				<label class="redtags-review-tag" alt="{$tag}" title="{$tag}">{$tag}</label>
+				{/foreach}	
+			</div>
+			</div>
+		</div>
+{else}
+		<div class=" row" id="redtags-review-box">
+			<div class="row2 _zeroMgnTop _zeroPDTop">
+			<div class="redtags-review-inner"></div>
+			</div>
+		</div>
+{/if}
+	<div id="redtags-edit-box">
+		<div class="row clearfix toggle-content">
+		{foreach $first_tag as $first}	
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark-orange"></i>
+				<label class="f18 Blak4 _bold">{$first['name']}</label> 
+			</div>
+
+			<div class="lead-content">
+				<div class="form-group clearfix">
+					{foreach $second_tag as $second}
+						{foreach $second as $sys_tag}
+							{if $first['id'] eq $sys_tag['parent_id']}
+						<div class="checkbox-group pull-left">
+							<input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="{$sys_tag['id']}" 
+								{if $sys_tag_p neq 'null'}
+									{foreach $sys_tag_p as $k=>$v}
+										{if $k eq $sys_tag['id']}
+											checked="true" 
+										{/if}
+									{/foreach} 
+								{/if}
+							 />
+							<span class="hyq-checkbox"></span>
+							<label>{$sys_tag['name']}</label>
+						</div>
+							{/if}
+						{/foreach}
+					{/foreach}
+				</div>
+			</div>
+		{/foreach}
+		
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark-orange"></i>
+				<label class="f18 Blak4 _bold">个性标签</label><small class="Gray6">(您可以自定义5个个性标签）</small>
+				 
+			</div>
+
+			<div class="lead-content diy-tags" style="border: none;">
+				<div class="form-group clearfix">
+					<div style="padding-bottom:10px;" id="redtags-diys">
+				 		
+				 			{foreach $self_tag as $k=>$self}
+				 				<span class="diy-tag inline-block"><span class="diy-tag-value">{$self}</span> &nbsp;&nbsp;<a class="close-btn-tiny"></a></span>
+				 			{/foreach}
+						
+					</div>
+							 
+					<input type="text" id="redtags-diy-maker" maxlength="6" style="width:330px;float:left;" placeholder="按回车添加标签(标签内容请不要超过6个字符!)"/>
+					<div class="plus-square-wrap"><i class="hyq-ic ic-plus-square-org"></i></div>
+					<div class="hyq-character-err" >
+						<i class="hyq-ic ic-vlid-err"></i>
+						<label>请回车保存你的个性标签</label>
+					</div>
+				</div>
+			</div>
+			<div class="btn-group clearfix _zeroPDTop">
+				<input class="hyq-btn hyq-btn-lg" type="button" id="redtags-save-btn"  value="保&nbsp;&nbsp;存">
+				&nbsp;&nbsp;
+				<input type="button" value="取&nbsp;&nbsp;消" id="redtags-cancle-btn" class="hyq-btn hyq-btn-thin-lg" />
+			</div>
+		</div>
+	</div>
+</div>

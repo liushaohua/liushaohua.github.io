@@ -1,0 +1,385 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>我发布的招募-阿里巴巴的报名信息</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body class="workInfo-rec">
+    
+    {include "common/header.html"} 
+      <div class="content-wrapper-b">
+      
+        <!--面包屑-->
+        <div class="hyq-breadcrumb-bar">
+            <div class="breadcrumb-box">
+              <a href="javascript:;">我的红演圈</a> &gt; 
+              <a href="javascript:;">我的工作信息</a>
+            </div>
+        </div>
+        <!--左边栏-->
+        {include "common/home/left_work.html"}
+        
+        <!--主栏-->
+        <div class="right-col-754">
+          <p class="r-title">"{$recruit_info['name']}" 的报名信息</p>
+          <p>
+              <form action="export_apply.php?recruit={{$recruit_info['id']}}" method="post" id="apply_export">
+                       <input type="submit" class="hyq-btn hyq-btn-lg" name="apply_export"  value="导&nbsp;出"> 
+              </form>
+          </p>
+
+          <!--选项卡-->
+{if $list neq ''}
+          <ul class="tabs-apply">
+      {foreach name=service_list from=$list item=v key=k}
+            <li class="tab-apply 
+              {if "recruit_apply{$active_service_id}" eq "recruit_apply{$v.e_service_id}"}
+                active
+              {/if}
+            ">
+              <a href="/home/export_apply_test.php?service={$v.e_service_id}&recruit={$recruit_info['id']}"></a>
+              <span class="{if $smarty.foreach.service_list.iteration eq $smarty.foreach.service_list.last}
+                  last
+                {/if}"
+                >{$k} {$v.num}人</span>
+            </li>
+      {/foreach}
+
+          </ul>
+            
+
+  
+          
+                <div class="info-item-wrap">
+                    <div class="grid-row grid-row2 GrayBorderBtm Blak2">
+                          <input type="hidden" id="service_id" value="{$active_service_id}">
+                          <input type="hidden" id="recruit_id" value="{$recruit_info['id']}">
+
+                          <div class="cd_1">用户信息</div>
+                          <div class="cd_2">
+                        <select class="sex-s">
+                                  <option>性别</option>        
+                                  <option value="1" {if $sex eq 'm'}selected{/if}>男</option>
+                                  <option value="2" {if $sex eq 'f'}selected{/if}>女</option>                                 
+                                  <option value="3" {if $sex eq 'all'}selected{/if}>全部</option>
+                              </select>
+                          </div>
+                          
+                          <div class="cd_3">服务类型</div>    
+                          <div class="cd_4">联系方式</div>
+                          
+                          <div class="cd_5">沟通结果
+                            <select class="result-s">
+                                  <option>选择</option>                                
+                                  <option value="1" {if $result eq 'sure'}selected{/if}>确定</option>
+                                  <option value="2" {if $result eq 'hold'}selected{/if}>待定</option>
+                                  <option value="3" {if $result eq 'refuse'}selected{/if}>拒绝</option>
+                                   <option value="4" {if $result eq 'all'}selected{/if}>全部</option>
+                              </select>
+                          </div>
+                       
+                     </div>
+
+
+
+                      <div class="grid-sheet">
+  {if $apply_info_list neq ''}
+          {foreach name=apply_list from=$apply_info_list item=vv}
+                    <div class="grid-row-d 
+                            {if $smarty.foreach.apply_list.iteration mod 2 eq 1}
+                              bgE7  
+                            {/if}
+                            {if $vv.u_sex eq 'f'}
+                                women
+                            {elseif $vv.u_sex eq 'm'}
+                                man
+                            {else}
+                                no_limit
+                            {/if}
+                            {if $vv.result eq 'sure'}
+                                sure
+                            {elseif $vv.result eq 'hold'}
+                                hold
+                            {else}
+                                refuse
+                            {/if}
+                          ">
+                              <div class="cd_1d">
+                                <a href="javascript:null(void)">
+                                  <img src="{$vv.u_face}"/>
+                                </a>
+                                <h4>{$vv.u_name}</h4>
+                                <div class="cl"></div>
+                                <p><label>报名时间</label><span>{$vv.apply_date|date_format:"%Y-%m-%d %H:%M"}</span></p>
+                              </div>
+                              <i></i>
+                              <div class="cd_2d">
+                              {if $vv.u_sex eq 'f'}
+                                  女
+                              {elseif $vv.u_sex eq 'm'}
+                                  男
+                              {else}
+                                  -
+                              {/if}
+                              </div>
+                              <i></i>
+                              <div class="cd_3d">
+                                <!--最后一个没有顿号-->
+                                  
+                                {foreach name=third_service from=$vv.third_service.{$vv.id} item=vvv}
+                                {if key neq $smarty.foreach.third_service.last }
+                                  <span>{$vvv}、</span>
+                                {/if}
+                                {if key eq $smarty.foreach.third_service.last}
+                                  <span>{$vvv}</span>
+                                {/if}
+                                {/foreach}
+
+                              </div>
+                              <i></i>
+                              <div class="cd_4d">
+                               <input type="button" class="hyq-letterP-btn"  userId="{$vv.uid}" value="私信">
+                            <input type="button" class="hyq-letterO-btn" value="其他" applyId="{$vv.id}" data-toggle="hyq-modal" data-target="#send-pri-letter2-modal">
+                              </div>
+                              <i></i>
+                              
+                              <div class="cd_5d">
+                                <div class="btn-result">
+                                    <input type="radio" name="result{$smarty.foreach.apply_list.iteration}" class="r-inp" applyId="{$vv.id}" value="sure" {if $vv.result eq 'sure'}
+                                                       checked 
+                                                       {/if}
+                                    ><label>确定</label>
+                                    <input type="radio" name="result{$smarty.foreach.apply_list.iteration}" class="r-inp" applyId="{$vv.id}" value="hold" {if $vv.result eq 'hold'}
+                                                       checked 
+                                                       {/if}
+                                    ><label>待定</label>
+                                    <input type="radio" name="result{$smarty.foreach.apply_list.iteration}" class="r-inp" applyId="{$vv.id}" value="refuse" {if $vv.result eq 'refuse'}
+                                                       checked 
+                                                       {/if}
+                                    ><label>拒绝</label>
+                                   
+                                </div>
+                                <textarea placeholder="点击添加备注" applyId="{$vv.id}" class="result_text">{$vv.description}</textarea>
+                                <input type="hidden" value="{$vv.description}">
+                              </div>
+                              <i></i>
+                         </div> 
+                {/foreach}  
+          {else}
+                <div class ="OMG" align="center">
+                <p style="margin:50px 0px 20px 0px;"><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+                <p>OMG!筛选结果不存在?!</p>
+                </div>
+          {/if} 
+           </div>   
+     
+      </div>
+{else}
+
+      <p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+      <p>OMG!还没有人报名你的招募!</p>
+      <p>即刻<a href="/home/recruit/set">发布招募</a>，寻找你想要的大明星！</p>
+      
+{/if}    
+     </div>
+        <!--主栏结束-->
+        {if $page_div neq ''}      
+        <div align="center" style="margin-top:10px">
+          {$page_div}
+        </div>
+        {/if}
+</div>
+
+<!--发私信弹窗-->
+ {include "common/home/include_message_box.html"}
+<!--发私信弹窗end-->
+<!--其他联系方式-->
+<div class="hyq-modal private-letter-wrap private-contact-wrap bgGray2 RdBorderTop" id="send-pri-letter2-modal">
+     <h5 class="letter-top">
+             <span>其他联系方式：</span> 
+             <i class="hyq-ic ic-xbutton-rd hyq-modal-close-btn"></i>
+     </h5>    
+     <div class="cl"></div>
+     <p><label>电话：</label><span id="mobile_way">111111</span></p>
+     <p><label>邮箱：</label><span id="email_way">222222</span></p>
+     <p><label>微信：</label><span id="weixin_way">333333</span></p>
+     <p><label>&nbsp;QQ：</label><span id="qq_way">444444</span></p>
+ </div>
+<!--其他联系方式end-->
+{include "common/footer.html"} 
+
+{literal}
+         <script type="text/javascript">
+      $(document).ready(function(){
+          var parameter = window.location.search;
+          //location.reload = 'export_apply.php'+parameter;
+          $('#apply_export').attr('action','export_apply.php'+parameter);
+
+          var service = $('#service_id').val();
+          var recruit = $('#recruit_id').val();
+         // 私信弹窗处理
+          $('.hyq-letterP-btn').click(function(){
+              if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+                console.log('没登陆');
+                var url = window.location.href;
+                location.href="/account/login?url="+url;        
+              }
+                
+              //发送事件让发私信的窗口弹出，同事要把用户ID传过去
+              var toUserId = $(this).attr('userId');    
+              $(document).trigger({
+                  type:"hyq/iframe/doc/sms",
+                  //fromUserId:toUserName,//这个ID由PHP判断
+                  toUserId:toUserId//这个ID由PHP判断
+              });
+          });
+          //其他信息的弹窗展示
+          $('.hyq-letterO-btn').click(function(){
+                  var aid = $(this).attr('applyId');
+                  //alert(aid);
+                  var action = 'get_applyer_connect_way';
+                  // ajacx 请求数据
+                  $.ajax({
+                    url:'/home/ajax/ajax_home_apply.php',
+                    type:'post',
+                    data:{'action':action,'aid':aid},
+                    success:function(data){
+                        var connect = eval('('+data+')');
+                        if(data == 1379){
+                          alert('No,获取报名者的联系方式失败!');
+                        }else{
+                              $('#mobile_way').text(connect['u_mobile']);
+                              $('#email_way').text(connect['u_email']);
+                              $('#weixin_way').text(connect['u_weixin']);
+                              $('#qq_way').text(connect['u_qq']);
+                        }
+                    },
+                    data_type:'json'
+                  });
+
+          });
+          //沟通结果处理
+          $('.r-inp').click(function(){
+                var aid = $(this).attr('applyId');
+                var result = $(this).val();
+                var action = 'deal_result';
+                $.ajax({
+                    url:'/home/ajax/ajax_home_apply.php',
+                    type:'post',
+                    data:{'action':action,'aid':aid,'result':result},
+                    success:function(data){
+                        //alert(data);
+                        if(data != 1000){
+                            alert('NO');
+                        }
+                        // else{
+                        //     alert('OK');
+                        // }
+                    },
+                    data_type:'text'
+                  });
+          });
+          //备注处理
+          $('.result_text').blur(function(){
+              var aid = $(this).attr('applyId');
+              var des = $(this).val();
+              var old_des = $(this).next().val();
+              //alert(old_des);
+              if(des == old_des){
+                  return false;
+              }
+              var action = 'deal_description';
+              $.ajax({
+                    url:'/home/ajax/ajax_home_apply.php',
+                    type:'post',
+                    data:{'action':action,'aid':aid,'des':des},
+                    success:function(data){
+                        //alert(data);
+                        if(data != 1000){
+                            alert('NO');
+                        }
+                        // else{
+                        //     alert('OK');
+                        // }
+                    },
+                    data_type:'text'
+                  });
+          });
+          
+          //性别筛选控制
+          $('.sex-s').change(function(){
+                var sex = $(this).val();
+                //alert(sex);
+                if(sex == 1){    //男
+                      location.href = '?sex=m&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.man').slideDown();
+                      $('.women').slideUp();
+                      $('.no_limit').slideUp();
+                }else if(sex == 2){  //女
+                      location.href = '?sex=f&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.man').slideUp();
+                      $('.women').slideDown();
+                      $('.no_limit').slideUp();
+                }else{          //不限,全部
+                      location.href = '?s_help=all&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.man').slideDown();
+                      $('.women').slideDown();
+                      $('.no_limit').slideDown();
+                }
+          });
+           //性别筛选控制
+          $('.result-s').change(function(){
+                var result = $(this).val();
+                //alert(result);
+                if(result == 1){
+                      location.href = '?result=sure&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.sure').slideDown();
+                      $('.refuse').slideUp();
+                      $('.hold').slideUp();
+                }else if(result == 2){
+                      location.href = '?result=hold&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.sure').slideUp();
+                      $('.refuse').slideUp();
+                      $('.hold').slideDown();
+                }else if(result == 3){
+                      location.href = '?result=refuse&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.sure').slideUp();
+                      $('.refuse').slideDown();
+                      $('.hold').slideUp();
+                }else{
+                      location.href = '?r_help=all&recruit='+recruit+'&service='+service;
+                      return false;
+                      $('.sure').slideDown();
+                      $('.refuse').slideDown();
+                      $('.hold').slideDown();
+                }
+          });
+          //分页  go 跳转页面
+          $('#go_btn').click(function(){
+            var turnto = $('#turnto').val();
+            //获取当前url
+            location.href = '?page='+turnto;
+          });
+
+})
+         </script>
+{/literal}       
+</body>
+</html>

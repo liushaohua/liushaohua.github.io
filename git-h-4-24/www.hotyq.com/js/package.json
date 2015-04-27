@@ -1,0 +1,9 @@
+{
+  "name": "hyq",
+  "description": "hyq with seajs",
+  "author": "liushaohua@hyq.com",
+  "license": "MIT",
+  "spm": {
+	"main": "static/page/favourite/info"
+  }
+}

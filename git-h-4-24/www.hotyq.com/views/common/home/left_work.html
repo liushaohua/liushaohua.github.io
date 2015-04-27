@@ -1,0 +1,20 @@
+<div class="left-col-200">
+  <div class="right-bar-menu-box">
+	<div class="lead-title-bar">
+	   我的工作信息
+	</div>
+	<ul class="gray-menu-group">
+	  <li {if $work_type eq 'mywork_invite'}class="active"{/if}><a href="/home/mywork_invite">我收到的邀约</a></li>
+	  <li {if $work_type eq 'mywork_recruit'}class="active"{/if}><a href="/home/mywork_recruit">我发布的招募</a></li>
+	  <li {if $work_type eq 'mywork_apply'}class="active"{/if}><a href="/home/mywork_apply">我报名的招募</a></li>
+	</ul>
+  </div>
+</div>
+{literal}
+<script>
+	$('.gray_menu_group li').click(function(){
+		$('.gray_menu_group').find('.last .active').removeClass('last active');
+		$(this).addclass('last active');
+	});
+</script>
+{/literal}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>hotyq ui2右边栏-猜你喜欢/排行榜top10/红眼圈十大好处/微信侧边栏/悬浮微信</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="http://www.hotyq.com:8888/css/main.css">
+    <script src="/js/jquery.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<!-- <tmk-html-import file="templates/_header_logind.html"/> -->
+            {include "common/header.html"} 
+     <div class="content-wrapper">
+     	<div class="main-column-b">
+     		<div class="column-wrapper">
+	     		<div class="row">
+	     			Main Column B 
+	     			宽度 700px;
+
+	     			&nbsp;<br/>
+	     			点击LOGO 返回DEMO首页
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     			&nbsp;<br/>
+	     		</div>
+	     	</div>
+     	</div>
+     	<div class="right-column">
+     		<!--猜你喜欢红人-->
+        {include "common/maybe_like_user_right.html"}    
+            <div class="cl"></div>
+            <!--演艺红人榜-->
+        {include "html/common_user_top_list.html"}  
+            <div class="cl"></div>
+             <!--与你相关new是招募的处理-->
+    {include "common/maybe_like_recruit_right.html"}
+
+        </div>
+            <!--Andorid 微信-->
+            <!--iPhone 微信-->
+        {include "common/right_qrcode.html"} 
+             
+  
+            <div class="cl"></div>
+             <!--悬浮微信-->
+{include "common/right_fly_qrcode.html"} 
+            <div class="cl"></div>
+            <!--红演圈十大好处Benefits-->
+    {include "common/right_ten_benefits.html"}  
+            <div class="cl"></div>
+       </div>
+     </div>
+
+    
+    <!-- 主内容尾 -->
+ <!--    <tmk-html-import file="templates/_footer.html"/> -->
+
+     <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+   
+ {include "common/footer.html"} 
+
+   
+         
+</body>
+</html>

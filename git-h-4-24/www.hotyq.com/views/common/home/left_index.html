@@ -1,0 +1,31 @@
+<div class="index-left-con fl">
+	<div class="left-nav-title">
+         <a href="/home/{$user_info['user_type']}">我的红演圈</a>
+    </div>
+	<ul class="index-left-nav">
+		<li>
+			<a href="/{$user_info['user_type']}/{$user_info['id']}" class="f16">我的主页</a>
+		</li>
+		<li>
+			<a href="/home/mywork_recruit" class="f16">我的工作信息</a>
+		{if $mywork_info_num neq 0}
+			<span class="new-span">New</span>
+		{/if}
+		</li>
+		<li>
+			<a href="/home/message" class="f16">我的私信</a>
+		{if $message neq 0}
+			<span class="new-span">New</span>
+		{/if}
+		</li>
+		<li>
+			<a href="/home/collect_user" class="f16">我的收藏</a>
+		</li>
+		<li>
+			<a href="/home/account_binding" class="f16">账号设置</a>
+		</li>
+		<li>
+			<a href="/account/logout" class="f16">退出登录</a>
+		</li>
+	</ul>
+</div>

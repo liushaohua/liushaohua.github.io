@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>我的私信首页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+		<div align="center">
+			未读私信数：{if $unread_num eq 0}
+							520
+						{elseif $unread_num neq 0}
+							{$unread_num}
+						{elseif $unread_num eq null}
+							520
+						{/if}
+			<br>
+			我的私信数：1314
+		</div>
+		<hr>
+		<!-- 测试生产环境下的私信首页列表 start -->
+		<div align="center">
+		<table border="1" width="700px" id="mes_list">
+				<tr>
+					<th colspan="6">生产环境下我（ID={$uid}）的全部私信列表首页：</th>
+				</tr>
+				<tr>
+					<th colspan="6">
+						<a href="javascript:;" class="read_all_message">全部设置为已读</a>
+					</th>
+				</tr>
+				<tr>
+					<th>最新收到私信ID</th>
+					<th>最新私信内容</th>
+					<th>发 送  者 ID</th>
+					<th>发 送  时 间</th>
+					<th>未读私信数目</th>
+					<th>私 信 类 型</th>	
+				</tr>
+		{foreach $message_list as $v}
+				<tr>
+					<td>{$v['last_mid']}</td>
+					<td>
+						{if $v['mes_type'] eq '0'}
+							{$v['mes_content']}
+						{elseif $v['mes_type'] eq '1'}
+							[图片]
+						{elseif $v['mes_type'] eq '2'}
+							[音频]
+						{elseif $v['mes_type'] eq '3'}
+							[视频]
+						{/if}
+					</td>
+					<td>{$v['friend']}</td>		
+					<td>{$v['last_time']|goodtime}</td>
+					<!-- 点击查看未读私信 未开通 -->
+					<!-- <td align="center"><a href="javascript:;" class="unread_num" id="{$v['friend']}">{$v['unread_num']}</a></td>
+					<td> -->
+					<td align="center"><a href="/suntianxing/detail.php?num={$v['unread_num']}&friend={$v['friend']}">
+					{if $v['unread_num'] eq null}
+						0
+					{else}
+						{$v['unread_num']}
+					{/if}
+					</a></td>
+					<td>
+					{if $v['mes_type'] eq '0'}
+						文本
+					{elseif $v['mes_type'] eq '1'}
+						图片
+					{elseif $v['mes_type'] eq '2'}
+						音频
+					{elseif $v['mes_type'] eq '3'}
+						视频
+					{/if}
+					</td>
+				</tr>
+		{foreachelse}
+					<tr>
+						<td colspan="6">哥们,你人气不够哦!!!</td>
+					</tr>
+		{/foreach}
+		</table>
+		</div>
+		<!-- end -->
+		
+		<hr>
+		<div align="center">
+			最近联系人列表：
+			<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+			<tr>
+				<td>最近联系人ID</td>
+				<td>我的ID</td>
+				<td>最近联系时间</td>
+				<td>未读私信数</td>
+			</tr>
+			{foreach $list as $v}
+				<tr>
+					<td>{$v['friend']}</td>		
+					<td>{$v['user']}</td>		
+					<td>{$v['last_time']|goodtime}</td>
+					<td align="center">{$v['unread_num']}</td>
+				</tr>
+			{foreachelse}
+					<tr>
+						<td colspan="4">哥们,你还没有联系人哦!!!</td>
+					</tr>
+			{/foreach}
+			</table>
+		</div>
+	</body>
+	{literal}
+		<script>
+		  //联系人列表刷新
+		  function contacts_list(){
+			$.ajax({
+				url:'/ajax/suntianxing/ajax_message.php?action=contacts_list',
+				data:'',
+				type:'post',
+				success:function(data){
+					$('#constacts_tab').find('tr:gt(1)').remove();
+					$.each(data,function(i,v){
+						//获取时间
+						/*
+						var otime = new Date((v.last_time)*1000);
+						var timestr = otime.getFullYear()+'-'+otime.getMonth()
+						+'-'+otime.getDate()+' '+otime.getHours()+':'+otime.getHours()+':'+otime.getMinutes()+':'+otime.getSeconds();*/
+						var str = '<tr>';
+							str += '<td>'+v.friend+'</td>';
+							str += '<td>'+v.user+'</td>';
+							str += '<td>'+v.last_time+'</td>';
+							str += '<td>'+v.unread_num+'</td>';
+							str += '</tr>';
+						$('#constacts_tab').append(str);
+					});
+					
+					
+				},
+				dataType:'json'
+			});
+		  }
+		//contacts_list();
+		//setInterval(contacts_list,5000);
+		//未读私信 点击查看
+		$('.unread_num').click(function(){
+			var friend = $(this).prop('id');
+			$.ajax({
+				url:'/ajax/suntianxing/ajax_message.php?action=read_message',
+				data:{'friend':friend},
+				type:'post',
+				success:function(data){
+					//alert(data);
+					if(data == 1000){
+						window.location.href = '/suntianxing/detail.php?friend='+friend;
+					}else{
+						alert('私信读取失败！');
+					}
+				},
+				dataType:'text'
+			});
+		})
+		
+		//未读私信 全部设置为已读
+		$('.read_all_message').click(function(){
+			$.ajax({
+				url:'/ajax/suntianxing/ajax_message.php?action=read_all',
+				data:{},
+				type:'post',
+				success:function(data){
+					//alert(data);
+					if(data == 1000){
+						alert('所有私信设置为已读成功！');
+					}else{
+						alert('所有私信设置为已读失败！');
+					}
+				},
+				dataType:'text'
+			});
+		})
+	
+		
+		</script>
+	{/literal}
+</html>

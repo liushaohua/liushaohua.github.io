@@ -1,0 +1,626 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>角色 - 编辑资料 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="http://www.hotyq.com:8888/css/main.css">
+    <script src="http://www.hotyq.com:8888/js/jquery.js"></script>
+	{literal}
+    <style type="text/css">
+		<!--xiaofeng-->
+		.checkbox-group label{font-size: 14px;}
+		.fix-row{
+			font-size: 16px;
+		    margin: 5px 5px 0px 45px;
+		    padding-bottom: 15px;
+		}
+		.rr-tag-box p{padding-bottom:10px;}
+			.row{
+				padding:15px 15px 10px 15px;
+			}
+			.btn-group{ padding-top:5px;}
+			.redtags-review-inner label{
+				margin: 9px 10px 6px 6px;
+				width:auto;
+				height:40px;
+				line-height:40px;
+				border:1px solid #d7d7d7;
+				background:#fff;
+				padding:0px 6px;
+				text-align:center;
+				font-size:16px;
+				color:#000;
+				width:84px;
+				 overflow: hidden;
+  				white-space: nowrap;
+  				text-overflow: ellipsis;
+			}
+
+			.pull-left {
+				float: left;
+				clear: none;
+			}
+			.pull-right {
+				float: right;
+				clear: none;
+			}
+
+		 
+			.toggle-item {
+				margin-top: 15px;
+			}
+			.toggle-item .handle {
+				 
+				padding-top: 30px;
+				padding-bottom: 30px;
+				font-size: 20px;
+			}
+			.toggle-item .handle * {
+			
+			}
+			 .toggle-item .handle .hyq-ic {
+					cursor: pointer;	 
+			}
+			
+			
+			.profile-detail {
+				/*margin-left: 170px;
+				margin-right: 30px;
+				color: #000;*/
+				margin-right:100px;
+				float:right;
+			}
+			.profile-detail h3 {
+				font-size: 20px;
+				display: inline-block;
+				*display: inline;
+				*zoom: 1;
+				margin: 0;
+				padding: 0;
+				color: #000;
+				font-weight: bold;
+			}
+			
+			.profile-detail-title {
+				line-height: 22px;
+			}
+			.profile-detail-text {
+				width: 280px;
+				font-size: 14px;
+			}
+			.profile-vstatus, .profile-pos, .profile-url {
+				padding: 5px 0;
+				font-size: 14px;
+			}
+			.profile-vstatus {
+				 
+				margin-top: 0px;
+				padding-top: 15px;
+			}
+			.profile-wrap {
+				height: 250px;
+			}
+			.profile-jobs {
+				line-height: 20px;
+			}
+			.profile-jobs .pull-right {
+				width: 254px;
+			}
+			.profile-photolist {
+				background: #fff;
+				position: relative;
+				top: -20px;
+				width: 600px;
+				display: block;
+				 
+				padding-right: 0;
+				padding-bottom: 0;
+				padding-top: 18px;
+				padding-bottom: 18px;
+				 /*margin: 0 auto;*/
+				overflow: hidden;
+				/*margin:0px 25px 45px 0px;*/
+				margin-left: 22px;
+			}
+			
+			 
+			.dropdown-loc-fixed{
+        	 width: 85px;
+       		 }
+			.input-school {
+				width: 180px;
+			}
+			.input-major {
+				width: 160px;
+			}
+			.input-organ {
+				width: 435px;
+			}
+			.lead-content {
+				margin-left: 30px;
+				margin-right: 30px;
+				border-bottom: 1px solid #a4a4a4;
+				color: #000;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+			}
+			.lead-content .checkbox-group {
+				width: 98px;
+				font-size: 14px;
+				margin-bottom: 4px;
+			}
+			.lead-content .form-group {
+				padding-top: 10px;
+				margin-bottom: 0;
+			}
+			.diy-tags input {
+				height:38px;
+				width: 185px;
+				font-size:16px;
+			}
+			.diy-tag ,.selected-role{
+				height: 28px;
+				line-height: 28px;
+				border: 1px solid #d7d7d7;
+				background: #fff;
+				font-size: 12px;
+				padding: 0 10px;
+				margin: 0 5px 5px 0px;
+			}
+			.diy-tag i,
+			.selected-role i {
+				margin-left: 5px;
+				cursor: pointer;
+			}
+		 
+			 
+			.field-fix-width{
+				width: 480px;
+			}
+
+			.field-fix-width-1{
+				width: 320px;
+			}
+			.hyq-tip{
+				width: 480px;
+				display: block;
+			}
+
+			
+
+			.rt-first-edit #redtags-review-box,
+			.rt-first-edit #redtags-edit-box,
+			.rt-first-edit #redtags-edit-btn{
+				display: none;
+			}
+
+			.rt-first-edit #redtags-expend-btn{
+				display: block;
+			}
+
+			.rt-edit #redtags-edit-box
+			{
+				display: block;
+			}
+			.rt-edit #redtags-review-box,
+			.rt-edit #redtags-edit-btn,
+			.rt-edit #redtags-expend-btn{
+				display: none;
+			}
+
+			
+			 
+			.rt-review  #redtags-edit-box,
+			.rt-review #redtags-expend-btn{
+				display: none;
+			}
+			.rt-review #redtags-edit-btn,
+			.rt-review  #redtags-review-box{
+				display: block;
+			}
+
+			/* FIX READ ROLE*/
+			.fix-custom-role{
+				margin-right:2em;
+				width: 180px;
+			}
+	</style>
+	{/literal}
+    <!-- endbuild -->
+  </head>
+  <body class="profile-edit">
+    
+    {include "common/header.html"} 
+	{include "common/nav_search.html"}
+      <div class="content-wrapper-b">
+        <!--左边栏-->
+		{include "common/home/left_user_edit.html"}
+        
+        <!--主栏-->
+        <div class="r-col-754">
+        	<div class="r-topBar">
+            </div>
+            <span class="base-title2">红角色</span><span class="f14 Rd">&nbsp;(最多选择5个角色)</span>
+            <input type="button" id="back_btn" value="返回" class="back-btn">
+          	<!--role  编辑模式-->
+			<div class="row rr-manager">	
+		<div class="btn-group  _zeroPDTop _zeroMgnBottom">
+			<div class="rr-tag-box ">
+				<p class="rr-flash-notice f16 Gray6 _hidden"></p>
+				<!-- 没有角色 -->
+				<p class="rr-empty-notice f16 Gray6">您还没有选定任何角色</p>
+				<p id="have_select_role" class="Blak2 rr-has-notice f16 ">您选定的角色 :<small class="Gray6">（点击下方标签的[&times;]号删除标签可以重选)</small></p>
+				<!--显示当前选定的角色-->
+				<div class="rr-current-roles  row2" style="padding-left:0px; margin-left:0px;">
+					<div class="rr-role-value-box " style="padding-left:0px; margin-left:0px;">
+						 
+						 
+						 
+					</div>
+				</div>
+			</div>
+			
+		 
+			<div class="rr-maker">
+				<div class="rr-select-btn" style="float:left;"> 
+					您可以从分类中选择角色 &nbsp; 
+					<i class="hyq-ic ic-chevron-rt-white" style="margin-bottom:4px;"></i> 
+					<!--弹出下拉表开始-->
+					 <div class="rr-selector">
+						<div class="rr-list-inner">
+							<!--父亲节点-->
+							<!-- <div class="rr-list-item">
+								主持人
+							</div> -->
+
+						</div>
+						
+					</div>
+					<!--弹出下拉表结束-->
+				</div>
+				<input type="text" id="self_role_box" class="pull-right fix-custom-role" style="width:260px; margin-left:20px; margin-right:0px;float:left;" placeholder="自定义角色，限六个字，回车保存" form-err="a" maxlength="6" name="rr-custom-role-maker" >
+                <div class="plus-square-wrap"><i id="role_save_btn" class="hyq-ic ic-plus-square-org"></i></div>
+                <div class="cl"></div>
+                
+				<div id="self_role_tips" class="hyq-f-err" style=" display:none;">
+					<i class="hyq-ic ic-vlid-err"></i>
+					<label>请回车保存你的角色</label>
+				</div>
+			</div>
+			<br/>
+		</div>
+		<div class="btn-group clearfix" id="rr-btn-box" >
+			<input class="hyq-btn hyq-btn-lg fr saveBtn"  type="button" id="rr-save-btn" value="保&nbsp;&nbsp;存">
+			<br />
+			<br />
+		</div>
+		
+	</div>
+    		
+         </div>
+        <!--主栏结束-->
+        <div class="cl"></div>
+        
+      </div>
+		<!-- tips 框 -->
+		<div class="hyq-tip" id="success_message" >
+			<i hyq-tip-icon-node></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>
+		<div class="hyq-tip" id="fail_message" >
+			<i class="hyq-ic ic-error-lg"></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>
+		<!--用户所选角色隐藏那域-->
+		<input type="hidden" id="hide_role_name" value='{$role_name}'>
+		<input type="hidden" id="hide_init_data" value='{$init_data}'>
+		<input type="hidden" id="hide_json_role_name" value='{$json_role_name}'>
+    <!-- 主内容尾 -->
+	{include "common/footer.html"}
+    <!-- endbuild -->
+{literal}
+<script type="text/javascript">
+	var roles = {
+	"39": {
+		"id": "39",
+		"name": "\u7efc\u827a",
+		"parent_id": "0",
+		"child": [
+			{
+				"id": "44",
+				"name": "\u548c\u58f0",
+				"parent_id": "39"
+			}, {
+				"id": "43",
+				"name": "\u4e50\u56e2",
+				"parent_id": "39"
+			}, {
+				"id": "42",
+				"name": "\u4e50\u961f",
+				"parent_id": "39"
+			}, {
+				"id": "40",
+				"name": "\u9b54\u672f\u5e08",
+				"parent_id": "39"
+			}, {
+				"id": "41",
+				"name": "\u4e50\u5e08",
+				"parent_id": "39"
+			}, {
+				"id": "45",
+				"name": "DJ",
+				"parent_id": "39"
+			}, {
+				"id": "46",
+				"name": "B-box",
+				"parent_id": "39"
+			}, {
+				"id": "47",
+				"name": "\u6781\u9650\u8fd0\u52a8\u5458",
+				"parent_id": "39"
+			}, {
+				"id": "48",
+				"name": "\u6742\u6280\u6f14\u5458",
+				"parent_id": "39"
+			}, {
+				"id": "49",
+				"name": "\u6b66\u672f\u6f14\u5458",
+				"parent_id": "39"
+			}, {
+				"id": "50",
+				"name": "\u6b66\u672f\u793e\u56e2",
+				"parent_id": "39"
+			}
+		]
+	},
+	"28": {
+		"id": "28",
+		"name": "\u6f14\u5458",
+		"parent_id": "0",
+		"child": [
+			{
+				"id": "38",
+				"name": "\u6b4c\u5267\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "37",
+				"name": "\u66ff\u8eab\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "36",
+				"name": "\u513f\u7ae5\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "35",
+				"name": "\u9752\u5c11\u5e74\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "34",
+				"name": "\u7279\u6280\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "33",
+				"name": "\u914d\u97f3\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "31",
+				"name": "\u620f\u66f2\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "32",
+				"name": "\u76f8\u58f0\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "30",
+				"name": "\u8bdd\u5267\u6f14\u5458",
+				"parent_id": "28"
+			}, {
+				"id": "29",
+				"name": "\u5f71\u89c6\u6f14\u5458",
+				"parent_id": "28"
+			}
+		]
+	},
+	"85": {
+		"id": "85",
+		"name": "\u6b4c\u624b",
+		"parent_id": "0"
+	},
+	"86": {
+		"id": "86",
+		"name": "\u821e\u8e48\u6f14\u5458",
+		"parent_id": "0"
+	},
+	"87": {
+		"id": "87",
+		"name": "\u6a21\u7279\u793c\u4eea",
+		"parent_id": "0"
+	},
+	"88": {
+		"id": "88",
+		"name": "\u4e3b\u6301\u4eba",
+		"parent_id": "0"
+	},
+	"89": {
+		"id": "89",
+		"name": "\u5e55\u540e",
+		"parent_id": "0"
+	},
+	"90": {
+		"id": "90",
+		"name": "\u5b66\u751f",
+		"parent_id": "0"
+	}
+}
+
+var initData = {
+	"roles":roles,
+	"userRoles":["41","42","43"],
+	"userCustomRoles":["\u5c31\u662f\u840c\u840c\u54d2444444"]
+}
+$(function(){
+	//-----------start-----------------
+		//获取用户所选数据
+		var init_data = $('#hide_init_data').val();
+		var role_data = $('#hide_role_name').val();
+		//console.log(init_data);
+		//console.log('---'+init_data);
+		init_data = jQuery.parseJSON(init_data);//转成json对象
+		// 1 拼接成  初始化样式
+			if(init_data.userRoles == null){//userRoles为null  转换[]
+				init_data.userRoles = [];
+			}
+			if(init_data.userCustomRoles == null){//userCustomRoles为null  转换[]
+				init_data.userCustomRoles = [];
+			}
+			initData = init_data;
+			console.log('tttt',initData);
+	//-------------end-----------------
+	var managerNode = $(".rr-manager").HYQRoleManager({
+		model:initData
+	 });
+	 //获得实例
+	var managerInstance = managerNode.data("ui-HYQRoleManager");
+
+	 //载入的时候在这里初始化数据
+	
+	managerInstance.render(initData);
+	managerInstance.renderCheck(initData);
+
+
+
+	var maker = $(".rr-maker");
+	var manager = $(".rr-manager");
+	var btnBox = $("#rr-btn-box");
+
+	var editBtn = $("#rr-edit-btn");
+	var expendBtn = $("#rr-expend-btn");
+	var reviewBox = $("#rr-review-box");
+	var cancleBtn = $("#rr-cancle-btn");
+
+	var rrHelper = {
+		//编辑模式 
+		editMode:function(){
+		//managerInstance.render(initData);
+			reviewBox.fadeOut(function(){
+				manager.slideDown();
+			});
+			editBtn.hide();
+
+		},
+		//浏览模式
+		reviewMode:function(){
+			manager.slideUp(function(){
+				rrHelper.writeToReviewBox();
+			});
+			editBtn.show();
+
+		},
+		//初次编辑展开
+		firstExpend:function(){
+			expendBtn.hide();
+			manager.slideDown();
+		},
+		//初次编辑收起
+		foldExpend:function(){
+			expendBtn.show();
+			manager.slideUp(function(){
+				manager.hide();
+			})
+		},
+		//将修改的内容写入到浏览模式的DIV
+		writeToReviewBox:function(){
+			var data = managerInstance.getAjaxModel();
+			var arr=[];
+			$.each(managerInstance.tags,function(i,e){
+				 
+				 arr.push(e.name);
+				 
+			});
+			 
+			reviewBox.html(arr.join(" \\ ")).fadeIn();
+			
+			//成功  红名片处  替换掉  -----wangyifan
+			$('#role_names').text(arr.join(" \\ "));
+		}
+
+	};
+	
+	
+	editBtn.click(function(){
+		rrHelper.editMode();
+	});
+
+	expendBtn.click(function(){
+		rrHelper.firstExpend();
+
+	});
+	
+	//取消按钮被点击
+	cancleBtn.click(function(){
+		//之前还有进行一次渲染
+			managerInstance.tagsBoxInstance.removeAll();
+			managerInstance.render(initData);
+		if(initData.userCustomRoles.length==0 || initData.userRoles.length==0){
+			rrHelper.foldExpend(); //没有数据点取消 进入加号折叠模式	
+		}else{
+			//进入浏览模式
+			rrHelper.reviewMode();
+		}
+	});
+
+		//聚焦 隐藏----------wangyifan-----------
+		$('#self_role_box').focus(function(){
+			$('#self_role_tips').hide();
+		});
+		//-----------------------
+	 //点击保存按钮的时候
+	 $("#rr-save-btn").click(function(){
+		//块显示的----------wangyifan-------
+		if($('#self_role_box').css('display') == 'block'){
+			//值为空  提示
+			if($('#self_role_box').val() != ''){
+				$('#self_role_tips').show();
+				return false;
+			}
+		}
+		//-----------------
+	 	 var ajaxData = JSON.stringify( managerInstance.getAjaxModel() );
+	 	 //然后你就可以把ajaxData 作为参数上传了
+	 		$.post('/home/ajax/ajax_home_userprofile.php?action=save_hot_role',{ role_data:ajaxData},function(data){
+	 			//解析json  判断code
+				 var arr = eval("("+data+")");
+				//如果成功
+				if(arr.code == 1000){
+					$(document).trigger("hyq/userstate/changed");//如果cookie改动触发这个事件  实时更新
+					var tip = $("#success_message").HYQTip();
+					tip.showSuccess("保存成功!");
+					//rrHelper.reviewMode();
+				}else if(arr.code == 1293){
+					$('#hide_init_data').val('');
+					rrHelper.foldExpend();
+				}else{
+					//var tip = $("#fail_message").HYQTip();
+					//tip.showSuccess(arr.desc);
+					managerInstance.showErrorMessage(arr.desc);
+				}
+	 		});
+
+	 });
+	//返回按钮
+	$('#back_btn').click(function(){
+		top.location.href = "/home/user";
+	});
+});
+</script>
+{/literal}
+</body>
+</html>

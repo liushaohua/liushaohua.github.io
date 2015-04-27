@@ -1,0 +1,542 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>服务 – 编辑资料 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+	<script src="/js/jquery.js"></script>
+  </head>
+  <body class="profile-edit">
+    
+    {include "common/header.html"} 
+	{include "common/nav_search.html"}
+      <div class="content-wrapper-b">
+        <!--左边栏-->
+        {include "common/home/left_user_edit.html"}
+        <!--主栏-->
+        <div class="r-col-754">
+        	<div class="r-topBar">
+            </div>
+            <span class="base-title2">我的服务：</span>
+            <a href="{$pre_page}"><input type="button" value="返回" class="back-btn"></a>
+          	<!----服务联动开始---->
+						<div id="char-form-box">
+							<div class="role_all_div hyq-reproducible-char" id="char-form-original">
+								<!--招募服务-->
+								<div class="role_list_div form-group">
+									<em class="pull-left">&nbsp;&nbsp;</em>
+									
+									<div class="role_div fl">
+										<!--服务种类-->
+										<div class="parent_div hyq-dropdown-box" placeholder="服务种类" name="zmservice">
+
+											<input class="hide_service_1_value" type="hidden" name="character" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_parent_name dropdown-value inline-block fix-dropdown-1 selected">选择服务</span>
+											</div>
+
+											<div class="hyq-dropdown-list">
+                                                    <ul>
+														{foreach $service_1_list as $v}
+                                                        <li value="{$v.id}">{$v.name}</li>
+                                                        {/foreach}
+                                                    </ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										&nbsp;
+                                    </div>
+                                    <div class="role_div fl">
+										<!--服务细分-->
+										<div class="child_div hyq-dropdown-box" placeholder="服务细分" name="zmservice">
+											<input class="hide_service_2_value" type="hidden" name="character_" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_child_name dropdown-value inline-block fix-dropdown-1 selected">服务细分</span>
+											</div>
+											<div class="hyq-dropdown-list">
+												<ul>
+												</ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										&nbsp;
+                                    </div>
+								</div>
+                                <!--三级类招募服务类型弹窗-->
+                                <div class="service-three hide_service_3_value">
+                                	<div class="s-title">
+                                         <span>您还可以选择更精准的服务类型</span>
+                                     	 <!-- <p class="role-unit2">
+                                            <input type="checkbox" class="hyq-nice-checkbox" autocomplete=off name='mchoice' value="A"/>
+                                            <span class="hyq-checkbox"></span>
+                                            <label>不限</label>
+                                         </p> -->
+                                    </div>
+                                	<div class="role-filter-categray">
+                                          
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						
+						<!--添加服务按钮-->
+						<div class="form-group">
+							<em class="pull-left">&nbsp;&nbsp;</em>
+							<a href="javascript:;" id="add-char-btn" class="ic-btn-add pull-left"><i></i>添加服务</a>
+						</div>
+          	<!----服务联动结束---->
+			<div class="album-btn-box">
+				<input class="hyq-btn hyq-btn-lg fr saveBtn" type="button" id="redtags-save-btn"  value="保&nbsp;&nbsp;存">
+			</div>
+		</div>
+        <!--主栏结束-->
+        <div class="cl"></div>
+        
+      </div>
+ 
+   
+  
+    <!-- 主内容尾 -->
+    <!-- 选择窗口结束 -->
+    <div class="tip-small" id="tip-modi" style="display:none">
+        <div class="hyq-ic ic-alert-lg">
+        </div>
+        <p>确定要放弃当前这组服务么？</p>
+        <div class="album-btn-box2">
+            <input class="hyq-btn hyq-btn-lg" type="button"  name="yes" value="确&nbsp;&nbsp;定">
+            &nbsp;&nbsp;
+            <input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-trigger" name="no" value="取&nbsp;&nbsp;消" />
+        </div>
+    </div>
+    <!-- 选择窗口结束 -->
+ 	 <!-- 删除服务开始 -->
+    <div class="tip-small" id="tip-del-service" style="display:none">
+        <div class="hyq-ic ic-alert-lg">
+        </div>
+        <p>确定要删除这一组服务吗？</p>
+        <div class="album-btn-box2">
+            <input class="hyq-btn hyq-btn-lg" type="button"  name="yes" value="确&nbsp;&nbsp;定">
+            &nbsp;&nbsp;
+            <input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-trigger" name="no" value="取&nbsp;&nbsp;消" />
+        </div>
+    </div>
+    <!-- tips 框 -->
+	<div class="hyq-tip" id="success_message" >
+		<i class="hyq-ic ic-success-lg"></i>
+		<label class="hyq-tip-msg-node"></label>
+	</div>
+	<div class="hyq-tip" id="fail_message" >
+		<i class="hyq-ic ic-error-lg"></i>
+		<label class="hyq-tip-msg-node"></label>
+	</div>
+    <!-- 删除服务结束 -->
+    {include "common/footer.html"}
+    	{literal}
+    		<script type="text/javascript">
+    	{/literal}	
+    		var user_service = {$user_service};
+    	{literal}
+    		</script>
+    	{/literal}
+    	
+		{literal}
+         <script type="text/javascript">
+         	console.log(user_service);
+			var char_form_css = ".hyq-reproducible-char-form";
+			var char_form_orignal = $("#char-form-original");//一刷新页面就出现的服务表单
+			var char_form_box = $("#char-form-box");//可添加表单的盒子
+			//添加服务按钮
+			var add_char_btn = $("#add-char-btn");
+            /***********************************
+			 联动开始 开始
+			 ************************************/
+			function getSubMenu(value, fn) {		
+				$.getJSON("/home/ajax/ajax_home_recruit.php", {
+					action: "add_service_3_list",
+					s_2_id: value
+				}).success(function(data) {
+					if (data == null) {
+						return;
+					} else {
+						fn.call(window, data);
+					}
+				});
+			}
+			function disableRepeatLabel(target){
+				var par = target.parents(".role_all_div");
+				if(par.parent().find(".child_div").length>0){
+					var secondLevel = par.parent().find(".hide_service_2_value");
+					var selectedArr = [];
+					if(secondLevel.length>0){
+						secondLevel.each(function(){
+							if($(this).val()){
+								var tmp = target.find("li[value="+$(this).val()+"]");
+								if(tmp.length>0){
+									selectedArr.push($(this).val());
+								}
+							}
+						});
+						par.parent().find(".child_div").each(function(){
+							var obj = $(this),myvalue = obj.find(".hide_service_2_value").val();
+							$.each(selectedArr,function(i,n){
+								if(n != myvalue){
+									obj.trigger({
+												type: "set/disabled/value",
+												disabledVal: n
+									});
+								}
+							});
+						});
+						
+					}
+				}
+			}
+			function bindServiceEvent(obj){
+				//不限事件
+				$(".role-unit2",obj).children().on("click",function(){
+					var s = $(this);
+					s.parents(".service-three").find(".role-unit").each(function(){
+						$(this).find(":checkbox").trigger({
+							type:s.siblings(":checkbox").is(":checked")?"disable":"enable"
+						});
+					});
+				});
+				var tip = $("#tip-modi").HYQModal();
+				$('.hyq-dropdown-box',obj).not(".sex_div,.number_div").on("click",function(e){
+					var el = $(this),
+						levelthree = el.parents(".role_all_div").find(".service-three"),
+						valuebox = levelthree.find(".role-filter-categray");
+
+					if(valuebox.children("p").length>0){
+						if (el.find('input:first').attr('class') != 'hide_service_1_value') {
+							//tip.trigger({type:"hyq/modal/show"});
+							tip.find("[name='yes']").one("click",function(){
+								console.debug(el.find("input"));
+								el.find("input").removeProp('pause');
+								tip.trigger({type:"hyq/modal/close"});
+								setTimeout(function(){
+									valuebox.empty();
+									levelthree.hide();
+									el.find(".hyq-dropdown").click();
+
+								},200);
+							});
+							
+							e.preventDefault();
+							return;
+						}
+					}
+
+				});
+
+				$('.hyq-dropdown-box input',obj).on("change", function() {
+					var el = $(this),
+						elp = el.parent();
+						
+					//服务块的服务项change  隐藏对应的提示信息  并将程序结束标志置为1
+					el.parents('.role_all_div').find('.role_tips').hide();
+					is_end = 1;
+					
+					if (!elp.attr("name")) {
+						return;
+					}
+					var oldH  = el.parent().find('ul').html();			
+					
+					var sibs = $("[name='" + elp.attr("name") + "']",obj),
+						index = sibs.index(elp),
+						levelthree = el.parents(".role_all_div").find(".service-three"),
+						valuebox = levelthree.find(".role-filter-categray");
+					el.prop("pause",true);
+
+					switch (index) {
+						case 0:
+							getSubMenu(el.val(), function(data) {
+							
+								var target = sibs.eq(1);
+								target.trigger("clear");
+								$.each(data, function(i, n) {
+									target.trigger({
+										type: "addItem",
+										value: n.id,
+										name: n.name
+									});
+								});
+								disableRepeatLabel(target);
+								setTimeout(function() {
+									target.find("input").removeProp('pause');
+									target.find(".hyq-dropdown").click();
+									console.log('01');
+								}, 100);
+							});
+							break;
+						case 1:
+							
+							getSubMenu(el.val(), function(data) {
+								//禁用其他二级当中相同值										
+								var target = sibs.eq(1);
+								disableRepeatLabel(target);
+								//return; 
+								if (oldH != el.parent().find('ul').html()) {
+									valuebox.empty();	
+									$.each(data, function(i, n) {
+										var p = $("<p/>").addClass('role-unit').appendTo(valuebox);
+										$("<input/>", {
+											type: "checkbox",
+											name: "mchoice[]"
+										}).addClass('hyq-nice-checkbox').val(n.id).appendTo(p);
+										$("<span/>").addClass('hyq-checkbox').appendTo(p);
+										$("<label/>").html(n.name).appendTo(p);
+									});
+								}
+								levelthree.show().find(".role-filter-categray :checkbox").each(function(){
+									$(this).HYQCheckbox();
+								});
+								var allsel = levelthree.find(".role-unit2");
+								if(allsel.find(":checked")){
+									allsel.find(":checked").click();
+								}
+								
+							});
+							break;
+					}
+
+				});
+			}
+				
+				
+
+                                //服务赋值方法
+                              function createService(obj,data){
+							  
+							  console.log('createService'+'1S');
+                                  var level1 = obj.find(".role_div").eq(0),
+                                      level2 = obj.find(".role_div").eq(1).children();
+                                  //level1
+                                  level1.find(".dropdown-value").attr("title",data.service_1.service_1_name).html(data.service_1.service_1_name).addClass('selected');
+                                  level1.find(".hide_service_1_value").val(data.service_1.service_1_id);
+                                  //level2
+                                  getSubMenu(data.service_1.service_1_id,function(d){
+                                        //禁用其他二级当中相同值
+                                        $.each(d, function(i, n) {
+                                          level2.trigger({
+                                            type: "addItem",
+                                            value: n.id,
+                                            name: n.name
+                                          });
+                                        });
+                                        level2.find("li[value="+data.service_2.service_2_id+"]").addClass('active');
+                                        disableRepeatLabel(level2);
+                                        setTimeout(function() {
+                                          level2.find("input").removeProp('pause').val(data.service_2.service_2_id);
+                                          level2.find(".dropdown-value").attr("title",data.service_2.service_2_name).html(data.service_2.service_2_name).addClass('selected');
+                                          //level3
+                                          getSubMenu(data.service_2.service_2_id,function(dd){
+                                              var levelthree = obj.parents(".role_all_div").find(".service-three"),
+                                                  valuebox = levelthree.find(".role-filter-categray");
+                                              valuebox.empty();
+                                              $.each(dd, function(i, n) {
+                                                var p = $("<p/>").addClass('role-unit').appendTo(valuebox);
+                                                $("<input/>", {
+                                                  type: "checkbox",
+                                                  name: "mchoice[]"
+                                                }).addClass('hyq-nice-checkbox').val(n.id).appendTo(p);
+                                                $("<span/>").addClass('hyq-checkbox').appendTo(p);
+                                                $("<label/>").html(n.name).appendTo(p);
+                                              });
+                                              levelthree.show().find(".role-filter-categray :checkbox").each(function(){
+                                                $(this).HYQCheckbox();
+                                              });
+                                              var allsel = levelthree.find(".role-unit2");
+                                              if(allsel.find(":checked")){
+                                                allsel.find(":checked").click();
+                                              }
+                                              $.each(data.service_3,function(ii,nn){
+                                                  valuebox.find("[value="+ii+"]").next().click();
+                                              });
+                                          });
+                                        }, 100);
+                                  });
+
+                              }
+
+			//删除服务的按钮
+			function role_minus(val) {
+				var tip = $("#tip-del-service").HYQModal();
+
+				tip.trigger({type:"hyq/modal/show"});
+				tip.find("[name='yes']").one("click",function(){
+					var target = $(val).parents('.role_all_div').find(".child_div");
+					$(val).parents('#char-form-box').find(".child_div").each(function(){
+						$(this).trigger({
+							type: "relieve/disabled/values",
+							relieveVals: [target.find(".hide_service_2_value").val()]
+						});			
+					});
+					$(val).parents('.role_all_div').remove();
+					tip.trigger({type:"hyq/modal/close"});
+					if($(".role_all_div").length<10){
+						add_char_btn.show();
+					}
+				});				
+				return;				
+			}
+			//绑定服务初始事件
+			bindServiceEvent($("#char-form-original"));
+			/***********************************
+			 联动开始 结束
+			 ************************************/
+			$(window).load(function() {
+				//添加服务的按钮
+				add_char_btn.click(function() {
+					var newNode = $("<div>").addClass(char_form_css).addClass('role_all_div').html(char_form_orignal.html());
+					newNode.find(".service-three").hide();
+					newNode.find(".role-filter-categray p").remove()
+					newNode.find(".role-unit2 :checkbox").HYQCheckbox();
+					newNode.find(".form-group em,.form-group label").addClass('_invisbl');
+					newNode.find('.role_list_div').append("<div class='role-minus-wrap'><i class='hyq-ic ic-minus-gray role_minus_btn' onclick='role_minus(this)'></i></div>"); //wangyifan
+					newNode.find(".add").remove(); //加的wangyifan
+					$.each(newNode.find(".hyq-dropdown-box"), function(i, e) {
+						$(e).HYQDropdownList(); //这句很重要 不然新APPEND进去的下拉表单是不工作的
+						$(e).find("input").val('');
+
+						$(e).find(".dropdown-value").html($(e).attr("placeholder")).removeClass("selected");
+
+					});
+					//处理需要禁用的服务类型 
+					newNode.appendTo(char_form_box);
+					//绑定联动菜单事件
+					bindServiceEvent(newNode);
+					if($(".role_all_div").length>=10){
+						add_char_btn.hide();
+					}
+					newNode.find('.hyq-dropdown-list').eq(1).find('ul').empty();
+				});
+                                         //服务赋值
+                                   if(user_service && user_service != ""){
+                                          var j = 0;
+                                          $.each(user_service,function(i,n){
+                                              if(j == 0){
+                                                  createService($(".role_list_div"),n);
+                                              }else {
+                                                  $("#add-char-btn").click();
+                                                  var k = j;
+                                                  setTimeout(function(){
+                                                      createService($(".role_list_div").eq(k),n);
+                                                  },200);
+                                              }
+                                              j++;
+                                          });
+                                        }
+			});
+			
+	                     
+                             
+
+			//发布框里的确定按钮  提交数据
+			$('#redtags-save-btn').click(function(){
+				var tthis = $(this);
+				//获取所有class=hide_service_2_value 二级的值  放进一个数组 进行传递
+				var service_1_list = new Array();//service_1
+				var service_2_list = new Array();//service_2
+				var service_3_list = new Array();//service_3
+				var i = 0;
+				$('.hide_service_1_value').each(function(){
+					//if($(this).val().length != 0){
+						service_1_list[i] = $(this).val();
+						i++;
+					//}
+				});
+				
+				var i = 0;
+				$('.hide_service_2_value').each(function(){
+					//if($(this).val().length != 0){
+						service_2_list[i] = $(this).val();
+						i++;
+					//}
+				});
+				
+				
+				var n = 0;
+				$('.hide_service_3_value').each(function(){
+					var service_3s = new Array();
+					var arr = $(this).find("input[name='mchoice[]']");
+					//arr是一个数组，就是所有checkbox的值；
+					for(i=0;i<arr.length;i++){
+						if(arr[i].checked){
+							//选中的checkbox放进数组service_3s
+							service_3s.push(arr[i].value);
+						}
+					}
+					//if(service_3s.length != 0){
+						service_3_list[n] = service_3s;
+						n++;	
+					//}
+				});
+				var action = "add_user_service";
+				
+				if(service_1_list.length == 0 || service_2_list.length == 0 || service_3_list.length == 0){
+					var tip = $("#fail_message").HYQTip();
+					tip.showSuccess("请选择一二三级服务！");
+					return false;	
+				}
+				
+				tthis.attr('disabled','true');
+			    console.log(service_1_list);
+			    console.log(service_2_list);
+			    console.log(service_3_list);
+				//return false;
+			    //console.log(service_3_list.length);
+				//发送
+				$.ajax({
+					url:'/home/ajax/ajax_home_userprofile.php',
+					type:'post',
+					data:{'action':action,'service_1_list':service_1_list,'service_2_list':service_2_list,'service_3_list':service_3_list},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							var tip = $("#success_message").HYQTip();
+							tip.showSuccess("添加服务成功！");
+							$(document).trigger("hyq/userstate/changed");//后加的 更新cookie
+							$('#redtags-save-btn')[0].removeAttribute('disabled');
+						}else if(data == 1288){
+							var tip = $("#fail_message").HYQTip();
+							tip.showSuccess("请选择一级服务！");
+							$('#redtags-save-btn')[0].removeAttribute('disabled');
+						}else if(data == 1289){
+							var tip = $("#fail_message").HYQTip();
+							tip.showSuccess("请选择二级服务！");
+							$('#redtags-save-btn')[0].removeAttribute('disabled');
+						}else if(data == 1290){
+							var tip = $("#fail_message").HYQTip();
+							tip.showSuccess("请选择三级服务！");
+							$('#redtags-save-btn')[0].removeAttribute('disabled');
+						}else{
+							var tip = $("#fail_message").HYQTip();
+							tip.showSuccess("添加服务失败！");
+							$('#redtags-save-btn')[0].removeAttribute('disabled');
+						}
+					},
+					dataType:'text'
+				})
+			});
+			$(function () {console.log(55333093);
+				$('.hyq-dropdown-box').on('click','.fa-chevron-down',function(e) {
+					$this = $(this);
+					if ($this.prev().find('li').length) {
+						$(this).prev('.hyq-dropdown-list').show();
+					}
+					e.preventDefault();
+				});
+			});
+         </script>
+		 {/literal}
+</body>
+</html>

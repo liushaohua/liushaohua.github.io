@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>收藏的招募 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+  </head>
+  <body class="hyq-collction hyq-collction-null">
+    
+      {include "common/header.html"} 
+	    {include "common/nav_search.html"} 
+      <div class="content-wrapper-b">
+      
+        <!--面包屑-->
+        <div class="hyq-breadcrumb-bar">
+            <div class="breadcrumb-box">
+              <a href="/home/{$user_info['user_type']}">我的红演圈</a> &gt; 
+              <a href="/home/collect_user">收藏</a>
+            </div>
+        </div>
+
+        <!--左边栏-->
+        {include "common/home/left_collect.html"}
+        <!--主栏-->
+        {if $collect_recruit_info}
+        <div class="right-col-754">
+          <div class="lead-title-bar">
+          </div>
+          <div class="org-collection-wrapper">
+              {foreach from=$collect_recruit_info item=recruit_info key=key name=show}
+              <div class="hyqRec-box">
+                <i class="hyq-ic ic-xbutton-rd deleteBtn" collect_id="{$key}" dynamic_id="{$recruit_info['dynamic_id']}" collect_type="recruit"></i>
+                <div class="r-content">
+                <!-- 这里放招募的链接 -->
+                <a href="/recruit/{$recruit_info['dynamic_id']}" class="rcs-link-mask">
+                <div class="img-box">
+                    <img src="{$recruit_info['cover']}!150">
+                </div>
+                <div class="txt-box">
+                  <h3 title="" alt="">{$recruit_info['name']}</h3>
+                  <p class="service-con">
+                      {foreach $recruit_info['service_2_list'] as $service_2_name}
+                      <span>{$service_2_name}</span>
+                      {/foreach}
+                  </p>
+                  <div class="bot-ab">
+                      <em>截止时间</em><span>{$recruit_info['interview_end_time']}</span><label>{$recruit_info['address']}</label>
+                  </div>
+                </div>
+              </a>
+              </div>
+              </div>
+              {/foreach}
+          </div>
+           <div class="cutpage-con">
+            {if isset($page_list)}
+              {if $page_status eq 'true'}
+              <div class="cutpage2" >
+                <!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+                {if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+                {foreach from=$page_list item=page_info}
+                  {if $page_info.current == "yes"}
+                  <span class="current">{$page_info.no}</span>
+                  {elseif $page_info.position == "begin"}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  <span >...</span>
+                  {elseif $page_info.position == "end"}
+                  <span >...</span>
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  {else}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  {/if}
+                {/foreach}
+                {if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+                  <!-- <span class="p-left-10">转到</span><input type="text" class="turnTo" id="turnTo" />
+                  <span class="p-right-10 ">页</span> -->
+                  <!-- <input class="hyq-round-btn" type="button" value="GO" id="go_btn" /> -->
+                  <!-- <a href="{$page_last_url}" class="p-left-10">末页</a> -->
+              </div>
+              {/if}
+            {/if}
+      </div>
+        </div>
+        {else}
+        <div class="right-col-754 right-col-1000">
+            <div class="lead-title-bar"></div>
+            <p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+            <p>OMG!您还没有收藏过任何东东哦！</p>
+            <p><a href="/list/recruit">随便逛逛</a>，每天都有当红艺人、招募事件等你，说不定还有意外的惊喜哦！</p>
+        </div>
+      {/if}
+      </div>
+    <!--隐藏域 存储是否成功 的状态-->
+    <input id="hide_save_states" type="hidden" value="0">
+    <!-- tips 框 -->
+    <div class="hyq-tip" id="tip-message" >
+      <i hyq-tip-icon-node></i>
+      <label class="hyq-tip-msg-node"></label>
+    </div>
+    <!-- 主内容尾 -->
+    {include "common/footer.html"} 
+    
+        
+</body>
+{literal}
+<script>
+  $(".deleteBtn").each(function(){
+      $(this).click(function(){
+        $.post("/home/ajax/ajax_home_collect.php",{'action':'cancel_collect','collect_id':$(this).attr('collect_id'),'dynamic_id':$(this).attr('dynamic_id'),'collect_type':$(this).attr('collect_type')},function(data){
+              var cancel_result = eval('('+data+')');
+              var tip = $("#tip-message").HYQTip();
+              tip.showSuccess("删除"+cancel_result.desc);
+              setTimeout("location.reload()",2000);
+            },'text');  
+      });
+    });
+</script>
+{/literal}
+</html>

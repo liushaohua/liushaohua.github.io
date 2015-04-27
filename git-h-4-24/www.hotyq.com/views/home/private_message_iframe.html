@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>私信</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <style type="text/css">
+    html,body{
+    	background-color: #f3f4f4;
+    	width: 100%;
+    }
+    input[type=text]{
+    	height: 28px;
+    	line-height: 28px;
+    	width: 350px;
+    	border:1px solid #e3e3e3;
+    	float: left;
+    	font-size: 14px;
+    }
+    .form-group{
+    	padding-top: 0px;
+    	margin-top: 0px;
+    	min-height: 30px;
+    }
+    .form_label{
+    	float: left;
+    	width: 60px;
+    	height: 30;
+    	line-height: 30px;
+    	font-size: 14px;
+    	text-align: right:;
+    }
+ 
+    textarea{
+    	border: 1px solid #e3e3e3;
+    	width: 350px;
+    	height: 90px;
+    }
+    </style>
+</head>
+	<body class='hyq-modal-default'>
+		<input type="hidden" id="receiver_id" value="{$receiver_id}" />
+		 
+		<div class="hyq-model-body txt-left">
+			<div class="form-group fl">
+				<span class="form_label">&nbsp;&nbsp;发给：</span><input placeholder="{$user_name}" type="text" id="toWho" disabled />
+			</div>
+			<div class="form-group fl">
+				<span class="form_label">&nbsp;&nbsp;内容：</span><textarea placeholder="请输入要发送的私信内容(限1024个字符)..." type="text" id="message"></textarea>
+			</div>
+			<div class="form-group fr" style="margin-right:2em;">
+				<input type="button" class="hyq-btn hyq-btn-default-lg fr" id="send-msg"  value="  发 送  "/>
+			</div>
+			 
+		</div>
+	<!--邮箱验证弹窗结束-->
+	</body>
+	{literal}
+	<script>
+
+	var tellParent = function(how){
+
+		//发送成功
+		if(how){
+			parent.$(parent.top.document).trigger({
+				type:"hyq/sms/popup/sent",
+			});
+		}else{
+			parent.$(parent.top.document).trigger({
+				type:"hyq/sms/popup/sent/failure",
+			});
+		}
+	}
+
+
+	$(document).ready(function(){
+		$("#send-msg").unbind("click").click(function(){
+			var action = 'send_message';
+			//获取收接收者ID
+			var rec_id = $('#receiver_id').val();
+
+			var message = $.trim($('#message').val());
+			
+			if(rec_id.length ==0 || message.length == 0 || action.length == 0){
+				return false;
+			}else if(message.length > 1024){
+        		alert('输入内容过长,请删改后发送!');
+        		return false;
+        	}else{
+				$.ajax({
+					url:'/home/ajax/ajax_home_message.php',
+					type:'post',
+					data:{'rec_id':rec_id,'message':message,'action':action},
+					success:function(data){
+						//alert(data);
+						if(data == 1320){
+							//alert('消息发送失败！');
+							tellParent(false);
+						}else{
+							//alert('消息发送成功！');
+							tellParent(true);
+						}
+					},
+					dataType:'text'
+				});
+			}
+			
+			
+			//这句话必须在你的AJAX回调里使用，告诉父窗口发送成功还是失败 
+			//tellParent(true);
+		});
+			 
+	});
+	
+	</script>
+	{/literal}
+</html>

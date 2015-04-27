@@ -1,0 +1,57 @@
+
+	<body class="recruits-channel">			
+			<div class="act-red-topList">
+            	<div class="List-title-img">
+                	<img  src="http://icon.hotyq.com/v2/right-bar/r-reds-top.jpg" width="250" height="80">
+                </div>
+              	 <ul class="hyq-tabs">
+                    <li class="hyq-tab active">
+                      <a href="#right-week-list"></a>
+                      <span>周榜</span>
+                    </li>
+                    <li class="hyq-tab">
+                      <a href="#right-month-list"></a>
+                      <span>月榜</span>
+                    </li>
+                    <li class="hyq-tab">
+                      <a href="#right-new-list" ></a>
+                      <span class="last">新人榜</span>
+                    </li>        
+             	 </ul>
+    			<div class="hyq-tab-content" >
+                    <div class="hyq-tab-pane" id="right-week-list">
+                      	<ul class="topReds-list">
+							{foreach name=week_list from=$week_list item=v key=key}
+								<li>
+									<a href="/{$v['user_type']}/{$v['id']}" class="redsList-link"></a>
+									<i>{$v['key']}</i>
+                                <img src="{$v['icon_server_url']}{$v['icon_path_url']}" width="50" height="50">
+                                <span class="txt-con">
+                                	<p><span>{$v['nickname']}</span><em class="user-level" alt="红演圈会员级别" title="红演圈会员级别">Lv.{$v['level']}</em></p>
+                                    <p>{$v['address']}</p>
+                                    <p>	{foreach from=$v['role_name'] item=vv key = key name=role_name}
+											{if key neq $smarty.foreach.role_name.last }
+												{$vv['name']}/
+											{else}
+												{$vv['name']}
+											{/if}
+										{/foreach}	
+										</p>
+                                </span>
+                                <p class="cl"></p>
+                                <div class="dash-spliter-2"></div>
+                            </li>
+							{/foreach}
+							</ul>
+                    </div>           
+                    <div class="hyq-tab-pane" id="right-month-list">
+                     月榜
+                    </div>  
+                    <div class="hyq-tab-pane" id="right-new-list">
+                     新人榜
+                    </div> 
+            
+                </div>
+            </div>
+		
+</body>

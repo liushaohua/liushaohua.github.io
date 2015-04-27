@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.hotyq.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>绑定成功 – 红演圈</title>
+		<meta name="description" content="">
+		
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		{literal}
+		<script>
+			$(function(){
+				var action = $('#action').val();
+				var user_type = $('#user_type').val();
+				var nickname = $('#nickname').val();
+				$("#ucard_btn").attr('href','/home/'+user_type+'/card');
+				$("#ucard_btn1").attr('href','/home/'+user_type+'/card');
+				if(action == 'bind_account'){
+					if(nickname == ''){
+						var s = 5;
+						var cardtime = setInterval(function(){
+							s--;
+							$('#s').html(s+"秒后自动跳转至我的红名片");
+							if(s == 0){
+								clearInterval(cardtime);
+								location.href="/home/"+user_type+"/card";
+							}
+						},1000);
+					}else{
+						var s = 5;
+						var indextime = setInterval(function(){
+							s--;
+							$('#s').html(s+"秒后自动跳转至网站主页");
+							if(s == 0){
+								clearInterval(indextime);
+								location.href="http://www.hotyq.com";
+							}
+						},1000);
+					}
+				}else if(action == 'create_email_bind_account'){
+					var s = 5;
+					var cardtime = setInterval(function(){
+						s--;
+						$('#s').html(s+"秒后自动跳转至我的红名片");
+						if(s == 0){
+							clearInterval(cardtime);
+							location.href="/home/"+user_type+"/card";
+						}
+					},1000);
+				}
+				
+					
+
+			});
+			{/literal}
+			var userid = {$userid};
+			{literal}
+			function send_active_email(){
+				$.post("/account/ajax/ajax_account.php",{'action':'send_active_email','userid':userid},function(data){
+					if(parseInt(data) == 1000){
+						alert('邮件发送成功');
+					}else{
+						alert('发送失败');
+					}
+				},'text');	
+			}
+		</script>
+		{/literal}
+	</head>
+	<body style="background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center no-repeat;background-size:cover;">
+	{include file="common/header_simple.html"}
+		<input type="hidden" name="action" value="{$action}" id="action">
+		<input type="hidden" name="user_type" value="{$user_type}" id="user_type">
+		<input type="hidden" name="nickname" value="{$nickname}" id="nickname">
+		<div class="content-wrapper _zeroPDTop" >
+			<div class="main-column-a _relativePos" >
+				<!-- 绑定成功 -->
+				<div class="column-wrapper RdBorderBtm ">
+					<div class="row2">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="_bold  f18 Blak2">账号绑定成功</label>
+						</div>
+					</div>
+					<div class="red-spliter"></div>
+
+					<div class="row2" style="padding-bottom:0px;" >
+						{if $action eq "bind_account"}
+						<div class="muted-subtitle-box">
+							<div class="muted-subtitle">
+								<div>
+									您可以使用以下账号登陆红演圈：
+								</div>
+								{if $login_type eq 'email' && $sns_type eq 'qq'}
+								<div>
+									邮箱：<label class="f16 _bold Blak4">{$account}</label>
+								</div>
+								<div>
+									QQ   ：<label class="f16 _bold Blak4">{$sns_username}</label>
+								</div>
+								{elseif $login_type eq 'email' && $sns_type eq 'weibo'}
+								<div>
+									邮箱：<label class="f16 _bold Blak4">{$account}</label>
+								</div>
+								<div>
+									weibo   ：<label class="f16 _bold Blak4">{$sns_username}</label>
+								</div>
+								{elseif $login_type eq 'mobile' && $sns_type eq 'qq'}
+								<div>
+									手机：<label class="f16 _bold Blak4">{$account}</label>
+								</div>
+								<div>
+									QQ   ：<label class="f16 _bold Blak4">{$sns_username}</label>
+								</div>
+								{elseif $login_type eq 'mobile' && $sns_type eq 'weibo'}
+								<div>
+									手机：<label class="f16 _bold Blak4">{$account}</label>
+								</div>
+								<div>
+									weibo  ：<label class="f16 _bold Blak4">{$sns_username}</label>
+								</div>
+								{/if}
+								<br class="_clb"/>
+								<br class="_clb"/>
+								<br class="_clb"/>
+								<br class="_clb"/>
+								{if $nickname eq null}
+								<span id="s">5秒后自动跳转至我的红名片</span>
+								</div>
+								<br class="_clb"/>
+								<a href="" class="hyq-btn hyq-btn-lg" id="ucard_btn">&nbsp;我的红名片&nbsp;</a>
+								{else}
+								<span id="s">5秒后自动跳转至网站主页</span>
+								</div>
+								<br class="_clb"/>
+								<a href="http://www.hotyq.com" class="hyq-btn hyq-btn-lg">&nbsp;网站主页&nbsp;</a>
+								{/if}
+							<br class="_clb"/>
+							<br class="_clb"/>
+						</div>
+						{elseif $action eq "create_email_bind_account"}
+						<div >
+							<div style="padding-bottom:0px;" class="row2">
+									<div class="lead-title-sm">
+									<label class="Blak2 f16"> 您可以使用所绑定账号登陆红演圈</label>
+									</div>
+									<div class="muted-subtitle-box">
+										<div class="muted-subtitle">
+											<div>我们已将验证邮件发送至邮箱：<label class="Blak4 ">{$account}</label></div>
+											<div>点击邮件内的链接可以即可完成绑定，并可以使用红演圈所有功能</div>
+
+										</div>
+										<br class="_clb">
+									</div>
+							</div>
+
+							<div class="gray-spliter"></div>
+
+							<div style="padding-bottom:0px;" class="row2">
+									<div class="lead-title-sm">
+										<label class="Blak2 f16"> 没有收到验证邮箱，怎么办？</label>
+									</div>
+									<div class="muted-subtitle-box">
+										<div class="muted-subtitle">
+											 
+											<div>1. 看看是否在邮箱的垃圾邮件、广告邮件目录里</div>
+											<div>2. 稍等几分钟，若还未收到验证邮件，
+												<label class="link-red">
+													<a class="Rd" id="resend" data-target="#resend_valid_mail_success_modal" data-toggle="hyq-modal" href="javascript:send_active_email()">重新发送验证邮件</a>
+												</label>
+											</div>
+											<div>3. 还未收到验证邮件，请联系我们，邮箱：<label href="mailto:info@hotyq.com" class="Blak4">info@hotyq.com</label> 电话：<span class=" Blak4">400-888-8888</span></div>
+											<br class="_clb">
+											<br class="_clb">
+											<span id="s">5秒后自动跳转至我的红名片</span>
+											<br class="_clb">
+											<br class="_clb">
+											<div class="form-group col-md-12">
+												<a href="" id="ucard_btn1">
+												<input type="button" class="hyq-btn hyq-btn-lg f18" value="我的红名片">
+												</a>
+												<br class="_clb">
+												<br class="_clb">
+											</div>
+										</div>
+										<br class="_clb">
+									</div>
+							</div>
+
+						</div>
+						{/if}
+					</div>
+
+				</div>
+
+			</div><!-- 主栏结束 -->
+
+			<!-- 通用右边栏 -->
+			<div class="right-column">
+				{include file="html/right_qrcode.html"}
+				
+				{include file="common/right_advantage.html"}
+				<br class='_clb'/>
+			</div>
+		</div>
+
+			<!-- 通用页脚 -->
+			{include file="common/footer.html"}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>我的收藏 - 首页</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		
+		<script src="/js/jquery.js"></script>
+		<link rel="stylesheet" href="/css/main.css">
+		<style type="text/css">
+			/*
+			.fixed-row-lead {
+				padding: 5px;
+			}
+			.fix-mgr {
+				margin-right: 15px;
+			}
+			.fixed-row {
+				padding: 0px 10px 0px 15px;
+			}
+			.all-collection-wrapper {
+				display: table;
+			}
+			 
+			ul>.fix-rsc-mgr{
+				margin-right: 0px;
+			}
+			.reds-item{
+				width: 345px;
+				margin-right: 15px;
+			}
+			*/
+		</style>
+	</head>
+	<body class="hyq-collction hyq-collction-null">
+
+		{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+
+		<div class="content-wrapper-b">
+
+			<!--面包屑-->
+			<div class="hyq-breadcrumb-bar">
+				<div class="breadcrumb-box">
+					<a href="/home/{$user_info['user_type']}">我的红演圈</a> &gt; 
+					<a href="/home/collect">收藏</a>
+				</div>
+				<div class="decoration-bar"></div>
+			</div>
+
+			<!--左边栏-->
+			{include "common/home/left_collect.html"}
+			<!--主栏-->
+			{if $collect_user_info or $collect_org_info or $collect_recruit_info}
+			<div class="right-col-754">
+				<div class="lead-title-bar"></div>
+				<!-- 内容 -->
+				<div class="all-collection-wrapper">
+
+					<div class="fixed-row-lead">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i>
+							<label class=" Blak2">最近收藏的红人</label>
+						</div>
+					</div>
+					<!--红人收藏-->
+					<div class="fixed-row">
+						<ul class="reds-items">
+							{foreach from=$collect_user_info key=key item=u_info name=show} 
+				              <li class="reds-item {if $smarty.foreach.show.iteration %2 eq 1} fix-mgr {/if}">
+				                <a href="javascript:;" class="hyq-dropdown-menu-btn collection-action-menu">
+				                    <i class="hyq-ic ic-chevron-sm"></i>
+				                    <ul>
+				                      <li userId="{$u_info['dynamic_id']}">
+				                      	私信
+				                      </li>
+				                      <li userId="{$u_info['dynamic_id']}" dynamic_name="{$u_info['nickname']}">邀约</li>
+				                      <li collect_id="{$key}">取消收藏</li>
+				                    </ul>
+				                </a>
+				                <a href="/user/{$u_info['dynamic_id']}" class="reds-avt">
+				                  <img src="{$u_info['icon_url']}"/>
+				                </a>
+				                <dl>
+				                  <dt class='reds-name'><a href="javascript:;">{$u_info['nickname']}</a><span class="user-level-small" alt="红演圈会员级别" title="红演圈会员级别">Lv.{$u_info['level']}</span></dt>
+				                  <dd class="reds-loc">
+				                    <i class="hyq-ic ic-loc"></i> {$u_info['address']}
+				                  </dd>
+				                  <dd class="reds-roles">
+				                    <i class="hyq-ic ic-person"></i> {$u_info['role_str']} 
+				                  </dd>
+				                   <dd class="reds-list-bottom-bar">
+				                      <a href="javascript:;">
+				                      	{if $u_info['email_status'] eq 'yes'}
+				                        <i class="hyq-ic ic-mailbox-sm" alt="邮箱已验证" title="邮箱已验证"></i>
+				                        {else}
+				                        <i class="hyq-ic ic-mailbox-sm-muted" alt="邮箱未验证" title="邮箱未验证"></i>
+				                        {/if}
+				                      </a>
+				                      <a href="javascript:;">
+				                      	{if $u_info['identity_card_status'] eq 'yes'}
+				                        <i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+				                        {else}
+				                        <i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+				                        {/if}
+				                      </a>
+				                      <a href="javascript:;">
+				                      	{if $u_info['mobile_status'] eq 'yes'}
+				                        <i class="hyq-ic ic-mobile-sm" alt="手机已验证" title="手机已验证"></i>
+				                        {else}
+				                        <i class="hyq-ic ic-mobile-sm-muted" alt="手机未验证" title="手机未验证"></i>
+				                        {/if}
+				                      </a>
+				                      <span class="reds-state"><em> {$u_info['state']}</em></span>
+				                  </dd>
+				                </dl>
+				              </li>
+			            	{foreachelse}
+			            	<li class="reds-item fix-mgr" style="text-align:center;width:730px">
+			            		<p><img src="http://icon.hotyq.com/v2/OMG.png" width="100" height="100"></p>
+        						<p>OMG!您还没有收藏过任何东东哦！</p>
+       							<a href="/user/">随便逛逛</a>
+       						</li>
+				            {/foreach}
+						</ul>
+					</div>
+				 
+					<br class="_clb"/>
+					<div class="fixed-row _clb">
+						<span class="c-index-more pull-right f12"><a href="/home/collect_user">&raquo;&nbsp;更多</a></span>
+					</div>
+					<br class="_clb"/>
+
+					<div class="fixed-row _clb">
+						<div class="gray-spliter"></div>
+					</div>
+
+					 <div class="fixed-row-lead">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i>
+							<label class=" Blak2">最近收藏的机构与团体</label>
+						</div>
+					</div>
+
+					<div class="fixed-row org-collection-wrapper">
+						<ul class="orgs-items" style="margin:0px;">
+			                <!-- 循环li标签的时候请注意 奇数的LI需要多加一个样式类 .fix-mgr -->
+			               {foreach from=$collect_org_info item=org_info key=key name=show}
+				                <li href="#" class="orgs-item {if $smarty.foreach.show.iteration %2 eq 1} fix-mgr {/if}">
+				                  <a href="javascript:;" class="hyq-dropdown-menu-btn collection-action-menu">
+				                    <i class="hyq-ic ic-chevron-sm"></i>
+				                    <ul>
+				                      <li userId="{$org_info['dynamic_id']}">
+				                      	私信
+				                      </li>
+				                      <li userId="{$org_info['dynamic_id']}" dynamic_name="{$org_info['nickname']}">邀约</li>
+				                      <li collect_id="{$key}">取消收藏</li>
+				                    </ul>
+				                  </a>
+				                  <a href="/org/{$org_info['dynamic_id']}" class="orgs-avt pull-left">
+				                    <img src="{$org_info['icon_url']}"/>
+				                  </a>
+				                  <dl>
+				                    <dt class='orgs-name'><a href="javascript:;">{$org_info['nickname']}</a> <span class="user-level-small" alt="红演圈会员级别" title="红演圈会员级别">Lv.{$org_info['level']}</span>
+
+				                    </dt>
+				                    <dd class="orgs-loc">
+				                      <i class="hyq-ic ic-loc"></i> {$org_info['address']}
+				                    </dd>
+				                    <dd class="orgs-roles">
+				                      <i class="hyq-ic ic-brief-case"></i> {$org_info['org_type']}
+				                    </dd>
+				                    <dd class="orgs-list-bottom-bar">
+				                        <a href="javascript:;">
+				                          {if $org_info['email_status'] eq 'yes'}
+				                          <i class="hyq-ic ic-mailbox-sm" alt="邮箱已验证" title="邮箱已验证"></i>
+				                          {else}
+				                          <i class="hyq-ic ic-mailbox-sm-muted" alt="邮箱未验证" title="邮箱未验证"></i>
+				                          {/if}
+				                        </a>
+				                        <a href="javascript:;">
+				                          {if $org_info['identity_card_status'] eq 'yes'}
+				                          <i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+				                          {else}
+				                          <i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+				                          {/if}
+				                        </a>
+				                        <a href="javascript:;">
+				                          {if $org_info['mobile_status'] eq 'yes'}
+				                          <i class="hyq-ic ic-mobile-sm" alt="手机已验证" title="手机已验证"></i>
+				                          {else}
+				                          <i class="hyq-ic ic-mobile-sm-muted" alt="手机未验证" title="手机未验证"></i>
+				                          {/if}
+				                        </a>
+				                        <span class="orgs-state"><em> {$org_info['state']}</em></span>
+				                    </dd>
+				                  </dl>
+				                </li>
+				                {foreachelse}
+				                <li class="orgs-item fix-mgr" style="text-align:center;width:730px">
+				            		<p><img src="http://icon.hotyq.com/v2/OMG.png" width="100" height="100"></p>
+	        						<p>OMG!您还没有收藏过任何东东哦！</p>
+	       							<a href="/user/">随便逛逛</a>
+	       						</li>
+				                {/foreach}
+						 </ul>
+					</div>
+					<br class="_clb"/><br class="_clb"/>
+					<div class="fixed-row _clb">
+						<span class="c-index-more pull-right f12"><a href="/home/collect_org">&raquo;&nbsp;更多</a></span>
+					</div>
+					<div class="fixed-row _clb">
+						<div class="gray-spliter"></div>
+					</div>
+
+
+					<!--最近收藏的招募-->
+					<div class="fixed-row-lead">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i>
+							<label class=" Blak2">最近收藏的招募</label>
+						</div>
+					</div>
+					<!-- 招募收藏 -->
+					<div class="fixed-row">
+
+						<ul class="rcs-items" id="recruit-normal">
+							{foreach from=$collect_recruit_info item=recruit_info key=key name=show}
+							<li class="rcs-item">
+								<a href="javascript:;" class="hyq-dropdown-menu-btn collection-action-menu"> <i class="hyq-ic ic-chevron-sm"></i>
+								<ul>
+									<li userId="{$recruit_info['uid']}">
+										私信
+									</li>
+									<li style="display:none">邀约</li>
+									<li collect_id="{$key}">
+										取消收藏
+									</li>
+								</ul> </a>
+								<!-- 这里放招募的链接 -->
+								<a href="/recruit/recruit_info.php?id={$recruit_info['dynamic_id']}" class="rcs-link-mask"> </a>
+
+								<div class="rcs-timing">
+									<label>面试时间</label>
+									<span>{$recruit_info['interview_start']}</span>
+									<em>{$recruit_info['interview_end']}</em>
+								</div>
+								<ul class="rcs-info">
+									<li>
+										<i class="hyq-ic ic-bell"></i>{$recruit_info['name']}
+									</li>
+									<li>
+										<i class="hyq-ic ic-person"></i>{$recruit_info['role_str']}
+									</li>
+									<li>
+										<i class="hyq-ic ic-loc"></i>{$recruit_info['address']}
+									</li>
+								</ul>
+							</li>
+							{foreachelse}
+							<li class="rcs-item" style="text-align:center;width:730px">
+			            		<p><img src="http://icon.hotyq.com/v2/OMG.png" width="100" height="100"></p>
+        						<p>OMG!您还没有收藏过任何东东哦！</p>
+       							<a href="/recruit/">随便逛逛</a>
+       						</li>
+							{/foreach}
+						</ul>
+					</div>
+					<div class="fixed-row _clb">
+						<span class="c-index-more pull-right f12"><a href="/home/collect_recruit">&raquo;&nbsp;更多</a></span>
+					</div>
+					<br class="_clb"/>
+ 
+
+				</div>
+			</div>
+			{else}
+				<div class="right-col-754 right-col-1000">
+		          <div class="lead-title-bar"></div>
+		        <p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+		        <p>OMG!您还没有收藏过任何东东哦！</p>
+		        <p><a href="http://www.hotyq.com">随便逛逛</a>，每天都有当红艺人、招募事件等你，说不定还有意外的惊喜哦！</p>
+		        </div>
+			{/if}
+		</div>
+
+		</div>
+		</div>
+		<!--隐藏域 存储是否成功 的状态-->
+		<input id="hide_save_states" type="hidden" value="0">
+		<!-- tips 框 -->
+		<div class="hyq-tip" id="tip-message" >
+			<i hyq-tip-icon-node></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>
+
+		<!-- 主内容尾 -->
+		{include "common/footer.html"} 
+ 		
+ 		<!--发私信窗口-->
+ 		{include "common/home/include_message_box.html"}
+		<!--通用发邀约窗口-->
+		{include "common/home/include_invite_box.html"}
+	</body>
+	{literal}
+	<script>
+		//$(".collection-action-menu li:eq(1)").click(function(){
+        //	alert('邀约,被收藏者ID:'+$(this).attr('dynamic_id'));
+		//});
+		
+
+		 //当发送邀约的按钮被点击时
+		$(".collection-action-menu").each(function(){
+	        $(this).find("li:eq(1)").click(function(){
+	          //这里要做个判断，判断当前登录的用户有没有招募
+			if($('#has_recruit').val() == 'OK'){
+				var hasRecruit = true;//可以根据后台的情况判断这个值
+			}else{
+				var hasRecruit = false;//可以根据后台的情况判断这个值
+			}
+	         
+			  var toUserId = $(this).attr('userId');
+			  var toUserName = $(this).attr('dynamic_name');
+
+	          if(hasRecruit){
+
+	            //发送事件让发邀约的窗口弹出，同时要把用户ID传过去
+	            $(document).trigger({
+	              type:"hyq/doc/invite",
+	                //fromUserId:"11",    //当前用户的ID
+	                toUserName:toUserName,    
+	                toUserId:toUserId      //邀约用户的ID 
+	              });
+	          }else{
+				
+	            $(document).trigger("hyq/invite/no-recruit/alert");
+	            
+	          }
+	        });
+    	});
+
+
+	    $(".collection-action-menu").each(function(){
+	      $(this).find("li:eq(2)").click(function(){
+	        $.post("/home/ajax/ajax_home_collect.php",{'action':'cancel_collect','collect_id':$(this).attr('collect_id')},function(data){
+	            var cancel_result = eval('('+data+')');
+	            var tip = $("#tip-message").HYQTip();
+				tip.showSuccess(cancel_result.desc);
+				setTimeout("location.reload()",2000);
+	          },'text');  
+	      });
+	    });
+	</script>
+	{/literal}
+</html>

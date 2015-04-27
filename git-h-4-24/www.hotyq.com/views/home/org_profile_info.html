@@ -1,0 +1,1599 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>基础资料 - 编辑资料 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+	<script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+	{literal}
+    <style type="text/css">
+
+		 .logo-show{width: 150px;
+            height: 150px; display:block;}
+				 
+			 .logo-show .btn-upload{
+            position: absolute;
+            top: 10px;
+            left:21px;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color: #808080;
+            z-index: 2;
+       		 }
+      	  .logo-show .btn-upload-exist{
+            position: absolute;
+            top: 10px;
+            left: 21px;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color:transparent;
+            z-index: 2;
+      		cursor: default;
+       		 }
+    	.logo-show .btn-upload-exist .btn-change-logo{
+		  height: 32px;
+		  width: 150px;
+		  text-align: center;
+		  line-height: 32px;
+		  font-size:14px;
+		  color: #fff;
+		  position: absolute;
+		  left: -1px;
+		  bottom: 0px;
+		  opacity: .5;
+		  cursor: pointer;
+		  background-color:#4a4a4a;
+	
+		}
+        .logo-show a:hover .btn-upload,
+        .logo-show a:hover .btn-upload-exist{
+            display: block;
+        }
+		<!--end of upload-->
+
+		.checkbox-group label{font-size: 14px;}
+		.fix-row{
+			font-size: 16px;
+		    margin: 5px 5px 0px 45px;
+		    padding-bottom: 15px;
+		}
+		.rr-tag-box p{padding-bottom:10px;}
+			.row{
+				padding:15px 15px 10px 15px;
+			}
+			.btn-group{ padding-top:5px;}
+			.redtags-review-inner label{
+				margin: 9px 10px 6px 6px;
+				width:auto;
+				height:40px;
+				line-height:40px;
+				border:1px solid #d7d7d7;
+				background:#fff;
+				padding:0px 6px;
+				text-align:center;
+				font-size:16px;
+				color:#000;
+				width:84px;
+				 overflow: hidden;
+  				white-space: nowrap;
+  				text-overflow: ellipsis;
+			}
+
+			.pull-left {
+				float: left;
+				clear: none;
+			}
+			.pull-right {
+				float: right;
+				clear: none;
+			}
+
+		 
+			.toggle-item {
+				margin-top: 15px;
+			}
+			.toggle-item .handle {
+				 
+				padding-top: 30px;
+				padding-bottom: 30px;
+				font-size: 20px;
+			}
+			.toggle-item .handle * {
+			
+			}
+			 .toggle-item .handle .hyq-ic {
+					cursor: pointer;	 
+			}
+			
+			
+			.profile-detail {
+				/*margin-left: 170px;
+				margin-right: 30px;
+				color: #000;*/
+				margin-right:100px;
+				float:right;
+			}
+			.profile-detail h3 {
+				font-size: 20px;
+				display: inline-block;
+				*display: inline;
+				*zoom: 1;
+				margin: 0;
+				padding: 0;
+				color: #000;
+				font-weight: bold;
+			}
+			
+			.profile-detail-title {
+				line-height: 22px;
+			}
+			.profile-detail-text {
+				width: 280px;
+				font-size: 14px;
+			}
+			.profile-vstatus, .profile-pos, .profile-url {
+				padding: 5px 0;
+				font-size: 14px;
+			}
+			.profile-vstatus {
+				 
+				margin-top: 0px;
+				padding-top: 15px;
+			}
+			.profile-wrap {
+				height: 250px;
+			}
+			.profile-jobs {
+				line-height: 20px;
+			}
+			.profile-jobs .pull-right {
+				width: 254px;
+			}
+			.profile-photolist {
+				background: #fff;
+				position: relative;
+				top: -20px;
+				width: 600px;
+				display: block;
+				 
+				padding-right: 0;
+				padding-bottom: 0;
+				padding-top: 18px;
+				padding-bottom: 18px;
+				 /*margin: 0 auto;*/
+				overflow: hidden;
+				/*margin:0px 25px 45px 0px;*/
+				margin-left: 22px;
+			}
+			
+			 
+			.dropdown-loc-fixed{
+        	 width: 85px;
+       		 }
+			.input-school {
+				width: 180px;
+			}
+			.input-major {
+				width: 160px;
+			}
+			.input-organ {
+				width: 435px;
+			}
+			.lead-content {
+				margin-left: 30px;
+				margin-right: 30px;
+				border-bottom: 1px solid #a4a4a4;
+				color: #000;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+			}
+			.lead-content .checkbox-group {
+				width: 98px;
+				font-size: 14px;
+				margin-bottom: 4px;
+			}
+			.lead-content .form-group {
+				padding-top: 10px;
+				margin-bottom: 0;
+			}
+			.diy-tags input {
+				height:38px;
+				width: 185px;
+				font-size:16px;
+			}
+			.diy-tag ,.selected-role{
+				height: 28px;
+				line-height: 28px;
+				border: 1px solid #d7d7d7;
+				background: #fff;
+				font-size: 12px;
+				padding: 0 10px;
+				margin: 0 5px 5px 0px;
+			}
+			.diy-tag i,
+			.selected-role i {
+				margin-left: 5px;
+				cursor: pointer;
+			}
+		 
+			 
+			.field-fix-width{
+				width: 480px;
+			}
+
+			.field-fix-width-1{
+				width: 320px;
+			}
+			.hyq-tip{
+				width: 480px;
+				display: block;
+			}
+			.rt-first-edit #redtags-review-box,
+			.rt-first-edit #redtags-edit-box,
+			.rt-first-edit #redtags-edit-btn{
+				display: none;
+			}
+
+			.rt-first-edit #redtags-expend-btn{
+				display: block;
+			}
+
+			.rt-edit #redtags-edit-box
+			{
+				display: block;
+			}
+			.rt-edit #redtags-review-box,
+			.rt-edit #redtags-edit-btn,
+			.rt-edit #redtags-expend-btn{
+				display: none;
+			}
+
+			
+			 
+			.rt-review  #redtags-edit-box,
+			.rt-review #redtags-expend-btn{
+				display: none;
+			}
+			.rt-review #redtags-edit-btn,
+			.rt-review  #redtags-review-box{
+				display: block;
+			}
+
+			/* FIX READ ROLE*/
+			.fix-custom-role{
+				margin-right:2em;
+				width: 180px;
+			}
+
+			.hyq-image-cropper form{display:block;}
+			.hyq-modal-default .hyq-model-body-de{height:447px;}
+			.hyq-modal-default .hyq-model-body-de.hyq-model-body-active{height:566px;}
+			.hyq-image-cropper .cropper{position:absolute;}
+			.hyq-image-cropper form input{position:absolute;width:352px;height:352px;display:block;background:red;z-index:20;font-size:300px;top:20px;opacity:0;overflow:hidden;}
+			.hyq-image-cropper .button-box{position: absolute;top: 414px;}
+			.hyq-image-cropper .slider-box{position:absolute;top:374px;}
+			.hyq-image-cropper{height:490px;overflow:hidden;}
+			.hyq-image-cropper form input.hyq-replace{width:90px;height:39px;top: 439px;left: 133px;font-size:14px;}
+			
+	</style>
+    {/literal}
+  </head>
+  <body class="profile-edit">
+    
+      {include "common/header.html"}
+	  {include "common/nav_search.html"}	  
+	  <script>
+		$(function(){
+			//1将扫库扫到的数据  已经填进两种模式中 ------wangyifan
+			var hide_head_icon_src = $('#hide_head_icon_src').val();
+			if(hide_head_icon_src != ''){
+				//有头像
+				hide_head_icon_src += '!150';
+				$('#edit_show_icon').prop('src',hide_head_icon_src);
+				$('#logo_save_before').hide();
+				$('#logo_save_after').show();
+			}
+			//单击保存  获取各项的值  ajax到后台  完毕 返回1000 模板上的数组在填到编辑模式里
+			//验证各项
+		});
+	</script>
+		<!--php扫库的头像数据 存放到隐藏域  再放到两种模式中-->
+	<input id="hide_head_icon_src" type="hidden" value="{$user_info['icon_server_url']}{$user_info['icon_path_url']}">
+		
+      <div class="content-wrapper-b">
+        <!--左边栏-->
+<!--         <div class="left-col-200">
+          <div class="right-bar-menu-box">
+            <div class="lead-title-bar">
+               我的资料编辑
+            </div>
+            <ul class="gray-menu-group">
+			  <li class="active "><a class="save-btn-back" href="/home/org/set">基础资料</a></li>
+              <li><a class="save-btn-back" href="/home/org/service/set">红服务</a></li>
+              <li><a class="save-btn-back" href="/home/org/figure/set">红形象</a></li>
+            </ul>
+          </div>
+        </div> -->
+        {include "common/home/left_org_edit.html"}
+        <!--主栏-->
+        <div class="r-col-754">
+        	<div class="r-topBar">
+            </div>
+            <span class="base-title2">基础资料</span>
+			<a class="back-btn save-btn-back" href="{$previous_page}" >返回</a>
+			<input type ="hidden" value="" id="tohref">
+          	<!-- 红名片编辑模式 -->
+			<div id="redcard-edit-box">
+			<div class="row" style="padding-left:6px;padding-top:0px;">
+				<div class="clearfix row2">
+					<div class="logo-show pull-left">
+						<a href="javascript:void(null)">
+						<img id="edit_show_icon" style="height:150px;width:150px;" src="http://icon.hotyq.com/v2/logo.jpg" alt="" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+						
+							<!--更换 LOGO按钮开始 -->
+						  <!-- 当LOGO不存在的时候 使用这个按钮 -->
+						  <span id="logo_save_before" class="btn-upload" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+							<i class="hyq-ic ic-upload-lg "></i>
+						  </span>  
+
+						  <!-- 当LOGO已经存在的时候使用下面这个按钮 -->
+						   <span id="logo_save_after" style="display:none;" class="btn-upload-exist _relativePos" >
+								<span class="btn-change-logo" data-toggle="hyq-modal" data-target="#img-cropper-dialog" >更换logo</span>    
+							</span>
+						  <!--更换LOGO按钮结束-->
+
+						
+						</a>
+						
+						
+					</div>
+					<div class="profile-detail" style="">
+						<div class="profile-top">
+						<!-- 机构名称 -->
+						<div class="form-group">
+                            <em>*</em>
+								<input name="orgname" class="fix-f-orgname" placeholder="某某有限公司/乐队/社团" type="text" value="{$user_info['nickname']}" id="nickname"/>
+								<div class="hyq-f-err hyq-f-err-pad-left" id="nickname_tips" style = "display:none">
+									<i class="hyq-ic ic-vlid-err"></i> <label>请填写机构名 </label>
+								</div>
+                        </div>
+                        <!-- 机构类型 -->
+                        <div class="form-group pull-left">
+							<em>*</em>
+							<div class="hyq-dropdown-box" id="type-list">
+								<input type="hidden" value="{if isset($orgprofile_info['type'])}{$orgprofile_info['type']}{/if}" name="character" id="type">
+								<div class="hyq-dropdown " type="text">
+									<span class="dropdown-value inline-block dropdown-place-2">机构类型</span>
+								</div>
+
+								<div class="hyq-dropdown-list">
+									 <ul id="on_type">									  
+									{foreach $tlist as $type}
+										<li value="{$type['id']}">{$type['name']}</li>
+									{/foreach}                                 
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"> <i></i> </a>
+							</div>
+							<div class="hyq-f-err hyq-f-err-pad-left" id="type_tips" style = "display:none">
+								<i class="hyq-ic ic-vlid-err"></i><label>请选择您的机构类型</label>
+							</div>
+						</div>
+                        <!-- 成立时间 -->
+						<div class="form-group pull-left" ">
+							<em>*</em>
+							<div class="hyq-dropdown-box" id= "create-time-list">
+								<input type="hidden" name="found" value="{if isset($orgprofile_info['create_time']) && $orgprofile_info['create_time'] >0}{$orgprofile_info['create_time']}{/if}" id="create_time">
+								<div class="hyq-dropdown dropdown-fixed-found-time" type="text">
+									<span class="dropdown-value inline-block dropdown-fixed-found-time">成立时间</span>
+								</div>
+
+								<div class="hyq-dropdown-list _hidden">
+								  <ul id="on_create_time">
+									{foreach $create_year as $year}
+										<li value = "{$year}">{$year}</li>
+									{/foreach}						
+								  </ul>
+								</div>
+								<a class="hyq-dropdown-btn"> <i></i> </a>
+							</div>
+
+							<div class="hyq-f-err  hyq-f-err-pad-left" style = "display:none" id="create_time_tips">
+								<i class="hyq-ic ic-vlid-err"></i><label>请填写成立时间</label>
+							</div>
+						</div>
+						
+                        <!-- 三级联动 -->
+                        <div class="form-group pull-left" id= "">
+                                            <em>*</em>
+							<div class="hyq-dropdown-box pull-left" id ="province-list" placeholder ="所在省">
+								<input type="hidden" value="{if isset($orgprofile_info['province_id']) && $orgprofile_info['province_id']>0}{$orgprofile_info['province_id']}{/if}" name="character" id="province">
+								<div class="hyq-dropdown " type="text">
+									{if $orgprofile_info['province_c'] eq null}
+										<span class="dropdown-value  inline-block">所在省</span>
+											
+									{else}
+										<span id="province_c" value="{if isset($orgprofile_info['province_id']) && $orgprofile_info['province_id']>0}{$orgprofile_info['province_id']}{/if}" class="dropdown-value inline-block selected dropdown-fixed-loc">{$orgprofile_info['province_c']}</span>
+									{/if}	
+								</div>
+
+								<div class="hyq-dropdown-list _hidden">
+									<ul id="on_province">
+									{foreach $provincelist as $province}
+										<li value="{$province['id']}">{$province['pname']}</li>
+									{/foreach}
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"> <i></i> </a>
+							</div>
+                                         
+                                            <em>&nbsp;</em>
+							<div class="hyq-dropdown-box  pull-left" id ="city-list" placeholder ="所在市">
+								<input type="hidden" value="{if isset($orgprofile_info['city_id']) &&  $orgprofile_info['city_id'] >0}{$orgprofile_info['city_id']}{/if}" name="character" id="city">
+								<div class="hyq-dropdown" type="text">
+									{if $orgprofile_info.city_c eq null}
+										<span class="dropdown-value inline-block ">所在市</span>											
+									{else}
+										<span id="city_c" value="{if isset($orgprofile_info['city_id']) &&  $orgprofile_info['city_id'] >0}{$orgprofile_info['city_id']}{/if}" class="dropdown-value  inline-block selected dropdown-fixed-loc">{$orgprofile_info.city_c}</span>
+									{/if}	
+								</div>
+
+								<div class="hyq-dropdown-list _hidden"  >
+										<ul id = "on_city">					
+										</ul>
+								</div>
+								<a class="hyq-dropdown-btn"> <i></i> </a>
+							</div>
+                                         
+                                            <em>&nbsp;</em>
+							<div class="hyq-dropdown-box  pull-left" id ="district-list" placeholder ="所在区">
+								<input type="hidden" value="{if isset($orgprofile_info['district_id']) && $orgprofile_info['district_id'] >0}{$orgprofile_info['district_id']}{/if}" name="character" id="area">
+								<div class="hyq-dropdown" type="text">
+									{if $orgprofile_info.district_c eq null}
+										<span class="dropdown-value inline-block ">所在区</span>
+											
+									{else}
+										<span id="district_c" value="{if isset($orgprofile_info['district_id']) && $orgprofile_info['district_id'] >0}{$orgprofile_info['district_id']}{/if}" class="dropdown-value inline-block selected dropdown-fixed-loc">{$orgprofile_info.district_c}</span>
+									{/if}	
+								</div>
+
+								<div class="hyq-dropdown-list">
+									<ul id="on_area">
+										<!-- <li value="0">
+											请选择区
+										</li> -->
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"> <i></i> </a>
+							</div>
+            
+                         
+ 							<div class="hyq-f-err hyq-f-err-pad-left pull-left" id="addr_tips" style = "display:none">
+								<i class="hyq-ic ic-vlid-err"></i><label>请选择您的所在地</label>
+							</div>
+                         </div>
+						
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+		
+			<div class="row">
+				<div class="lead-title">
+					
+					<!--<span class="base-title">身份验证</span>-->
+                    <br>
+							{if $info['email_status'] eq 'yes'}
+									<span id="certify_email_red_icon_edit" class="hyq-ic ic-mailbox-lg" alt="邮箱已验证" title="邮箱已验证"></span>
+									{else}
+									<span id="certify_email_gray_icon_edit" class="hyq-ic ic-mailbox-lg-muted hoverIcon" data-toggle="hyq-modal" data-target="#valid-email-modal" alt="邮箱未验证" title="邮箱未验证"></span>
+									<span id="certify_email_red_icon_edit" style="display:none" class="hyq-ic ic-mailbox-lg" alt="邮箱已验证" title="邮箱已验证"></span>
+									{/if}
+									
+									{if $orgprofile_info['legal_person'] eq 'yes'}
+									{if $info['business_card_status'] eq 'yes'}
+									<span id="certify_business_red_icon_edit" class="hyq-ic ic-cinfo-lg" alt="机构已验证" title="机构已验证"></span>
+									{else}
+									<span id="certify_business_gray_icon_edit" class="hyq-ic ic-cinfo-lg-muted hoverIcon" data-toggle="hyq-modal" data-target="#valid-firm-modal" alt="机构未验证" title="机构未验证"></span>
+									<span id="certify_business_red_icon_edit" style="display:none" class="hyq-ic ic-cinfo-lg" alt="机构已验证" title="机构已验证"></span>
+									{/if}
+									{else}
+									{if $user_info['identity_card_status'] eq 'yes'}
+										<!-- 已经验证的身份证号-->
+										<span id="certify_identity_red_icon_edit" class="hyq-ic ic-pinfo-lg" alt="身份证已验证" title="身份证已验证"></span>
+										{else}
+										<span id="certify_identity_gray_icon_edit" class="hyq-ic ic-pinfo-lg-muted hoverIcon" data-toggle='hyq-modal' data-target="#valid-idcard-modal" alt="身份证未验证" title="身份证未验证"></span>
+										<span id="certify_identity_red_icon_edit" style="display:none" class="hyq-ic ic-pinfo-lg" alt="身份证已验证" title="身份证已验证"></span>
+										{/if}
+									{/if}
+									{if $info['mobile_status'] eq 'yes'}
+									<span id="certify_mobile_red_icon_edit" class="hyq-ic ic-mobile-ln" alt="手机已验证" title="手机已验证"></span>
+									{else}
+									<span id="certify_mobile_gray_icon_edit" class="hyq-ic ic-mobile-ln-muted hoverIcon" data-toggle='hyq-modal' data-target="#valid-mobile-modal" alt="手机未验证" title="手机未验证"></span>
+									<span id="certify_mobile_red_icon_edit" style="display:none" class="hyq-ic ic-mobile-ln" alt="手机已验证" title="手机已验证"></span>
+									{/if}
+				</div>	
+						<div class="form-group pull-left" id="legal_person_off">
+							<em class="Rd">*</em>				
+							<label class='f16 Gray8' >是否为法人机构：</label>
+							<input type="hidden" id="legal_person" value="{$orgprofile_info['legal_person']}">
+								{if $orgprofile_info['legal_person'] eq 'yes'}
+								<input type="radio" class="hyq-nice-selectable-circle" disabled name='r1' value="0" checked="checked"/>
+								{elseif $orgprofile_info['legal_person'] neq 'yes'}
+								<input type="radio" class="hyq-nice-selectable-circle" disabled name='r1' value="0"/>
+								{/if}
+								<span name="legal"><b></b></span> 
+								<label class="f16 Gray8" value="yes">是</label>
+
+								{if $orgprofile_info['legal_person'] eq 'no'}
+								<input type="radio" class="hyq-nice-selectable-circle" disabled name='r1' value="1" checked="checked"/>
+								{elseif $orgprofile_info['legal_person'] neq 'no'}
+								<input type="radio" class="hyq-nice-selectable-circle" disabled name='r1' value="1"/>
+								{/if}
+								<span name="legal"><b></b></span>
+								<label class="f16 Gray8" value="no">否</label> 
+								<div class="hyq-f-err hyq-f-err-pad-left" id="legal_person_tips" style = "display:none">
+									<i class="hyq-ic ic-vlid-err"></i> <label>	请确认您的机构是否是法人机构 </label>
+								</div>	
+						</div>	
+			</div>
+ 		</div>
+			<!-- 红名片编辑模式结束 -->
+        	<!--红档案之编辑模式-->
+			<div class="row2 rf-edit-box" id="rf-edit-box">
+
+			<div class="form-group" >
+	            <label for="intro" class="pull-left f16">机构简介：</label>
+	            <textarea id="rf-intro" placeholder="请输入贵公司简介（最多200个字）" rows="8" class="col-md-9 f14" style="height:150px">{if isset($orgprofile_info.introduce)}{$orgprofile_info.introduce}{/if}</textarea>	
+					<div id="intro_text" class="word-hint">还可以输入<span>200</span>字符</div>
+	        </div>
+				
+	        <br class="_clb"/>
+	        <br class="_clb"/>
+	        <div class="form-group" >
+	            <label for="works" class="pull-left f16">主要作品：</label>
+	            <textarea id="rf-works" placeholder="请填写贵公司出产过的作品" class="col-md-9 f14" style="height:100px;">{if isset($orgprofile_info.production)}{$orgprofile_info.production}{/if}</textarea>
+                
+				 <div id="works_text" class="word-hint">还可以输入<span>200</span>字符</div>
+	        </div>
+			
+	        <br class="_clb"/>
+	        <br class="_clb"/>
+	        <div class="form-group" >
+	            <label for="honor" class="pull-left f16">主要荣誉：</label>
+	            <textarea id="rf-honor" placeholder="请填写贵公司获得过的主要荣誉" class="col-md-9 f14" style="height:100px;">{if isset($orgprofile_info.honor)}{$orgprofile_info.honor}{/if}</textarea>
+				 <div id="honor_text" class="word-hint">还可以输入<span>200</span>字符</div>
+	        </div>
+				<div class="hyq-f-err hyq-f-err-pad-left" id="profile_tips" style = "display:none">
+					<i class="hyq-ic ic-vlid-err"></i> <label>哎呦,错误了</label>
+				</div><br/>		
+		    <div class="form-group">
+				<input class="hyq-btn hyq-btn-lg fr saveBtn" type="button" value="保&nbsp;&nbsp;存" id="profile-save-btn">				
+			</div>
+			
+	</div>
+         </div>
+        <!--主栏结束-->
+        <div class="cl"></div>
+        
+      </div>
+   
+		<!-- 上传图片的对话框 -->
+		<div class="hyq-modal hyq-modal-default _hidden _clb" id="img-cropper-dialog" role="dialog">
+			<div class="hyq-modal-header">
+			  <div class="hyq-modal-close-btn"></div>
+			</div>
+			<div class="hyq-model-body txt-left hyq-model-body-de">
+				<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传企业Logo  <small class="Gray8">(上传企业Logo，提升企业吸引力)</small></label>
+						</div>
+						<!-- 图片截取器 -->
+
+						<div class="hyq-image-cropper">
+
+							<div img-cropper-uploder></div>
+							<div class="busy-mask">
+								<span><img src="http://icon.hotyq.com/v2/loading.gif"/></span>
+							</div>
+
+							<div class="cropper">
+								<div class="mask maskA"></div>
+								<div class="mask maskB"></div>
+								<div class="mask maskC"></div>
+								<div class="mask maskD"></div>
+								<div class="invite-btn"></div>
+								<div class="invite-message">
+									<div>
+										上传企业Logo
+									</div>
+									<div>
+										支持JPG，JPEG，PNG格式，不超过5M
+									</div>
+								</div>
+								<div img-dock="" >
+									<div img-mask></div>
+								</div>
+							</div>
+
+							<div class="preview-box">
+								<div class="preview-a">
+									<img src="http://icon.hotyq.com/v2/logo.jpg"/>
+								</div>
+								<div class="preview-b"><img/>
+								</div>
+							</div>
+
+							<div class='slider-box'>
+								<div class="slide-btn-wrapper">
+									<div class="slide-button"></div>
+								</div>
+								<i class="zout">-</i>
+								<div class='slider'>
+									<div class="white-bar"></div>
+								</div>
+								<i class="zin">+</i>
+							</div>
+
+							<div class="button-box _zeroPDBottom">
+								<input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+								&nbsp;
+								&nbsp;
+
+								<input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+								&nbsp;
+								&nbsp;
+
+								<input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+							</div>
+
+						</div>
+
+			</div>
+		</div>
+		<!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="error-message-box" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+		<!-- 报错窗口结束 -->
+		<!-- 成功窗口开始 -->
+		<div class="hyq-tip" id="success_tip_message" >
+			<i hyq-tip-icon-node></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>
+		<!-- tips 框 -->
+		<div class="hyq-tip" id="success_message" >
+			<i hyq-tip-icon-node></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>				
+		<!-- 成功窗口结束 -->
+		<div class="tip-small" id="tip-modi" style="display:none">
+			<!--<div class="hyq-ic ic-alert-lg">
+			</div>-->
+			<p style="margin-top:80px;">您的资料有修改,确定离开？</p>
+			<div class="album-btn-box2">
+				<input class="hyq-btn hyq-btn-lg" type="button" id="tohref-button"  name="yes" value="确&nbsp;&nbsp;定">
+				&nbsp;&nbsp;
+				<input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-trigger" name="no" value="取&nbsp;&nbsp;消" />
+			</div>
+		</div>		
+<!--邮箱验证弹窗-->
+{if $user_info['login_type'] eq "mobile"}
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-email-modal" role="dialog">
+
+	<div class="hyq-modal-header GrayBorderBtm txt-left">
+		<label class="f16 pull-left Gray8">&nbsp;&nbsp;邮箱验证</label>
+		<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<div class='gray-spliter _clb'></div>
+	<div class="hyq-model-body _clb field-fix-width">
+
+		<br/>
+		<br/>
+		<div class="form-group-centered field-fix-width-1">
+			<input type="text" name="name" placeholder="请输入您的邮箱地址" id="certify_email_account" class="field-fix-width-1 _clb" />
+			<div class="hyq-f-err txt-left" id="certify_email_format_tips" style="display:none">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+		</div>
+
+		<div>
+			<a type="button" class="hyq-btn hyq-btn-lg" onclick="mobile_user_certify_email()">&nbsp; 点击验证 &nbsp;</a>
+		</div>
+	</div>
+	<div class="hyq-model-bottom">
+
+	</div>
+</div>
+{else}
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-email-modal" role="dialog">
+
+	<div class="email-check-wrap bgGray2 RdBorderTop">
+      <p class="check-title">
+          <span >邮箱验证</span>
+          <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+      </p>    
+      <div class="cl"></div>
+      <p class="p-center">
+          <label>点击确认发送到当前账号：<span>{$user_info['email']}</span></label><br>
+          <label>进行邮箱验证</label><br>
+          <input type="button" class="hyq-btn hyq-btn-lg " value="确认发送" onclick="email_user_certify_email()">
+      <p>
+	<!-- tips 框 -->
+	<div class="hyq-tip" id="tip-message" >
+		<i hyq-tip-icon-node></i>
+		<label class="hyq-tip-msg-node"></label>
+	</div>	
+    </div>
+	<div class="hyq-model-bottom">
+
+	</div>
+</div>
+{/if}
+<!--邮箱验证弹窗结束-->
+{if $orgprofile_info['legal_person'] eq 'yes'}
+<!--工商验证弹窗-->
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-firm-modal" role="dialog">
+
+	<div class="hyq-modal-header GrayBorderBtm txt-left">
+		<label class="f16 pull-left Gray8">&nbsp;&nbsp;工商号验证</label>
+		<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<div class='gray-spliter _clb'></div>
+	<div class="hyq-model-body _clb field-fix-width" >
+
+		<br/>
+
+		<div class="form-group-centered field-fix-width-1">
+			<input type="text" name="name" placeholder="请输入机构工商登记名称" id="business_name" class="field-fix-width-1 _clb" />
+			<div class="hyq-f-err txt-left" id="business_name_format_tips" style="display:none">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+		</div>
+
+		<div class="form-group-centered field-fix-width-1">
+
+			<input type="text" name="idcard" placeholder="请输入15位工商登记注册号" id="business_num" class="field-fix-width-1 _clb" />
+			<div class="hyq-f-err txt-left" id="business_num_format_tips" style="display:none">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+
+		</div>
+
+		<div>
+			<a type="button" class="hyq-btn hyq-btn-lg" onclick="certify_business_card()">&nbsp; 提交 &nbsp;</a>
+		</div>
+	</div>
+	<div class="hyq-model-bottom">
+
+	</div>
+</div>
+<!--工商验证弹窗结束-->
+{else}
+<!--身份证验证弹窗-->
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-idcard-modal" role="dialog">
+
+	<div class="hyq-modal-header GrayBorderBtm txt-left">
+		<label class="f16 pull-left Gray8">&nbsp;&nbsp;身份证验证</label>
+		<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<div class='gray-spliter _clb'></div>
+	<div class="hyq-model-body _clb field-fix-width" >
+
+		<br/>
+
+		<div class="form-group-centered field-fix-width-1">
+			<input type="text" name="name" placeholder="请输入您身份证的名字" id="identity_name" class="field-fix-width-1 _clb" />
+			<div class="hyq-f-err txt-left" id="identity_name_format_tips" style="display:none">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+		</div>
+
+		<div class="form-group-centered field-fix-width-1">
+
+			<input type="text" name="idcard" placeholder="请输入您的身份证号"  id="identity_num" class="field-fix-width-1 _clb" />
+			<div class="hyq-f-err txt-left" id="identity_num_format_tips" style="display:none">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+
+		</div>
+
+		<div>
+			<a type="button" class="hyq-btn hyq-btn-lg" onclick="certify_identity_card()">&nbsp; 提交 &nbsp;</a>
+		</div>
+	</div>
+	<div class="hyq-model-bottom">
+
+	</div>
+</div>
+<!--身份证验证弹窗结束-->
+{/if}
+
+<!--手机验证弹窗-->
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="valid-mobile-modal" role="dialog">
+
+	<div class="hyq-modal-header GrayBorderBtm txt-left">
+		<label class="f16 pull-left Gray8">&nbsp;&nbsp;手机验证</label>
+		<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<div class='gray-spliter _clb'></div>
+	<div class="hyq-model-body _clb field-fix-width" >
+
+		<br/>
+
+		<div class="form-group field-fix-width-2 txt-left">
+			<div class="field-fix-width-2" style='margin-left:50px;'>
+				<input type="text" name="name" placeholder="请输入11位手机号" id="certify_mobile_account" class="certify_mobile_num">
+				<input type="button" style="width:146px;height:35px;text-align:center;" class="hyq-btn hyq-btn-dark" id="get_certify_mobile_btn" onclick="get_certify_mobile_code()" value="获取短信验证码" />
+			</div>
+			<div class="hyq-f-err txt-left" style='margin-left:50px;display:none;' id="certify_mobile_format_tips">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息 </label>
+			</div>
+		</div>
+
+		<div class="form-group field-fix-width-2 txt-left">
+			<div class="field-fix-width-2 field-fix-margin-1" style='margin-left:50px;'>
+				<input type="text" name="name" placeholder="请输入短信验证码"  id="certify_mobile_code">
+				<input type="button" class="hyq-btn hyq-btn-dark" onclick="email_user_certify_mobile()" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击验证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+			</div>
+			<div class="hyq-f-err txt-left" style='margin-left:50px;display:none;' id="certify_mobile_code_tips">
+				<i class="hyq-ic ic-vlid-err"></i>
+				<label>错误信息</label>
+			</div>
+		</div>
+ 
+	</div>
+	<div class="hyq-model-bottom">
+
+	</div>
+
+</div>
+<!--手机验证弹窗结束-->
+
+		{include "common/footer.html"}
+        <script type="text/javascript">
+		var rcSaveBtn = $("#profile-save-btn");
+	//省市区联动
+{literal}
+	var save_states = 0; 	
+	var nickname_text = $('#nickname').val(),create_time_text = $('#create_time').val(),type_text = $('#type').val(),pid_text = $('#province').val(),cid_text = $('#city').val(),did_text = $('#area').val(),introduce_text = $('#rf-intro').val(),production_text = $('#rf-works').val(),honor_text = $('#rf-honor').val();
+	$("#province-list").on("change",function(event){
+		var pid = $('#province').val();
+		$('#city').val(0);
+		$('#area').val(0);
+		if ((pid ==null)||(pid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}	
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'pid':pid},
+			success:function(data){
+				$("#city-list").trigger("clear");
+				$("#district-list").trigger("clear");	
+				$.each(data,function(i,v){
+					$("#city-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.cname
+					})				
+				})	
+			},
+			dataType:'json'
+		});
+	})
+	
+	$("#city-list").on('change',function(event){
+		var cid = $('#city').val();
+		$('#area').val(0);	
+		if ((cid =="")||(cid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'cid':cid},
+			success:function(data){
+				$("#district-list").trigger("clear");
+				$.each(data,function(i,v){
+					$("#district-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.dname
+					})
+				});
+			},
+			dataType:'json'
+		});
+	})	
+	if($("#province_c").val() !== null){
+		auto_find_city();
+	}
+	if($("#city_c").val() !== null){
+		auto_find_district();
+	}
+	//保存后加载读取数据
+	function auto_find_city(){
+		$('#province_c').val($('#province_c').attr('value'));
+		var pid = $('#province_c').val();
+		if((pid == null) || (pid == 0)) return;	
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'pid':pid},
+			success:function(data){
+				$.each(data,function(i,v){
+					$("#city-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.cname
+					})				
+				})	
+			},
+			dataType:'json'
+		});
+	}
+	//保存后加载读取数据	
+	function auto_find_district(){
+		$('#city_c').val($('#city_c').attr('value'));
+		var cid = $('#city_c').val();
+		if ((cid ==null)||(cid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}				
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'cid':cid},
+			success:function(data){
+				$.each(data,function(i,v){
+					$("#district-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.dname
+					})
+				});
+			},
+			dataType:'json'
+		});	
+	}	
+	//选择类型	
+	$("#on_type li").click(function(){
+		$('#type').val($(this).val());
+		var type= $('#type').val();
+		//alert(type);
+		if (type ==''){
+			$("#type_tips").fadeIn();
+			return false;
+		}else{
+			$("#type_tips").fadeOut();
+		}				
+	});		
+	
+
+	$('#nickname').blur( function () { 
+		var nickname = $('#nickname').val();//机构名称
+		if(nickname ==""){
+			$("#nickname_tips label").text('您的机构名为空!');			
+			$("#nickname_tips").fadeIn();
+			scroll_tips();
+			return;
+		}else if(nickname.length  > 60){			
+			$("#nickname_tips label").text('您的机构长度不符!');			
+			$("#nickname_tips").fadeIn();
+			scroll_tips();
+			return;
+		}else{
+			$("#nickname_tips").fadeOut();
+		}
+	})
+
+	
+      //保存按钮被触发
+        rcSaveBtn.click(function() {
+			$(".hyq-f-err-pad-left").fadeOut();
+			var nickname = $('#nickname').val();//机构名称
+			var create_time = $('#create_time').val();//创建时间	
+			var pid = $('#province').val();//省id
+			var cid = $('#city').val();//市id
+			var did = $('#area').val();//区id
+			//var state = $('#state_select').val();//目前状态
+			var type = $('#type').val();
+			//var legal_person = $('#legal_person').val();
+			var introduce = $('#rf-intro').val();		
+			var production = $('#rf-works').val();
+			var honor = $('#rf-honor').val();
+			var action = 'complete_orgprofile';
+			if(nickname ==""){
+				$("#nickname_tips label").text('您的机构名为空!');			
+				$("#nickname_tips").fadeIn();
+				scroll_tips();
+				return;
+			}
+			if(nickname.length  > 60){	
+				$("#nickname_tips label").text('您的机构名长度不符!');			
+				$("#nickname_tips").fadeIn();
+				scroll_tips()
+				return;
+			}else{
+				$("#nickname_tips").fadeOut();
+			}
+			if (type ==''){
+				$("#type_tips").fadeIn();
+				scroll_tips();
+				return;
+			}else{
+				$("#type_tips").fadeOut();
+			}					
+			if (create_time == ''){
+				$("#create_time_tips").fadeIn();
+				scroll_tips();
+				return;
+			}else{
+				$("#create_time_tips").fadeOut();
+			}					
+			if (pid ==""){
+				$("#addr_tips").fadeIn();
+				scroll_tips();
+				return;
+			}else{
+				$("#addr_tips").fadeOut();
+			}
+			if ((cid =="")||(cid =="0")){
+				$("#addr_tips").fadeIn();
+				scroll_tips();
+				return;
+			}else{
+				$("#addr_tips").fadeOut();
+			}	
+			var nickname_text1 = $('#nickname').val(),create_time_text1 = $('#create_time').val(),pid_text1 = $('#province').val(),cid_text1 = $('#city').val(),did_text1 = $('#area').val(),type_text1 = $('#type').val(),introduce_text1 = $('#rf-intro').val(),production_text1 = $('#rf-works').val(),honor_text1 = $('#rf-honor').val();	
+			if((nickname_text1==nickname_text)&&(create_time_text1==create_time_text)&&(honor_text1==honor_text)&&(cid_text1==cid_text)&&(did_text1==did_text)&&(type_text1==type_text)&&(introduce_text1==introduce_text)&&(production_text1==production_text)&&(honor_text1==honor_text)){
+				save_states = 0;
+				var tip = $("#success_message").HYQTip();
+				tip.showSuccess("您的资料没有改变");						
+				return;
+			}else{
+				save_states = 1;
+			}	
+			$.post("/home/ajax/ajax_home_orgprofile.php",{'nickname':nickname,'create_time':create_time,'pid':pid,'cid':cid,'did':did,'type':type,'introduce':introduce,'production':production,'honor':honor,'action':action
+					},function(data){
+				    //alert(data);			
+					if(parseInt(data) == 1000){
+						var tip = $("#success_message").HYQTip();
+						save_states = 0;
+						nickname_text = $('#nickname').val(),create_time_text = $('#create_time').val(),type_text = $('#type').val(),pid_text = $('#province').val(),cid_text = $('#city').val(),did_text = $('#area').val(),introduce_text = $('#rf-intro').val(),production_text = $('#rf-works').val(),honor_text = $('#rf-honor').val();						
+						tip.showSuccess("资料更新成功！");
+						//更新cookie
+						$(document).trigger("hyq/userstate/changed");//后加的 更新cookie
+						$(".hyq-f-err-pad-left").fadeOut();
+						//location.reload(); 
+					}else if(parseInt(data) ==1101){						
+						$("#nickname_tips").fadeIn();			
+						$("#nickname_tips label").text('您的艺名长度太长或格式不对');
+						scroll_tips();			
+					}else if(parseInt(data) ==1137){						
+						$("#type_tips").fadeIn();	
+						scroll_tips();	
+					}else if(parseInt(data) ==1136){						
+						$("#create_time_tips").fadeIn();
+						scroll_tips();	
+					}else if(parseInt(data) ==1103){						
+						$("#addr_tips").fadeIn();
+						scroll_tips();								
+					}else if(parseInt(data) ==1104){						
+						$("#addr_tips").fadeIn();
+						scroll_tips();								
+					}else if(parseInt(data) ==1149){						
+						$("#profile_tips").fadeIn();	
+						$('#profile_tips label').text(state_list[parseInt(data)]);							
+					}else if(parseInt(data) ==1150){						
+						$("#profile_tips").fadeIn();	
+						$('#profile_tips label').text(state_list[parseInt(data)]);							
+					}else if(parseInt(data) ==1151){						
+						$("#profile_tips").fadeIn();	
+						$('#profile_tips label').text(state_list[parseInt(data)]);							
+					}else{
+						//alert('修改失败');
+						$('#profile_tips').fadeIn();
+						$('#profile_tips label').text('修改失败啦,请联系管理员!');						
+					}					
+			},'text')
+
+        });
+		 //字数统计
+	$(document).ready(function(){	
+		 $('#nickname').blur(function (ev) {
+			$this = $(this);
+			if (ev.keyCode != 37 && ev.keyCode != 39) {
+				$this.val($this.val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\_]/g,''));
+			}
+	    });
+			var limitNum1 = 200;
+			var remain1 = $("#rf-intro").val().length;
+			var pattern = '还可以输入<span>' + (limitNum1-remain1) + '</span>字符';
+			$('#intro_text').html(pattern);
+			$('#rf-intro').keyup(
+				function(){
+					var remain1 = $(this).val().length;
+					if(remain1 > 200){
+						pattern = "字数超过限制！";
+						var text1=$("#rf-intro").val().substr(0,200); 
+						$("#rf-intro").val(text1); 
+					}else{
+						var result1 = limitNum1 - remain1;
+						pattern = '还可以输入<span>' + result1 + '</span>字符';
+					}
+					$('#intro_text').html(pattern);
+				}
+			);
+			var limitNum2 = 200;
+			var remain2 = $('#rf-works').val().length;
+			var pattern = '还可以输入<span>' + (limitNum2-remain2) + '</span>字符';
+			$('#works_text').html(pattern);
+			$('#rf-works').keyup(
+				function(){
+					var remain2 = $(this).val().length;
+					if(remain2 > 200){
+						pattern = "字数超过限制！";
+						var text2=$("#rf-works").val().substr(0,200); 
+						$("#rf-works").val(text2); 
+					}else{
+						var result2 = limitNum2 - remain2;
+						pattern = '还可以输入<span>' + result2 + '</span>字符';
+					}
+					$('#works_text').html(pattern);
+				}
+			);	
+			var limitNum3 = 200;
+			var remain3 = $('#rf-honor').val().length;
+			var pattern = '还可以输入<span>' + (limitNum3-remain3) + '</span>字符';
+			$('#honor_text').html(pattern);
+			$('#rf-honor').keyup(
+				function(){
+					var remain3 = $(this).val().length;
+					if(remain3 > 200){
+						pattern = "字数超过限制！";
+						var text3=$("#rf-honor").val().substr(0,200); 
+						$("#rf-honor").val(text3); 						
+					}else{
+						var result3 = limitNum3 - remain3;
+						pattern = '还可以输入<span>' + result3 + '</span>字符';
+					}
+					$('#honor_text').html(pattern);
+				}
+			);	
+	
+	});	
+	//出错时滚动到错误			
+	function scroll_tips(){
+		$('html,body').animate({scrollTop:$('.r-topBar').offset().top},1000);
+	}
+	var tohref = '';	
+
+		/***********************************
+		 图片上传的的脚本开始
+		 ************************************/
+		var dlg = $("#img-cropper-dialog");
+
+		var imgCropper = $('.hyq-image-cropper').HYQImageCropper({
+			uploadApi : "/home/ajax/ajax_home_userprofile.php?action=upload_icon", //在这里配置上传图片的API
+			cropApi : "/home/ajax/ajax_home_userprofile.php?action=head_photo_cut",//在这里配置截图的API
+			width:600,
+			height:600,
+			type:2
+		});
+
+		dlg.on("hyq/modal/hidden", function() {
+			imgCropper.trigger('hyq/imagecropper/reset');
+		});
+
+		imgCropper.on("hyq/imgcropper/success", function(event) {
+			//接受成功信息
+
+			//头像上传成功哦那个后，图片地址是一个数组，
+			//保存在  event.images
+			// 格式为 ['1：1头像的地址','4：3头像第二张图的地址']
+			// 你可以在这里提示上传头像成功，也可以获得图片地址作为其他用途
+			console.log(event.images);
+			
+			dlg.trigger('hyq/modal/close');
+			//关闭
+			
+			//1更换头像
+			$('#edit_show_icon').prop('src',event.images[0]+'!150');
+			//2
+			$("#logo_save_before").remove();
+			$("#logo_save_after").show();
+			//3  -----------后加的 更新cookie
+			$(document).trigger("hyq/userstate/changed");//后加的 更新cookie
+		});
+
+		imgCropper.on("hyq/imagecropper/uiactived", function(event) {
+			$("#img-cropper-dialog").trigger('hyq/modal/sizechanged');
+		});
+		/*** 以下两个时间的触发时机是一样的，第一个是带有状态信息的，可以自己控制报错的方式，第二个 是只有错误信息，使用弹出框报错，根据情况使用*/
+		/*************************************************************************************/
+		// 一
+		imgCropper.on('hyq/imgcropper/upload-error', function(event) {
+			//当上传失败时，获得返回状态和信息 错误信息存储在 event.hyqData 中
+			console.log(event.hyqData);
+
+		});
+
+		// 二
+		imgCropper.on('hyq/imgcropper/error-message', function(event) {
+			//接受失败信息
+			//只获取错误信息 event.hyqMessage
+			//触发报错窗口
+			$('#error-message-box').trigger({
+				type : 'hyq/modal/show_with_message',
+				hyqMessage : event.hyqMessage
+			});
+		});
+
+		setTimeout(function () {
+            $(".cropper").unbind();
+            $(".cropper").click(function () {
+            	return;
+            });
+        },1000);
+		/***********************************
+		 图片上传 脚本结束
+		 ************************************/	
+{/literal}		 
+     </script>
+{literal}
+<script type="text/javascript" charset="utf-8">
+	/*邮箱用户发送邮件*/
+	function email_user_certify_email(){
+		$.post("/home/ajax/ajax_home_account.php",{'action':'email_user_certify_email'},function(data){
+			if(parseInt(data) == 1000){
+				var tip = $("#tip-message").HYQTip();
+				tip.showSuccess("邮件发送成功");					
+			}else{
+				var tip = $("#tip-message").HYQTip();
+				tip.showSuccess("邮件发送失败");	
+			}
+
+		},'text');	
+	}			
+
+	/*----------------手机用户认证邮箱-----------------*/
+	$("#certify_email_account").focus(function(){
+		$("#certify_email_format_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#certify_email_format_tips").fadeOut();
+				return;
+			}else{
+				var email_pattern = new RegExp(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/);
+				if(email_pattern.test($(this).val())){
+					$("#certify_email_format_tips").fadeOut();
+				}else{
+					$("#certify_email_format_tips label").text('请输入正确邮箱地址!');
+					$("#certify_email_format_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	function mobile_user_certify_email(){
+		$("#certify_email_account").blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'mobile_user_certify_email','email':$("#certify_email_account").val()},function(data){
+			if(parseInt(data) == 1000){
+				$("#certify_email_format_tips").fadeOut();
+				$('#valid-email-modal').trigger("hyq/modal/close");
+			}else{
+				$("#certify_email_format_tips label").text(state_list[parseInt(data)]);
+				$("#certify_email_format_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+	/*------------------工商验证------------------*/
+	$('#business_name').focus(function(){
+		$("#business_name_format_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#business_name_format_tips").fadeOut();
+				return;
+			}
+		}
+	);
+	$('#business_num').focus(function(){
+		$("#business_num_format_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#business_num_format_tips").fadeOut();
+				return;
+			}else{
+				var business_pattern = new RegExp(/^\d{14}$/);	
+				if(business_pattern.test($(this).val())){
+					$("#identity_num_format_tips").fadeOut();
+				}else{
+					$("#business_num_format_tips label").text('请输入正确工商登记号!');
+					$("#business_num_format_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	function certify_business_card(){
+		$('#business_name').blur();
+		$('#business_num').blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'certify_business_num','business_name':$("#business_name").val(),'business_num':$("#business_num").val()},function(data){
+			if(parseInt(data) == 1000){
+				$("#business_num_format_tips").fadeOut();
+				$('#valid-firm-modal').trigger("hyq/modal/close");
+				$('#certify_business_gray_icon_edit').hide();
+				$('#certify_business_gray_icon').hide();
+				$('#certify_business_red_icon_edit').show();
+				$('#certify_business_red_icon').show();
+			}else{
+				$("#business_num_format_tips label").text(state_list[parseInt(data)]);
+				$("#business_num_format_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+
+	/*----------------身份证认证-----------------*/
+	$('#identity_name').focus(function(){
+		$("#identity_name_format_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#identity_name_format_tips").fadeOut();
+				return;
+			}
+		}
+	);
+	var mark = 0;
+	$('#identity_num').focus(function(){
+		$("#identity_num_format_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#identity_num_format_tips").fadeOut();
+				return;
+			}else{
+				var pattern_one = new RegExp(/^\d{6}((0[48]|[2468][048]|[13579][26])0229|\d\d(0[13578]|10|12)(3[01]|[12]\d|0[1-9])|(0[469]|11)(30|[12]\d|0[1-9])|(02)(2[0-8]|1\d|0[1-9]))\d{3}$/);
+				var pattern_two = new RegExp( /^\d{6}((2000|(19|21)(0[48]|[2468][048]|[13579][26]))0229|(((20|19)\d\d)|2100)((0[13578]|10|12)(3[01]|[12]\d|0[1-9])|(0[469]|11)(30|[12]\d|0[1-9])|(02)(2[0-8]|1\d|0[1-9])))\d{3}[\dX]$/);	
+				if(pattern_one.test($(this).val()) || pattern_two.test($(this).val())){
+					$("#identity_num_format_tips").fadeOut();
+					mark = 1;
+				}else{
+					$("#identity_num_format_tips label").text('请输入正确的身份证号!');
+					$("#identity_num_format_tips").fadeIn();
+					mark = 0;
+					return;
+				}
+			}
+		}
+	);
+	function certify_identity_card(){
+		$('#identity_name').blur();
+		$('#identity_num').blur();
+		if(mark == 1){
+			$.post("/home/ajax/ajax_home_account.php",{'action':'certify_identity_card','identity_name':$("#identity_name").val(),'identity_num':$("#identity_num").val()},function(data){
+				if(parseInt(data) == 1000){
+					$("#identity_num_format_tips").fadeOut();
+					$('#valid-idcard-modal').trigger("hyq/modal/close");
+					$('#certify_identity_gray_icon_edit').hide();
+					$('#certify_identity_gray_icon').hide();
+					$('#certify_identity_red_icon_edit').show();
+					$('#certify_identity_red_icon').show();
+				}else{
+					$("#identity_num_format_tips label").text(state_list[parseInt(data)]);
+					$("#identity_num_format_tips").fadeIn();
+					return;
+				}
+			},'text');
+		}
+	}
+	/*----------------邮箱用户认证手机号-----------------*/
+	$("#certify_mobile_account").focus(function(){
+		$("#certify_mobile_format_tips").fadeOut();
+		$("#certify_mobile_code_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#certify_mobile_format_tips").fadeOut();
+				return;
+			}else{
+				var mobile_pattern = new RegExp(/^1[3578]\d{9}$/);
+				if(mobile_pattern.test($(this).val())){
+					$("#certify_mobile_format_tips").fadeOut();
+				}else{
+					$("#certify_mobile_format_tips label").text('请输入正确手机账号!');
+					$("#certify_mobile_format_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	
+	var ss = 60,dateTime = null;
+	function count_down(){
+		if(ss == 0){
+			clearInterval(dateTime);//停止计时器
+			$("#get_certify_mobile_btn").removeAttr("disabled");//启用按钮
+			$("#get_certify_mobile_btn").val("获取短信验证码");
+		}else{
+			ss--;
+			$("#get_certify_mobile_btn").prop("value",ss + "秒后重发");
+		}
+	}
+	//获取手机验证码
+	function get_certify_mobile_code(){
+		$("#certify_mobile_account").blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'get_certify_mobile_code','mobile':$("#certify_mobile_account").val()},function(data){
+			if(parseInt(data) == 1000){
+				$("#certify_mobile_format_tips").fadeOut();
+				//换成倒计时
+				$('#get_certify_mobile_btn').prop("disabled", "true");
+				ss = 60;
+				clearInterval(dateTime);
+				dateTime = setInterval(count_down,1000); 
+			}else{
+				$("#certify_mobile_format_tips label").text(state_list[parseInt(data)]);
+				$("#certify_mobile_format_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+	$("#certify_mobile_code").focus(function(){
+		$("#certify_mobile_code_tips").fadeOut();
+		if($(this).val() == this.defaultValue){
+			$(this).val("");
+		}
+	})
+	.blur(
+		function(){
+			if($(this).val() == ''){
+				$(this).val(this.defaultValue);
+				$("#certify_mobile_code_tips").fadeOut();
+				return;
+			}else{
+				if($(this).val().length == 6 && !isNaN($(this).val())){
+					$("#certify_mobile_code_tips").fadeOut();
+				}else{
+					$("#certify_mobile_code_tips label").text('请输入正确的验证码!');
+					$("#certify_mobile_code_tips").fadeIn();
+					return;
+				}
+			}
+		}
+	);
+	function email_user_certify_mobile(){
+		$("#certify_mobile_code").blur();
+		$.post("/home/ajax/ajax_home_account.php",{'action':'email_user_certify_mobile','mobile':$("#certify_mobile_account").val(),'check_code':$("#certify_mobile_code").val()},function(data){
+			if(parseInt(data) == 1000){
+				$("#certify_mobile_code_tips").fadeOut();
+				$('#valid-mobile-modal').trigger("hyq/modal/close");
+				$('#certify_mobile_gray_icon_edit').hide();
+				$('#certify_mobile_gray_icon').hide();
+				$('#certify_mobile_red_icon_edit').show();
+				$('#certify_mobile_red_icon').show();
+			}else{
+				$("#certify_mobile_code_tips label").text(state_list[parseInt(data)]);
+				$("#certify_mobile_code_tips").fadeIn();
+				return;
+			}
+		},'text');
+	}
+//验证输入框
+	$('#identity_name').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/[^\u4E00-\u9FA5·A-Za-z]/g,''));
+		}
+	});		
+	
+	$('#identity_num').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/[^0-9xX]/g,''));
+		}
+    });		
+	$('#certify_mobile_account').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/\D/g,''));
+		}
+    });	
+  	$('#certify_mobile_code').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/\D/g,''));
+		}
+    });	  
+  	$('#business_name').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/[^\u4E00-\u9FA5·A-Za-z]/g,''));
+		}
+    });	 
+  	$('#business_num').blur(function (ev) {
+		$this = $(this);
+		if (ev.keyCode != 37 && ev.keyCode != 39) {
+			$this.val($this.val().replace(/\D/g,''));	
+		}
+    });	  
+	
+</script>
+{/literal}
+			 
+</body>
+</html>

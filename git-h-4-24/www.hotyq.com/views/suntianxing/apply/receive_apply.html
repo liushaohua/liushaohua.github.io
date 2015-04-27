@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>我的报名列表</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">我(ID={$uid})的报名列表：</button>
+		</div>
+		<hr>
+		<br>
+		<div id="editarea" align="center">
+			<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+			<tr>
+				<td align="center" >报名ID</td>
+				<td align="center">报名的招募ID</td>
+				<td align="center">报名的角色ID</td>
+				
+				<td>招募方mobile</td>
+				<td>招募方email</td>
+				<td>招募方weixin</td>
+				<td>招募方QQ</td>
+				
+				<td align="center">通知</td>
+				<td align="center">报名时间</td>
+				<td align="center">操作</td>
+			</tr>
+			{foreach name=apply_list from=$list item=v}
+				<tr>
+					<!-- <td align="center">{$smarty.foreach.apply_list.iteration}</td> -->
+					<td align="center">{$v.id}</td>
+					<td align="center">{$v.recruit_id}</td>
+					<td align="center">{$v.role_id}</td>
+					
+					<td>{$v.r_mobile}</td>		
+					<td>{$v.r_email}</td>		
+					<td>{$v.r_weixin}</td>
+					<td>{$v.r_qq}</td>
+
+					<td align="center">
+						{if $v.r_status eq 'waiting'}
+							<font color="blue">等待对方确认</font>
+						{elseif $v.r_status eq 'sure'}
+							<font color="green">对方已确认</font>
+						{elseif $v.r_status eq 'refuse'}
+							<font color="red">对方已拒绝</font>
+						{/if}
+					</td>
+					<td align="center">{$v.apply_date}</td>
+					<td align="center">
+
+						{if $v.u_status eq '1'}
+							{if $v.r_status eq 'waiting'}
+							<button id="{$v.id}" onclick="return user_change_apply(this.id, 'cancel')" style="background:lightblue">取消报名</button>
+							{else}
+							<button id="{$v.id}" disabled style="background:lightblue">取消报名</button>
+							{/if}
+						{else}
+							{if $v.r_status eq 'waiting'}
+							<button id="{$v.id}" onclick="return user_change_apply(this.id, 'again')" style="background:lightblue">重新报名</button>
+							{else}
+							<button id="{$v.id}" disabled style="background:lightblue">重新报名</button>
+							{/if}
+						{/if}
+						<!--<button id="{$v.id}" onclick="return user_change_apply(this.id,'delete')">删除报名</button>--> 
+
+					</td>
+				</tr>
+			{foreachelse}
+					<tr>
+						<td colspan="9">哥们,你还没有报名哦!!!</td>
+					</tr>
+			{/foreach}
+			</table>
+		</div>
+	</body>
+	{literal}
+		<script>
+			//报名信息ajax 处理
+			function user_change_apply(aid, operate){
+				//alert(aid);
+				//alert(operate);
+				if(operate == 'cancel'){
+					var action = 'user_cancel_apply';
+					//return false;
+				}else if(operate == 'again'){
+					var action = 'user_again_apply';
+					//return false;
+				}
+				/*
+				else{
+					var action = 'user_delete_apply';
+					//return false;
+				}
+				*/
+				<!-- ajax传递报名信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_apply.php',
+					type:'post',
+					data:{"action":action,"aid":aid},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,操作成功!');
+						}else if(data == 1370){
+							alert('NO,状态更新失败!');
+						}else{
+							alert('NO,重新报名失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						//$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

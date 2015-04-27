@@ -1,0 +1,632 @@
+{literal}
+<script>
+
+$(document).ready(function(){	
+	//省市区联动
+	 
+	$("#province-list").on("change",function(event){
+		console.log(event)
+		$('#province').val(event.value);
+		var pid = $('#province').val();
+		$('#city').val(0);
+		$('#area').val(0);
+		if ((pid ==null)||(pid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}	
+
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'pid':pid},
+			success:function(data){
+			
+				$("#city-list").trigger("clear");
+				$("#district-list").trigger("clear");	
+				$.each(data,function(i,v){
+					$("#city-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.cname
+					})				
+					//find_district();
+				})	
+			},
+			dataType:'json'
+		});
+	})
+
+	$("#city-list").on('change',function(event){
+		//var cid = $(this).attr('value');
+		console.log(event);
+		$('#city').val(event.value);
+		var cid = $('#city').val();
+		$('#area').val(0);	
+		if ((cid =="")||(cid ==0)){
+			$("#addr_tips").fadeIn();
+			return false;
+			scroll_tips();
+		}else{
+			$("#addr_tips").fadeOut();
+		}	
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'cid':cid},
+			success:function(data){
+				//alert(data);
+				$("#district-list").trigger("clear");
+				//$('#on_area').find('li').remove();
+				$.each(data,function(i,v){
+					$("#district-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.dname
+					})
+					// var str = '<li value="'+v.id+'">'+v.dname+'</li>';
+					// $('#on_area').append(str);
+				});
+			},
+			dataType:'json'
+		});
+	})	
+	//区id获取		
+	/*
+	$("#on_area").on('click','li',function(){
+		$('#area').val($(this).attr('value'));
+		var did = 	$('#area').val();	
+		$("#area").next().find('span').text( $(this).text());
+		$("#area").next().find('span').addClass('selected');
+		$(this).parent().parent().hide();				
+	})	
+	*/
+	if($("#province_c").val() !== null){
+		auto_find_city();
+	}
+	if($("#city_c").val() !== null){
+		auto_find_district();
+	}
+	//保存后加载读取数据
+	function auto_find_city(){
+		//alert(111);
+		$('#province_c').val($('#province_c').attr('value'));
+		var pid = $('#province_c').val();
+		if((pid == null) || (pid == 0)) return;	
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'pid':pid},
+			success:function(data){
+
+				$.each(data,function(i,v){
+					$("#city-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.cname
+					})				
+				})	
+
+			},
+			dataType:'json'
+		});
+	}
+	//保存后加载读取数据	
+	function auto_find_district(){
+		//alert(222);
+		$('#city_c').val($('#city_c').attr('value'));
+		var cid = $('#city_c').val();
+		if ((cid ==null)||(cid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}				
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'cid':cid},
+			success:function(data){
+				//alert(data);
+				//$("#district-list").trigger("clear");
+				//$('#on_area').find('li').remove();
+				$.each(data,function(i,v){
+					$("#district-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.dname
+					})
+
+				});
+			},
+			dataType:'json'
+		});	
+	}	
+	//判断名字是否填了
+	$("#nickname").blur(function (){ 
+		if(nickname ==""){
+			$("#nickname_tips label").text('请填写您的艺名!');	
+			$("#nickname_tips").fadeIn();
+			return;
+		}else if(nickname.length  > 24){	
+			$("#nickname_tips label").text('您的艺名长度不符!');			
+			$("#nickname_tips").fadeIn();
+			return;
+		}else{
+			$("#nickname_tips").fadeOut();
+		}	
+	});
+	//获取选择角色	
+	//$("#on_role_select li").click(function(){
+	//	$('#role_select').val($(this).val());
+	//	var role= $('#role_select').val();
+	//});
+	//选择性别	
+	$("#sex_radio").click(function(){
+		var sex_type = $("input[name='sex']:checked").val();	
+		$('#sex').val(sex_type);
+		var sex = $('#sex').val();
+		if (sex ==""){
+			$("#sex_tips").fadeIn();
+			return;
+		}else{
+			$("#sex_tips").fadeOut();
+		}
+	});		
+
+	//状态选择
+	$("#on_state_select li").click(function(){
+		$('#state_select').val($(this).attr('value'));
+		var state = $('#state_select').val();
+		if (state ==''){
+			$("#state_select_tips").show();
+			return;
+		}else{
+			$("#state_select_tips").hide();
+		}
+		$(this).parent().parent().hide();
+	});		
+
+	$('#redcard-save-btn').click(function(){
+		$(".hyq-f-err-pad-left").fadeOut();
+		var nickname = $('#nickname').val();//艺名
+		var sex = $('#sex').val();//性别
+		var pid=$('#province').val();//省id
+		var cid=$('#city').val();//市id
+		var did=$('#area').val();//区id
+		var state = $('#state_select').val();//目前状态
+		var role = $('#role_select').val();//目前角色
+		var action = 'complete_user_card';
+		if(nickname ==""){
+			$("#nickname_tips label").text('您的艺名为空');
+			$("#nickname_tips").fadeIn();
+			return;
+		}else if(nickname.length  > 24){	
+			$("#nickname_tips label").text('您的艺名长度不符');			
+			$("#nickname_tips").fadeIn();
+			return;
+		}else{
+			$("#nickname_tips").fadeOut();
+		}
+		
+		if (sex ==""){
+			$("#sex_tips").fadeIn();
+			return;
+		}else{
+			$("#sex_tips").fadeOut();
+		}
+		if ((pid =="")||(pid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}
+		if ((cid =="")||(cid ==0)){
+			$("#addr_tips").fadeIn();
+			return;
+		}else{
+			$("#addr_tips").fadeOut();
+		}	
+		if (state ==''){
+			$("#state_select_tips").fadeIn();
+			return;
+		}else{
+			$("#state_select_tips").fadeOut();
+		}
+		$.post("/home/ajax/ajax_home_userprofile.php",{'action':action,'nickname':nickname,'sex':sex,'pid':pid,'cid':cid,'did':did,'state':state,'role':role
+				},function(data){
+				//alert(data);		
+				if(parseInt(data) == 1000){
+					//修改成功  编辑模式隐藏  浏览模式显示
+					$("#redcard-edit-box").hide();
+					$("#redcard-review-box").show();
+					$("#redcard-edit-btn").show();
+					//将修改的内容  写入编辑模式中
+					//alert(user_array);
+					//alert(user_array[0]);
+					var province_name = $("#province").next().find('span').text();
+					var city_name = $("#city").next().find('span').text();
+					var area_name = $("#area").next().find('span').text();
+					
+					$('#card_one h3').text(nickname);//nickname0
+					if(sex == 'f'){
+						sex_zh = '女';
+					}else if(sex == 'm'){
+						sex_zh = '男';
+					}
+					$('#card_one #user_sex').html('&nbsp;'+sex_zh+'&nbsp;');//sex1
+					if(area_name == '选择区'){
+						$('#user_addr').text(city_name);//city_name area_name
+					}else{
+						if(area_name == '所在区'){area_name = ''};
+						if(province_name == city_name){
+							$('#user_addr').text(city_name+area_name);
+						}else{
+							$('#user_addr').text(province_name+city_name+area_name);
+						}						
+					}
+					if(state == 'busy'){
+						state_zh = '忙碌';
+					}else if(state == 'free'){
+						state_zh = '空闲';
+					}else{
+						state_zh = '其它';
+					}
+					$('#user_state span').text(state_zh);
+					$(document).trigger("hyq/userstate/changed");//如果cookie改动触发这个事件  实时更新
+				}else if(parseInt(data) ==1101){						
+					$("#nickname_tips").fadeIn();			
+					$("#nickname_tips label").text('您的艺名格式不对,不分大小写,中英文皆可');
+				}else if(parseInt(data) ==1202){						
+					$("#sex_tips").fadeIn();	
+				}else if(parseInt(data) ==1103){						
+					//alert('省没选');
+					$("addr_tips").fadeIn();
+				}else if(parseInt(data) ==1104){						
+					//alert('省没选');
+					$("addr_tips").fadeIn();				
+				}else if(parseInt(data) ==1106){						
+					$("#state_select_tips").fadeIn();
+				}else if(parseInt(data) ==1107){						
+					$("#role_select_tips").fadeIn();
+				}else{
+					alert('修改失败');
+				}					
+		},'text')
+	});	
+
+
+})
+
+
+
+
+
+</script>	
+{/literal}
+<div class="column-wrapper redcard-column">
+	 	<div class="row">
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">红名片<small class="Gray8">(想红就要先有红名片er)</small></label>
+				<a href="javascript:void(null)" class="profile-edit-btn pull-right" id="redcard-edit-btn" alt="点击编辑红名片" title="点击编辑红名片"></a>
+			</div>
+		</div>
+		<script>
+		$(function(){
+			//1将扫库扫到的数据  已经填进两种模式中 ------wangyifan
+			var hide_head_icon_src = $('#hide_head_icon_src').val();
+			if(hide_head_icon_src != ''){
+				//有头像
+				$('#show_head_icon').prop('src',hide_head_icon_src);
+				$('#edit_show_icon').prop('src',hide_head_icon_src);
+			}
+			//单击保存  获取各项的值  ajax到后台  完毕 返回1000 模板上的数组在填到编辑模式里
+			//验证各项
+		});
+		</script>
+			<!--php扫库的头像数据 存放到隐藏域  再放到两种模式中-->
+		<input id="hide_head_icon_src" type="hidden" value="{$user_info['icon_server_url']}{$user_info['icon_path_url']}!f150">
+		
+		<!-- 红名片浏览模式 -->
+		<div id="redcard-review-box">
+			<div class="row2">
+				<div class="clearfix row redcard-review">
+					<div class="pull-left">
+						<img id="show_head_icon" style="height:150px;width:150px;" src="http://icon.hotyq.com/v2/default_F_11.jpg" alt="">
+					</div>
+					<div class="profile-detail">
+						<div class="profile-top" style="overflow: hidden; margin-bottom:10px; border-bottom:1px solid #A4A4A4;">
+							<div class="profile-detail-text pull-left">
+							<!-- 红名片名字等级性别id -->
+								<div class="profile-detail-title" id="card_one">
+									<h3 title="{$user_info['nickname']}" alt="{$user_info['nickname']}">{$user_info['nickname']}</h3>&nbsp;
+									<span class="user-level" id="level" value="" alt="红演圈会员级别" title="红演圈会员级别">Lv.{$user_info['level']}</span><span id="user_sex">&nbsp;{if {$userlist['sex']} == 'f'}女{else {$userlist['sex']} == 'm'}男{/if}&nbsp;</span>
+									<span class="inline-block Gray8">ID:{$user_info['id']}</span>
+								</div>
+								<!-- 个人链接 -->
+								<div class="profile-url">http://www.hotyq.com.com/user/{$user_info['id']}</div>
+								<div class="clearfix profile-pos" id="card_two">
+									<div class="pull-left">
+										<i class="hyq-ic ic-loc fl" style="margin-top:4px;"></i>
+										{if $province_c == $city_c}
+										<span id="user_addr" class="reds-loc-span" title="{$city_c}{$district_c}" alt="{$city_c}{$district_c}">{$city_c}{$district_c}</span>
+										{elseif $province_c !== $city_c}
+										<span id="user_addr" class="reds-loc-span" title="{$province_c}{$city_c}{$district_c}" alt="{$province_c}{$city_c}{$district_c}">{$province_c}{$city_c}{$district_c}</span>
+										{/if}
+									</div>
+									<div id="user_state" class="pull-right">
+										目前状态：<span>{if $userlist['state'] =='free'}空闲{elseif $userlist['state'] =='busy'}忙碌{elseif $userlist['state'] =='other'}其它{elseif $userlist['state']}{/if}	</span>
+									</div>
+								</div>
+								<div class="clearfix profile-jobs" id ="card_three">
+									<div class="pull-right">
+										<span class="inline-block reds-ro-span" id ="role_names">
+											{foreach name=list from=$role_name item=v key = key}
+												{if key neq $smarty.foreach.list.last }
+													{$v}\
+												{else}
+													{$v}
+												{/if}
+											{/foreach}																			
+										</span>
+									</div>
+									<i class="hyq-ic ic-person fl" style="margin-top:2px;" ></i>
+								</div>
+							</div>
+							<div class="profile-pie pull-right">
+								<div hyq-percent-pie fore-color="#ff3300" back-color="#ccc" bg-color="#f3f4f4" font-size="28px" percent="{$user_info['data_percent']}" R="48" font-color="#ff3300" {if $user_info['data_percent'] le 40} alt="丰富红人资料可以增加报名招募的成功率哦！" title="丰富红人资料可以增加报名招募的成功率哦！" {elseif $user_info['data_percent'] gt 40 AND $user_info['data_percent'] le 80} alt="再努力完善资料，你就是明日之星！" title="再努力完善资料，你就是明日之星！" {elseif $user_info['data_percent'] gt 80 AND $user_info['data_percent'] le 99} alt="继续丰富资料可能获得官方首页推荐哦！" title="继续丰富资料可能获得官方首页推荐哦！"{else $user_info['data_percent'] eq 100} alt="大明星，赶快去报名招募吧!" title="大明星，赶快去报名招募吧!" {/if}></div>
+							</div>
+						</div>
+					<!-- 	<div class="cl"></div>
+						<div class="dark-spliter-1"></div> -->
+						<!-- 验证状态 -->
+						<div class="profile-vstatus">
+							验证状态：
+							{if $user_info['email_status'] eq 'yes'}
+							<!--已经验证的邮箱图标-->
+							<span id="certify_email_red_icon" class="hyq-ic ic-mailbox-sm" alt="邮箱已验证" title="邮箱已验证"></span>
+							{else}
+							<span id="certify_email_gray_icon" class="hyq-ic ic-mailbox-sm-muted" alt="邮箱未验证" title="邮箱未验证"></span>
+							<span id="certify_email_red_icon" style="display:none" class="hyq-ic ic-mailbox-sm" alt="邮箱已验证" title="邮箱已验证"></span>
+							{/if}
+							{if $user_info['identity_card_status'] eq 'yes'}
+							<!--已经验证的身份证图标-->
+							<span id="certify_identity_red_icon" class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></span>
+							{else}
+							<span id="certify_identity_gray_icon" class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></span>
+							<span id="certify_identity_red_icon" style="display:none" class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></span>
+							{/if}
+							{if $user_info['mobile_status'] eq 'yes'}
+							<!--已经验证的手机图标-->
+							<span id="certify_mobile_red_icon" class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></span>
+							{else}
+							<span id="certify_mobile_gray_icon" class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></span>
+							<span id="certify_mobile_red_icon" style="display:none" class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></span>
+							{/if}
+						</div>
+						<!-- 验证状态结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 红名片浏览模式结束 -->
+
+		<!-- 红名片编辑模式 -->
+		<div id="redcard-edit-box" class='_hidden'>
+			<div class="row">
+				<div class="clearfix row2">
+					<div class="logo-show pull-left">
+						<a href="javascript:void(null)">
+						<img id="edit_show_icon" style="height:150px;width:150px;" src="http://icon.hotyq.com/v2/default_F_11.jpg" alt="" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+						
+							<!--更换 LOGO按钮开始 -->
+						  <!-- 当LOGO不存在的时候 使用这个按钮 -->
+						  <span id="logo_save_before" class="btn-upload" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+							<i class="hyq-ic ic-upload-lg " alt="点击更新头像" title="点击更新头像"></i>
+						  </span>  
+
+						  <!-- 当LOGO已经存在的时候使用下面这个按钮 -->
+						   <span id="logo_save_after" style="display:none;" class="btn-upload-exist _relativePos" >
+								<span class="btn-change-logo" data-toggle="hyq-modal" data-target="#img-cropper-dialog" >更换标识</span>    
+							</span>
+						  <!--更换LOGO按钮结束-->
+
+						
+						</a>
+						
+						
+					</div>
+					<div class="profile-detail">
+						<div class="profile-top" style="width: 435px; height: 180px;">
+				<!-- 输入艺名 -->
+					<div class="form-group pull-left">
+						<em>*</em>
+						<input id ="nickname" name="username" class="col-md-9" form-err="a" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\_]/g,'')" placeholder="艺名" maxlength="24" type="text" value="{$user_info['nickname']}">
+						<div class="hyq-f-err hyq-f-err-pad-left" id="nickname_tips" style = "display:none">
+						 <i class="hyq-ic ic-vlid-err"></i><label>请输入你的艺名!</label>
+						</div>
+					</div>
+		<!-- 选择性别 -->
+			<div id="sex_radio" class="form-group pull-right">
+				<em>&nbsp;</em>
+				<!-- 选择性别 -->
+				<input type ="hidden" value="{$userlist['sex']}" id="sex">	
+				{if $userlist['sex'] eq 'm'}
+				<input type="radio" class="hyq-nice-selectable-lg" disabled="disabled" name='sex' value="m" checked>
+				{elseif $userlist['sex'] neq 'm'}
+				<input type="radio" class="hyq-nice-selectable-lg" disabled="disabled" name='sex' value="m" >
+				{/if}
+				<span><b></b> 男 </span>
+				&nbsp;
+				{if $userlist['sex'] eq 'f'}				
+				<input type="radio" class="hyq-nice-selectable-lg" disabled="disabled"  name='sex' value="f" checked>
+				{elseif $userlist['sex'] neq 'f'}
+				<input type="radio" class="hyq-nice-selectable-lg"  disabled="disabled" name='sex' value="f">
+				{/if}
+				<span><b></b> 女 </span>
+				 <div class="hyq-f-err hyq-f-err-pad-left" id="sex_tips" style = "display:none">
+				 <i class="hyq-ic ic-vlid-err"></i> <label>请选择性别</label>
+				</div>
+			</div>
+						<!-- 三级联动 -->
+			<div class="form-group pull-left" id= "">
+								<em>*</em>
+				<div class="hyq-dropdown-box pull-left" id= "province-list" placeholder="所在省">
+					<input type="hidden" value="{$userlist['province_id']}" name="character" id="province">
+					<div class="hyq-dropdown " type="text" id="province_div">
+						{if $province_c eq null}
+							<span class="dropdown-value inline-block">所在省</span>
+								
+						{elseif $province_c neq null}
+							<span id="province_c" value="{$userlist['province_id']}" class="dropdown-value inline-block dropdown-loc-fixed selected">{$province_c}</span>
+						{/if}	
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_province">
+							{foreach $provincelist as $province}
+								<li value="{$province['id']}">{$province['pname']}</li>
+							{/foreach}
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+							 
+								<em>&nbsp;</em>
+				<div class="hyq-dropdown-box pull-left" id= "city-list" placeholder="所在市">
+					<input type="hidden" value="{$userlist['city_id']}" name="character" id="city">
+					<div class="hyq-dropdown " type="text">
+						{if $city_c eq null}
+							<span class="dropdown-value inline-block">所在市</span>
+								
+						{elseif $city_c neq null}
+							<span id="city_c" value="{$userlist['city_id']}" class="dropdown-value inline-block dropdown-loc-fixed selected">{$city_c}</span>
+						{/if}	
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id = "on_city">
+							<!-- <li value="0">
+								请选择市
+							</li> -->
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+							 
+								<em>&nbsp;</em>
+				<div class="hyq-dropdown-box pull-left" id= "district-list"  placeholder="所在区">
+					<input type="hidden" value="{$userlist['district_id']}" name="character" id="area">
+					<div class="hyq-dropdown " type="text">
+						{if $district_c eq null}
+							<span class="dropdown-value inline-block">所在区</span>
+								
+						{elseif $district_c neq null}
+							<span id="district_c" value="{$userlist['district_id']}" class="dropdown-value inline-block dropdown-loc-fixed selected">
+
+						{$district_c}</span>
+						{/if}	
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_area">
+							<!-- <li value="0">
+								请选择区
+							</li> -->
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+
+			 
+				<div class="hyq-f-err hyq-f-err-pad-left pull-left" id="addr_tips" style = "display:none">
+					 <i class="hyq-ic ic-vlid-err"></i> <label>请选择您的所在地</label>
+				</div>
+			</div>
+						<!-- 选择红角色 -->
+							<div class="form-group pull-left">
+								<em class="Gray8">*</em>
+								<input type="hidden" value="{$userlist['role']}" id="role_select">
+								<input type="radio" class="hyq-nice-selectable-lg" disabled="disabled"  name='sex' value="-100"/>
+								<span> <b></b> 在红角色处选择 </span>
+							</div>
+							<!-- 选择状态 -->
+							<div class="form-group pull-right">
+								<em>*</em>
+				<div class="hyq-dropdown-box">
+					<input type="hidden" value="{$userlist['state']}" name="character" id="state_select">
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block dropdown-status">目前状态</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_state_select">
+						{foreach name=state_list from=$STATE key = k item = v}
+							<li value="{$k}">
+								{$v}
+							</li>
+						{/foreach}							
+	<!-- 						<li value="free">
+								空闲
+							</li>
+							<li value="busy">
+								忙碌
+							</li>
+							<li value="other">
+								其它
+							</li> -->
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				<div class="hyq-f-err hyq-f-err-pad-left" id="state_select_tips" style = "display:none">
+				 <i class="hyq-ic ic-vlid-err"></i> <label>请选择您的状态 </label>
+				</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="gray-spliter"></div>
+		
+			<div class="row">
+				<div class="lead-title">
+					<i class="hyq-ic ic-label-mark"></i>
+					<label class="f18 Blak2">身份验证</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{if $user_info['email_status'] eq 'yes'}
+					<!-- 已经验证的邮箱图标-->
+					<span id="certify_email_red_icon_edit" class="hyq-ic ic-mailbox-lg" alt="邮箱已验证" title="邮箱已验证"></span>
+					{else}
+					<span id="certify_email_gray_icon_edit" class="hyq-ic ic-mailbox-lg-muted hoverIcon" data-toggle="hyq-modal" data-target="#valid-email-modal" alt="邮箱未验证" title="邮箱未验证"></span>
+					<span id="certify_email_red_icon_edit" style="display:none" class="hyq-ic ic-mailbox-lg" alt="邮箱已验证" title="邮箱已验证"></span>
+					{/if}
+					{if $user_info['identity_card_status'] eq 'yes'}
+					<!-- 已经验证的身份证号-->
+					<span id="certify_identity_red_icon_edit" class="hyq-ic ic-pinfo-lg" alt="身份证已验证" title="身份证已验证"></span>
+					{else}
+					<span id="certify_identity_gray_icon_edit" class="hyq-ic ic-pinfo-lg-muted hoverIcon" data-toggle='hyq-modal' data-target="#valid-idcard-modal" alt="身份证未验证" title="身份证未验证"></span>
+					<span id="certify_identity_red_icon_edit" style="display:none" class="hyq-ic ic-pinfo-lg" alt="身份证已验证" title="身份证已验证"></span>
+					{/if}
+					{if $user_info['mobile_status'] eq 'yes'}
+					<!-- 已经验证的手机号 -->
+					<span id="certify_mobile_red_icon_edit" class="hyq-ic ic-mobile-ln" alt="手机已验证" title="手机已验证"></span>
+					{else}
+					<span id="certify_mobile_gray_icon_edit" class="hyq-ic ic-mobile-ln-muted hoverIcon" data-toggle='hyq-modal' data-target="#valid-mobile-modal" alt="手机未验证" title="手机未验证"></span>
+					<span id="certify_mobile_red_icon_edit" style="display:none" class="hyq-ic ic-mobile-ln" alt="手机已验证" title="手机已验证"></span>
+					{/if}
+				</div>
+				<div class="btn-group _zeroPDTop clearfix">
+					<input class="hyq-btn hyq-btn-lg" type="button" id="redcard-save-btn" value="保存修改">
+					&nbsp;&nbsp;
+					<input class="hyq-btn hyq-btn-thin-lg" type="button" id="redcard-cancle-btn" value="取&nbsp;&nbsp;消">
+				</div>
+				<br/>
+			</div>
+ 		</div>
+		<!-- 红名片编辑模式结束 -->
+</div>
+ 

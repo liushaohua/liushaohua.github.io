@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/css/mspecial/rest.css">
+    <link rel="stylesheet" type="text/css" href="/css/mspecial/index.css">
+	<script src="/js/jquery.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<title>手机专题1--报名块</title>
+</head>
+<body>
+	<!----form表单 提交到原生 什么方式  参数名字  约定---->
+	1111111111111111111报名块
+	
+	<script>
+	//该招募id和 发布招募者id
+	var recruit_id = {$rid};
+	var recruit_uid = {$r_uid};
+	var e_service_id = {$eid};
+	var service_3 = {$s_3_id};
+	var status = '';//招募状态
+	{literal}
+	///////////报名  start/////////////////////////////////////////////////
+	$(function(){
+		console.log($.cookie('hyq_user_info'));
+		//1 判断登录
+		if( typeof($.cookie('hyq_user_info')) == 'undefined' ){
+			//alert('没登陆');
+			var url = window.location.href;
+			location.href="/account/login?url="+url;
+		}
+		//2 加载页面就拉取用户联系方式  放进输入框中
+		$.ajax({
+			url:'/home/ajax/ajax_home_apply.php',
+			type:'post',
+			data:{'action':'get_user_connect_way_and_check_recruit','rid':recruit_id},
+			success:function(data){
+				var result = eval('('+data+')');
+				//console.log(result['status']);
+				$("input[name='u_mobile']").val(result['mobile']);//获取当前用户联系方式
+				$("input[name='u_email']").val(result['email']);
+				$("input[name='u_weixin']").val(result['weixin']);
+				$("input[name='u_qq']").val(result['qq']);
+				//拉取改招募状态
+				status = result['status'];
+			},
+			dataType:'text'
+		});
+		//3 招募是否关闭
+		if(status == 2){   //招募已关闭 显示不同块
+			$($(this).attr('data-target')).remove();
+			$("#hyq-registration-end").trigger("hyq/modal/show"); 
+			return false;
+		}else if(status == 3){  //招募已过期 显示不同块
+			$($(this).attr('data-target')).remove();
+			$("#hyq-registration").trigger("hyq/modal/show"); 
+			return false;
+		}
+		//4 单击报名
+		var cookie_user_type = $.cookie('hyq_user_info').split('|')[1];
+		//发送按钮
+		$('.hyq-btn-default-lg').click(function(){
+			var tthis = $(this);
+			var win_name = tthis.parents('.hyq-modal-default');
+			//1 获取当前用户的联系方式
+			var mobile = tthis.prevAll('ul').find("input[name='u_mobile']").val();
+			var email = tthis.prevAll('ul').find("input[name='u_email']").val();
+			var weixin = tthis.prevAll('ul').find("input[name='u_weixin']").val();
+			var qq = tthis.prevAll('ul').find("input[name='u_qq']").val();
+			//alert(mobile);
+		
+			if(mobile.length == 0 && email.length == 0 && weixin.length == 0 && qq.length == 0){
+				tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+				$('.hyq-f-err-pad-left').css('display','block');
+				return false;
+			}
+			if(mobile.length == 0){
+				tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+				$('.hyq-f-err-pad-left').css('display','block');
+				return false;
+			}
+			var action = 'user_send_apply';
+			//3 发送信息 报名
+			$.ajax({
+				url:'/home/ajax/ajax_home_apply.php',
+				type:'post',
+				data:{"action":action,"recruit":recruit_id,'recruit_uid':recruit_uid,"service":e_service_id,"service_3":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq,"user_type":cookie_user_type},
+				success:function(data){
+					//alert(data);
+					if(data == 1000){
+						//alert('OK');
+						var tip = $("#tip-message").HYQTip();
+						tip.showSuccess('报名成功');
+						//报名成功替换 样式
+						
+						win_name.trigger("hyq/modal/close"); 
+					}else if(data == 1375){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+					}else if(data == 1374){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请不要重复报名!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+					}else if(data == 1378){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少选择一项服务报名!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+					}else if(data == 1379){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+					}else{
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('网络错误,报名失败!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+					}
+				},
+				dataType:'text'
+			});
+		});
+	});
+	////////////报名  end////////////////////////////////////////////////
+	</script>
+	{/literal}
+</body>
+</html>

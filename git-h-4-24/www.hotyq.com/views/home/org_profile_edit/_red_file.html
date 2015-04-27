@@ -1,0 +1,390 @@
+<!--没有数据的时候的时候 把这个设置成_hidden 另外一个 ""-->
+{assign var="isRfFirstEdit" value=""}
+<!--浏览模式的时候 把这个设置成_hidden 另外一个 ""-->
+{assign var="isRfReview" value="_hidden"}
+<div class="column-wrapper hyq-column-content rf-wrapper clearfix redcard-column">
+
+	<div class="row album-lead">
+		<div class="lead-title">
+			<i class="hyq-ic ic-label-mark"></i>
+			<label class="f18 Blak2">红档案<small class="Gray8"> (丰富机构资料，提高用户级别，吸引更多红人加入)</small></label>
+			<a class="profile-expend-btn   pull-right {$isRfReview} " id="rf-expend-btn" alt="点击添加红档案" title="点击添加红档案"></a> 
+			<a class="profile-edit-btn   pull-right {$isRfFirstEdit}" id="rf-edit-btn" alt="点击编辑红档案" title="点击编辑红档案"></a>
+		</div>
+	</div>
+
+	<!--红档案之浏览模式-->
+	<div class="row2  hyq-review-box {$isRfFirstEdit}" id='rf-review-box'>
+		  <div class="ra-item">
+			{if $orglist['introduce'] eq ''}
+			<div class="ra-name" id = "rf-edit-box-one"> 
+		 	</div>			
+			{else $orglist['introduce'] neq ''}			 	
+			<div class="ra-name" id = "rf-edit-box-one">
+		 		 <div><label>机构简介</label></div>
+		 		 <div class="ra-info" id="rrf-intro">{$orglist['introduce']}</div>
+				 <div class="spliter-tall gray-spliter"></div>	 
+		 	</div>
+
+			{/if}
+			
+			{if $orglist['production'] eq ''}
+		 	<div class="ra-name" id = "rf-edit-box-two"> 
+		 	</div>			
+			{else $orglist['production'] neq ''}		
+		 	<div class="ra-name" id = "rf-edit-box-two">
+		 		 <div><label>主要作品</label></div>
+		 		 <div class="ra-info" id="rrf-works">{$orglist['production']}</div>
+				 <div class="spliter-tall gray-spliter"></div>	 
+		 	</div>
+
+			{/if}
+
+			{if $orglist['honor'] eq ''}
+		 	<div class="ra-name" id = "rf-edit-box-three">
+		 	</div>			
+			{else $orglist['honor'] neq ''}
+		 	<div class="ra-name" id = "rf-edit-box-three">
+		 		 <div><label>主要荣誉</label></div>
+		 		 <div class="ra-info" id="rrf-honor">{$orglist['honor']}</div>
+		 	</div>
+			{/if}
+		 </div>
+	</div>
+	<!--红档案之编辑模式-->
+	<div class="row2 rf-edit-box _hidden" id="rf-edit-box">
+
+			<div class="form-group" >
+	            <label for="intro" class="pull-left f16">机构简介：</label>
+	            <textarea id="rf-intro" placeholder="请输入贵公司简介（最多200个字）" rows="8" class="col-md-9 f14" style="height:150px">{$orglist['introduce']}</textarea>	
+					<div id="intro_text" class="word-hint"></div>
+	        </div>
+				
+	        <br class="_clb"/>
+	        <br class="_clb"/>
+	        <div class="form-group" >
+	            <label for="works" class="pull-left f16">主要作品：</label>
+	            <textarea id="rf-works" placeholder="请填写贵公司出产过的作品" class="col-md-9 f14" style="height:100px;">{$orglist['production']}</textarea>
+				 <div id="works_text" class="word-hint"></div>	
+	        </div>
+			
+	        <br class="_clb"/>
+	        <br class="_clb"/>
+	        <div class="form-group" >
+	            <label for="honor" class="pull-left f16">主要荣誉：</label>
+	            <textarea id="rf-honor" placeholder="请填写贵公司获得过的主要荣誉" class="col-md-9 f14" style="height:100px;">{$orglist['honor']}</textarea>
+				 <div id="honor_text" class="word-hint"></div>
+	        </div>
+			
+		<br class="_clb"/>
+		<br class="_clb"/>
+	</div>
+		<div class="hyq-f-err hyq-f-err-pad-left" id="profile_tips" style = "display:none">
+			<i class="hyq-ic ic-vlid-err"></i> <label>哎呦,错误了</label>
+		</div>		
+	<div class="row2 _hidden" id="rf-notice-message"></div>
+	<div class="row2 _hidden ra-btnbox " id="rf-btn-box">
+	 	
+			 
+		<input class="hyq-btn hyq-btn-lg" type="button" id="rf-save-btn" value="保&nbsp;&nbsp;存">
+		&nbsp;&nbsp;
+		<input type="button" value="取&nbsp;&nbsp;消" id="rf-cancle-btn" class="hyq-btn hyq-btn-thin-lg" />
+			<br class="_clb"/>
+			<br class="_clb"/>
+	</div>
+</div>
+<!--可以从数据库里面拿出这三个值交给JS程序-->
+{assign var="firmIntro" value="{$orglist['introduce']}"}
+{assign var="firmWorks" value="{$orglist['production']}"}
+{assign var="firmHonor" value="{$orglist['honor']}"}
+<textarea id="t_firmIntro" style="display:none">{$firmIntro}</textarea>
+<textarea id="t_firmWorks" style="display:none">{$firmWorks}</textarea>
+<textarea id="t_firmHonor" style="display:none">{$firmHonor}</textarea>
+<textarea id="red_file_state" style="display:none">{$red_file_state}</textarea>
+{literal}		
+<script type="text/javascript">
+
+	$(window).load(function(){
+		var rf ={};	//数组
+{/literal}
+		rf.firmIntro = $("#t_firmIntro").val();//机构简介
+		rf.firmWorks = $("#t_firmWorks").val();//主要作品的数据		
+		rf.firmHonor = $("#t_firmHonor").val();//主要作品的数据		 
+		 
+		//alert(rf.firmHonor);
+		//console.log(rf.firmHonor.parseJSON());
+{literal}
+		//编辑按钮
+		var rfEditBtn = $("#rf-edit-btn");
+		//展开按钮
+		var rfExpendBtn = $("#rf-expend-btn");
+		//取消按钮
+		var rfCancleBtn = $("#rf-cancle-btn");
+		//保存按钮
+		var rfSaveBtn = $("#rf-save-btn");
+
+		//编辑盒子
+		var rfEditBox = $("#rf-edit-box");
+
+		//浏览盒子
+		var rfReviewBox = $("#rf-review-box");
+
+		//按钮盒子
+		var rfBtnBox = $("#rf-btn-box");
+		//红档案是否填写过状态(0是没填写)
+		var red_file_state = $('#red_file_state').val();
+		check_red_file_state();
+		function check_red_file_state(){
+			//alert(red_file_state);
+			if(red_file_state == 0){
+				rfExpendBtn.show();
+				rfEditBtn.hide();
+			}else if (red_file_state == 1){
+				rfExpendBtn.hide();
+				rfEditBtn.show();
+			}
+		}
+		//自动填表单
+		rf.renderForm = function(){
+			$("#rf-intro").val(rf.firmIntro);
+			$("#rf-works").val(rf.firmWorks);
+			$("#rf-honor").val(rf.firmHonor);
+		}
+		
+		//自动填浏览内容
+		rf.renderReview = function(){
+			$("#rrf-intro").html($.trim(rf.firmIntro)==""?"没有填写":rf.firmIntro.replace(/\n/g,"<br />"));
+			$("#rrf-works").html($.trim(rf.firmWorks)==""?"没有填写":rf.firmWorks.replace(/\n/g,"<br />"));
+			$("#rrf-honor").html($.trim(rf.firmHonor)==""?"没有填写":rf.firmHonor.replace(/\n/g,"<br />"));	
+		}
+		
+		//保存表单里的值到jS对象 
+		rf._applyData = function(intro,works,honor){
+			$("#rf-intro").val(intro);
+			$("#rf-works").val(works);
+			$("#rf-honor").val(honor); 
+			rf.firmIntro = intro;
+			rf.firmWorks = works;
+			rf.firmHonor = honor;
+		}
+
+		//获得数据的JS对象或者JSON串 toJson = true 返回JSON串 否则返回JS对象，可以作为$.post的参数
+		rf.getData =function(toJson){
+			
+			var back = {
+				firmIntro:$("#rf-intro").val(),
+				firmWorks:$("#rf-works").val(),
+				firmHonor:$("#rf-honor").val()
+			}
+			if(toJson) return JSON.stringify(back);
+			else 
+				return back;
+
+		}
+		rf.showNotice=function(msg,isErr){
+			var sNode = $("#rf-notice-message");
+			if(!isErr) sNode.html(msg).fadeIn().delay(3000).fadeOut();
+			else sNode.html("<label class=Rd>"+msg+"</label>").fadeIn().delay(3000).fadeOut();
+		}
+
+		//只有保存成功才能调用这句不然会有脏数据
+		
+		rf.renderAndSwitchReviewMode = function(intro,works,honor){	
+			rf._applyData(intro,works,honor);
+			rf.renderReview();
+			rfEditBox.slideUp();
+			rfBtnBox.slideUp();
+			rfReviewBox.fadeIn();
+		}
+
+		// 载入的时候先渲染一下数据
+		rf.renderReview();
+		//响应事件
+		//点编辑按钮
+		rfEditBtn.click(function(){
+			rfReviewBox.fadeOut();
+			rfEditBox.slideDown();
+			rfBtnBox.slideDown();
+			rf.renderForm();
+			rfEditBtn.fadeOut();
+			rfSaveBtn.fadeIn();
+			
+		});
+
+		//点击取消按钮
+		rfCancleBtn.click(function(){
+			rf.renderReview();
+			rfEditBox.slideUp();
+			rfBtnBox.slideUp();
+			rfReviewBox.fadeIn();
+			if(($.trim($('#rf-intro').val())=="") && ($.trim($('#rf-works').val())=="")  && ($.trim($('#rf-honor').val())=="")){	
+				red_file_state = 0;
+			}else{
+				red_file_state = 1;
+			}
+			check_red_file_state();
+		});
+
+
+		//点展开按钮
+		rfExpendBtn.click(function(){
+			rfEditBox.slideDown();	//编辑盒子
+			rfBtnBox.slideDown();
+			rf.renderForm();
+			rfExpendBtn.hide();
+		});
+
+
+
+		//点击保存按钮
+		rfSaveBtn.click(function(){
+			var	 firmIntro = $('#rf-intro').val();	
+			var	 firmWorks = $('#rf-works').val();
+			var	 firmHonor = $('#rf-honor').val();	
+			if(firmIntro.length > 300)return;
+			if(firmWorks.length > 300)return;
+			if(firmHonor.length > 300)return;			
+			//先获得数据
+			//获得JS对象
+			var ajaxData = rf.getData();
+			//也可以获得JSON
+			var ajaxJson = rf.getData(true);
+			//alert(ajaxData);
+			console.log(ajaxData);
+			console.log(ajaxJson);
+			var action = 'update_org_profile';
+			//以下在回调里执行*******
+			$.post("/home/ajax/ajax_home_orgprofile.php",{'action':action,'ajaxData':ajaxData},function(data){
+				//alert(data);	
+				if(parseInt(data) == 1000){	
+					rf.showNotice("保存成功！");	
+					rf.firmIntro = $('#rf-intro').val();	
+					rf.firmWorks = $('#rf-works').val();
+					rf.firmHonor = $('#rf-honor').val();		
+					rf.renderReview();
+					rfEditBox.slideUp();
+					rfBtnBox.slideUp();
+					rfReviewBox.fadeIn();					
+					//rfEditBtn.fadeIn();
+					$('#rrf-intro').text(rf.firmIntro);
+					$('#rrf-works').text(rf.firmWorks);
+					$('#rrf-honor').text(rf.firmHonor);
+					if($('#rf-intro').val() ==''){
+						$('#rf-edit-box-one').fadeOut();
+					}else{
+						$('#rf-edit-box-one').html('<div><label>机构简介</label></div><div class="ra-info" id="rrf-intro">'+rf.firmIntro.replace(/\n/g,"<br />")+'</div><div class="spliter-tall gray-spliter"></div>');
+						$('#rf-edit-box-one').fadeIn();
+					}
+					if($('#rf-works').val() ==''){
+						$('#rf-edit-box-two').fadeOut();
+					}else{
+						$('#rf-edit-box-two').html('<div><label>主要作品</label></div><div class="ra-info" id="rrf-intro">'+rf.firmWorks.replace(/\n/g,"<br />")+'</div><div class="spliter-tall gray-spliter"></div>');					
+						$('#rf-edit-box-two').fadeIn();
+					}
+					if($('#rf-honor').val() ==''){
+						$('#rf-edit-box-three').fadeOut();
+					}else{
+						$('#rf-edit-box-three').html('<div><label>主要荣誉</label></div><div class="ra-info" id="rrf-intro">'+rf.firmHonor.replace(/\n/g,"<br />")+'</div><div class="spliter-tall gray-spliter"></div>');						
+						$('#rf-edit-box-three').fadeIn();	
+					}
+					$(document).trigger("hyq/userstate/changed");//如果cookie改动触发这个事件  实时更新	
+				}else if(parseInt(data) == 1149){
+					rf.showNotice("机构简介的字数超过限制",true);
+				}else if(parseInt(data) == 1150){
+					rf.showNotice("主要作品的字数超过限制",true);
+				}else if(parseInt(data) == 1151){
+					rf.showNotice("主要荣誉的字数超过限制",true);						
+				}else{
+					rf.showNotice("保存失败！",true);
+				}
+
+				if(($.trim($('#rf-intro').val())=="") && ($.trim($('#rf-works').val())=="")  && ($.trim($('#rf-honor').val())=="") ){	
+					red_file_state = 0;
+				}else{
+					red_file_state = 1;
+				}
+				check_red_file_state();
+				//rf.renderAndSwitchReviewMode(ajaxResponse.data.intro,ajaxResponse.data.works,ajaxResponse.data.honor);
+			},'text')
+
+        });
+				
+
+				/****************************
+				/* 这个重新渲染Review模式数据的方法在保存成功后要调用来更新界面
+				/* 保存成功一定要调用这句，不然界面显示的数据就不对 ajaxResponse是假设对象 按照我们的约定格式类似于
+	
+
+ 				rf.renderAndSwitchReviewMode(ajaxResponse.data.intro,ajaxResponse.data.works,ajaxResponse.data.honor,);//
+				 
+				 *******************************/
+				  
+
+				//这两个显示消息的方法在回调里执行
+				//rf.showNotice("保存成功！");
+				//rf.showNotice("保存失败！",true);
+				
+				 
+	});
+	 
+	$(document).ready(function(){
+	
+			var limitNum1 = 200;
+			var remain1 = $("#rf-intro").val().length;
+			var pattern = '还可以输入<span>' + (limitNum1-remain1) + '</span>字符';
+			$('#intro_text').html(pattern);
+			$('#rf-intro').keyup(
+				function(){
+					var remain1 = $(this).val().length;
+					if(remain1 > 200){
+						pattern = "字数超过限制！";
+						var text1=$("#rf-intro").val().substr(0,200); 
+						$("#rf-intro").val(text1); 
+					}else{
+						var result1 = limitNum1 - remain1;
+						pattern = '还可以输入<span>' + result1 + '</span>字符';
+					}
+					$('#intro_text').html(pattern);
+				}
+			);
+			var limitNum2 = 200;
+			var remain2 = $('#rf-works').val().length;
+			var pattern = '还可以输入<span>' + (limitNum2-remain2) + '</span>字符';
+			$('#works_text').html(pattern);
+			$('#rf-works').keyup(
+				function(){
+					var remain2 = $(this).val().length;
+					if(remain2 > 200){
+						pattern = "字数超过限制！";
+						var text2=$("#rf-works").val().substr(0,200); 
+						$("#rf-works").val(text2); 
+					}else{
+						var result2 = limitNum2 - remain2;
+						pattern = '还可以输入<span>' + result2 + '</span>字符';
+					}
+					$('#works_text').html(pattern);
+				}
+			);	
+			var limitNum3 = 200;
+			var remain3 = $('#rf-honor').val().length;
+			var pattern = '还可以输入<span>' + (limitNum3-remain3) + '</span>字符';
+			$('#honor_text').html(pattern);
+			$('#rf-honor').keyup(
+				function(){
+					var remain3 = $(this).val().length;
+					if(remain3 > 200){
+						pattern = "字数超过限制！";
+						var text3=$("#rf-honor").val().substr(0,200); 
+						$("#rf-honor").val(text3); 						
+					}else{
+						var result3 = limitNum3 - remain3;
+						pattern = '还可以输入<span>' + result3 + '</span>字符';
+					}
+					$('#honor_text').html(pattern);
+				}
+			);	
+		
+	});
+	
+</script>
+{/literal}		

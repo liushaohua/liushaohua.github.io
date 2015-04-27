@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+	<title></title>
+    <style>
+       div#loading{
+    width:100%;
+    height:100%;
+    background: #fff;
+    overflow: hidden;
+    position: fixed;
+    z-index: 999999;
+    left:0;
+    top:0;
+    -webkit-animation-duration:5s;
+}
+.logo{
+    width:15%;
+    margin:0 auto;
+    margin-top:50%;
+    position: relative;
+}
+.logoOne{
+    width:100%;
+}
+.logoTwo{
+    width:36%;
+    position: absolute;
+    left:32%;
+    top:30%;
+    -webkit-animation:zhuan1 infinite;
+    
+    -webkit-animation-duration:1s;
+}
+#loading span{
+    display: block;
+    text-align: center;
+    width:100%;
+    color:#3c3c3c;
+    font-size: 20px;
+    margin-top: 5%;
+    font-weight: bold;
+}
+#yin{
+    position: fixed;
+    z-index: 900;
+    right:5%;
+    top:2%;
+    width:30px;
+    height:30px;
+    overflow: hidden;
+    -webkit-animation:zhuan1 infinite;
+    
+    -webkit-animation-duration:2s;
+}
+#yin img{
+    width:200%;
+}
+
+
+@-webkit-keyframes zhuan1
+{
+to{
+    -webkit-transform: rotate(360deg);
+}
+
+}
+
+    </style>
+</head>
+<body>
+    <div id="loading">
+         <div class="logo">
+              <img src="img/logo.jpg" alt="" class="logoOne">
+              <img src="img/logo1.jpg" alt="" class="logoTwo">
+         </div>
+         <span>loading<i>0%</i></span>
+     </div>
+     <div id='yin'>
+      <img src="img/yin.png" alt="">
+     </div>
+      <div style='display:none'>
+        <audio src="1.mp3" controls="controls"  loop="loop" autoplay="autoplay" hidden='true' style="position:absolute" id='myaudio'>您的浏览器不支持audio</audio>
+    </div>
+    <ul class="pages">
+    	<li class="page pageone">
+	    	<div class="divs divs-one">
+	    		<p class='startFont' cl='rubberBand'>
+	    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你是怀才不遇的艺人，你可以在这里尽情地展现自己的才华，打开通往坦荡星途的大门！</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你是寻才未果的伯乐，你可以在这里看到无数匹千里马在你眼前疾驰，总有一款适合你！</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一句话！想找活的在这能找到靠谱的活！想找人的在这能找到靠谱的人！就是这么靠谱！别问我为什么！任性！</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且这些都是免费的！
+					<span class="sclick">
+						
+					</span>
+	    		</p>
+	    		<span class="sclick"></span>
+	    	</div>
+	    	<div class="divs pageones">
+	    	    <div class="divs">
+	    		<div class="divup" cl='div-goback'></div>
+	    		<div class="divdw" cl='div-goback'>
+                    <p cl='opa-full' class="chui">官网地址:<br>
+                    <span class='dizhis' cl='dizhi-go'> http://www.hotyq.com/</span>
+                    </p>
+                    <p cl='opa-full' class="chui">登陆方式多样化:<br>
+                    <span>手机邮箱注册<br>或者<br>qq微信登录亦可</span>
+                    </p>
+                </div>
+	    	    <div class="browers">
+	    	    	<img src="img/brower.png" alt="" class="brower" cl='go-back'>
+                    <img src="img/index.jpg" alt="" cl='index1' class="index">
+                    <img src="img/login.jpg" alt="" cl='opa-back' class="login">
+                    <img src="img/brower-title.jpg" alt="" class="brower-title" cl='opa-back'>
+	    	    	<img src="img/dizhi.jpg" alt="" class="dizhi" cl='flash'>
+	    	    </div>		
+	    	</div>
+	    	<img src="img/scroll.png" alt="" class="scroll scroll1">	
+	    	</div>
+    	</li>
+
+
+
+    	<li class="page pagetwo">
+    	    <div class="divs">
+    	    	<div class="divup" cl='div-goback'>
+    	    	    <div class="divs twoup-div" cl='opa-back'>
+    	    		    <img src="img/twoup1.jpg" alt="" class="twoup1">
+    	    		</div>
+    	    		<img src="img/twoup3.jpg" alt="" class="twoup3" cl='flash'>
+    	    		<img src="img/twoup2.png" alt="" class="twoup2" cl='opa-back'>
+    	    	</div>
+    	    	<div class="divdw" cl='div-goback'>
+    	    	    <div class="divs twodw-div" cl='opa-back'>
+    	    	    	<img src="img/twodw1.jpg" alt="" class="twodw1">
+    	    	    </div>
+    	    		<img src="img/twodw3.jpg" alt="" class="twodw3" cl='flash'>
+    	    		<img src="img/twodw2.png" alt="" class="twodw2" cl='opa-back'>
+    	    	</div>
+    	    </div>
+            <img src="img/scroll.png" alt="" class="scroll scroll2">
+    	</li>
+    	<li class="page pagethree">
+    		<div class="divs">
+    			<div class="divup" cl='div-goback'>
+                    <div class="divs divup3-1" cl='opa-scale0'>
+                        <img src="img/three1.jpg" alt="" class="three1" cl='opa-back'>
+                    </div>
+                    <div class="divs divup3-2" cl='opa-back'>
+                        <img src="img/three2.png" alt="">
+                        <img src="img/three3.png" alt="">
+                        <img src="img/three4.png" alt="">
+                    </div>
+    			</div>
+    			<div class="divdw" cl='div-goback'>
+    				<p class="page-three-p1 chui" cl='opa-full'>完善个人资料<br>上传头像和个人封面照<br>即可进入红人快速成长通道</p>
+                    <p class="page-three-p2 chui" cl='opa-full'>完成<br>手机、邮箱、身份证验证<br>让信息更加可靠更加容易管理，真实度更高。</p>
+    			</div>
+    		</div>
+            <img src="img/scroll.png" alt="" class="scroll scroll1">
+    	</li>
+        <li class="page pagefour">
+            <div class="divup" cl='div-goback'>
+                <div class="divs fang-cloth" cl='opa-up'>
+                    <div class="divs fang1" cl='go-back'>
+                    <div class="divs fang2 ">
+                        <img src="img/fang.png" alt="" class="fang3">
+                    </div>
+                </div> 
+                </div>
+                
+                <div class="divs hot-people" cl='opa-up'>
+                    <span cl='opa-back'>众多红人</span>
+                    <img src="img/four (1).jpg" alt="">
+                    <img src="img/four (2).jpg" alt="">
+                    <img src="img/four (3).jpg" alt="">
+                    <img src="img/four (4).jpg" alt="">
+                    <img src="img/four (5).jpg" alt="">
+                    <img src="img/four (19).jpg" alt="">
+                    <img src="img/four (7).jpg" alt="">
+                    <img src="img/four (8).jpg" alt="">
+                    <img src="img/four (9).jpg" alt="">
+                    <img src="img/four (10).jpg" alt="">
+                    <img src="img/four (12).jpg" alt="">
+                    <img src="img/four (13).jpg" alt="">
+                    <img src="img/four (14).jpg" alt="">
+                    <img src="img/four (15).jpg" alt="">
+                    <img src="img/four (16).jpg" alt="">
+                    <img src="img/four (17).jpg" alt="">
+                    <img src="img/four (18).jpg" alt="">
+                    <img src="img/four (6).jpg" alt="">
+                    
+                </div>
+                <div class="divs zhao-people">
+                    <span cl='opa-back'>众多招募</span>
+                    <img src="img/zhao (2).jpg" alt="">
+                    <img src="img/zhao (3).jpg" alt="">
+                    <img src="img/zhao (4).jpg" alt="">
+                    <img src="img/zhao (5).jpg" alt="">
+                    <img src="img/zhao (6).jpg" alt="">
+                    <img src="img/zhao (7).jpg" alt="">
+                    <img src="img/zhao (8).jpg" alt="">
+                    <img src="img/zhao (1).jpg" alt="">
+                </div>
+            </div>
+            <div class="divdw" cl='div-goback'>
+                <p class=" chui" cl='opa-full'>输入关键词<br>演艺圈有的，这里都有<br>这里有的，演艺圈将来都要有</p>
+            </div>
+            <img src="img/scroll.png" alt="" class="scroll scroll1">
+        </li>
+        <li class="page pagefive">
+            <div class="divup" cl='div-goback'>
+                <div class="divs five-div1" cl='go-back'>
+                    <img src="img/five1.jpg" alt="" class="chui">
+                </div>
+                <div class="divs five-div2">
+                    <img src="img/five2.jpg" alt="" class="chui">
+                </div>
+            </div>
+            <div class="divdw" cl='div-goback'>
+                <p class="chui five-p1" cl='opa-full'>积极利用网站私信与看中红人招募方即时沟通<br>莫让机会从指端溜走。</p>
+                <div class="divs five-p2" cl='opa-full'>
+                    <p class="chui">广发英雄帖<br>招募女侠豪杰</p>
+                </div>
+            </div>
+            <img src="img/scroll.png" alt="" class="scroll scroll1">
+        </li>
+        <li class="page pagesix">
+            <div class="divup" cl='div-goback'></div>
+            <div class="divdw" cl='div-goback'></div>
+            <div class="chui">
+                <span>在红演圈</span>
+                <span>您既可以是红人也可以是招募方</span>
+                <span>超过130种的类型的分类服务</span>
+                <span>全国各大城市全面覆盖</span>
+                <span>在红演圈</span>
+                <span>光明正大的约！</span>
+                <span>pc打开更好的浏览体验</span>
+                <span><a href="http://www.hotyq.com/">www.hotyq.com</span></a>
+                <a href=""></a>
+            </div>
+        </li>
+    </ul>
+
+    <script src='js/zepto.min.js'></script>
+    <script src='js/my.js'></script>
+    <script src='js/index.js'></script>
+</body>
+</html>

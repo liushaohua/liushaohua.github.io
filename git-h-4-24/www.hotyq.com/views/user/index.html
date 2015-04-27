@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="no-js">
+	 <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+        <title>文化演艺服务红人-红演圈</title>
+        <meta name="keywords" content="文化演艺，演艺服务，文化娱乐，演艺招募，名企招募，真实招募，权威招募，文化演艺服务，文化演艺服务招募">
+        <meta name="description" content="红演圈 － 国内最专业的文化演艺服务平台，最新、最火、最靠谱的招募邀约，一目了然、轻松报名。">
+        
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        
+        <link rel="stylesheet" href="/css/main.css">
+        <script type="text/javascript" src="/js/jquery.js"></script>
+    </head>
+	<body class="reds-channel">
+	{include "common/header-new.html"}
+    {include "common/nav_search.html"}
+	<div class="content-wrapper-index">
+        <!-- 主内容栏开始 -->
+   	<div class="channel-left-con fl">
+   	 <!-- 选项卡 -->
+   		   		<ul class="hyq-city-category">
+   			    <li class="hyq-city active">
+                <a href="/list/user"  class="first">全国</a>
+            </li>
+            {foreach from=$chief_city_list item=chief_city key=key}
+            <li class="hyq-city">
+                <a href="/list/user?city={$key}">{$chief_city['cname']}</a>
+            </li>
+            {/foreach}
+            <a href="javascript:;" class="other-city-a">其它<i class="hyq-ic ic-chevron-sm" style="margin:0px 4px 5px 15px;"></i></a>
+            <div class="other-city-box">
+              <div class="arrow-city">
+                  <img src="http://icon.hotyq.com/v2/city-arrow-top.jpg" width="21" height="13">
+              </div>
+            <div class="other-city">
+              {foreach from=$citys item=city_info key=key}
+              <span>{$key}</span>
+              <p>
+                {foreach $city_info as $city}
+                <a href="/list/user?city={$city['id']}" title="{$city['cname']}" alt="{$city['cname']}">{$city['cname']}</a>
+                {/foreach}
+              </p>
+              {/foreach}
+            </div>
+          </div>  
+       </ul>
+       <!-- 关联内容-->
+      <div class="reds-wrap">     
+	      
+	      	<!--演员-->
+      {if count($user_list) > 0}
+			{foreach from=$user_list name=foo item=user_classify key=key}
+			{$userListCont = $smarty.foreach.foo.iteration}
+	      	<div class="reds-con">
+            	<div class="reds-left">
+                	<div class="reds-l-top">
+                    	<a href="/list/user?role_1_limit=yes&role_1_option={$key}" target="_blank">
+							<img src="http://icon.hotyq.com/v2/reds/redsFloor{$userListCont}.jpg">
+							<span>{$userListCont}F</span>
+                        </a>
+                    </div>
+                    <div class="reds-l-bot">
+						<div class="reds-l-bot-box">  
+                          <div class="reds-l-bot-wrap">
+                            <ul>
+								{$listCont0 = count($role_2_list[{$key}])}
+								{foreach $role_2_list[{$key}] as $role_2 name=foo2}
+								  {$listIteration = $smarty.foreach.foo2.iteration}
+								  <li>
+									<a href="/list/user?role_1_limit=yes&role_1_option={$key}&role_2_option[]={$role_2['id']}" target="_blank"{if $listIteration % 2 == 0} class="reds-l-bot-active"{/if}><i></i>{$role_2['name']}</a>
+								  </li>
+								  {if $listIteration != 0 && $listIteration % 13 == 0}
+									</ul><ul>
+								  {/if}
+								{/foreach}
+							</ul>	
+                          </div> 
+						</div>
+						{if $listCont0 > 13}
+						{$pageNum = ceil($listCont0/13)}
+						<div class="reds-l-bot-slbtn">
+						  {for $x=0; $x<$pageNum; $x++}
+                          <i{if $x == 0} class="reds-l-bot-slbtn-active"{/if}></i>
+						  {/for}
+						</div> 
+						{/if}
+                    </div>
+                </div>
+                <div class="reds-right">
+					{foreach from=$user_classify item=user_info key=userId}
+                    <div class="hot-role-unit-pic" >
+                        <a href="/user/{$userId}">
+							<span class="hot-role-pic-ab-2">
+							  <i class="hyq-ic {if $user_info['sex'] eq 'f'}ic-sex-female{elseif $user_info['sex'] eq 'm'} ic-sex-male {/if}"></i>
+							  <span>{$user_info['nickname']}</span>
+							  <i class="age-t">{$user_info['age']}</i>
+							</span>
+							<p class="hot-role-pic-ab"></p>
+							<img data-lazy="{if $user_info['icon']}{$user_info['icon']}!f150{else}http://icon.hotyq.com/v2/default/150x150.png{/if}" width="133" height="133" class="icon_img" data-title="{$user_info['nickname']}">
+						</a>
+                    </div>                                                                                                     
+					{/foreach}                                                                                                
+                </div>                                                                                                         
+                <div class="cl"></div>                                                                                         
+                <div class="reds-bottom">                                                                                      
+                	<div class="border-dot"></div>                                                                             
+                   <a href="/list/user?role_1_limit=yes&role_1_option={$key}">&raquo;&nbsp;更多</a>          
+                </div>                                                                                                         
+           	</div>                                                                                                             
+			{/foreach}                                                                                                         
+           	<!--综艺-->                                                                                                          
+           	<div class="reds-con">                                                                                             
+            	<div class="reds-left">                                                                                        
+                	<div class="reds-l-top">                                                                                   
+                    	<a href="javascript:;" target="_blank">
+						<img src="http://icon.hotyq.com/v2/reds/redsFloor{$userListCont+1}.jpg">
+						<span>{$userListCont +1}F</span>
+                      </a>                                                                                                  
+                    </div>                                                                                                     
+                    <div class="reds-l-bot">      
+						<div class="reds-l-bot-box">  
+                          <div class="reds-l-bot-wrap">
+                            <ul>
+							  {$listCont1 = count($org_type_list)}
+							  {foreach $org_type_list as $org_type name=foo3} 
+							  {$listIteratio = $smarty.foreach.foo3.iteration}
+                              <li>                                                              
+								<a href="/list/org?type={$org_type['id']}" target="_blank"{if $listIteratio % 2 == 0} class="reds-l-bot-active"{/if}><i></i>{$org_type['name']}</a> 
+							  </li>
+							 {if $listIteratio != 0 && $listIteratio % 13 == 0}
+							 </ul><ul>
+							 {/if}
+							 {/foreach}
+                            </ul>
+                          </div> 
+						</div>
+						{if $listCont1 > 13}
+						{$pageNum = ceil($listCont1/13)}
+						<div class="reds-l-bot-slbtn">
+						  {for $x=0; $x<$pageNum; $x++}
+                          <i{if $x == 0} class="reds-l-bot-slbtn-active"{/if}></i>
+						  {/for}
+						</div> 
+						{/if}
+                    </div>                                                                                                     
+                </div>                                                                                                         
+                <div class="reds-right">                                                                                       
+                    {foreach from=$org_list item=org_info key=org_id name=org_show}                                            
+                    <div class="hot-role-unit-pic" >                                                                           
+                        <a href="/org/{$org_info['id']}">                                           
+							<span class="hot-role-pic-ab-2">                                                                       
+							  <p>{$org_info['nickname']}</p>                                                                 
+							  <!--<i class="age-t">{$org_info['create_time']}</i>-->                                                      
+							</span>                                                                                                
+							<p class="hot-role-pic-ab"></p>                                                                        
+							<img data-lazy="{$org_info['icon']}!f150" width="133" height="133" data-title="{$user_info['nickname']}"> 
+						</a>   
+                    </div>                                                                                                     
+                    {/foreach}                                                                                                 
+                </div>                                                                                                         
+                <div class="cl"></div>                                                                                         
+                <div class="reds-bottom">                                                                                      
+                	<div class="border-dot"></div>                                                                             
+                   <a href="/list/org">&raquo;&nbsp;更多</a>                                                 
+                </div>  	                                                                                                   
+           	</div>
+			 {/if}
+      </div>                                                                                                                   
+    </div> 
+                                                                                                                   
+   	<div class="detail-right-con fr">                                                                                          
+         {include "html/common_user_top_list.html"}                                                                             
+      <!--广告图250*350-->                                                                                                        
+             <a href="javascript:;" target="_blank" class="r-ad-350">                                                          
+              {include "html/red_person_right_first.html"}                                            
+            </a>                                                                                                               
+      <div class="cl"></div>                                                                                                   
+      <!--Andorid 微信--> <!--iPhone 微信-->
+        {include "html/red_person_right_second.html"}
+      <div class="cl"></div>  
+		  {include "html/red_person_right_third.html"}                                                                       <div class="cl"></div>                            
+            <!--与你相关十个-->                                                                                                      
+      {include "common/maybe_like_recruit_right.html"} 
+             <!--悬浮微信-->
+		{include "html/right_fly_qrcode.html"} 
+            <div class="cl"></div>
+            <!--红演圈十大好处Benefits-->
+		{include "common/right_ten_benefits.html"}  	  
+    </div>                                                                                                                     
+       <!-- 主内容栏结束 -->                                                                                                         
+    </div>                                                                                                                     
+                                                                                                                         </div>      
+	{include "common/footer-new.html"}
+	<script src="/js/jquery-ui.min.js"></script>
+	<script src="/js/hyq-placeholder.js"></script>
+	<script src="/js/hyq-modal.js"></script>
+	<script src="/js/hyq-valid-helper.js"></script>
+	<script src="/js/hyq-checkbox-list.js"></script>
+	<script src="/js/hyq-dropdown-list.js"></script>
+	<script src="/js/hyq-dropdown-button.js"></script>
+	<script src="/js/hyq-checkbox.js"></script>
+	<script src="/js/hyq-nice-radio.js"></script>
+	<script src="/js/tmk-html-import.js"></script>       
+	<script src="/js/hyq-extends.js"></script>
+	<script src="/js/hyq-tip.js"></script>
+	<script src="/js/hyq-tabs-lr.js"></script>
+	<script src="/js/hyq-img-cropper.js"></script>
+	<script src="/js/hyq-busy-animate.js"></script>
+	<script src="/js/hyq-album-datastore.js"></script>
+	<script src="/js/hyq-album-manager.js"></script>
+	<script src="/js/hyq-album-viewport.js"></script>
+	<script src="/js/hyq-role-select.js"></script>
+	<script src="/js/main.js"></script>
+	<script src="/js/hyq-percent-pie.js"></script>
+	<script src="/js/hyq-misc.js"></script>
+	<script src="/js/hyq-static-album.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/hyq-pv.js"></script>
+	<script src="/js/state_code.js"></script>	                                                                                    
+	<script src="../../sea.js"></script>
+	<script>
+		seajs.config({
+			base: 'js/dist'
+		});
+		seajs.use(['hyq/static/page/favourite/index.js']);
+	</script>
+  </body>                                                                                                                      
+</html>                                                                                                                        

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>我的红演圈 - 红演圈</title>
+		<meta name="description" content="">
+		
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+	</head>
+	<body class="per-index">
+		<!--header_simple.html  只是logo的div块 -->
+		{include "common/header.html"} 
+    {include "common/nav_search.html"} 
+		 <div class="content-wrapper-index">
+			<!-- 主内容栏开始 -->
+			{include "common/home/left_index.html"}
+			<!--猜你喜欢（与个人角色匹配），广告-->
+			<div class="index-right-con fr">
+				<div class="div-info">
+					<div class="index-title RdBorderBtm">
+						<span>我的资料</span>
+            <a href="/home/user/set">编辑</a>
+					</div>
+					<div class="info-con">        	
+						<img src="{$user_info['icon_server_url']}{$user_info['icon_path_url']}!f80">
+						<div class="info-pro">
+							<div class="txt-top">
+								<span>{$user_info['nickname']}</span>
+								<!--<i class="user-level">Lv.12</i>-->
+								<em>{$sex}</em>
+							</div>
+							<div class="txt-top2">
+								<p class="p-loc"><i class="hyq-ic ic-loc"></i>
+                                <span>{$address_info['address']}</span>
+                                </p>
+								<p class="p-loc"><i class="hyq-ic ic-person"></i>
+								<span>
+				                {foreach name=list from=$user_role item=v key = key}
+				                  {if $smarty.foreach.list.iteration neq $smarty.foreach.list.last }
+				                    {$v['name']}/
+				                  {/if}
+				                  {if $smarty.foreach.list.iteration eq $smarty.foreach.list.last}
+				                    {$v['name']}
+				                  {/if}
+				                {/foreach}
+				                </span>
+				                </p>
+							</div>
+						</div>
+						<!--<span class="p-id">ID:45803</span>-->
+						<div class="info-state">
+							<!--百分比条，在hyq-percentbar 中设置value的值 14表示14%-->
+							<div class="hyq-percentbar" value="{$user_info['data_percent']}">
+								<div class="hyq-percentbar-value"></div>
+							</div>
+							<!--<p>
+								目前状态：忙碌
+							</p>-->
+							<span >验证状态：</span>
+							<!--如果未验证使用尾巴带muted的一组图标-->
+              {if $user_info['identity_card_status'] eq 'yes'}
+              <i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+              {else}
+              <i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+              {/if}
+              {if $user_info['mobile_status'] eq 'yes'}
+              <i class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></i>
+              {else}
+              <i class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></i>
+              {/if}
+					  </div>
+					</div>
+				</div>
+
+				<div class="div-contact">
+					<div class="index-title RdBorderBtm">
+						<span>我的联系方式</span>
+						<a href="javascript:;" id="my-contact-toggle-edit">修改/添加</a>
+						<input type="button" class="hyq-btn hyq-btn-sm fr _hidden" id="my-contact-toggle-save" value=" 确定" style="margin-top:8px;">
+					</div>
+					<div class="contact-con " id="my-contact-review">
+						<div class="contact-1">
+							<p>
+								电话：
+							</p>
+							<p class="p-tel" id="contact_mobile_show">
+								{$user_profile['contact_mobile']}
+							</p>
+						</div>
+						<div class="contact-2 border-left1">
+							<p>
+								邮箱：
+							</p>
+							<p class="p-tel" id="contact_email_show">
+								{$user_profile['contact_email']}
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								微信：
+							</p>
+							<p class="p-tel" id="contact_weixin_show">
+								{$user_profile['contact_weixin']}
+							</p>
+						</div>
+						<div class="contact-1 border-left1">
+							<p>
+								QQ：
+							</p>
+							<p class="p-tel" id="contact_qq_show">
+								{$user_profile['contact_qq']}
+							</p>
+						</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+
+					<div class="contact-con _hidden" id="my-contact-edit">
+						<div class="fl contact-1">
+							<p class="f14 lh24 Gray7">
+								电话：
+							</p>
+							<p class="f14  Blak1 lh28 form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:115px;" value="{$user_profile['contact_mobile']}" id="contact_mobile">
+							</p>
+						</div>
+						<div class="fl contact-2 border-left1">
+							<p class="f14 lh24 Gray7">
+								邮箱：
+							</p>
+							<p class="f14  Blak1 lh28 form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:165px" value="{$user_profile['contact_email']}" id="contact_email">
+							</p>
+						</div>
+						<div class="fl contact-1 border-left1">
+							<p class="f14 lh24 Gray7">
+								微信：
+							</p>
+							<p class="f14  Blak1 lh28 form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:120px" value="{$user_profile['contact_weixin']}" id="contact_weixin">
+							</p>
+						</div>
+						<div class="fl contact-1 border-left1">
+							<p class="f14 lh24 Gray7">
+								QQ：
+							</p>
+							<p class="f14  Blak1 lh28 form-apply-edit">
+								<input type="text" class="hyq-thin-txtfield" style="width:140px" value="{$user_profile['contact_qq']}" id="contact_qq">
+							</p>
+						</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+				</div>
+
+				<div class="div-hotman">
+					<div class="index-title RdBorderBtm">
+						<span class="f16 Blak1">据说你对这些招募感兴趣</span>
+					</div>
+					<div class="recruit-con bgGray1">
+                    {foreach from=$recommend_recruit_info key=key item=recruit_info name=show}
+                        <div class="hyqRec-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$key}" target="_blank">
+                                  <div class="img-box">
+                                      <img src="{if $recruit_info['cover']}{$recruit_info['cover']}!180{else}http://icon.hotyq.com/v2/default/150x150.png{/if}">
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$recruit_info['name']}</h3>
+                                      <p class="service-con">
+                                          {foreach $recruit_info['service_2_list'] as $service_2_name}
+                                          <span>{$service_2_name}</span>
+                                          {/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span {if $recruit_info['interview_end_time'] eq "已过期"} class="Rd" {/if}>{$recruit_info['interview_end_time']}</span><label>{$recruit_info['address']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						  {/foreach}
+						<p class="p-txt1 _clb">
+							想看更多招募？点<a class="Rd" href="/recruit/">这里</a>看看
+						</p>
+						<br class='_clb'/>
+						<br class='_clb'/>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- 主内容栏结束 -->
+		</div>
+		<!--尾部开始-->
+       {include "common/footer.html"}		
+       <!--尾部结束-->
+
+    	 <!--发私信窗口-->
+ <style type="text/css">
+ .hyq-modal iframe{
+  	position: absolute;
+  	top:50px;
+  	width: 100%;
+  	height: 250px;
+ 	left:0px;
+    border-top: none;
+  }
+  .hyq-modal .hyq-modal-header{
+  	height: 40px;
+  }
+  </style>
+<div class="hyq-tip" id="hyq-common-tip-send-msg-message" style="width:180px;" >
+    <label class="hyq-tip-msg-node"></label>
+</div>
+
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-common-modal-send-msg"  role="dialog" style="width:480px; height:250px;margin:0 auto;">
+ 	<div class="hyq-modal-header GrayBorderBtm txt-left" >
+			<label class="f16 pull-left Blak2">&nbsp;&nbsp;发私信</label>
+			<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+ 
+ 	<input type="hidden" id="user_id_to_send_msg"/>
+   <iframe   id="hyq-common-iframe-send-msg" frameborder="0" scrolling=false></iframe>
+  </div>
+{literal}
+<script type="text/javascript">
+	$(function(){
+		//当前页的弹窗请求
+    $(".collection-action-menu").each(function(){
+		 $(this).find("li:eq(0)").click(function(event){
+			$("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+			//接受者用户ID		
+			var to = $(this).attr('userId');    
+
+	      //拼链接
+	      $("#hyq-common-iframe-send-msg").attr({
+	        'src':"http://www.hotyq.com/home/iframe_message_box.php?from=520"+"&to="+to
+	      });
+	      //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+	   });
+		});
+
+    $('.recruit-btn-bar').each(function(){
+        $(this).find(".hyq-round-btn:eq(2)").click(function(){
+          $("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+          //接受者用户ID   
+          var to = $(this).attr('userId');    
+
+            //拼链接
+            $("#hyq-common-iframe-send-msg").attr({
+              'src':"http://www.hotyq.com/home/iframe_message_box.php?from=520"+"&to="+to
+            });
+            //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+         });
+        });
+		
+		
+	//收到子窗口想要发私信的请求
+		$(document).on("hyq/iframe/doc/sms",function(event){
+
+		//var frm = event.fromUserId;//发送者用户ID
+		//'src':"http://www.hotyq.com/home/message_box_iframe.php?t=520"+"&from="+frm+"&to="+to
+		
+       var to = event.toUserId//收信者用户ID
+       //alert(to);
+      //拼链接
+      $("#hyq-common-iframe-send-msg").attr({
+        'src':"http://www.hotyq.com/home/iframe_message_box.php?from=520"+"&to="+to
+      });
+      //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+      $("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+
+
+		});
+
+    //如果私信成功发送
+      $(document).on("hyq/sms/popup/sent",function(){
+        $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-msg-message").trigger({
+            type:"hyq/tip/show/success",message:"私信发送成功！"
+          }); 
+        });
+         
+      });
+
+      //如果私信发送失败
+      $(document).on("hyq/sms/popup/sent/failure",function(){
+         $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-msg-message").trigger({
+            type:"hyq/tip/show/success",message:"<label class=Rd>私信发送失败，请稍后再试。</label>"
+          }); 
+        });
+      });
+
+
+	});
+</script>
+{/literal}
+{literal}	
+<script type="text/javascript">
+		$(document).ready(function(){
+			$("#my-contact-toggle-edit").click(function(){
+				$("#my-contact-edit").slideDown();
+				$("#my-contact-review").slideUp();
+				$("#my-contact-toggle-edit").hide();
+				$("#my-contact-toggle-save").show();
+
+			});
+			$("#my-contact-toggle-save").click(function(){
+				$("#my-contact-edit").slideUp();
+				$("#my-contact-review").slideDown();
+				$("#my-contact-toggle-edit").show();
+				$.post("/home/ajax/ajax_home_userprofile.php",{'action':'update_user_contact','contact_mobile':$('#contact_mobile').val(),'contact_email':$('#contact_email').val(),'contact_weixin':$('#contact_weixin').val(),'contact_qq':$('#contact_qq').val()},function(data){
+								if(data){
+									$('#contact_mobile_show').text($('#contact_mobile').val());
+									$('#contact_email_show').text($('#contact_email').val());
+									$('#contact_weixin_show').text($('#contact_weixin').val());
+									$('#contact_qq_show').text($('#contact_qq').val());		
+								}else{
+									
+								}
+							},'text');
+				$("#my-contact-toggle-save").hide();
+			});
+
+			$('.recruit-btn-bar').each(function(){
+				$(this).find(".hyq-round-btn:eq(0)").click(function(){
+					location.href="http://www.hotyq.com/recruit/"+$(this).attr('recruit_id');
+				});
+			});
+			$('.recruit-btn-bar').each(function(){
+				$(this).find(".hyq-round-btn:eq(1)").click(function(){
+					$.post("http://www.hotyq.com/home/ajax/ajax_home_collect.php",{'action':'add_collect','dynamic_id':$(this).attr('recruit_id'),'collect_type':'recruit'},function(data){
+						var add_result = eval('('+data+')');
+						var tip = $("#tip-message").HYQTip();
+						tip.showSuccess(add_result.desc);
+              			setTimeout("location.reload()",2000);
+					},'text');
+				});
+			});
+		});
+        </script>
+        {/literal}
+	</body>
+</html>

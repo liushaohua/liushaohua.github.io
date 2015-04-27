@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>发布招募</title>
+		<meta name="description" content="">
+		
+		<script src="/js/jquery.js"></script>
+		<link rel="stylesheet" href="/css/jquery-ui.css">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" media="all" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
+		{literal}
+		<style type="text/css">
+		body,td,th {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, Mingliu;
+}
+		.hyq-image-cropper .ui-widget-content{
+			background:#e3e3e3;
+			border: 1px solid transparent;
+			color: #e3e3e3;
+		
+			width: 320px;
+			background-color: #e3e3e3;
+			height: 15px;
+			position: absolute;
+			display: hide;
+			top: 15px;
+		}
+		.hyq-image-cropper .ui-slider-handle{display:none;}
+
+
+			/*head upload*/
+			.fix-custom-role{
+				margin-right:2em;
+				width: 180px;
+			}
+
+			.logo-show{
+			    
+            width: 150px;
+            height: 150px;
+            display: block;;
+        	}
+        .logo-show a{
+            position: relative;
+            display: block;
+        }
+        
+        .logo-show .btn-upload{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color: #808080;
+            z-index: 2;
+        }
+        .logo-show .btn-upload-exist{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color:transparent;
+            z-index: 2;
+      cursor: default;
+        }
+    .logo-show .btn-upload-exist .btn-change-logo{
+      height: 32px;
+      width: 150px;
+      text-align: center;
+      line-height: 32px;
+      font-size:14px;
+      color: #fff;
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      opacity: .5;
+      cursor: pointer;
+      background-color:#4a4a4a;
+
+    }
+        .logo-show a:hover .btn-upload,
+        .logo-show a:hover .btn-upload-exist{
+            display: block;
+        }
+		/*head upload*/
+		
+			.fix-dropdown-1{
+				width: 70px;}
+			.fix-dropdown-2{
+				width: 40px;}
+			.fix-dropdown-3{
+				width: 50px;}
+		 
+			.fix-dropdown-year{
+				width: 32px; font-size:13px;}
+			.fix-dropdown-md{
+				width: 15px; font-size: 13px; }
+			.fix-dropdown-time{
+				width: 34px;font-size: 13px }
+			.fix-txtarea-1 {
+				width: 468px; height: 40px;}
+			.fix-txtarea-2{
+				width: 468px; height: 100px;}
+			.fix-form-group-1{
+				margin-bottom: 5px;}
+			.fix-err-pdl{
+				margin-left: 120px;
+			}
+			.fix-hire-type-width{
+			250px;
+			}	
+
+			.album-column .poster-album .album-wrapper .album-item .album-uploader .invite-btn {
+				margin-top:-31px;
+			}
+			
+			.album-column .poster-album .album-wrapper .album-item .album-uploader .invite-btn i {
+				position:absolute;bottom:-22px;font-size:12px;color:#fff;
+			}
+			.hyq-image-cropper form{display:block;}
+			.hyq-modal-default .hyq-model-body-de{height:447px;}
+			.hyq-modal-default .hyq-model-body-de.hyq-model-body-active{height:566px;}
+			.hyq-image-cropper .cropper{position:absolute;}
+			.hyq-image-cropper form input{position:absolute;width:352px;height:352px;display:block;background:red;z-index:20;font-size:300px;top:20px;opacity:0;overflow:hidden;}
+			.hyq-image-cropper .button-box{position: absolute;top: 414px;}
+			.hyq-image-cropper .slider-box{position:absolute;top:374px;}
+			.hyq-image-cropper{height:490px;overflow:hidden;}
+			.hyq-image-cropper form input.hyq-replace{width:90px;height:39px;top: 439px;left: 133px;font-size:14px;}
+			.album-uploader input{position: absolute;width: 150px;height: 100px;overflow: hidden;background: red;font-size: 71px;z-index:10;opacity:0;}
+
+
+			.form-group .num-word{font-size: 12px;color: gray;  text-align: right;padding-right: 20px;padding-top: 7px;}
+		</style>
+{/literal}
+	</head>
+	<body>
+	<!--header_simple.html  只是logo的div块 -->
+	{include "common/header.html"} 
+	{include "common/nav_search.html"}
+	 <script>
+        $('.search-btn').click(function(){
+            $('.search-box').submit();
+        });
+        $('#search_q').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+                $('.search-box').submit();
+            }
+        });		
+     </script>
+     <!--招募主题限制20字输入-->
+	 <script type="text/javascript">
+		 function checkLength(gm) {
+			 var maxChars =20;
+			 if (gm.value.length > maxChars){
+				  gm.value = gm.value.substring(0,maxChars);
+			 }
+			 var curr =gm.value.length;
+			 document.getElementById("leftnumT").innerHTML =curr.toString();
+		 }
+	  </script>
+	  <input type="hidden" id="hide_recruit_id" value="{$recruit_id}">
+		<div class="content-wrapper">
+			  			<div class="main-column-a">
+				<div class="column-wrapper">
+					<div id="recruit_info_form" class="row-form">
+
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i>
+							<label class=" Blak2">招募信息 <small class='Gray6'>&nbsp;&nbsp;(请准确完整填写招募内容，上传招募宣传照片，提升招募事件吸引力)</small> </label>
+						</div>
+						<br class="_clb" />
+						<!--主题-->
+						<div class="form-group rec-theme">
+							<em class="pull-left">*</em>
+							<label class="f16 pull-left" for="recruit_topic">招募主题：</label>
+							<input id="recruit_name" type="text" placeholder="例如：北京某公司年会招募礼仪小姐、歌手" maxLength="20" class="col-md-7 pull-left" name="recruit_topic" value="" oninput="checkLength(this);">
+                            <span class="num-word"><small id="leftnumT">0</small>/20</span>
+							<!--错误提示-->
+							<div id="recruit_name_tips" style="display:none;" class="hyq-f-err fix-err-pdl">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请填写招募主题</label>
+							</div>
+						</div>
+						<!--主题-->
+						<!--封面照-->
+                        <div class="form-group" >
+                        	<em class="pull-left" style="color:#f3f4f4;">*</em>
+							<label class="f16 pull-left" for="recruit_topic">&emsp;封面照：</label>
+                            <div class="logo-show pull-left" style="margin-bottom:15px;">
+								<a href="javascript:void(null)">
+                                   <img style="height:150px;width:150px;" id="org_logo_edit" src="http://icon.hotyq.com/v3/recruit_cover_default.png" alt="">
+
+                                <!--更换 LOGO按钮开始 -->
+                                <!-- 当LOGO已经存在的时候使用下面这个按钮 -->
+                                 <span id="logo_save_after"  class="btn-upload-exist _relativePos" >
+                                      <span class="btn-change-logo" data-toggle="hyq-modal" data-target="#img-cropper-dialog" >更换封面</span>    
+                                  </span>
+                                  <!-- 当LOGO不存在的时候 使用这个按钮 -->
+                                  <span id="logo_save_before" class="btn-upload" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+                                    <i class="hyq-ic ic-upload-lg " alt="点击更新封面" title="点击更新封面"></i>
+                                 </span>
+                                <!--更换LOGO按钮结束-->
+								</a>
+							</div>
+                         	<p class="hint-p2">&emsp;建议使用不小于600*600像素的图片</p>
+						</div>
+                        <!--封面照-->
+						<!--招募类型-->
+						<div id="type_div" class="form-group dropdown-panel">
+							<em class="pull-left">*</em>
+							<label class="f16 pull-left" for="recruit_type">招募类型：</label>
+							<div class="hyq-dropdown-box" placeholder="请选择招募类型">
+
+								<input id="hide_type_id_value" type="hidden" name="recruit_type" value="">
+								<div type="text" class="hyq-dropdown ">
+									<span id="hide_type_id_name" class="dropdown-value fix-hire-type-width" >请选择招募类型</span>
+								</div>
+
+								<div class="hyq-dropdown-list">
+                                	{foreach $type_arr as $k => $v}
+									<div class="list-unit">
+                                    	<p>{$k}</p>
+                                        <ul>
+											{foreach $v as $v0}
+                                            <li value="{$v0['id']}" title="{$v0['type']}" alt="{$v0['type']}">{$v0['type']}</li>
+											{/foreach}
+                                        </ul>
+                                    </div>	
+									{/foreach}
+									
+								</div>
+								<a class="hyq-dropdown-btn"><i></i></a>
+							</div>
+							<!--错误提示-->
+							<div id="type_tips" style="display:none;" class="hyq-f-err fix-err-pdl">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请选择招募类型 </label>
+							</div>
+						</div>
+						<!--招募类型-->
+                        <!--截止时间-->
+						<div class="form-group">
+							<em class="pull-left">*</em>
+							<label class="f16 pull-left" for="recruit_type">截止时间：</label>
+							<input type="text" id="interview_end_time" value="{$today}" readonly="readonly">
+                            <p class="hint-p">招募截止时间要早于工作时间哦</p>
+							<!--错误提示-->
+							<div id="recruit_time_tips" style="display:none;" class="hyq-f-err fix-err-pdl">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请选择招募类型 </label>
+							</div>
+						</div>
+						<!--截止时间-->
+						
+						<div class="form-spliter col-md-11 "></div>
+						<div id="char-form-box">
+							<div class="role_all_div hyq-reproducible-char" id="char-form-original">
+								<!--招募服务-->
+								<div class="role_list_div form-group">
+									<em class="pull-left">*</em>
+									<label class="f16 pull-left" for="character">招募服务：</label>
+									<div class="role_div fl">
+										<!--服务种类-->
+										<div class="parent_div hyq-dropdown-box" placeholder="服务种类" name="zmservice">
+
+											<input class="hide_service_1_value" type="hidden" name="character" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_parent_name dropdown-value inline-block fix-dropdown-1 selected">选择服务</span>
+											</div>
+
+											<div class="hyq-dropdown-list">
+                                                    <ul>
+														{foreach $service_1_list as $v}
+                                                        <li value="{$v.id}">{$v.name}</li>
+                                                        {/foreach}
+                                                    </ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										&nbsp;
+                                     </div>
+                                    <div class="role_div fl">
+										<!--服务细分-->
+										<div class="child_div hyq-dropdown-box" placeholder="服务细分" name="zmservice">
+											<input class="hide_service_2_value" type="hidden" name="character_" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_child_name dropdown-value inline-block fix-dropdown-1 selected">服务细分</span>
+											</div>
+											<div class="hyq-dropdown-list">
+												<ul>
+												</ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										&nbsp;
+                                      </div>
+                                    <div class="role_div fl">
+										<!--性别-->
+					
+										<div class="sex_div hyq-dropdown-box" placeholder="性别">
+
+											<input class="hide_sex_value" type="hidden" name="sex" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_sex_name dropdown-value inline-block fix-dropdown-2">性别</span>
+											</div>
+
+											<div class="hyq-dropdown-list">
+												<ul>
+													<li value="m" class="active">
+														男
+													</li>
+													<li value="f">
+														女
+													</li>
+													<li value="0">
+														不限
+													</li>
+												</ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										&nbsp;
+										<!--数量-->
+										<div class="number_div hyq-dropdown-box" placeholder="数量">
+
+											<input class="hide_number_value" type="hidden" name="number" value="">
+											<div type="text" class="hyq-dropdown ">
+												<span class="hide_number_name dropdown-value selected inline-block fix-dropdown-3">数量</span>
+											</div>
+
+											<div class="hyq-dropdown-list">
+												<ul>
+													{foreach $num as $k => $v}
+													<li value="{$k}">
+														{$v}
+													</li>
+													{/foreach}
+												</ul>
+											</div>
+											<a class="hyq-dropdown-btn"><i></i></a>
+										</div>
+										
+
+									 </div>
+								</div>
+                                <!--三级类招募服务类型弹窗-->
+                                <div class="service-three hide_service_3_value">
+                                	<div class="s-title">
+                                         <span>您还可以选择更精准的服务类型</span>
+										 <span style="color: red;font-size: 12px;margin: 1px 0px 0px 5px;">(如果不选的话，默认不限)</span>
+                                     	 <p class="role-unit2">
+                                            <input type="checkbox" class="hyq-nice-checkbox" autocomplete=off name='mchoice_unlimit' axin ="axin" value="A"/>
+                                            <span class="hyq-checkbox"></span>
+                                            <label>不限</label>
+                                         </p>
+                                    </div>
+                                	<div class="role-filter-categray">
+                                          
+                                    </div>
+                                </div>
+								
+								<!--要求-->
+								<div class="require_div form-group">
+									<em class="pull-left _invisbl">*</em>
+									<label class="f16 pull-left _invisbl">服务要求：</label>
+									<textarea onFocus="require(this)" class="hide_require_value inline-block fix-txtarea-2 hide_require_value_Cchange" placeholder="填写你对所招募服务细节方面的要求,300字以内~~" maxlength="300" ></textarea>
+									<p class="num-word">0/300</p>
+								</div>
+								<!--错误提示-->
+								<div style="display:none;" class="role_tips hyq-f-err fix-err-pdl">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>请填写完整的服务信息</label>
+								</div>
+							</div>
+						</div>
+						
+						<!--添加服务按钮-->
+						<div class="form-group">
+							<em class="pull-left">&nbsp;</em>
+							<label class="f16 pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<a href="javascript:;" id="add-char-btn" class="ic-btn-add pull-left"><i></i>添加服务</a>
+						</div>
+                        <!--招募简介-->
+						<div class="form-group ">
+							<em class="pull-left" style="color:#f3f4f4;">*</em>
+							<label class="f16 pull-left">招募简介：</label>
+							<textarea id="descr" class="inline-block fix-txtarea-2 hide_require_value_Cchange" placeholder="招募活动简介，突出有吸引力的部分，例如服务薪酬 ，300字以内" maxlength="300"></textarea>
+							<p class="num-word">0/300</p>
+							<!--错误提示-->
+							<div id="descr_tips" style="display:none;" class="hyq-f-err fix-err-pdl">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请填写招募简介</label>
+							</div>
+						</div>
+						
+						
+						
+						<!--工作时间-->
+						<div class="form-group" id="wrk-time-box" style="margin-bottom:0px;">
+							<em class="pull-left">*</em>
+							<label class="f16 pull-left">工作时间：</label>
+							<input type="text" id="work_start_time" value="{$tomorrow}" readonly="readonly">
+							<input type="text" id="work_end_time" value="{$after_tomorrow}" readonly="readonly">
+                            <p class="hint-p">工作开始时间不可以早于截止时间哦</p>
+						</div>
+						<!--错误提示-->
+						<div id="work_time_tips" style="display:none;margin-bottom:10px; " class="hyq-f-err fix-err-pdl">
+							<i class="hyq-ic ic-vlid-err"></i>
+							<label>请填写工作时间</label>
+						</div>
+
+						<div class="form-group" style="margin-top:10px;" >
+							<em class="pull-left">*</em>
+							<label for="username" class="f16 pull-left">工作地点：</label>
+							<!--所在地一级-->
+							<div id="province_div" class="hyq-dropdown-box" placeholder="所在地">
+
+								<input id="hide_province_value" type="hidden" value="" name="character2">
+								<div class="hyq-dropdown " type="text">
+									<span id="hide_province_name" class="dropdown-value inline-block fix-dropdown-1 selected">
+											所在地
+										</span>
+								</div>
+
+								<div class="hyq-dropdown-list">
+									<ul>
+										{foreach $provincelist as $v}
+											<li value="{$v.id}">
+												{$v.pname}
+											</li>
+										{/foreach}
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"><i></i></a>
+							</div>
+							&nbsp;
+							<!--所在地二级-->
+							<div id="city_div" class="hyq-dropdown-box" placeholder="所在地">
+
+								<input id="hide_city_value" type="hidden" value="" name="character2">
+								<div class="hyq-dropdown " type="text">
+									<span id="hide_city_name" class="dropdown-value inline-block fix-dropdown-1 selected">
+											所在地
+										</span>
+								</div>
+								
+								<div class="hyq-dropdown-list">
+									<ul>
+										
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"><i></i></a>
+							</div>
+							&nbsp;
+							<!--所在地三级-->
+							<div id="district_div" class="hyq-dropdown-box" placeholder="所在地">
+
+								<input id="hide_district_value" type="hidden" value="" name="character2">
+								<div class="hyq-dropdown " type="text">
+									<span id="hide_district_name" class="dropdown-value inline-block fix-dropdown-1 selected">
+											所在地
+										</span>
+								</div>
+
+								<div class="hyq-dropdown-list">
+									<ul>
+										
+									</ul>
+								</div>
+								<a class="hyq-dropdown-btn"><i></i></a>
+							</div>
+							&nbsp;
+							<!--错误提示-->
+							<div id="addr_tips" style="display:none;" class="hyq-f-err fix-err-pdl">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请填写完整的工作地点</label>
+							</div>
+						</div>
+						 
+						<!--详细地址-->
+						<div class="form-group fix-form-group-1">
+							<em class="pull-left _invisbl">*</em>
+							<label class="f16 pull-left _invisbl">详细地址：</label>
+							<textarea id="addr_detail" placeholder="详细地址，例如“三里屯MIX酒吧”，可选填" class="inline-block fix-txtarea-1"></textarea>
+						</div>
+						
+						<div class="form-spliter col-md-11" style="margin-top:30px; margin-bottom:0px;"></div>
+					</div>
+                    <div class="cl"></div>
+                    <!--End of row-form-->
+					<!--这行专门用来存储数据的一定不要删除-->
+	
+	<!-- ##################################### 红照片开始 #################################-->
+				
+				<!--这行专门用来存储数据的一定不要删除-->
+	
+	<div id="album-data-store" class="_hidden"></div>
+<!--这行专门用来存储数据的一定不要删除-->
+<div class="column-wrapper album-column ">
+	<!--页面载入的时候只需要做两种判断 如果相册是空的 则是选择 album-first-edit 如果是非空的则选择 album-review-->
+	<!--使用三个Class来控制显示  album-first-edit album-edit album-review -->
+			<!-- <div class="album-manager column-wrapper album-review  RdBorderBtm 相册不空用这句"> -->
+				<!-- <div class="album-manager column-wrapper album-review  RdBorderBtm 相册不空用这句"> -->
+		<div class="album-manager column-wrapper album-first-edit  RdBorderBtm">
+			
+		<div class="row album-lead">
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i>
+				<label class="f18 Blak2">宣传照片<small class="Gray8"> (一张招募宣传照，至少提升15%招募吸引力)</small></label>
+				<a class="profile-expend-btn inline-block pull-right" data-trigger-action="hide" data-toggle="hyq-slidedown-content" data-target="#red-gallery-edit-panel" alt="点击添加宣传照片" title="点击添加宣传照片"></a> <a class="profile-edit-btn inline-block pull-right" id="album_edit_btn" alt="点击编辑宣传照片" title="点击编辑宣传照片"></a>
+			</div>
+		</div>
+
+		<div class="row album-box" role="hyq-slidedown-content" id="red-gallery-edit-panel">
+			<div class="poster-album">
+				<ul class="album-wrapper">
+					
+					<li class="album-item " itemIndex="0">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="1">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="2">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="3">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item" itemIndex="4">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item" itemIndex="5">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="btn-group album-btn-box">
+				<input type="button" class="hyq-btn hyq-btn-lg exit-edit-btn" value="浏览" />
+				&nbsp;&nbsp;
+				<span class="Gray8 album-message-box"></span>
+				<input type="button" class="hyq-btn hyq-btn-lg hyq-btn-gray pull-right _hidden delete-selected-photo-btn" value="删除选定" style="margin-right:16px;"/>
+			</div>
+		</div>
+		<br/>
+	</div>
+</div>
+
+				<!-- ##################################### 红照片结束 #################################-->
+
+					<!--相册开始-->
+
+
+					<!--相册结束-->
+				</div><!--END OF main-column-a-->
+				<!--招募发布成功与否   tips-->
+				<!-- tips 框 -->
+				<div class="hyq-tip" id="success_message" >
+					<i hyq-tip-icon-node></i>
+					<label class="hyq-tip-msg-node"></label>
+				</div>
+				<div class="hyq-tip" id="error_message" >
+					<i class="hyq-ic ic-alert-lg"></i>
+					<label class="hyq-tip-msg-node"></label>
+				</div>
+				<div class="hyq-tip" id="tip-message" >
+					<i hyq-tip-icon-node></i>
+					<label class="hyq-tip-msg-node"></label>
+				</div> 
+				<div class="row2">
+					<br/>
+					<input type="button" value=" 发 布 " id="publish_btn" class="hyq-btn hyq-btn-default-lg"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="取消" id="cancel_btn" class="hyq-btn hyq-btn-thin-lg" data-toggle="hyq-modal" data-target="#be-canceled-modal"/> 
+					<br/>
+				</div>
+				<br/>
+				<div id="data_percent_div" style="display:none" class="f12">
+					<i class="hyq-ic ic-vlid-err"></i>系统发现您的个人资料不够完善，身份尚未验证，会影响您的招募信用度，请尽快
+					<a href="/home/user/set"><span class="Rd">完善</span></a>与<a href="/home/account_binding"><span class="Rd">验证</span></a>
+				</div>
+			</div>
+			<!-- 右侧栏  拆成两个块-->
+			<div class="right-column">
+			 <!--演艺红人榜-->
+		   {include "html/add_rcruit_right_first.html"} 
+
+			<!--Andorid 微信-->
+			<!--iPhone 微信-->
+			{include "html/add_rcruit_right_second.html"} 
+			{include "html/add_rcruit_right_third.html"} 
+
+
+				 
+			
+			<div class="column-spliter"></div>
+			<div class="column-wrapper">
+</div>
+
+			<br class='_clb'/>
+			</div>
+		</div>
+		<!-- 上传图片的对话框 -->
+<div class="hyq-modal hyq-modal-default _hidden _clb" id="img-cropper-dialog" role="dialog">
+<!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+             
+    <div class="hyq-modal-header">
+      <div class="hyq-modal-close-btn"></div>
+    </div>
+    <div class="hyq-model-body-de txt-left">
+        <div class="lead-title">
+                    <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传招募封面 <small class="Gray8">(上传招募封面，提升招募吸引力)</small></label>
+                </div>
+                <!-- 图片截取器 -->
+
+                <div class="hyq-image-cropper">
+
+                    <div img-cropper-uploder></div>
+                    <div class="busy-mask">
+                        <span><img src="http://icon.hotyq.com/v2/loading.gif"/></span>
+                    </div>
+
+                    <div class="cropper">
+                        <div class="mask maskA"></div>
+                        <div class="mask maskB"></div>
+                        <div class="mask maskC"></div>
+                        <div class="mask maskD"></div>
+                        <div class="invite-btn"></div>
+                        <div class="invite-message">
+                            <div>
+                                上传招募封面
+                            </div>
+                            <div>
+                                支持JPG，JPEG，PNG格式，不超过5M
+                            </div>
+                        </div>
+                        <div img-dock="" >
+                            <div img-mask></div>
+                        </div>
+                    </div>
+
+                    <div class="preview-box">
+                        <div class="preview-a">
+                            <img src="http://icon.hotyq.com/v3/recruit_cover_default.png"/>
+                        </div>
+                        <div class="preview-b"><img src="http://icon.hotyq.com/v3/recruit_cover_default.png" />
+                        </div>
+                    </div>
+
+                    <div class='slider-box'>
+                        <div class="slide-btn-wrapper">
+                            <div class="slide-button"></div>
+                        </div>
+                        <i class="zout">-</i>
+                        <div class='slider'>
+                            <div class="white-bar"></div>
+                        </div>
+                        <i class="zin">+</i>
+                    </div>
+
+                    <div class="button-box _zeroPDBottom">
+                        <input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+                    </div>
+                </div>
+
+    </div>
+</div>
+<!-- 上传图片的对话框结束 -->
+<!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="error-message-box" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+<!-- 报错窗口结束 -->
+<!-- 选择窗口结束 -->
+    <div class="tip-small" id="tip-modi" style="display:none">
+        <div class="hyq-ic ic-alert-lg">
+        </div>
+        <p>确定要放弃当前这组服务么？</p>
+        <div class="album-btn-box2">
+            <input class="hyq-btn hyq-btn-lg" type="button"  name="yes" value="确&nbsp;&nbsp;定">
+            &nbsp;&nbsp;
+            <input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-trigger" name="no" value="取&nbsp;&nbsp;消" />
+        </div>
+    </div>
+<!-- 选择窗口结束 -->
+ <!-- 删除服务开始 -->
+    <div class="tip-small" id="tip-del-service" style="display:none">
+        <div class="hyq-ic ic-alert-lg">
+        </div>
+        <p>确定要删除这一组服务吗？</p>
+        <div class="album-btn-box2">
+            <input class="hyq-btn hyq-btn-lg" type="button"  name="yes" value="确&nbsp;&nbsp;定">
+            &nbsp;&nbsp;
+            <input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-trigger" name="no" value="取&nbsp;&nbsp;消" />
+        </div>
+    </div>
+    <!-- 删除服务结束 -->
+<!----取消招募弹出框 start---->
+	<div class="tip-small hyq-modal" style="display:none;" id="be-canceled-modal">
+		<div class="hyq-ic ic-alert-lg">
+		</div>
+		<p>确定要放弃本次发布么？</p>
+		<div class="album-btn-box2">
+			<input class="hyq-btn hyq-btn-lg" type="button" id="confirm_btn" value="确&nbsp;&nbsp;定">
+			&nbsp;&nbsp;
+			<input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-btn" id="cancel_btn" value="取&nbsp;&nbsp;消" />
+		</div>
+	</div>
+<!----取消招募弹出框  end---->
+<!----发布招募弹出框 start---->
+	<!--发布后不能再次编辑-->
+	<div class="tip-small hyq-modal" style="display:none;" id="be-published-modal">
+		<div class="hyq-ic ic-alert-lg">
+		</div>
+		<p>发布后不能再次编辑了哦！</p>
+		<div class="album-btn-box2">
+			<input class="hyq-btn hyq-btn-lg" id="confirm_btn" type="button"  value="确&nbsp;&nbsp;定">
+			&nbsp;&nbsp;
+			<input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-btn" id="cancel_btn" value="取&nbsp;&nbsp;消" />
+		</div>
+	</div>
+<!----发布招募弹出框  end---->
+
+    	<!--尾部开始-->
+       {include "common/footer-new.html"}
+       <script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/hyq-placeholder.js"></script>
+		<script src="/js/hyq-modal.js"></script>
+		<script src="/js/hyq-valid-helper.js"></script>
+		<script src="/js/hyq-checkbox-list.js"></script>
+		<script src="/js/hyq-dropdown-list.js"></script>
+		<script src="/js/hyq-dropdown-button.js"></script>
+		<script src="/js/hyq-checkbox.js"></script>
+		<script src="/js/hyq-nice-radio.js"></script>
+		<script src="/js/tmk-html-import.js"></script>
+		<script src="/js/hyq-gotop.js"></script>        
+		<script src="/js/hyq-extends.js"></script>
+		<script src="/js/hyq-tip.js"></script>
+		<script src="/js/hyq-tabs-lr.js"></script>
+		<script src="/js/hyq-img-cropper.js"></script>
+		<script src="/js/hyq-busy-animate.js"></script>
+		<script src="/js/hyq-album-datastore.js"></script>
+		<script src="/js/hyq-album-manager.js"></script>
+		<script src="/js/hyq-album-viewport.js"></script>
+		<script src="/js/hyq-role-select.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/hyq-percent-pie.js"></script>
+		<script src="/js/hyq-misc.js"></script>
+		<script src="/js/hyq-static-album.js"></script>
+		<script src="/js/jquery.cookie.js"></script>
+		<script src="/js/hyq-pv.js"></script>
+		<script src="/js/state_code.js"></script>
+       	
+       <!--尾部结束-->
+		<script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-timepicker-zh-CN.js"></script>
+		{literal}
+		<script type="text/javascript">
+			//服务表单的css类
+			var is_end = 1;
+			var char_form_css = ".hyq-reproducible-char-form";
+			var char_form_orignal = $("#char-form-original");//一刷新页面就出现的服务表单
+			var char_form_box = $("#char-form-box");//可添加表单的盒子
+			var wrk_time_box  =$("#wrk-time-box"); //工作时间一整行
+			var itrv_time_box = $("#interview-time-box");//面试时间一整行
+			//添加服务按钮
+			var add_char_btn = $("#add-char-btn");
+			//判断是否要面试
+			function checkIfIntrv(){
+			 	var check = $("input[name=if_interview]:checked").val();
+
+					if(check==1){
+						//需要面试
+						itrv_time_box.show();
+						itrv_time_box.next().show();
+						//console.log(itrv_time_box.next().next())
+						itrv_time_box.next().next().find("em,label").addClass('_invisbl');
+					}
+					else if (check==0) {
+						//不要面试
+						itrv_time_box
+						itrv_time_box.hide();
+						itrv_time_box.next().hide();
+						itrv_time_box.next().next().find("em,label").removeClass('_invisbl');
+						//把工作时间与面试时间的关系按钮状态清除
+						 $("input[name=wrk_time]").prop("checked",false)
+						 //把工作时间在enable
+						itrv_time_box.next().next().find('input').prop('disabled',false);
+					}
+			};
+			//判断工作时间与面试的显示关系
+			function checkWorkTime(){
+				var check = $("input[name=wrk_time]:checked").val();
+				//console.log(check);
+				if(check==0){
+				//同上
+				wrk_time_box.find("input").prop("disabled",true);
+				wrk_time_box.find("input").val('');
+				}else if(check==1){
+				//待定
+				wrk_time_box.find("input").prop("disabled",true);
+				wrk_time_box.find("input").val('');
+
+				}else if(check==2){
+				//自定义
+				wrk_time_box.find("input").prop("disabled",false);
+				}
+			}
+			 /***********************************
+			 联动开始 开始
+			 ************************************/
+			function require(value){
+				//隐藏当前错误 提示
+				$(value).parents('.role_all_div').find('.role_tips').hide();
+				is_end = 1;  
+			}
+
+			setInterval(function() {
+				$('.hide_require_value_Cchange').each(function (i,v) {
+					var $numBox = $(v).next('.num-word');
+					if ($numBox) {
+						$numBox.html($(v).val().length+'/300');
+					}
+				});
+			},100);
+
+			function getSubMenu(value, fn) {		
+				//console.log(11111111)
+				//console.log(value)
+				$.getJSON("/home/ajax/ajax_home_recruit.php", {
+					action: "add_service_3_list",
+					s_2_id: value
+				}).success(function(data) {
+					if (data == null) {
+						return;
+					} else {
+						fn.call(window, data);
+					}
+				});
+			}
+			function disableRepeatLabel(target){
+				var par = target.parents(".role_all_div");
+				if(par.parent().find(".child_div").length>0){
+					var secondLevel = par.parent().find(".hide_service_2_value");
+					var selectedArr = [];
+					if(secondLevel.length>0){
+						secondLevel.each(function(){
+							if($(this).val()){
+								var tmp = target.find("li[value="+$(this).val()+"]");
+								if(tmp.length>0){
+									selectedArr.push($(this).val());
+								}
+							}
+						});
+						par.parent().find(".child_div").each(function(){
+							var obj = $(this),myvalue = obj.find(".hide_service_2_value").val();
+							$.each(selectedArr,function(i,n){
+								if(n != myvalue){
+									obj.trigger({
+												type: "set/disabled/value",
+												disabledVal: n
+									});
+								}
+							});
+						});
+						
+					}
+				}
+			}
+			function bindServiceEvent(obj){
+				//不限事件
+				$(".role-unit2",obj).children().on("click",function(){
+					var s = $(this);
+					s.parents(".service-three").find(".role-unit").each(function(){
+						$(this).find(":checkbox").trigger({
+							type:s.siblings(":checkbox").is(":checked")?"disable":"enable"
+						});
+					});
+				});
+				var tip = $("#tip-modi").HYQModal();
+				$('.hyq-dropdown-box',obj).not(".sex_div,.number_div").on("click",function(e){
+					var el = $(this),
+						levelthree = el.parents(".role_all_div").find(".service-three"),
+						valuebox = levelthree.find(".role-filter-categray");
+
+					if(valuebox.children("p").length>0){
+						tip.trigger({type:"hyq/modal/show"});
+						tip.find("[name='yes']").one("click",function(){
+							//console.debug(el.find("input"));
+							el.find("input").removeProp('pause');
+							tip.trigger({type:"hyq/modal/close"});
+							setTimeout(function(){
+								valuebox.empty();
+								levelthree.hide();
+								el.find(".hyq-dropdown").click();
+
+							},200);
+						});
+						
+						e.preventDefault();
+						return;
+					}
+
+				});
+
+				$('.hyq-dropdown-box input',obj).on("change", function() {
+					var el = $(this),
+						elp = el.parent();
+						
+					//服务块的服务项change  隐藏对应的提示信息  并将程序结束标志置为1
+					el.parents('.role_all_div').find('.role_tips').hide();
+					is_end = 1;
+					
+					if (!elp.attr("name")) {
+						return;
+					}
+					
+					var sibs = $("[name='" + elp.attr("name") + "']",obj),
+						index = sibs.index(elp),
+						levelthree = el.parents(".role_all_div").find(".service-three"),
+						valuebox = levelthree.find(".role-filter-categray");
+					el.prop("pause",true);
+
+					switch (index) {
+						case 0:
+							getSubMenu(el.val(), function(data) {
+								var target = sibs.eq(1);
+								target.trigger("clear");
+								$.each(data, function(i, n) {
+									target.trigger({
+										type: "addItem",
+										value: n.id,
+										name: n.name
+									});
+								});
+								disableRepeatLabel(target);
+								setTimeout(function() {
+									target.find("input").removeProp('pause');
+									target.find(".hyq-dropdown").click();
+								}, 100);
+							});
+							break;
+						case 1:
+							getSubMenu(el.val(), function(data) {
+								//禁用其他二级当中相同值
+								var target = sibs.eq(1);
+								disableRepeatLabel(target);
+								valuebox.empty();
+								$.each(data, function(i, n) {
+									var p = $("<p/>").addClass('role-unit').appendTo(valuebox);
+									$("<input/>", {
+										type: "checkbox",
+										name: "mchoice[]"
+									}).addClass('hyq-nice-checkbox').val(n.id).appendTo(p);
+									$("<span/>").addClass('hyq-checkbox').appendTo(p);
+									$("<label/>").html(n.name).appendTo(p);
+								});
+								levelthree.show().find(".role-filter-categray :checkbox").each(function(){
+									$(this).HYQCheckbox();
+								});
+								var allsel = levelthree.find(".role-unit2");
+								if(allsel.find(":checked")){
+									allsel.find(":checked").click();
+								}
+							});
+							break;
+					}
+				});
+
+
+			}
+			//删除服务的按钮
+			function role_minus(val) {
+				var tip = $("#tip-del-service").HYQModal();
+
+				tip.trigger({type:"hyq/modal/show"});
+				tip.find("[name='yes']").one("click",function(){
+					var target = $(val).parents('.role_all_div').find(".child_div");
+					$(val).parents('#char-form-box').find(".child_div").each(function(){
+						$(this).trigger({
+							type: "relieve/disabled/values",
+							relieveVals: [target.find(".hide_service_2_value").val()]
+						});			
+					});
+					$(val).parents('.role_all_div').remove();
+					tip.trigger({type:"hyq/modal/close"});
+					if($(".role_all_div").length<5){
+							add_char_btn.show();
+					}
+				});
+				
+				return;
+				
+			}
+			//绑定服务初始事件
+			bindServiceEvent($("#char-form-original"));
+			/***********************************
+			 联动开始 结束
+			 ************************************/
+			$(window).load(function() {
+				//页面载入的时候检查一下是都需要面试的值以去顶要不要显示面试时间的设置栏
+				checkIfIntrv();
+				checkWorkTime();
+				//切换是否面试RADIO的时候检查胰腺癌是否要面试
+				$("input[name=if_interview]+span").click(function() {
+					checkIfIntrv();
+				});
+				//工作时间RADIO的点击响应
+				$("input[name=wrk_time]+span").click(function() {
+					checkWorkTime();
+				});
+
+				 //添加服务的按钮
+				add_char_btn.click(function() {
+					
+					var newNode = $("<div>").addClass(char_form_css).addClass('role_all_div').html(char_form_orignal.html());
+					newNode.find(".service-three").hide();
+					newNode.find(".num-word").html('0/300');
+					newNode.find(".role-filter-categray p").remove()
+					newNode.find(".role-unit2 :checkbox").HYQCheckbox();
+					newNode.find(".form-group em,.form-group label").addClass('_invisbl');
+					newNode.find('.role_list_div').append("<div class='role-minus-wrap'><i class='hyq-ic ic-minus-gray role_minus_btn' onclick='role_minus(this)'></i></div>"); //wangyifan
+					newNode.find(".add").remove(); //加的wangyifan
+					$.each(newNode.find(".hyq-dropdown-box"), function(i, e) {
+						$(e).HYQDropdownList(); //这句很重要 不然新APPEND进去的下拉表单是不工作的
+						$(e).find("input").val('');
+
+						$(e).find(".dropdown-value").html($(e).attr("placeholder")).removeClass("selected");
+
+					});
+					//处理需要禁用的服务类型 
+
+					newNode.appendTo(char_form_box);
+					//绑定联动菜单事件
+					bindServiceEvent(newNode);
+					if($(".role_all_div").length>=5){
+						add_char_btn.hide();
+					}
+				});
+				/***********************************
+				 图片上传的的脚本开始
+				 ************************************/
+				var dlg = $("#img-cropper-dialog");
+
+				var imgCropper = $('.hyq-image-cropper').HYQImageCropper({
+					uploadApi : "/home/ajax/ajax_home_userprofile.php?action=upload_icon", //在这里配置上传图片的API
+					cropApi : "/home/ajax/ajax_home_recruit.php?action=recruit_cover_cut&recruit_id="+$('#hide_recruit_id').val(),//在这里配置截图的API
+					width:600,
+					height:600,
+					type:2
+					//uploadApi : "/home/ajax/ajax_home_userprofile.php?action=upload_ablum_img", //在这里配置上传图片的API
+					//cropApi : "/home/ajax/ajax_home_userprofile.php?action=ablum_img_cut"//在这里配置截图的API
+				});
+
+				dlg.on("hyq/modal/hidden", function() {
+					imgCropper.trigger('hyq/imagecropper/reset');
+				});
+
+				imgCropper.on("hyq/imgcropper/success", function(event) {
+					//接受成功信息
+
+					//头像上传成功哦那个后，图片地址是一个数组，
+					//保存在  event.images
+					// 格式为 ['1：1头像的地址','4：3头像第二张图的地址']
+					// 你可以在这里提示上传头像成功，也可以获得图片地址作为其他用途
+					//console.log(event.images);
+					
+					dlg.trigger('hyq/modal/close');
+					//关闭
+					
+					//1更换头像
+					$('#org_logo_edit').prop('src',event.images[0]+'!150');
+					//2
+					$("#logo_save_before").remove();
+				});
+
+				setTimeout(function () {
+		            $(".cropper").unbind();
+		        },100);
+
+				imgCropper.on("hyq/imagecropper/uiactived", function(event) {
+					$("#img-cropper-dialog").trigger('hyq/modal/sizechanged');
+				});
+				/*** 以下两个时间的触发时机是一样的，第一个是带有状态信息的，可以自己控制报错的方式，第二个 是只有错误信息，使用弹出框报错，根据情况使用*/
+				/*************************************************************************************/
+				// 一
+				imgCropper.on('hyq/imgcropper/upload-error', function(event) {
+					//当上传失败时，获得返回状态和信息 错误信息存储在 event.hyqData 中
+					//console.log(event.hyqData);
+
+				});
+
+				// 二
+				imgCropper.on('hyq/imgcropper/error-message', function(event) {
+					//接受失败信息
+					//只获取错误信息 event.hyqMessage
+					//触发报错窗口
+					$('#error-message-box').trigger({
+						type : 'hyq/modal/show_with_message',
+						hyqMessage : event.hyqMessage
+					});
+				});
+				/***********************************
+				 图片上传 脚本结束
+				 ************************************/
+			});
+		</script>
+	</body>
+	<script type="text/javascript">
+	$(window).load(function(){
+		/***********************************
+         通用相册组件开始
+         ************************************/
+        
+        //初始化的数据===============================  
+
+        var _album = [null,null,null,null,null,null];
+
+        //==============================================
+        $("#album-data-store").HYQAlbumDatastore({
+            albumData:_album,///上面电议的原始数据，可以在页面载入的时候用PHP打印
+            deleteApi:"/home/ajax/ajax_home_recruit.php?action=delete_recruit_photo&recruit_id="+$('#hide_recruit_id').val(),//删除数据的API
+            delRequstFieldName:'photo_id_arr',//$_REQUEST获取参数时的KEY 默认是photo_id_arr 可以根据自己的需要修改
+        });
+
+        var albumStore = $("#album-data-store").data('ui-HYQAlbumDatastore');
+        
+        var viewport= $('.hyq-album-viewport').HYQAlbumViewport({
+        	albumStore:albumStore,
+        	initPhotoId:null
+        });
+        
+        var manager = $(".album-manager");
+        $('.album-manager').HYQAlbumManager({
+            uploadApi : "/home/ajax/ajax_home_recruit.php?action=upload_recruit_photo&recruit_id="+$('#hide_recruit_id').val(), //是相册上传的API
+            fileField : "img", //这个是你希望给你提交上传文件的时候给你传的那个参数名
+            albumStore : albumStore
+        });
+
+        manager.on('hyq/album_manager/show_photo', function(event) {
+            //打开图片浏览器
+            //console.log("HERE")
+            //console.log(event.photoId);
+            $("#img-album-viewport-dialog").trigger('hyq/modal/show');
+            //console.log("HERE")
+        });
+
+        manager.on("hyq/album_manager/cropper_avatar", function(event) {
+            //console.log("页面主逻辑街道图像管理器发来截图请求：");
+            //console.log(event);
+            var imgCropperInstance = imgCropper.data('ui-HYQImageCropper');
+            $("#img-cropper-dialog").trigger('hyq/modal/show');
+            imgCropperInstance.cropWithExistImage(event.imageUrl);
+        });
+
+        //开始处理图片查看器
+        var viewport = $("#user-profile-album-viewport");
+        viewport.HYQAlbumViewport({
+            albumStore :albumStore,
+            activePos : null
+        });
+        var viewportInstance = viewport.data("ui-HYQAlbumViewport");
+        setTimeout(function () {
+        	 $('.album-wrapper .album-item').eq(0).find('form').show();
+        },300);
+        
+        /***********************************
+         通用相册组件结束
+         ************************************/
+	});
+	//---------wangyifan-----start-------------------------
+	//-----------------------------------------------------
+	{/literal}
+		var server_http_referer = '{$server_http_referer}';
+	{literal}
+	$(function(){
+		//截止时间  工作开始/结束时间
+		$('#interview_start_time').datetimepicker({
+			dateFormat: 'yy-mm-dd', 
+			timeFormat: 'HH:00',
+			minDate: new Date(),
+			stepHour: 1
+		});
+		$('#interview_end_time').datetimepicker({
+			dateFormat: 'yy-mm-dd', 
+			timeFormat: 'HH:00',
+			minDate: new Date(),
+			stepHour: 1
+		});
+		$('#work_start_time').datetimepicker({
+			dateFormat: 'yy-mm-dd', 
+			timeFormat: 'HH:00',
+			minDate: new Date(),
+			stepHour: 1
+		});
+		$('#work_end_time').datetimepicker({
+			dateFormat: 'yy-mm-dd', 
+			timeFormat: 'HH:00',
+			minDate: new Date(),
+			stepHour: 1
+		});
+		//主题  类型 简介 截止时间 工作时间 工作地点
+		//1请填写招募主题-----------
+		$('#recruit_name').blur(function(){
+			var recruit_name = $(this).val();
+			if(recruit_name == ''){
+				$('#recruit_name_tips').show();
+			}	
+		});
+		$('#recruit_name').focus(function(){
+			$('#recruit_name_tips').hide();										
+		});
+		//2隐藏type提示----------
+		$('#type_div li').click(function(){
+			$('#type_tips').hide();
+		});
+		//3招募简介失焦-----------可以为空 一旦不为空就有限制了
+		$('#descr').blur(function(){
+			var descr = $(this).val();
+			//如果填了  请输入300字以内的简介
+			if(descr != ''){
+				if( descr.length > 300 ){
+					error = '招募简介请控制在300字以内';
+					$('#descr_tips label').text(error);
+					$('#descr_tips').show();
+					return false;
+				}
+			}
+		});
+		$('#descr').focus(function(){
+			$('#descr_tips').hide();
+		});
+		//4 简单部分2
+		//截止时间 隐藏提示
+		$('#interview_end_time').focus(function(){
+			$('#recruit_time_tips').hide();
+		});
+		//工作时间  隐藏提示
+		$('#work_start_time').focus(function(){
+			$('#recruit_time_tips').hide();
+			$('#work_time_tips').hide();
+		});
+		$('#work_end_time').focus(function(){
+			$('#work_time_tips').hide();
+		});
+		//5 复杂
+		//工作地点  省php分配过来 直接放到模板中-----------------------
+		//查找到省id  1追加
+		$("#province_div li").click(function(){
+			//隐藏提示信息
+			$('#addr_tips').hide();
+			//切换省  市清空  id清空 name切换  区清空 id清空 name切换
+			$('#hide_city_name').text('所在地');
+			$('#hide_city_name').removeClass('selected');//改样式
+			$('#hide_city_value').val('');
+			$('#hide_district_name').text('所在地');
+			$('#hide_district_name').removeClass('selected');//改样式
+			$('#hide_district_value').val('');
+			//获取选中id  根据id查找
+			var pid = $(this).val();
+			$('#city_div').find('.add').remove();
+			//alert(pid);
+			$.post('/ajax/ajax_address_array.php',{ pid:pid},function(data){
+				//解json 追加
+				var city_arr = new Array();
+				city_arr = eval('('+data+')');
+				//遍历 将队形的二级  一个个追加 进option
+				for(var k in city_arr){ 
+					//alert(city_arr[k]['id']);
+					$('#city_div').find('ul').append('<li class="add" value="'+city_arr[k]['id']+'">'+city_arr[k]['cname']+'</li>');
+				}
+			});
+		});
+		//给市一个单击  1 name放好 2 id放好 3 追加
+		$("#city_div").on('click','li',function(){
+			//隐藏提示信息
+			$('#addr_tips').hide();
+			//切换市  区清空 id清空 name切换
+			$('#hide_district_name').text('所在地');
+			$('#hide_district_name').removeClass('selected');//改样式
+			$('#hide_district_value').val('');
+			
+			//alert( $(this).text() );
+			var cid = $(this).val();
+			$('#district_div').find('.add').remove();
+			
+			$('#hide_city_name').text( $(this).text() );
+			$('#hide_city_name').addClass('selected');//改样式
+			$('#hide_city_value').val( cid );
+			$.post('/ajax/ajax_address_array.php',{ cid:cid},function(data){
+				//解json 追加
+				//alert(data);
+				var district_arr = new Array();
+				district_arr = eval('('+data+')');
+				//alert(district_arr);
+				//遍历 将队形的二级  一个个追加 进option
+				for(var k in district_arr){ 
+					//alert(district_arr[k]['id']);
+					$('#district_div').find('ul').append('<li class="add" value="'+district_arr[k]['id']+'">'+district_arr[k]['dname']+'</li>');
+				}
+			});	
+		});
+		//给区一个单击  1name放好  2id放好
+		$("#district_div").on('click','li',function(){
+			//隐藏提示信息
+			$('#addr_tips').hide();
+			
+			//alert( $(this).text() );
+			var did = $(this).val();
+			
+			$('#hide_district_name').text( $(this).text() );
+			$('#hide_district_name').addClass('selected');//改样式
+			$('#hide_district_value').val( did );
+			
+		});
+		//发布按钮(各种验证)
+		$('#publish_btn').click(function(){
+			if($('#publish_btn').attr("disabled")){
+				return;
+			}
+			//1 招募主题  触发失焦
+			$("#recruit_name").trigger('blur');
+			if($('#recruit_name_tips').css('display') == 'block'){
+				var type_top = $('#recruit_name_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			//2 判断招募类型  下拉列表 不是标准的select value取不到  value值放到 隐藏域  或者属性  从属性取值再做判断 
+			var type_id = $('#hide_type_id_value').val();
+			if( type_id == '' || type_id < 0 ){
+				$('#type_tips').show();//非标准控件 单击事件  隐藏它
+				var type_top = $('#type_tips').position().top;
+				//$(document).scrollTop(type_top-'400');
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			//3 招募简介 触发失焦
+			$("#descr").trigger('blur');
+			if($('#descr_tips').css('display') == 'block'){
+				var type_top = $('#descr_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			//4 截止时间不能为空
+			var interview_end_time = $('#interview_end_time').val();
+			if(interview_end_time == ''){
+				var error = '请选择面试时间';
+				$('#recruit_time_tips label').text(error);
+				$('#recruit_time_tips').show();
+				var type_top = $('#recruit_time_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			//5 工作时间不能为空
+			var work_start_time = $('#work_start_time').val();
+			var work_end_time = $('#work_end_time').val();
+			if(work_start_time == '' || work_end_time == ''){
+				var error = '请选择工作时间';
+				$('#work_time_tips label').text(error);
+				$('#work_time_tips').show();
+				var type_top = $('#work_time_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			if(work_start_time >= work_end_time){
+				var error = '结束时间应该大于开始时间！';
+				$('#work_time_tips label').text(error);
+				$('#work_time_tips').show();
+				var type_top = $('#work_time_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			//截止时间要小于开始时间
+			if(interview_end_time > work_start_time){
+				var error = '招募截止时间要早于工作时间哦';
+				$('#recruit_time_tips label').text(error);
+				$('#recruit_time_tips').show();
+				var type_top = $('#recruit_time_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			// 6 工作地点 ---------------------------
+			var province_id = $('#hide_province_value').val();
+			var city_id = $('#hide_city_value').val();
+			var district_id = $('#hide_district_value').val();
+			
+			if(province_id == '' || city_id == '' || district_id == ''){
+				$('#addr_tips').show();
+				var type_top = $('#addr_tips').position().top;//移动到报错处
+				$("html, body").animate({scrollTop: type_top-'400'},{duration:500,easing:"swing"});
+				return false;
+			}
+			var addr_detail = $('#addr_detail').val();
+			//获取各项的值(简单部分) recruit_name  type_id  is_interview  descr
+			var recruit_name = $("#recruit_name").val();
+			var descr = $("#descr").val();
+			// 7 复杂  服务
+			//二级服务不能为空  三级可以为空 默认不限
+			$('.hide_service_2_value').each(function(){
+				var service_2 = $(this).val();
+				if(service_2 == ''){
+					var error_div = $(this).parents('.role_all_div').find('.role_tips');
+					error_div.find('label').text('请选择服务');
+					error_div.show();
+					var type_top = error_div.position().top;//移动到报错处
+					$("html, body").animate({scrollTop: type_top-'700'},{duration:500,easing:"swing"});
+					is_end = 0;
+				}
+			});
+			if(is_end == 0){
+				return false;
+			}
+			$('.hide_sex_value').each(function(){
+				var sex_value = $(this).val();
+				//alert(sex_value);
+				if(sex_value == ''){
+					var error_div = $(this).parents('.role_all_div').find('.role_tips');
+					error_div.find('label').text('请选择性别');
+					error_div.show();
+					var type_top = error_div.position().top;//移动到报错处
+					$("html, body").animate({scrollTop: type_top-'600'},{duration:500,easing:"swing"});
+					is_end = 0;
+				}
+			});
+			if(is_end == 0){
+				return false;
+			}
+			$('.hide_number_value').each(function(){
+				var number_value = $(this).val();
+				if(number_value == ''){
+					var error_div = $(this).parents('.role_all_div').find('.role_tips');
+					error_div.find('label').text('请选择数量');
+					error_div.show();
+					var type_top = error_div.position().top;//移动到报错处
+					$("html, body").animate({scrollTop: type_top-'600'},{duration:500,easing:"swing"});
+					is_end = 0;
+				}
+			});
+			if(is_end == 0){
+				return false;
+			}
+			$('.hide_require_value').each(function(){
+				var require_value = $(this).val();
+				if(require_value != ''){
+					if(require_value.length > 300){
+						var error_div = $(this).parents('.role_all_div').find('.role_tips');
+						error_div.find('label').text('招募要求请控制在300字以内');
+						error_div.show();
+						var type_top = error_div.position().top;//移动到报错处
+						$("html, body").animate({scrollTop: type_top-'600'},{duration:500,easing:"swing"});
+						is_end = 0;
+					}
+				}
+			});
+			if(is_end == 0){
+				//console.log('1111111dddd111111');
+				return false;
+			}
+			//走到这里 可以弹窗了
+			$('#be-published-modal').HYQModal();
+			$('#be-published-modal').trigger('hyq/modal/show');
+		});
+		//发布框里的确定按钮  提交数据
+		$('#be-published-modal #confirm_btn').click(function(){
+			//获取所有class=hide_service_2_value 二级的值  放进一个数组 进行传递
+			var service_1_list = new Array();//service_1
+			var service_2_list = new Array();//service_2
+			var sex_list = new Array();//sex
+			var number_list = new Array();//number
+			var service_requires_list = new Array();//role_require
+			var service_3_list = new Array();//service_3
+			var i = 0;
+			$('.hide_service_1_value').each(function(){
+				service_1_list[i] = $(this).val();
+				i++;
+			});
+			
+			var i = 0;
+			$('.hide_service_2_value').each(function(){
+				service_2_list[i] = $(this).val();
+				i++;
+			});
+			
+			var j = 0;
+			$('.hide_sex_value').each(function(){
+				sex_list[j] = $(this).val();
+				j++;
+			});
+			
+			var g = 0;
+			$('.hide_number_value').each(function(){
+				number_list[g] = $(this).val();
+				g++;
+			});
+			
+			var m = 0;
+			$('.hide_require_value').each(function(){
+				service_requires_list[m] = $(this).val();
+				m++;
+			});
+			
+			var n = 0;
+			$('.hide_service_3_value').each(function(){
+				var service_3s = new Array();
+				var arr = $(this).find("input[name='mchoice[]']");
+				var arr_checked = $(this).find("input[name='mchoice[]']").prop("checked");
+				//arr是一个数组，就是所有checkbox的值；
+				//如果选了不限  不需要考虑选取选中项了  直接放进所有的
+				if( $(this).find("input[name='mchoice_unlimit']").prop("checked")  ){
+					for(i=0;i<arr.length;i++){
+						service_3s.push(arr[i].value);
+					}
+				}else{
+					//选出所有被选中的checkbox
+					for(i=0;i<arr.length;i++){
+						if(arr[i].checked){
+							//选中的checkbox放进数组service_3s
+							service_3s.push(arr[i].value);
+						}
+					}
+					//console.log('11111111');
+					//console.log(service_3s.length);
+					if(service_3s.length == 0){
+						//没选不限  并且一个都没选  默认全选了
+						for(i=0;i<arr.length;i++){
+							service_3s.push(arr[i].value);
+						}
+					}
+				}
+				service_3_list[n] = service_3s;
+				//alert(service_3_list[n]);
+				n++;
+			});
+			var recruit_name = $("#recruit_name").val();
+			var type_id = $('#hide_type_id_value').val();
+			var interview_end_time = $('#interview_end_time').val();
+			var descr = $("#descr").val();
+			var work_start_time = $('#work_start_time').val();
+			var work_end_time = $('#work_end_time').val();
+			var province_id = $('#hide_province_value').val();
+			var city_id = $('#hide_city_value').val();
+			var district_id = $('#hide_district_value').val();
+			var addr_detail = $('#addr_detail').val();
+			var action = 'add_recruit';
+			var recruit_id = $('#hide_recruit_id').val();
+			//发送
+			$('#publish_btn').attr("disabled",true);
+			$.post("/home/ajax/ajax_home_recruit.php", { action:action,name:recruit_name,type_id:type_id,descr:descr,interview_end_time:interview_end_time,work_start_time:work_start_time,work_end_time:work_end_time,province_id:province_id,city_id:city_id,district_id:district_id,addr_detail:addr_detail,service_1_list:service_1_list,service_2_list:service_2_list,service_3_list:service_3_list,sex_list:sex_list,number_list:number_list,service_requires_list:service_requires_list,id:recruit_id},function(data){
+				//alert(data);
+				add_result = eval('('+data+')');
+				if(add_result.code == 1000){
+					//成功 跳转
+					var tip = $("#success_message").HYQTip();
+					tip.showSuccess("发布成功！");
+					setTimeout(function(){location.href = "/recruit/"+recruit_id;},5000);
+					//setTimeout(function(){location.href = "/recruit/"},5000);
+					//alert(add_result.desc);
+				}else{
+					//失败
+					//alert(add_result.desc);
+					var tip = $("#error_message").HYQTip();
+					$('#publish_btn').removeAttr("disabled");
+					tip.showSuccess(add_result.desc);
+				}
+			});
+			$('#be-published-modal').trigger('hyq/modal/close');
+		});
+		//判断资料完整度
+		if( $.cookie('hyq_user_info').split('|')[4] < 86){
+			$('#data_percent_div').show();
+		}
+		//取消发布  的  确定按钮  弹出提示框
+		$('#be-canceled-modal #confirm_btn').click(function(){
+			//top.location.href = history.go(-1);
+			//为了兼容ie php中记录上次的地址 分配过来
+			top.location.href = server_http_referer;
+		});
+		//取消框中的  确定按钮(取消操作)  取消按钮（什么也不做）
+	});
+	//---------wangyifan-----end------------
+	//-----------------------------------------------------
+	</script>
+	{/literal}
+</html>

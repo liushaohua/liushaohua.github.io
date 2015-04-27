@@ -1,0 +1,106 @@
+ <!--发邀约窗口-->
+ <style type="text/css">
+ #hyq-common-modal-send-invitation{
+ top:38%;}
+ #hyq-common-iframe-send-invitation{
+  	position: absolute;
+  	top:50px;
+  	width: 100%;
+  	height: 450px;
+    left:0px;
+    border-top: none;
+	/*margin: -138.5px auto 0px -287.5px;*/
+  }
+  .hyq-modal .hyq-modal-header{
+  	height: 40px;
+  }
+  </style>
+  <!--发送邀约成功提示的TIP-->
+<div class="hyq-tip txt-center" id="hyq-common-tip-send-invite-message" style="width:180px;" >
+    <div><i class="hyq-ic ic-success-lg"></i></div>
+    <div><label class="hyq-tip-msg-node"></label></div>
+</div>
+
+<!--发送邀约失败窗口-->
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-global-modal-send-invite-failure-modal" style="width:360px;">
+  <div class="hyq-modal-header txt-left" ></div>
+  <div class="hyq-modal-body">
+    <div><i class="hyq-ic ic-alert-lg"></i></div>
+      <label>对不起，邀约发送失败，请稍后再试。</label>
+         
+        <br/>
+        <br/>
+        <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+  </div>
+  <br/>
+  <br class="_clb"/>
+  <div class="hyq-modal-footer"></div>
+</div>
+
+
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-global-modal-no-recruit-modal" style="width:360px;">
+  <div class="hyq-modal-header txt-left" ></div>
+  <div class="hyq-modal-body">
+    <div><i class="hyq-ic ic-alert-lg"></i></div>
+      <label>对不起，您还没有发布招募或招募已过期</label>
+        <div><a href="javascript:void(0)" id="publish_recruit_btn" class="publish_recruit_btn"><i class="hyq-ic ic-arrow-rt-rd"></i> 发布招募</a></div>
+        <br/>
+        <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+  </div>
+  <br/>
+  <br class="_clb"/>
+  <div class="hyq-modal-footer"></div>
+</div>
+
+
+<div class="hyq-modal hyq-modal-default invite-letter-wrap RdBorderTop txt-center" id="hyq-common-modal-send-invitation"  role="dialog" style="width:575px; min-height:450px; height:auto;margin:0 auto;display:none">
+ 	<div class="hyq-modal-header GrayBorderBtm txt-left" >
+			<label class="f16 pull-left Blak2 nm">&nbsp;&nbsp;给{}发</label>
+			<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+	<input type="hidden" value="" id="has_recruit"/>
+   <iframe id="hyq-common-iframe-send-invitation"  style="top:42px;" frameborder="0" scrolling=false></iframe>
+  </div>
+{literal}
+<script type="text/javascript">
+	$(function(){
+	//收到想要发邀约的请求
+	$(document).on("hyq/doc/invite",function(event){
+
+		//var frm = event.fromUserId;//发送者用户ID
+        var to = event.toUserId//收邀约者用户ID
+			
+        var toName = event.toUserName//收邀约者用户名
+		$('.nm').text('您正向 '+toName+' 发起邀约');
+      //拼链接
+      $("#hyq-common-iframe-send-invitation").attr({
+         'src':"/home/iframe_invite_box.php?from=520"+"&to="+to
+      });
+      //显示发邀请的弹窗 怎么发 在邀请的IFRAME里面做 此处不管
+      $("#hyq-common-modal-send-invitation").trigger("hyq/modal/show");
+
+	});
+	 //如果yy成功发送
+      $(document).on("hyq/invite/popup/sent",function(){
+        $("#hyq-common-modal-send-invitation").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-invite-message").trigger({
+            type:"hyq/tip/show/success",message:"邀约发送成功！"
+          }); 
+        });
+         
+      });
+
+      //如果yy发送失败
+      $(document).on("hyq/invite/popup/sent/failure",function(){
+         $("#hyq-common-modal-send-invitation").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-global-modal-send-invite-failure-modal").trigger("hyq/modal/show"); 
+        });
+      });
+
+      //如果没有招募
+      $(document).on("hyq/invite/no-recruit/alert",function(){
+          $("#hyq-global-modal-no-recruit-modal").trigger("hyq/modal/show");
+      });
+	});
+</script>
+{/literal}

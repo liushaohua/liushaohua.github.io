@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>邀约发送页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">邀约发送首页：</button><br><br>
+			<hr>
+				我的收藏列表：
+				<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+				<tr>
+					<td>收藏的ID</td>
+					<td>所属类别</td>
+					<td>操作</td>
+				</tr>
+				<tr>
+					<td>王大哥</td>
+					<td>主持</td>
+					<td><input type="checkbox" name="user" rid="2" id="9525" /></td>
+				</tr>
+				<tr>
+					<td>王二凡</td>
+					<td>演员</td>
+					<td><input type="checkbox" name="user" rid="7" id="9526" /></td>
+				</tr>
+				<tr>
+					<td>赵大嬛</td>
+					<td>歌手</td>
+					<td><input type="checkbox" name="user" rid="4" id="9527" /></td>
+				</tr>
+				<tr>
+					<td>张庆芳</td>
+					<td>相声</td>
+					<td><input type="checkbox" name="user" rid="6" id="9528" /></td>
+				</tr>
+				<tr>
+					<td>孙天信</td>
+					<td>导演</td>
+					<td><input type="checkbox" name="user" rid="5" id="9529" /></td>
+				</tr>
+				</table>
+			<hr>
+			<button id="edit" align="center" style="background:red;height:100px;width:100px">邀约</button><br><br>
+		</div>
+		<br><hr>
+		<div id="editarea" align="center" style="display:none">
+			<hr>
+			邀约对象ID：<input type="text" name="receiver" value="" placeholder="请输入数字ID"><br><br>
+			邀约的招募：<select name="recruit">
+							<option value="">--请选择你要邀约的招募--</option>
+							<option value="">红眼圈年会活动礼仪招募</option>
+							<option value="">邦羽国际集团年会主持招募</option>
+							<option value="">阿里巴巴年会活动主持招募</option>
+							<option value="">河南农大校庆活动礼仪招募</option>
+							<option value="">君和天下市场推广活动主持招募</option>
+							<option value="">百度大会礼仪招募</option>
+						</select><br><br>
+			邀约的角色：<select name="role">
+							<option value="">--请选择招募的角色--</option>
+							<option value="85">礼仪</option>
+							<option value="85">主持</option>
+							<option value="120">综艺</option>
+							<option value="75">歌手</option>
+							<option value="36">导演</option>
+							<option value="46">相声</option>
+							<option value="76">演员</option>
+						</select><br><br>
+			留下您的联系方式:<br><br> 
+					  电话:<input type="text" name="r_mobile" value="" placeholder="请输入您的电话"><br><br>
+					  邮箱:<input type="text" name="r_email" value="" placeholder="请输入您的邮箱"><br><br>	
+					  微信:<input type="text" name="r_weixin" value="" placeholder="请输入您的微信号"><br><br>	
+					  QQ:<input type="text" name="r_qq" value="" placeholder="请输入您的QQ">	
+			<hr>		
+			<input type="button" name="send_message" onclick="return subdata()" value="发送" />
+		</div>
+	</body>
+	{literal}
+		<script>
+			<!-- 添加标签或更新标签 -->
+			$('#edit').click(function(){
+				$('#editarea').fadeIn();
+			});
+			//邀约信息ajax 提交
+			function subdata(){
+
+				<!-- 获取邀约信息 -->
+				var action = 'send_invite';
+				var receiver = $("input[name='receiver']").val();
+				var recruit = $("select[name='recruit'] option:selected").val();
+				var role = $("select[name='role'] option:selected").val();
+				var mobile = $("input[name='r_mobile']").val();
+				var email = $("input[name='r_email']").val();
+				var weixin = $("input[name='r_weixin']").val();
+				var qq = $("input[name='r_qq']").val();
+				
+				<!-- ajax传递邀约信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_invite.php',
+					type:'post',
+					data:{"action":action,"receiver":receiver,"recruit":recruit,"role":role,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,邀约成功!');
+						}else{
+							alert('NO,邀约失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

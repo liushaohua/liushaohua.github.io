@@ -1,0 +1,94 @@
+<!-- 上传图片的对话框 -->
+<div class="hyq-modal hyq-modal-default _hidden _clb" id="img-cropper-dialog" role="dialog">
+<!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+             
+    <div class="hyq-modal-header">
+      <div class="hyq-modal-close-btn"></div>
+    </div>
+    <div class="hyq-model-body txt-left">
+        <div class="lead-title">
+                    <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传形象照 <small class="Gray8">(一张清晰美观的形象照,至少提升80%的吸引力)</small></label>
+                </div>
+                <!-- 图片截取器 -->
+
+                <div class="hyq-image-cropper">
+
+                    <div img-cropper-uploder></div>
+                    <div class="busy-mask">
+                        <span><img src="http://icon.hotyq.com/v2/loading.gif"/></span>
+                    </div>
+
+                    <div class="cropper">
+                        <div class="mask maskA"></div>
+                        <div class="mask maskB"></div>
+                        <div class="mask maskC"></div>
+                        <div class="mask maskD"></div>
+                        <div class="invite-btn"></div>
+                        <div class="invite-message">
+                            <div>
+                                上传形象照
+                            </div>
+                            <div>
+                                支持JPG，JPEG，PNG格式，不超过5M
+                            </div>
+                        </div>
+                        <div img-dock="" >
+                            <div img-mask></div>
+                        </div>
+                    </div>
+
+                    <div class="preview-box">
+                        <div class="preview-a">
+                            <img src="http://icon.hotyq.com/v2/default_M_11.jpg"/>
+                        </div>
+                        <div class="preview-b"><img src="http://icon.hotyq.com/v2/default_M_43.jpg" />
+                        </div>
+                    </div>
+
+                    <div class='slider-box'>
+                        <div class="slide-btn-wrapper">
+                            <div class="slide-button"></div>
+                        </div>
+                        <i class="zout">-</i>
+                        <div class='slider'>
+                            <div class="white-bar"></div>
+                        </div>
+                        <i class="zin">+</i>
+                    </div>
+
+                    <div class="button-box _zeroPDBottom">
+                        <input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+                    </div>
+
+                </div>
+
+    </div>
+</div>
+<!-- 上传图片的对话框结束 -->
+
+<!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="error-message-box" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+<!-- 报错窗口结束 -->

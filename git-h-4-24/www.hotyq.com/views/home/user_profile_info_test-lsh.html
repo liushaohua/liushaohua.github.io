@@ -1,0 +1,547 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>基础资料 - 编辑资料 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <script src="/js/jquery.js"></script>
+	<link rel="stylesheet" href="/css/jquery-ui.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" media="all" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
+	<style type="text/css">
+		body,td,th {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, Mingliu;
+}
+		.hyq-image-cropper .ui-widget-content{
+			background:#e3e3e3;
+			border: 1px solid transparent;
+			color: #e3e3e3;
+		
+			width: 320px;
+			background-color: #e3e3e3;
+			height: 15px;
+			position: absolute;
+			display: hide;
+			top: 15px;
+		}
+		.hyq-image-cropper .ui-slider-handle{display:none;}
+
+
+			/*head upload*/
+			.fix-custom-role{
+				margin-right:2em;
+				width: 180px;
+			}
+
+			.logo-show{
+			    
+            width: 150px;
+            height: 150px;
+            display: block;;
+        	}
+        .logo-show a{
+            position: relative;
+            display: block;
+        }
+        
+        .logo-show .btn-upload{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color: #808080;
+            z-index: 2;
+        }
+        .logo-show .btn-upload-exist{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color:transparent;
+            z-index: 2;
+      cursor: default;
+        }
+    .logo-show .btn-upload-exist .btn-change-logo{
+      height: 32px;
+      width: 150px;
+      text-align: center;
+      line-height: 32px;
+      font-size:14px;
+      color: #fff;
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      opacity: .5;
+      cursor: pointer;
+      background-color:#4a4a4a;
+
+    }
+        .logo-show a:hover .btn-upload,
+        .logo-show a:hover .btn-upload-exist{
+            display: block;
+        }
+		/*head upload*/
+		
+			.fix-dropdown-1{
+				width: 70px;}
+			.fix-dropdown-2{
+				width: 40px;}
+			.fix-dropdown-3{
+				width: 50px;}
+		 
+			.fix-dropdown-year{
+				width: 32px; font-size:13px;}
+			.fix-dropdown-md{
+				width: 15px; font-size: 13px; }
+			.fix-dropdown-time{
+				width: 34px;font-size: 13px }
+			.fix-txtarea-1 {
+				width: 468px; height: 40px;}
+			.fix-txtarea-2{
+				width: 468px; height: 100px;}
+			.fix-form-group-1{
+				margin-bottom: 5px;}
+			.fix-err-pdl{
+				margin-left: 120px;
+			}
+			.fix-hire-type-width{
+			250px;
+			}	
+
+			.album-column .poster-album .album-wrapper .album-item .album-uploader .invite-btn {
+				margin-top:-31px;
+			}
+			
+			.album-column .poster-album .album-wrapper .album-item .album-uploader .invite-btn i {
+				position:absolute;bottom:-22px;font-size:12px;color:#fff;
+			}
+			.hyq-image-cropper form{display:block;}
+			.hyq-modal-default .hyq-model-body-de{height:447px;}
+			.hyq-modal-default .hyq-model-body-de.hyq-model-body-active{height:566px;}
+			.hyq-image-cropper .cropper{position:absolute;}
+			.hyq-image-cropper form input{position:absolute;width:352px;height:352px;display:block;background:red;z-index:20;font-size:300px;top:20px;opacity:0;overflow:hidden;}
+			.hyq-image-cropper .button-box{position: absolute;top: 414px;}
+			.hyq-image-cropper .slider-box{position:absolute;top:374px;}
+			.hyq-image-cropper{height:490px;overflow:hidden;}
+			.hyq-image-cropper form input.hyq-replace{width:90px;height:39px;top: 439px;left: 133px;font-size:14px;}
+			.album-uploader input{position: absolute;width: 150px;height: 100px;overflow: hidden;background: red;font-size: 71px;z-index:10;opacity:0;}
+
+
+			.form-group .num-word{font-size: 12px;color: gray;  text-align: right;padding-right: 20px;padding-top: 7px;}
+		</style>
+    <!-- endbuild -->
+  </head>
+  <body>
+  <div img-cropper-uploder="" style="height: 0px;">
+	<iframe id="frameFile" name="frameFile"></iframe>
+	<form enctype="multipart/form-data" method="post" action="/home/ajax/ajax_home_userprofile.php?action=upload_album_img" target="frameFile" class="input-f">
+		<input type="file" name="image" class="input-c">
+	</form>
+  </div>
+  <br/>
+    <br/>
+	  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>
+	  我的照片
+	  
+	  <!-- ##################################### 红照片开始 #################################-->
+				
+				<!--这行专门用来存储数据的一定不要删除-->
+	<div class="content-wrapper">
+	<div class="main-column-a">
+	<div id="album-data-store" class="_hidden"></div>
+<!--这行专门用来存储数据的一定不要删除-->
+<div class="column-wrapper album-column ">
+	<!--页面载入的时候只需要做两种判断 如果相册是空的 则是选择 album-first-edit 如果是非空的则选择 album-review-->
+	<!--使用三个Class来控制显示  album-first-edit album-edit album-review -->
+			<!-- <div class="album-manager column-wrapper album-review  RdBorderBtm 相册不空用这句"> -->
+				<!-- <div class="album-manager column-wrapper album-review  RdBorderBtm 相册不空用这句"> -->
+		<div class="album-manager column-wrapper album-first-edit  RdBorderBtm">
+			
+		<div class="row album-lead">
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i>
+				<label class="f18 Blak2">宣传照片<small class="Gray8"> (一张招募宣传照，至少提升15%招募吸引力)</small></label>
+				<a class="profile-expend-btn inline-block pull-right" data-trigger-action="hide" data-toggle="hyq-slidedown-content" data-target="#red-gallery-edit-panel" alt="点击添加宣传照片" title="点击添加宣传照片"></a> <a class="profile-edit-btn inline-block pull-right" id="album_edit_btn" alt="点击编辑宣传照片" title="点击编辑宣传照片"></a>
+			</div>
+		</div>
+
+		<div class="row album-box" role="hyq-slidedown-content" id="red-gallery-edit-panel">
+			<div class="poster-album">
+				<ul class="album-wrapper">
+					
+					<li class="album-item " itemIndex="0">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="1">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="2">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item " itemIndex="3">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item" itemIndex="4">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item" itemIndex="5">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn" style="display:none;">
+								<span></span>
+								<label></label>
+								<i>上传图片</i>
+							</div>
+						</div>
+
+						<div class="album-img-box">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="btn-group album-btn-box">
+				<input type="button" class="hyq-btn hyq-btn-lg exit-edit-btn" value="浏览" />
+				&nbsp;&nbsp;
+				<span class="Gray8 album-message-box"></span>
+				<input type="button" class="hyq-btn hyq-btn-lg hyq-btn-gray pull-right _hidden delete-selected-photo-btn" value="删除选定" style="margin-right:16px;"/>
+			</div>
+		</div>
+		<br/>
+	</div>
+</div>
+</div>
+</div>
+<!-- ##################################### 红照片结束 #################################-->
+
+       <script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/hyq-placeholder.js"></script>
+		<script src="/js/hyq-modal.js"></script>
+		<script src="/js/hyq-valid-helper.js"></script>
+		<script src="/js/hyq-checkbox-list.js"></script>
+		<script src="/js/hyq-dropdown-list.js"></script>
+		<script src="/js/hyq-dropdown-button.js"></script>
+		<script src="/js/hyq-checkbox.js"></script>
+		<script src="/js/hyq-nice-radio.js"></script>
+		<script src="/js/tmk-html-import.js"></script>
+		<script src="/js/hyq-gotop.js"></script>        
+		<script src="/js/hyq-extends.js"></script>
+		<script src="/js/hyq-tip.js"></script>
+		<script src="/js/hyq-tabs-lr.js"></script>
+		<script src="/js/hyq-img-cropper.js"></script>
+		<script src="/js/hyq-busy-animate.js"></script>
+		<script src="/js/hyq-album-datastore.js"></script>
+		<script src="/js/hyq-album-manager.js"></script>
+		<script src="/js/hyq-album-viewport.js"></script>
+		<script src="/js/hyq-role-select.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/hyq-percent-pie.js"></script>
+		<script src="/js/hyq-misc.js"></script>
+		<script src="/js/hyq-static-album.js"></script>
+		<script src="/js/jquery.cookie.js"></script>
+		<script src="/js/hyq-pv.js"></script>
+		<script src="/js/state_code.js"></script>
+       	
+       <!--尾部结束-->
+		<script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-timepicker-zh-CN.js"></script>
+
+		<script type="text/javascript">
+			$(window).load(function(){
+				/***********************************
+				 通用相册组件开始
+				 ************************************/
+				
+				//初始化的数据===============================  
+
+				var _album = [null,null,null,null,null,null];
+
+				//==============================================
+				$("#album-data-store").HYQAlbumDatastore({
+					albumData:_album,///上面电议的原始数据，可以在页面载入的时候用PHP打印
+					deleteApi:"/home/ajax/ajax_home_recruit.php?action=delete_recruit_photo&recruit_id="+$('#hide_recruit_id').val(),//删除数据的API
+					delRequstFieldName:'photo_id_arr',//$_REQUEST获取参数时的KEY 默认是photo_id_arr 可以根据自己的需要修改
+				});
+
+				var albumStore = $("#album-data-store").data('ui-HYQAlbumDatastore');
+				
+				var viewport= $('.hyq-album-viewport').HYQAlbumViewport({
+					albumStore:albumStore,
+					initPhotoId:null
+				});
+				
+				var manager = $(".album-manager");
+				$('.album-manager').HYQAlbumManager({
+					uploadApi : "/home/ajax/ajax_home_recruit.php?action=upload_recruit_photo&recruit_id="+$('#hide_recruit_id').val(), //是相册上传的API
+					fileField : "img", //这个是你希望给你提交上传文件的时候给你传的那个参数名
+					albumStore : albumStore
+				});
+
+				manager.on('hyq/album_manager/show_photo', function(event) {
+					//打开图片浏览器
+					//console.log("HERE")
+					//console.log(event.photoId);
+					$("#img-album-viewport-dialog").trigger('hyq/modal/show');
+					//console.log("HERE")
+				});
+
+				manager.on("hyq/album_manager/cropper_avatar", function(event) {
+					//console.log("页面主逻辑街道图像管理器发来截图请求：");
+					//console.log(event);
+					var imgCropperInstance = imgCropper.data('ui-HYQImageCropper');
+					$("#img-cropper-dialog").trigger('hyq/modal/show');
+					imgCropperInstance.cropWithExistImage(event.imageUrl);
+				});
+
+				//开始处理图片查看器
+				var viewport = $("#user-profile-album-viewport");
+				viewport.HYQAlbumViewport({
+					albumStore :albumStore,
+					activePos : null
+				});
+				var viewportInstance = viewport.data("ui-HYQAlbumViewport");
+				setTimeout(function () {
+					 $('.album-wrapper .album-item').eq(0).find('form').show();
+				},300);
+				
+				/***********************************
+				 通用相册组件结束
+				 ************************************/
+			});
+		</script>
+
+
+				
+  </body>
+  <script>
+  $(function () {
+	$('.input-c').change(function () {
+		$('.input-f').submit();
+	});
+	$('#frameFile').load(function () {
+		var back = $(this).contents().find('body').html();
+		var oImg = $('<img>').attr('src',back.split('|')[1]);
+		oImg.load(function () {
+			$('body').append(oImg.fadeOut().fadeIn(300));
+			console.log(oImg.width(),oImg.height())
+			if (oImg.width() > oImg.height()) {
+				oImg.width(200)
+			}
+			
+		});
+		console.log(back);
+	});
+  });
+  </script>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>我的招募下的报名列表</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">我的招募(RID={$rid})下的报名列表：</button>
+		</div>
+		<hr>
+		<br>
+		<div id="editarea" align="center">
+			<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+			<tr>
+				<td	colspan="9" align="center">当前报名总数:<b>{$apply_num}</b></td>
+			</tr>
+			<tr>
+				<td align="center">报名ID</td>
+				<td align="center">报名者的ID</td>
+				<td align="center">报名的角色ID</td>
+				<td align="center">报名时间</td>
+				<td align="center">操作</td>
+			</tr>
+			{foreach name=apply_list from=$list item=v}
+				<tr>
+					<!-- <td align="center">{$smarty.foreach.apply_list.iteration}</td> -->
+					<td align="center">{$v.id}</td>
+					<td align="center">{$v.uid}</td>
+					<td align="center">{$v.role_id}</td>
+					<td align="center">{$v.apply_date}</td>
+					<td align="center">
+						{if $v.r_status eq 'waiting'}
+							<a href="javascript:;" id="{$v.id}" class="recruit_operate" name="sure">确认</a>
+							<a href="javascript:;" id="{$v.id}" class="recruit_operate" name="refuse">拒绝</a>
+						{elseif $v.r_status eq 'sure'}
+							<font color="red">已确认</font>
+							<button class="seesee" id="{$v.id}">查看</button>
+						{elseif $v.r_status eq 'refuse'}
+							<font color="green">已拒绝</font>
+							<button>-</button>
+						{/if}
+					</td>
+				</tr>
+				<tr id="xin{$v.id}" style="background:pink;display:none">
+				{if $v.r_status eq 'sure'}
+				
+					<td>电话:{$v.u_mobile}</td>		
+					<td>邮箱:{$v.u_email}</td>		
+					<td>微信:{$v.u_weixin}</td>
+					<td>QQ:{$v.u_qq}</td>
+					<td align="center"><a href="javascript:;" uid="{$v.uid}">私信</a></td>
+				
+				{/if}
+				</tr>
+			{foreachelse}
+					<tr>
+						<td colspan="9">哥们,你还没有收到报名哦!!!</td>
+					</tr>
+			{/foreach}
+			</table>
+			<hr>
+			<div id="recruite_info" style="display:none" align="center">
+						 <input type="hidden" name="apply_id" value="" />
+						 <input type="hidden" name="r_status" value="" />
+					电话:<input type="text" name="r_mobile" value="" placeholder="请输入电话号码" /><br><br>
+					邮箱:<input type="text" name="r_email" value="" placeholder="请输入邮箱" /><br><br>
+					微信:<input type="text" name="r_weixin" value="" placeholder="请输入微信号" /><br><br>
+					QQ:<input type="text" name="r_qq" value="" placeholder="请输入QQ号" /><br><br>
+					   <button onclick="return submit_info();">确认并发送</button>
+			</div>
+		</div>
+	</body>
+	{literal}
+		<script>
+			//查看报名者信息 收起
+			$('.seesee').click(function(){
+				if($(this).text() == '查看'){
+					$(this).parents('tr').next().fadeIn("slow");
+					$(this).text('收起');
+				}else{
+					$(this).parents('tr').next().fadeOut("slow");
+					$(this).text('查看');
+				}
+			});
+
+			//报名信息ajax 
+			$('.recruit_operate').click(function(){
+				var operate = $(this).prop('name');
+				var aid = $(this).prop('id');
+
+				if(operate == 'sure'){
+					var value = 'sure'; 
+					$("input[name='apply_id']").val(aid);
+					$('#recruite_info').css('display','block');
+					$("input[name='r_status']").val(value);
+				}else{
+					var value = 'refuse';
+					//招募方拒绝报名 操作
+					var action = 'recruit_refuse_apply';
+					$.ajax({
+					url:'/ajax/suntianxing/ajax_apply.php',
+					type:'post',
+					data:{"action":action,"aid":aid,'status':value},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,拒绝成功!');
+							//$(this).parent().append('<h3>已拒绝</h3>');
+							//$(this).parent().find('a').remove();
+						}else{
+							alert('NO,拒绝失败!');
+						}
+					},
+					dataType:'json'
+				});
+				}
+			});
+
+			//招募方确认报名信息 ajax 传送信息 
+
+			function submit_info(){
+				var action = 'recruit_sure_apply';
+				var aid = $("input[name='apply_id']").val();
+				var status = $("input[name='r_status']").val();
+				var mobile = $("input[name='r_mobile']").val();
+				var email = $("input[name='r_email']").val();
+				var weixin = $("input[name='r_weixin']").val();
+				var qq = $("input[name='r_qq']").val();
+
+				<!-- ajax传递报名信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_apply.php',
+					type:'post',
+					data:{"action":action,"aid":aid,'status':status,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,确认成功!');
+							$('#recruite_info').fadeOut();
+						}else{
+							alert('NO,确认失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						//$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}
+		</script>
+	{/literal}
+</html>

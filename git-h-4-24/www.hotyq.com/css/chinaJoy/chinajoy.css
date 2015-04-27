@@ -1,0 +1,149 @@
+@charset "utf-8";
+/* CSS Document */
+body{min-width: 1060px;}
+/*chinaJoy开始*/
+/*banner*/
+.cj-ban{width:100%;background:url(/images/chinaJoy/chinajoy-banner.jpg) center top no-repeat !important;height:764px;}
+.cj-con1{width:100%;background:url(/images/chinaJoy/chinajoy-bg1.jpg) center top no-repeat !important;height:1340px;}
+.con-auto{ width:1020px; margin:0 auto; text-align:center;}
+.cj-con1 .cj-tu1{ margin-top:-35px;}
+.cj-con1 .cj-tu2{ margin-top:35px;}
+.cj-tu3{ margin-bottom:80px;}
+.cj-tu4{margin-top:30px;}
+.cj-tu5{margin-bottom:40px;}
+.cj-tu6{margin-top:50px;}
+.text-con .text-top{ width:380px; margin:40px auto; height:105px;}
+.text-con .text-top h3{ float:left; color:#FFF; font-size:24px; font-weight:400; line-height:105px;}
+.text-con .text-top .text-r{ float:left; color:#FFF; font-size:18px; font-weight:normal; line-height:35px; text-align:left; padding:0px 0px 0px 20px;}
+.text-con .text-bot{width:810px; margin:10px auto;}
+.text-con .text-bot p{
+	color:#FFF; 
+	font-size:18px;
+	line-height:40px;
+	text-align:left; 
+	text-indent:2em;
+	text-align:justify;
+    text-justify:inter-ideograph;
+}
+.cj-con2{width:1060px; margin:20px auto; text-align:center; }
+.cj-reg{width:1060px; margin:20px auto; text-align:center;margin-bottom:50px;}
+.cj-reg .cj-recruit-1{ 
+	width:247px;
+	padding-top: 80px;
+	height:435px;
+	text-align: center;
+	float: left;
+	position: relative;
+	background:url(/images/chinaJoy/chinajoy-bg2.jpg) center top no-repeat;
+}
+.cj-recruit-1 +.cj-recruit-1{ 
+	margin: 40px 10px 0px 10px;
+	background:url(/images/chinaJoy/chinajoy-bg3.jpg) center top no-repeat;
+}
+.cj-recruit-1 +.cj-recruit-1+.cj-recruit-1{ 
+	margin: 40px 10px 0px 0px;
+	background:url(/images/chinaJoy/chinajoy-bg4.jpg) center top no-repeat;
+}
+.cj-recruit-1 +.cj-recruit-1+.cj-recruit-1+.cj-recruit-1{ 
+	margin: 0px 0px 0px 0px;
+	background:url(/images/chinaJoy/chinajoy-bg5.jpg) center top no-repeat;
+}
+.cj-recruit-1 .cj-bm{ 
+	margin: 30px 0px 0px 55px; 
+	display:block; 
+	width: 137px;
+	height: 45px;
+	background:url(/images/chinaJoy/chinajoy-bm.png) center top no-repeat;
+}
+.cj-recruit-1 .cj-bm:hover{ 
+	background:url(/images/chinaJoy/chinajoy-bmH.png) center top no-repeat;
+}
+.cj-link{
+	position: absolute;
+	margin:0px;
+	padding: 0px;
+	top:80px; 
+	left: 1px;
+	width: 243px;
+	height: 350px;
+	background:rgba(0,0,0,0.8);
+	 opacity:0;
+	 filter:alpha(opacity=0);
+	 -moz-opacity:0;
+	-webkit-transition: opacity 0.8s;
+	transition:opacity 0.8s;
+	-moz-transition: opacity 0.8s;
+	-ms-transition: opacity 0.8s;
+	-o-transition: opacity 0.8s;
+}
+.cj-recruit-1:first-child .cj-link{
+	left: 2px;
+}
+.cj-recruit-1 .img-link{
+	cursor: pointer;
+	*cursor: hand;
+}
+.cj-recruit-1:hover .cj-link{
+	opacity:1;
+	filter:alpha(opacity=100);
+	-moz-opacity:1;
+}
+.cj-link:hover .cj-link{
+	opacity:1;
+	filter:alpha(opacity=100);
+	-moz-opacity:1;
+}
+.cj-link h4{
+	padding: 90px 0px 30px 0px ;
+	color: #fff;
+	font-weight: 500;
+	font-size: 30px;
+}
+.cj-link p{
+	color: #fff;
+	font-weight: 500;
+	font-size:14px;
+	line-height: 30px;
+	text-align: left;
+	padding-left:30px;
+}
+.cj-recruit-1:last-child .cj-link p{
+	padding-left:15px;
+}
+.cj-right{
+	position: fixed;
+	top:400px;
+	right:140px;
+	width: 120px;
+	height: 269px;
+	z-index:50;
+}
+.cj-right .cj-right1{
+	width: 120px;
+	height: 142px;
+	background:  url(/images/chinaJoy/chinajoy-right1.png) center top no-repeat;
+	display: block;
+	
+}
+.cj-right .cj-right1:hover{
+	background:  url(/images/chinaJoy/chinajoy-right1h.png) center top no-repeat;
+}
+.cj-right .cj-right2{
+	width: 120px;
+	height: 127px;
+	margin-top: -10px;
+	background:  url(/images/chinaJoy/chinajoy-right2.png) center top no-repeat;
+	display: block;
+}
+.cj-right .cj-right2:hover{
+	background:  url(/images/chinaJoy/chinajoy-right2h.png) center top no-repeat;
+}
+.cj-cs{
+	width: 120px;
+	height: 127px;
+	margin-top: -10px;
+	display: block;
+	background: url(/images/chinaJoy/chinajoy-right2-cs.png) center top no-repeat!important; 
+	cursor: default;
+}
+/*chinaJoy结束*/

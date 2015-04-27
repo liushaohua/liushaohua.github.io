@@ -1,0 +1,77 @@
+     		<!--猜你喜欢红人-->
+            <div class="love-change-group">
+					<p class="love-title">
+						<span class="pull-left">猜你喜欢</span> 
+						<!-- <a href="javascript:void(null)" class="hyq-btn-refresh pull-right"><i></i><label>换一组</label></a> -->
+					</p>
+                    <div class="cl"></div>
+                    <div class="love-list" id="user-list-right">
+					<!--
+              	{foreach name=user_r_list from=$user_r_list item=v key=key }
+                        <div class="hot-role-unit-pic" >
+                        		<a href="/user/{$v.uid}">
+                                    <span class="hot-role-pic-ab-2" >
+    
+                                        <p class="role-name">{$v.name}</p>  
+                                    </span>
+                                    <p class="hot-role-pic-ab"></p>
+                                    <img src="{$v.icon_server_url}{$v.icon_path_url}!150" title="{$v.name}" alt="{$v.name}" width="110" height="110">
+                                   
+                            </a>
+                        </div>
+                 {/foreach}-->
+                       
+              
+                        
+
+                    </div>
+            
+				</div>
+{literal}			
+<script>
+
+	$(function(){
+
+		if(typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1){
+			//alert('没登陆');   
+			var uid = '';
+			var action = 'nologin_user_status';	
+		}else{
+			//alert('登录了');
+			var uid = $.cookie('hyq_user_info').split('|')[0];
+			//var action = 'login_user_status';
+			var action = 'login_user_status';	
+		}
+				//alert('红人');   //ajax提取改用户的服务信息
+				$.post("/ajax/ajax_relate_user_list_by_service.php",{uid:uid,action:action},function(data){
+					//console.log(data);
+					//alert(data);
+					var youlike_arr = new Array();
+					youlike_arr = eval('('+data+')');
+					var str1 = '';
+					$.each(youlike_arr,function(i,v){
+						str1 += '<div class="hot-role-unit-pic">';
+						str1 += '<a href="/user/'+v.uid+'">';
+						str1 += '<span class="hot-role-pic-ab-2">';
+						str1 += '<p class="role-name">'+v.name;								
+						str1 += '</p></span><p class="hot-role-pic-ab"></p>';
+						if(v.icon_server_url ==''){
+							str1 += '<img src="http://icon.hotyq.com/v2/default/150x150.png" width="110" height="110" title='+v.name+' alt='+v.name+'></a></div>';
+						}else{
+							str1 += '<img src="'+v.icon_server_url+v.icon_path_url+'!f80" width="110" height="110" title='+v.name+' alt='+v.name+'></a></div>';
+						}
+						
+						$('#user-list-right').html(str1);
+					});			
+					
+				});
+			//}
+		});
+	
+
+
+</script>		
+
+{/literal}		
+				
+				

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>融云 Demo -  Web SDK</title>
+    <meta name="keywords"
+          content="融云,即时通讯,即时通讯云,即时通信云,移动 IM,开源 IM,IM 云服务,即时聊天软件,VOIP,移动客服,在线客服,免费,App 开发者服务，融云 Demo ，Web Demo，即时通讯 Demo"/>
+    <meta name="description" content="融云 Web Demo 下载体验！"/>
+    <link href="static/css/main.css" rel="stylesheet">
+    <script src="static/js/CommonUtil.js"></script>
+    <script src='static/js/jquery-1.8.2.min.js'></script>
+    <script>
+        $(function () {
+            var input = $("input");
+            input.blur(function () {
+                var that = $(this), val = $.trim(that.val()), type = that.attr("type");
+                if ((/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(val) && type == "text") || (/[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,18}$/.test(val) && type == "password")) {
+                    that.next().addClass("hidden");
+                } else {
+                    that.val("").next().removeClass("hidden");
+                }
+            });
+            $("#login").click(function () {
+                var empty = input.filter(function(s,i){return i.value==""});
+                if (empty.length==0) {
+                    var xhr = Util.XHR();
+                    xhr.open("POST", "../index.php/email_login", false);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            switch (xhr.status) {
+                                case 200:
+                                    var val = Util.JSONParse(xhr.responseText);
+                                    if (val.code == 200 && val.result.status == 1) {
+                                        location.href = "index.html?id=" + val.result.id + "&name=" + val.result.username + "&portrait=" + encodeURIComponent(val.result.portrait);
+                                        return;
+                                    }else if(val.code == 105){
+                                        alert("用户未激活");
+                                        return;
+                                    }
+                                default :
+                                    input.val("").first().next().removeClass("hidden").end().focus();
+                                    break;
+                            }
+                        }
+                    };
+                    xhr.send("email="+encodeURIComponent(input[0].value)+"&password="+encodeURIComponent(input[1].value));
+                } else {
+                    empty.first().blur();
+                }
+            });
+        });
+    </script>
+</head>
+<body class="login-container">
+<div class="login-wrap">
+    <div class="login-header">
+        <div class="login-logo"><img src="static/images/logo_login.png"></div>
+        <div class="phone-login-logo"><img src="static/images/phone_logo_login.png"></div>
+        <div class="login-title">登&nbsp;&nbsp;录</div>
+    </div>
+    <div class="login-content">
+        <span class="mail">注册邮箱</span>
+        <span><input type="text" id="user_email" maxlength="30" autofocus=""/><label class="mail_error error hidden">请输入正确的邮箱</label></span>
+        <span class="pass">密码</span>
+        <span><input type="password" id="user_pass" maxlength="18"/><label class="pass_error error hidden">密码错误</label></span>
+        <span class="btn"><button id="login">体验沟通乐趣</button></span>
+    </div>
+    <div class="login-foot">
+        <a href="register.html">想要体验？</a><a href="qr.html" id="jihuo" style="margin-left: 20px">手机体验</a>
+    </div>
+</div>
+<!--<div id="btn-kefu" style="width: 15px;padding: 10px ;height: 92px;position: fixed;_position: absolute;bottom: 20px;_bottom: auto;_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||50)));z-index: 999999;right: 0px;background-color: #EEEEEE; border: 1px solid #C4C4C4; border-radius: 5px;cursor: pointer;">-->
+    <!--在线客服-->
+<!--</div>-->
+<div class="login-footer">© 2015 Rong Cloud. V 0.9.4</div>
+</body>
+<!--<script type="text/javascript" src="http://rongcloud-web-sdk.qiniudn.com/RongIMClient-0.9.2.min.js"></script>-->
+<!--<script type="text/javascript" src="http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.1.min.js?v=2"></script>-->
+<!--<script type="text/javascript" src="http://res.websdk.rong.io/commit.js?v=2"></script>-->
+</html>

@@ -1,0 +1,102 @@
+ <!--发私信窗口-->
+ <style type="text/css">
+ .hyq-modal iframe{
+  	position: absolute;
+  	top:50px;
+  	width: 100%;
+  	height: 250px;
+ 	left:0px;
+    border-top: none;
+  }
+  .hyq-modal .hyq-modal-header{
+  	height: 40px;
+  }
+  </style>
+<div class="hyq-tip" id="hyq-common-tip-send-msg-message" style="width:180px;" >
+    <i class="hyq-ic ic-success-lg"></i>
+  <label class="hyq-tip-msg-node"></label> 
+</div>
+
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-common-modal-send-msg"  role="dialog" style="width:480px; height:250px;margin:0 auto;">
+ 	<div class="hyq-modal-header GrayBorderBtm txt-left" >
+			<label class="f16 pull-left Blak2">&nbsp;&nbsp;发私信</label>
+			<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+ 
+ 	<input type="hidden" id="user_id_to_send_msg"/>
+   <iframe id="hyq-common-iframe-send-msg" frameborder="0" scrolling=false></iframe>
+  </div>
+{literal}
+<script type="text/javascript">
+	$(function(){
+		//当前页的弹窗请求
+    $(".collection-action-menu").each(function(){
+		 $(this).find("li:eq(0)").click(function(event){
+			$("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+			//接受者用户ID		
+			var to = $(this).attr('userId');    
+
+	      //拼链接
+	      $("#hyq-common-iframe-send-msg").attr({
+	        'src':"/home/iframe_message_box.php?from=520"+"&to="+to
+	      });
+	      //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+	   });
+		});
+
+    $('.recruit-btn-bar').each(function(){
+        $(this).find(".hyq-round-btn:eq(2)").click(function(){
+          $("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+          //接受者用户ID   
+          var to = $(this).attr('userId');    
+
+            //拼链接
+            $("#hyq-common-iframe-send-msg").attr({
+              'src':"/home/iframe_message_box.php?from=520"+"&to="+to
+            });
+            //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+         });
+        });
+		
+		
+	//收到子窗口想要发私信的请求
+		$(document).on("hyq/iframe/doc/sms",function(event){
+
+		//var frm = event.fromUserId;//发送者用户ID
+		//'src':"/home/message_box_iframe.php?t=520"+"&from="+frm+"&to="+to
+		
+       var to = event.toUserId//收信者用户ID
+       //alert(to);
+      //拼链接
+      $("#hyq-common-iframe-send-msg").attr({
+        'src':"/home/iframe_message_box.php?from=520"+"&to="+to
+      });
+      //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+      $("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+
+
+		});
+
+    //如果私信成功发送
+      $(document).on("hyq/sms/popup/sent",function(){
+        $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-msg-message").trigger({
+            type:"hyq/tip/show/success",message:"私信发送成功！"
+          }); 
+        });
+         
+      });
+
+      //如果私信发送失败
+      $(document).on("hyq/sms/popup/sent/failure",function(){
+         $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-msg-message").trigger({
+            type:"hyq/tip/show/success",message:"<label class=Rd>私信发送失败，请稍后再试。</label>"
+          }); 
+        });
+      });
+
+
+	});
+</script>
+{/literal}

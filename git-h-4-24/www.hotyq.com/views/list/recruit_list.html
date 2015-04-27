@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+        <title>招募筛选 - 红演圈</title>
+        <meta name="description" content="描述：红演圈 － 中国文化演艺服务第一平台，聚集全国文化演艺人才，提供信息发布、工作邀约、才艺展示等服务，实名认证、即时沟通、全民演艺！">
+        <meta name="keywords" content="{foreach $select_list as $v}{$v.name},{/foreach}">
+        
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        
+        <link rel="stylesheet" href="/css/main.css">
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script>
+        </script>
+    </head>
+	<body class="filter-recruit">
+
+		{include "common/header.html"} 
+		{include "common/nav_search.html"}
+		<!-- 主内容栏开始 -->
+		<div class="content-wrapper-index" style="padding-top:0px;">
+        <!-- 主内容栏开始 -->
+        <!-- <a href="javascript:;"> <img src="http://icon.hotyq.com/v2/filter-org-ad-1.jpg" width="980" height="102"></a> -->
+        <!-- <p class="lh24 Gray7 f12 ">所有分类&nbsp;&nbsp;&gt;&nbsp;&nbsp;<span>招募</span></p> -->
+        <div class="search-top-gray"></div>
+        <!--角色类型表单-->
+		<form action="/list/recruit" method="get" id="filter_form">
+		<div class="city-con">
+                <span class="work-plcace">所在地</span>
+                <ul class="hyq-city-category city-wrap">
+                <li class="hyq-city city_op" province_id="0" city_id="0">
+	                <a href="javascript:;" class="first">全国</a>
+	            </li>
+                {foreach from=$chief_city_list item=chief_city key=key}
+	            <li class="hyq-city city_op" province_id="{$chief_city['pid']}" city_id="{$key}">
+	                <a href="javascript:;">{$chief_city['cname']}</a>
+	            </li>
+                {/foreach}
+                   <a href="javascript:;" class="other-city-a" {if $other_color eq 'red'} style="color:red" {/if}>其它<i class="hyq-ic ic-chevron-sm" style="margin:0px 4px 5px 10px;"></i></a>
+		            <div class="other-city-box">
+		           		 <div class="arrow-city">
+		                      <img src="http://icon.hotyq.com/v2/city-arrow-top.jpg" width="21" height="13">
+		                 </div>
+		                 <div class="other-city">
+		                    {foreach from=$citys item=city_info key=key}
+		                    <span>{$key}</span>
+		                    <p>
+		                      {foreach $city_info as $city}
+		                      <a href="javascript:;" province_id="{$city['pid']}" city_id="{$city['id']}" alt="{$city['cname']}" title="{$city['cname']}" class="city_op">{$city['cname']}</a>
+		                      {/foreach}
+		                    </p>
+		                    {/foreach}
+		                </div>
+                
+             </div>
+            
+             </ul>
+             	<div class="cl"></div>
+       	   </div>
+        <div class="form-role-filter-wrap">
+            <div  class="form-recruit-filter-simple">
+        	 	
+                    <span class="more-filter-class-2-span p-left-35">招募类型：</span>
+                    <ul class="more-filter-class-radio more-filter-class-radio2">
+                        <li>
+                            <dl>
+                            	<dd class="type_op"> 
+                                	<input class="hyq-nice-selectable-circle" checked type="radio" value="nolimit" name="recruit_type">
+									<span><b></b></span>
+									<label >不限</label>
+                                </dd>
+								{foreach $recruit_type_list as $v}
+                               	<dd class="type_op"> 
+                                	<input class="hyq-nice-selectable-circle" type="radio" value="{$v.id}" name="recruit_type"{if $v.id eq $recruit_type_option}checked{/if}>
+									<span><b></b></span>
+									<label alt="{$v.type}" title="{$v.type}">{$v.type|truncate:10:"…"}</label>
+                                </dd>
+								{/foreach}
+                            </dl>
+                        </li>
+            		</ul>
+            </div>
+            <div class="cl"></div>
+         </div>
+         <input type="hidden" name="city" value="" id="city_option">
+        </form>
+      	<div class="filter-recruit-con">
+		<!--判断检索 招募是否为空-->
+		{if count($find_recruit_list) eq 0}
+			<br>
+			<br>
+			没有检索到您需要的招募！
+			<br>
+		{else}	
+			{foreach name=list from=$find_recruit_list item=recruit_info key=key}
+			  <div class="recruit-box {if $smarty.foreach.list.iteration % 2 eq 0} recruit-box-r {/if}">
+			  	<div class="r-content">
+            	<a href="/recruit/{$key}" target="_blank">
+                  <div class="img-box">
+					  {if $recruit_info['cover'] neq ''}
+                      <img  src="{$recruit_info['cover']}!f150">
+					  {else}
+					  <img  src="http://icon.hotyq.com/v3/recruit-cover-photo.png">
+					  {/if}
+                  </div>
+                  <div class="txt-box">
+                      <h3 title="" alt="">{$recruit_info['name']}</h3>
+                      <p class="service-con">
+                          {foreach $recruit_info['service_2_list'] as $service_2_name}
+	                      <span>{$service_2_name}</span>
+	                      {/foreach}
+                      </p>
+                      <div class="bot-ab">
+                          <em>截止时间</em><span>{$recruit_info['interview_end_time']}</span><label>{$recruit_info['address']}</label>
+                      </div>
+                  </div>
+                </a>
+                
+            </div>
+            </div>
+            {/foreach}
+             <div class="cl"></div>
+			<!--分页块-->
+			{if isset($page_list)}
+				{if $page_status eq 'true'}
+				<div class="cutpage-con">
+					 <div class="cutpage2" >
+					{if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+					{foreach from=$page_list item=page_info}
+						{if $page_info.current == "yes"}
+						<span class="current">{$page_info.no}</span>
+						{elseif $page_info.position == "begin"}
+						<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+						<span >...</span>
+						{elseif $page_info.position == "end"}
+						<span >...</span>
+						<!--<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>-->
+						{else}
+						<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+						{/if}
+					{/foreach}
+					{if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+					</div>
+				</div>
+				{/if}
+			{/if}
+		{/if}
+        </div>
+       <!-- 主内容栏结束 -->
+     </div>
+		<!-- 主内容栏结束 -->
+	   <!--发私信窗口-->
+	{include "common/home/include_message_box.html"}	
+		<!--隐藏域 存储是否成功 的状态-->
+	    <input id="hide_save_states" type="hidden" value="0">
+	    <!-- tips 框 -->
+	    <div class="hyq-tip" id="tip-message" >
+	      <i hyq-tip-icon-node></i>
+	      <label class="hyq-tip-msg-node"></label>
+	    </div>
+	
+		{include "common/footer.html"}
+	</body>
+	{literal}
+	<script type="text/javascript">
+	$(document).ready(function(){
+    	 {/literal}
+		$("#city_option").val({$city_option});
+		{literal}
+		$(".city_op").each(function(){
+			if($(this).attr("city_id") == {/literal} {$city_option} {literal}){
+				$(this).addClass("active");
+			}
+			$(this).click(function(){
+				$("#city_option").val($(this).attr("city_id"));
+				$('#filter_form').submit();
+			});
+
+		});
+
+		$(".type_op").each(function(){
+			$(this).click(function(){
+				$('#filter_form').submit();
+			});
+		});	  
+	});
+	</script>
+	{/literal}
+</html>

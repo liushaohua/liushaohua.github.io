@@ -1,0 +1,55 @@
+ <!--悬浮微信未上线-->
+   <div class="qrcode-toggle">
+   
+       <a href="/complain/?action=suggest" target="_blank" class="yijian">
+           <img src="http://icon.hotyq.com/v2/right-bar/yijian.jpg">
+        </a>
+    	<div class="arrow-toggle">
+            <div class="arrow-toggle-l"><img src="http://icon.hotyq.com/v2/right-bar/qrbtn-l.png" width="15" height="70"></div>
+            <div class="arrow-toggle-r" style="display:none"><img src="http://icon.hotyq.com/v2/right-bar/qrbtn-r.png" width="15" height="70"></div>
+        </div>
+        <div class="qrcode-right-not">
+			<div class="andorid-qr">
+				<span>红演圈APP</span>
+				<p class="p-forward">即将上线<br>敬请期待</p>
+				<div class="andorid-qr-code">	
+					<i class="hyq-ic ic-andorid-qrcode "></i>
+					<div class="wt-spliter-x-70"></div>
+					<p>Andorid版</p>	
+				</div>
+			</div>
+			<div class="apple-qr-code">
+				<i class="hyq-ic ic-apple-qrcode "></i>
+				<div class="wt-spliter-x-70"></div>
+				<p>iPhone版</p>	
+			</div>
+       </div>
+   </div>
+{literal}
+<script>
+	$(document).ready(function(){
+		function resizes(){
+			if($(window).width()<1200){
+				 $(".qrcode-toggle").stop().animate({right:'-122px'});
+				 $(".arrow-toggle").fadeIn();
+				 }else{
+					 $(".qrcode-toggle").stop().animate({right:'10px'});
+					 $(".arrow-toggle").fadeOut();
+			}
+		 };
+		 resizes();
+		 $(window).resize(resizes);
+		 var numss=0;
+		 $(".arrow-toggle-l,.arrow-toggle-r").click(function(){
+			numss++;
+			if(numss%2){
+				$(".qrcode-toggle").stop().animate({right:'10px'});
+				$(".arrow-toggle-l,.arrow-toggle-r").fadeToggle();
+				}else{
+				  $(".qrcode-toggle").stop().animate({right:'-122px'});
+				  $(".arrow-toggle-l,.arrow-toggle-r").fadeToggle();
+			 }	
+		 })
+	});
+</script>
+{/literal}

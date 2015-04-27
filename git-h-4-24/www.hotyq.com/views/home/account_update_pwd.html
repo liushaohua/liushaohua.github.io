@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>修改密码 - 红演圈</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		
+	 	<script src="/js/jquery.js"></script>
+		<link rel="stylesheet" href="/css/main.css">
+		<style>
+			.reset-form {
+				margin: 15px 10px;
+				padding-top: 25px;
+				height: 260px;
+			}
+			.fixed-input-row {
+				height: 40px;
+				line-height: 40px;
+				display: block;
+				margin-bottom: 16px;
+			}
+			.fixed-input-row input {
+				width: 300px;
+			}
+
+			.hyq-fix-err {
+				float: left;
+				color: #ff3300;
+				line-height: 40px;
+				display: inline-block;
+				*display: block;
+				height: 40px;
+				margin: 0px;
+				font-size: 14px;
+				padding: 0px;
+				margin-left: 1em;
+			}
+			.hyq-fix-err label {
+				margin: 0px;
+				padding: 0px;
+			}
+			.success-box {
+				margin: 15px 10px;
+				padding-top: 25px;
+				height: 260px;
+			}
+			.success-box i{
+				margin-left: 2em;
+			}
+			.right-col-754{
+				padding-bottom: 1em;
+				
+			}
+		</style>
+
+	</head>
+	<body  >
+
+			{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+		<div class="content-wrapper-b">
+
+			<!--面包屑-->
+			<div class="hyq-breadcrumb-bar">
+				<div class="breadcrumb-box">
+					<a href="/home/org">我的红演圈</a> &gt; <a href="javascript:;">账号设置</a>
+				</div>
+				<div class="decoration-bar"></div>
+			</div>
+
+			<!--左边栏-->
+			{include "common/home/left_account_update.html"}
+
+			<!--主栏-->
+			<div class="right-col-754">
+				<div class="lead-title-bar"></div>
+				<div class="Gray8" style="margin:15px 15px 0px 15px;" id="password-change-tips">
+						请谨慎使用生日、手机号码、姓名、纯数字等密码，尽量包含字母及特殊字符等组合。
+				</div>
+
+				<div id= "modify_box" class="row bgGray3 reset-form">
+					<div class="fixed-input-row">
+						<input type="password" class="fl" id="input_password"  placeholder="请输入当前登录密码"/>
+						<div  class="hyq-fix-err fl" id="input_password_tips" style="display:none">
+							<i class="hyq-ic ic-vlid-err"></i> <label>xxxxxxxxxx</label>
+						</div>
+					</div>
+
+					<div class="fixed-input-row">
+						<input type="password"  class="fl" id="new_password" placeholder="请输入新密码"/>
+						<div   class="hyq-fix-err fl" id="new_password_tips" style="display:none">
+							<i class="hyq-ic ic-vlid-err"></i> <label>xxxxxxxxxx</label>
+						</div>
+					</div>
+
+					<div class="fixed-input-row">
+						<input type="password" class="fl"  id="r_new_password" placeholder="请再次输入新密码"/>
+						<div   class="hyq-fix-err fl" id="r_new_password_tips" style="display:none">
+							<i class="hyq-ic ic-vlid-err"></i> <label>xxxxxxxxxx</label>
+						</div>
+					</div>
+					<div   class="hyq-fix-err fl" id="e_password_tips" style="display:none">
+						<i class="hyq-ic ic-vlid-err"></i> <label>xxxxxxxxxx</label>
+					</div>					
+					<br/>
+					<div class="row">
+						<input type="button" value="确 定" class="hyq-modal-close-trigger hyq-btn hyq-btn-lg" id="btn-confirm-to-change"/>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" id="reset_button" value="取 消" class="hyq-btn hyq-btn-thin-lg"/>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+
+				</div>
+
+			<div id ="success_box" class="success-box  bgGray3" style ="display:none">
+					 
+              <i class="hyq-ic ic-success-lg"></i>密码修改成功，请使用新密码重新登录。
+           </div>
+		<!--隐藏域 存储是否成功 的状态-->
+		<input id="hide_save_states" type="hidden" value="0">
+        <!-- tips 框 -->
+		<div class="hyq-tip" id="tip-message" >
+			<i hyq-tip-icon-node></i>
+			<label class="hyq-tip-msg-node"></label>
+		</div>
+
+			</div>
+
+		</div>
+
+		</div>
+		</div>
+
+		{include "common/footer.html"} 
+	</body>
+{literal}
+<script>
+	$("#input_password").blur( function () { 	
+		if($(this).val().length < 6 || $(this).val().length > 16) {
+			$("#input_password_tips label").text('请输入密码，字母区分大小写!');
+			$("#input_password_tips").fadeIn();
+		}else{
+			$("#input_password_tips").fadeOut();
+			var input_password = $("#input_password").val();
+			var action = 'check_password_correct';
+			$.ajax({
+				url:'/home/ajax/ajax_home_account.php',
+				type:'post',
+				data:{"action":action,"input_password":input_password},
+				success:function(data){
+					//alert(data);
+					if(data == 1000){
+						$("#input_password_tips").fadeOut();						
+					}else{
+						$("#input_password_tips label").text('密码错误!');
+						$("#input_password_tips").fadeIn();						
+					}
+				},
+				dataType:'text'
+			});					
+		}
+	});
+	$("#new_password").blur(function () { 	
+		if($(this).val().length < 6 || $(this).val().length > 16) {
+			$("#new_password_tips label").text('请输入6-16位密码，字母区分大小写!');
+			$("#new_password_tips").fadeIn();
+		}else{
+			$("#new_password_tips").fadeOut();
+		}
+	});	
+	$("#r_new_password").blur(function () { 	
+		if($("#r_new_password").val().length ==0){
+			$("#r_new_password_tips label").text('请输入确认密码!');
+			$("#r_new_password_tips").fadeIn();			
+		}else if(($("#new_password").val()) != ($("#r_new_password").val())){
+			$("#r_new_password_tips label").text('两次输入的密码不同!');
+			$("#r_new_password_tips").fadeIn();	
+		}else{
+			$("#r_new_password_tips").fadeOut();
+		}		
+	});		
+
+	$('#btn-confirm-to-change').click(function(){ 		
+		var input_password = $("#input_password").val();
+		var new_password = $("#new_password").val();
+		var r_new_password = $("#r_new_password").val();
+		var action = 'modify_new_password';		
+		$.ajax({
+			url:'/home/ajax/ajax_home_account.php',
+			type:'post',
+			data:{"action":action,"input_password":input_password,'new_password':new_password,'r_new_password':r_new_password},
+			success:function(data){
+				//alert(data);
+				if(data == 1000){
+					$(".hyq-fix-err").fadeOut();
+					$("#modify_box").hide();
+					$("#password-change-tips").hide();
+					$("#success_box").show();
+					var tip = $("#tip-message").HYQTip();
+					tip.showSuccess("密码修改成功");		
+					//location.reload();
+					setTimeout("location.reload()",3000);
+				}else if(data == 1158){
+					$("#input_password_tips label").text('密码错误!');
+					$("#input_password_tips").fadeIn();									
+				}else if(data == 1005){
+					$("#r_new_password_tips label").text('两次输入的密码不同!');
+					$("#r_new_password_tips").fadeIn();					
+				}else if(data == 1157){
+					$("#e_password_tips label").text('密码修改失败,请重试!');
+					$("#e_password_tips").fadeIn();				
+				}
+			},
+			dataType:'text'
+		});		
+	})
+	$('#reset_button').click(function(){ 
+		$("#input_password").val('');
+		$("#new_password").val('');
+		$("#r_new_password").val('');	
+		$(".hyq-fix-err").fadeOut();		
+	});
+</script>
+{/literal}
+</html>

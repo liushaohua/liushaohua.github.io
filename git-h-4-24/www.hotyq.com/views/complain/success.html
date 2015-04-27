@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>{if $s_type eq 'complain'}投诉举报发送成功{else}意见反馈{/if}</title>
+		<meta name="description" content="">
+		
+
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+	
+	</head>
+	<body>
+	{include "common/header.html"}
+	{include "common/nav_search.html"} 
+		<div class="content-wrapper">
+              <div class="lead-title lead-title-bg">
+              	<i class="hyq-ic ic-label-mark"></i><label class="Blak1">红演圈举报平台</label>
+              </div>
+				<input type="hidden" value="{if isset($referer_url)}{$referer_url}{/if}" id= "referer_url">
+               <div class="hyq-complaint-success">
+            	{if $s_type eq 'complain'}	
+					<h3>
+                        <i class="hyq-ic ic-success-lg"></i>
+                        {if $is_success}
+                        <span>感谢您的举报，我们将在调查取证后，通过私信告知您处理结果。</span>
+                        {else}
+                        <span>举报失败，请完善举报信息，稍后再试。</span>
+                        {/if}			
+                    </h3>
+				{else}	
+				      <h3>
+                        <i class="hyq-ic ic-success-lg"></i>
+                        <span>意见已提交，非常感谢！</span>				
+                    </h3>	
+				{/if}	
+					
+					
+					
+                    <p id="s">本页5秒内自动返回</p>
+				{if $s_type eq 'complain'}	
+                    {if $referer_url and $referer_url neq '/complain/success'}
+                  	<p>你可以<a href="{$referer_url}">返回上一页</a>或<a href="http://www.hotyq.com">网站首页</a></p>
+                    {else}
+                    <p>你可以<a href="/complain/">返回上一页</a>或<a href="http://www.hotyq.com">网站首页</a></p>
+                    {/if}
+				{else}	
+					<p>你可以<a id ="href_back" href="javascript:;">返回上一页</a>或<a href="http://www.hotyq.com">网站首页</a></p>
+				{/if}	
+               </div>
+        </div>
+	{include "common/footer.html"} 
+	</body>
+	{literal}
+		<script>
+			$(function(){
+		{/literal}	
+			var s_type = '{$s_type}';	
+		{literal}
+		if(s_type == 'complain'){	
+				try {
+					var referer_url = $('#referer_url').val();
+					if(!referer_url || referer_url == '/complain/success') referer_url = "/complain/";
+					var s = 5;
+					var settime = setInterval(function(){
+						s--;
+						$('#s').html("本页"+s+"秒内自动返回");
+						if(s == 0){
+							clearInterval(settime);
+							location.href = referer_url;	
+						}
+					},1000);
+				}catch(e){
+					var s = 5;
+					var settime = setInterval(function(){
+						s--;
+						$('#s').html("本页"+s+"秒内自动返回");
+						if(s == 0){
+							clearInterval(settime);
+							window.history.back(-2);
+							//console.info('tiao');
+						}
+					},1000);			
+				}
+		}else{
+			var referer_url = $('#referer_url').val();
+			if(referer_url == ''){
+				referer_url = "http://www.hotyq.com/";
+			}
+			//if(!referer_url || referer_url == '/complain/success') referer_url = "http://www.hotyq.com/";
+			$('#href_back').click(function(){
+				location.href = referer_url;
+			});
+			var s = 5;
+			var settime = setInterval(function(){
+				s--;
+				$('#s').html("本页"+s+"秒内自动返回");
+				if(s == 0){
+					clearInterval(settime);
+					//window.history.back(-1);
+					location.href = referer_url;	
+					//console.info(referer_url);
+				}
+			},1000);		
+		}		
+			});
+		</script>		
+		{/literal}	
+</html>

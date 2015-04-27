@@ -1,0 +1,780 @@
+{literal}
+<script>
+	$(document).ready(function(){	
+		$("#age-list").on('change',function(event){
+			$('#age').val(event.value);
+			var age = $('#age').val();	
+		});	
+		$("#height-list").on('change',function(event){
+			$('#height').val(event.value);
+			var height = $('#height').val();		
+		});		
+		$("#weight-list").on('change',function(event){
+			$('#weight').val(event.value);
+			var weight = $('#weight').val();
+		});		
+		$("#bust-list").on('change',function(event){
+			$('#bust').val(event.value);
+			var bust = $('#bust').val();		
+		});		
+		$("#waist-list").on('change',function(event){
+			$('#waist').val(event.value);
+			var waist = $('#waist').val();		
+		});				
+		$("#hips-list").on('change',function(event){
+			$('#hips').val(event.value);
+			var hips = $('#hips').val();
+		});		
+		$("#star-list").on('change',function(event){
+			$('#star').val(event.value);
+			var star = $('#star').val();		
+		});	
+		$("#blood-list").on('change',function(event){
+			$('#blood').val(event.value);
+			var blood = $('#blood').val();		
+		});			
+		$("#finish-year-list").on('change',function(event){
+			$('#finish_year').val(event.value);
+			var finish_year = $('#finish_year').val();		
+		});	
+		$("#degree-list").on('change',function(event){
+			$('#degree').val(event.value);
+			var degree = $('#degree').val();
+		});			
+
+	//籍贯省市区联动
+	$("#native-province-list").on("change",function(event){
+		//console.log(event)
+		$('#native_province').val(event.value);
+		var native_pid = $('#native_province').val();
+		$('#native_city').val('');
+		$('#native_area').val('');
+		if((native_pid == null) || (native_pid == 0)){	
+			return;
+		}		
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'pid':native_pid},
+			success:function(data){
+				$('#native-city-list').trigger('clear');	
+				$('#native-district-list').trigger('clear');							
+				$.each(data,function(i,v){
+					$("#native-city-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.cname
+					})				
+					
+				})	
+			},
+			dataType:'json'
+		});
+	})
+
+	$("#native-city-list").on('change',function(event){		
+
+		$('#native_city').val(event.value);
+		$('#native_area').val('');
+		var native_cid = $('#native_city').val();
+		if((native_cid == null) || (native_cid == 0)){
+			return;
+		}	
+		$.ajax({
+			url:'/ajax/ajax_address_array.php',
+			type:'get',
+			data:{'cid':native_cid},
+			success:function(data){
+				//alert(data);
+				$('#native-district-list').trigger('clear');
+				$.each(data,function(i,v){
+					$("#native-district-list").trigger({
+						type:"addItem",
+						value:v.id,
+						name:v.dname
+					})
+				});	
+			},
+			dataType:'json'
+		});
+	})	
+	//区id获取		
+	//$("#on_native_area").on('click','li',function(){
+	//	$('#native_area').val($(this).attr('value'));
+	//	var native_did = $('#native_area').val();	
+			//alert(native_did);	
+		// $("#native_area").next().find('span').text( $(this).text());
+		// $("#native_area").next().find('span').addClass('selected');
+		// $(this).parent().parent().hide();			
+	//})
+	//判断籍贯省市区是否自动联动
+	/*
+	if($("#native_province").val() === null){
+		return;		
+	}else if($("#native_province").val() == '0'){
+		return;
+	}else{
+		auto_find_native_city();
+	}	
+	if($("#native_city").val() === null){
+		return;		
+	}else if($("#native_city").val() == '0'){
+		return;
+	}else{
+		auto_find_native_district();
+	}
+	*/
+	if($("#province_p").val() !== null){
+		auto_find_native_city();
+	}
+	if($("#city_p").val() !== null){
+		auto_find_native_district();
+	}
+	//保存后加载城市读取数据
+	function auto_find_native_city(){
+		$('#native_province_p').val($('#native_province_p').attr('value'));
+		var native_pid = $('#native_province_p').val();
+			if((native_pid == null) || (native_pid == 0)){
+				return;
+			}
+			$.ajax({
+				url:'/ajax/ajax_address_array.php',
+				type:'get',
+				data:{'pid':native_pid},
+				success:function(data){				
+					$.each(data,function(i,v){
+						$("#native-city-list").trigger({
+							type:"addItem",
+							value:v.id,
+							name:v.cname
+						})				
+					})							
+				},
+				dataType:'json'
+			});
+	}
+	//保存后加载区域读取数据	
+	function auto_find_native_district(){
+		$('#native_city_p').val($('#native_city_p').attr('value'));
+		var native_cid = $('#native_city_p').val();
+		if((native_cid == null) || (native_cid == 0)){
+			return;
+		}	
+			$.ajax({
+				url:'/ajax/ajax_address_array.php',
+				type:'get',
+				data:{'cid':native_cid},
+				success:function(data){
+					$.each(data,function(i,v){
+						$("#native-district-list").trigger({
+							type:"addItem",
+							value:v.id,
+							name:v.dname
+						})
+					});
+				},
+				dataType:'json'
+			});	
+	}
+	/*
+	$('#profile-save-btn').click(function(){
+		alert('baocun');
+		var age = $('#age').val();	
+		var height = $('#height').val();	
+		var weight = $('#weight').val();	
+		var bust = $('#bust').val();	
+		var waist = $('#waist').val();	
+		var hips = $('#hips').val();	
+		var star = $('#star').val();	
+		var blood = $('#blood').val();	
+		var native_province_id = $('#native_province').val();	
+		var native_city_id = $('#native_city').val();	
+		var native_district_id = $('#native_area').val();	
+		var school = $('#school').val();	
+		var finish_year = $('#finish_year').val();	
+		var specialty = $('#specialty').val();
+		var degree = $('#degree').val();	
+		var in_org = $('#in_org').val();	
+		var action = 'update_user_profile';		
+		$.post("/home/ajax/ajax_home_userprofile.php",{'action':action,
+																'age':age,
+																'height':height,
+																'weight':weight,
+																'bust':bust,
+																'waist':waist,
+																'hips':hips,
+																'star':star,
+																'blood':blood,
+																'native_province_id':native_province_id,
+																'native_city_id':native_city_id,
+																'native_district_id':native_district_id,
+																'school':school,
+																'finish_year':finish_year,
+																'specialty':specialty,
+																'degree':degree,
+																'in_org':in_org								
+			},function(data){
+			alert(data);
+			if(parseInt(data) == 1000){
+			var stateWrapper = $('#profile-state-box');
+			//通过修改这个容器的CSS类来控制显示
+			var sClassReview = 'profile-review';
+			//浏览模式
+			var sClassEdit = 'profile-edit';	
+			stateWrapper.removeClass(sClassEdit).addClass(sClassReview);			
+				var start_native_province = $("#native_province").next().find('span').text();
+				var start_native_city = $("#native_city").next().find('span').text();
+				var start_native_area = $("#native_area").next().find('span').text();
+				if(start_native_province == '所在省'){start_native_province ='';}
+				if(start_native_city == '所在市'){start_native_city ='';}
+				if(start_native_area == '所在区'){start_native_area ='';}
+				if(age==0){age = '';}
+				if(height==0){height = '';}
+				if(weight==0){weight = '';}
+				if(bust==0){bust = '';}
+				if(waist==0){waist = '';}
+				if(hips==0){hips = '';}	
+				if(finish_year==0){finish_year = '';}	
+				if(age==71){
+					age='70岁以上';
+				}else if(age==7){
+					age='8岁以下';
+				}else{
+					age =age+'岁';
+				}
+				if(height==99){
+					height = '100cm以下';
+				}else if(height==201){
+					height = '200cm以上';
+				}else{
+					height = height+'cm';
+				}
+				if(weight==29){
+					weight = '30kg以下';
+				}else if(weight==101){
+					weight = '100kg以上';
+				}else{
+					weight = weight+'kg';
+				}
+				var profile_one = "<label>年龄：</label><span>"+age+"</span><i>|</i><label>身高：</label><span>"+height+"</span><i>|</i><label>体重：</label><span>"+weight+"</span>";
+				var profile_two = "<label>三围：</label><span>"+bust+"-"+waist+"-"+hips+"</span>";
+				var profile_three = "<label>星座：</label><span>"+star+"</span><i>|</i><label>血型：</label><span>"+blood+"型</span>";
+				var profile_four = "<label>籍贯：</label><span>"+start_native_province+start_native_city+start_native_area+"";
+				var profile_five = "<label>毕业学校：</label><span>"+school+"</span><i>|</i><label>专业：</label><span>"+specialty+"</span>";
+				var profile_six = "<label>毕业年份：</label><span>"+finish_year+"年</span><i>|</i><label>最高学历：</label><span>"+degree+"</span>";
+				var profile_seven ="<label>所属机构：</label><span>"+in_org+"</span>";
+				if((age=='岁')&&(height=='cm')&&(weight=='kg')){
+					$("#profile_one").empty().html();	
+				}else{
+					$("#profile_one").empty().html(profile_one);			
+				}
+				if((bust=='')&&(waist=='')&&(hips=='')){
+					$("#profile_two").empty().html();
+				}else{
+					$("#profile_two").empty().html(profile_two);	
+				}
+				if((star=='')&&(blood=='')){
+					$("#profile_three").html();		
+				}else{
+					$("#profile_three").html(profile_three);	
+				}		
+				if((start_native_province==''||start_native_province=='所在省')&&(start_native_city==''||start_native_city=='所在市')&&(start_native_area==''||start_native_area=='所在区')){
+					$("#profile_four").empty().html();
+				}else{
+					$("#profile_four").empty().html(profile_four);
+				}				
+				if((school=='')&&(specialty=='')){
+					$("#profile_five").empty().html();		
+				}else{
+					$("#profile_five").empty().html(profile_five);	
+				}					
+				if((finish_year=='')&&(degree=='')){
+					$("#profile_six").empty().html();		
+				}else{					
+					$("#profile_six").empty().html(profile_six);		
+				}	
+				if(in_org==''){
+					$("#profile_seven").empty().html();						
+				}else{
+					$("#profile_seven").empty().html(profile_seven);						
+				}	
+			}else{
+			alert('修改失败');
+			}
+		},'text')
+		
+	});	
+	*/
+})
+</script>
+{/literal}
+<!--使用CSS类来控制显示状态 首次编辑：profile-first-edit 浏览模式：profile-review 编辑模式：profile-edit-->
+<div class="column-wrapper profile-column">
+	<div class="profile-first-edit" id="profile-state-box">
+		<!--页面打开的时候用PHP代码判断用户是否已经输入红资料数据-->
+		<!--如果是第一次输入，在 **上面** 这个DIV中加入 profile-first-edit 的css类 -->
+		<!--如果是已经有浏览模式，在上面这个DIV中加入 profile-first-edit 的css类 -->
+		<!--从浏览模式切入到编辑模式，由JS控制 用removeClass 移除上面两个CSS类 加上 profile-first-edit css类 -->
+		<div class="row handle" data-handle>
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i>
+				<label class="f18 Blak2">红资料<small class="Gray8">(丰富个人资料，提升用户等级，获得更多推荐)</small></label>
+				<a href="javascript:void(null)" class="profile-edit-btn pull-right" id="profile-edit-btn" alt="点击编辑红资料" title="点击编辑红资料"></a>
+				<a href="javascript:void(null)" class="profile-expend-btn pull-right" id="profile-expend-btn" alt="点击添加红资料" title="点击添加红资料"></a>
+			</div>
+		</div>
+		<!-- 红资料浏览模式开始 -->
+	<div id="profile_show_box" class="row3 clearfix toggle-content  profile-review-box">
+		<div class="hyq-review-info">
+			<!-- one -->
+
+				{if $userlist['age'] eq '' && {$userlist['height']} eq '' && {$userlist['weight']} eq ''}	
+				<div class="profile-review-line" id ="profile_one">
+				</div>
+				{elseif $userlist['age'] eq '0' && {$userlist['height']} eq '0' && {$userlist['weight']} eq '0'}	
+				<div class="profile-review-line" id ="profile_one"></div>
+				{else} 
+				<div class="profile-review-line" id ="profile_one">				
+					<label>年龄：</label>{if $userlist['age'] eq '0'}<span></span>{elseif $userlist['age']}{if $userlist['age'] eq {$AGE_RANGE.min}}<span>{$AGE_RANGE.begin-1}及以下</span>{elseif $userlist['age'] eq {$AGE_RANGE.max}}<span>{$AGE_RANGE.end}及以上</span>{elseif $userlist['age']}<span>{$userlist['age']}</span>{/if}{/if}<i>|</i><label>身高：</label>{if $userlist['height'] eq '0'}<span></span>{elseif $userlist['height']}{if $userlist['height'] eq {$HEIGHT_RANGE.min}}<span>{$HEIGHT_RANGE.begin-1}及以下</span>{elseif $userlist['height'] eq {$HEIGHT_RANGE.max}}<span>{$HEIGHT_RANGE.end}及以上</span>{elseif $userlist['height']}<span>{$userlist['height']}</span>{/if}{/if}<i>|</i><label>体重：</label>{if $userlist['weight'] eq '0'}<span></span>
+					{elseif $userlist['weight']}{if $userlist['weight'] eq {$WEIGHT_RANGE.min}}<span>{$WEIGHT_RANGE.begin-1}及以下</span>{elseif $userlist['weight'] eq {$WEIGHT_RANGE.max}}<span>{$WEIGHT_RANGE.end}以上</span>{elseif $userlist['weight']}<span>{$userlist['weight']}</span>{/if}{/if}
+				</div>					
+				
+				
+				{/if}			
+				
+				
+				{if $userlist['bust'] eq '0' && {$userlist['waist']} eq '0' &&{$userlist['hips']} eq '0'}
+				<div class="profile-review-line" id="profile_two">
+				</div>	
+				{elseif $userlist['bust'] eq '' && {$userlist['waist']} eq '' &&{$userlist['hips']} eq ''}	
+				<div class="profile-review-line" id="profile_two">
+				</div>	
+				{else}
+				<div class="profile-review-line" id="profile_two">
+					<label>三围：</label><span>
+					{if $userlist['bust'] eq '0'}						
+					{elseif $userlist['bust'] eq ''}
+					{elseif $userlist['bust'] eq {$BUST_RANGE.min}}
+						{$BUST_RANGE.begin-1}CM及以下
+					{elseif $userlist['bust'] eq {$BUST_RANGE.max}}	
+						{$BUST_RANGE.end}CM以上
+					{else}	
+						{$userlist['bust']}CM
+					{/if}
+					-
+					{if $userlist['waist'] eq '0'}						
+					{elseif $userlist['waist'] eq ''}
+					{elseif $userlist['waist'] eq {$WAIST_RANGE.min}}
+						{$WAIST_RANGE.begin-1}CM及以下
+					{elseif $userlist['waist'] eq {$WAIST_RANGE.max}}	
+						{$WAIST_RANGE.end}CM以上
+					{else}	
+						{$userlist['waist']}CM
+					{/if}
+					-
+					{if $userlist['hips'] eq '0'}						
+					{elseif $userlist['hips'] eq ''}
+					{elseif $userlist['hips'] eq {$HIPS_RANGE.min}}
+						{$HIPS_RANGE.begin-1}CM及以下
+					{elseif $userlist['hips'] eq {$HIPS_RANGE.max}}	
+						{$HIPS_RANGE.end}CM以上
+					{else}	
+						{$userlist['hips']}CM
+					{/if}
+					</span>
+				</div>			
+				{/if}		
+			<!-- three -->
+				{if $userlist['star'] neq '' && {$userlist['blood']} neq ''}
+				<div class="profile-review-line" id="profile_three">				
+					<label>星座：</label><span>{$userlist['star']}</span><i>|</i><label>血型：</label><span>{$userlist['blood']}型</span>
+				</div>	
+				{elseif $userlist['star'] eq '' && {$userlist['blood']} eq ''}			
+				<div class="profile-review-line" id="profile_three">
+				</div>
+				{/if}	
+				
+			<!-- four	 -->
+ 				{if $userlist['native_province_id'] eq '0' && {$userlist['native_city_id']} eq '0' &&{$userlist['native_district_id']} eq '0'}
+				<div class="profile-review-line" id="profile_four">
+				</div>	
+				{elseif $userlist['native_province_id'] eq '' && {$userlist['native_city_id']} eq '' &&{$userlist['native_district_id']} eq ''}	
+				<div class="profile-review-line" id="profile_four">
+				</div>	
+				{else}	
+				<div class="profile-review-line" id="profile_four">
+					<label>籍贯：</label><span>{$province_p}{$city_p}{$district_p}</span>
+				</div>			
+				{/if}
+				
+			<!-- five -->	
+				{if {$userlist['school']} neq '' && {$userlist['specialty']} neq ''}				
+				<div class="profile-review-line" id="profile_five">
+					<label>毕业学校：</label><span>{$userlist['school']}</span><i>|</i><label>专业：</label><span>{$userlist['specialty']}</span> 
+				</div>		
+				{elseif {$userlist['school']} eq '' && {$userlist['specialty']} eq ''}		
+				<div class="profile-review-line" id="profile_five">
+				</div>
+				{else}	
+				<div class="profile-review-line" id="profile_five">
+					<label>毕业学校：</label><span>{$userlist['school']}</span><i>|</i><label>专业：</label><span>{$userlist['specialty']}</span> 
+				</div>
+				{/if}				
+			<!-- six -->
+  				{if $userlist['finish_year'] neq '' && {$userlist['degree']} neq ''}		
+				<div class="profile-review-line" id="profile_six">
+					<label>毕业年份：</label>{if $userlist['finish_year'] eq '0'}{elseif $userlist['finish_year']}<span>{$userlist['finish_year']}年</span>{/if}<i>|</i><label>最高学历：</label><span>{$userlist['degree']}</span>
+				</div> 	
+				{elseif $userlist['finish_year'] eq '' && {$userlist['degree']} eq ''}
+				<div class="profile-review-line" id="profile_six"></div> 
+				{else}
+				<div class="profile-review-line" id="profile_six"></div> 				
+				{/if}	 
+				
+			<!-- seven -->
+				{if $userlist['in_org'] neq ''}
+				<div class="profile-review-line" id="profile_seven">
+					<label>所属机构：</label><span>{$userlist['in_org']}</span> 
+				</div>		
+				{elseif $userlist['in_org'] eq ''}	
+				<div class="profile-review-line" id="profile_seven">
+				</div>	
+				{/if}	
+				
+		</div>
+	</div>
+		<!-- 红资料浏览模式结束 -->
+
+		<!-- 红资料编辑模式开始 -->
+		<div id="profile_edit_box" class="row2 clearfix toggle-content profile-edit-box">
+			<div class="form-group pull-left">
+				 <label class="pull-left">年龄：</label>
+				<div class="hyq-dropdown-box pull-left" id="age-list">
+				{if $userlist['age'] neq ''}
+					<input type="hidden" value="{$userlist['age']}" name="character" id ="age">
+				{elseif $userlist['age'] eq ''}	
+					<input type="hidden" value="" name="character" id ="age">
+				{/if}		
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">年龄</span>
+					</div>
+					<div class="hyq-dropdown-list " style="display: none;">
+						<ul id="on_age">
+							<li value = "{$AGE_RANGE.min}">{$AGE_RANGE.begin-1}及以下</li>
+						{foreach $agenum as $age_num}
+							<li value = "{$age_num}">{$age_num}</li>
+						{/foreach}	
+							<li value = "{$AGE_RANGE.max}">{$AGE_RANGE.end}及以上</li>
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				 <label class="pull-left">&nbsp;身高：</label>
+				<div class="hyq-dropdown-box pull-left" id="height-list">
+					{if $userlist['height'] neq ''}
+					<input type="hidden" value="{$userlist['height']}" name="character" id ="height">
+					{elseif $userlist['height'] eq ''|| $userlist['height'] eq 0}	
+					<input type="hidden" value="" name="character" id ="height">					
+					{/if}
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">身高</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_height">
+							<li value="{$HEIGHT_RANGE.min}">{$HEIGHT_RANGE.begin-1}及以下</li>
+						{foreach $heightnum as $height_num}
+							<li value = "{$height_num}">{$height_num}</li>
+						{/foreach}	
+							<li value="{$HEIGHT_RANGE.max}">{$HEIGHT_RANGE.end}及以上</li>
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				 <label class="pull-left"> &nbsp;体重：</label>
+				<div class="hyq-dropdown-box pull-left" id="weight-list">
+				{if $userlist['weight'] neq ''}
+					<input type="hidden" value="{$userlist['weight']}" name="character"id="weight">
+				{elseif $userlist['weight'] eq ''}	
+					<input type="hidden" value="" name="character"id="weight">
+				{/if}		
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">体重</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_weight">
+							<li value="{$WEIGHT_RANGE.min}">{$WEIGHT_RANGE.begin-1}及以下</li>
+						{foreach $weightnum as $weight_num}
+							<li value = "{$weight_num}">{$weight_num}</li>
+						{/foreach}	
+							<li value="{$WEIGHT_RANGE.max}">{$WEIGHT_RANGE.end}以上</li>
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="pull-left">三围：</label>
+				<div class="hyq-dropdown-box" id="bust-list">
+				{if $userlist['bust'] neq ''}
+					<input type="hidden" value="{$userlist['bust']}" name="character" id="bust">
+				{elseif $userlist['bust'] eq ''}	
+					<input type="hidden" value="" name="character" id="bust">
+				{/if}	
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">胸围</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_bust">
+							<li value="{$BUST_RANGE.min}">{$BUST_RANGE.begin-1}及以下</li>
+						{foreach $bustnum as $bust_num}
+							<li value = "{$bust_num}">{$bust_num}</li>
+						{/foreach}	
+							<li value="{$BUST_RANGE.max}">{$BUST_RANGE.end}以上</li>						
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				<div class="hyq-dropdown-box" id="waist-list">
+				{if $userlist['waist'] neq ''}
+					<input type="hidden" value="{$userlist['waist']}" name="character" id="waist">
+				{elseif $userlist['waist'] eq ''}	
+					<input type="hidden" value="" name="character" id="waist">
+				{/if}
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">腰围</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+
+						<ul id="on_waist">
+						<li value="{$WAIST_RANGE.min}">{$WAIST_RANGE.begin-1}及以下</li>
+						{foreach $waistnum as $waist_num}
+							<li value = "{$waist_num}">{$waist_num}</li>
+						{/foreach}	
+						<li value="{$WAIST_RANGE.max}">{$WAIST_RANGE.end}以上</li>
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				<div class="hyq-dropdown-box" id="hips-list">
+				{if $userlist['hips'] neq ''}
+					<input type="hidden" value="{$userlist['hips']}" name="character" id="hips">
+				{elseif $userlist['hips'] eq ''}
+					<input type="hidden" value="" name="character" id="hips">
+				{/if}	
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">臀围</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+
+						<ul id="on_hips">
+							<li value="{$HIPS_RANGE.min}">{$HIPS_RANGE.begin-1}及以下</li>
+						{foreach $hipsnum as $hips_num}
+							<li value = "{$hips_num}">{$hips_num}</li>
+						{/foreach}
+							<li value="{$HIPS_RANGE.max}">{$HIPS_RANGE.end}以上</li>	
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="pull-left">星座：</label>
+				<div class="hyq-dropdown-box pull-left" id="star-list">
+					<input type="hidden" value="{$userlist['star']}" name="character" id="star">
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">星座</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_star">
+						{foreach name=star_list from=$star_list key = k item = v}
+							<li value="{$k}">
+								{$v}
+							</li>
+						{/foreach}								
+<!-- 							<li value="白羊座">	白羊座</li>
+							<li value="金牛座">	金牛座</li>
+							<li value="双子座">	双子座</li>
+							<li value="巨蟹座">	巨蟹座</li>
+							<li value="狮子座">	狮子座</li>
+							<li value="处女座">	处女座</li>
+							<li value="天秤座">	天秤座</li>
+							<li value="天蝎座">	天蝎座</li>
+							<li value="射手座">	射手座</li>
+							<li value="魔蝎座">	魔蝎座</li>
+							<li value="水瓶座">	水瓶座</li>
+							<li value="双鱼座">	双鱼座</li> -->
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				<label class="pull-left">&nbsp;血型：</label>
+				<div class="hyq-dropdown-box pull-left" id="blood-list">
+					<input type="hidden" value="{$userlist['blood']}" name="character" id="blood">
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">血型</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_blood">
+						{foreach from=$blood_list key = k item = v}
+							<li value="{$k}">
+								{$v}型
+							</li>
+						{/foreach}							
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+			</div>
+			<!--籍贯-->
+			<div class="form-group">
+				<label class="pull-left">籍贯：</label>
+				<div class="hyq-dropdown-box" id= "native-province-list" placeholder="所在省">
+					<input type="hidden" value="{$userlist['native_province_id']}" name="character" id="native_province">
+					<div class="hyq-dropdown " type="text">	
+						{if $province_p eq null}
+						<span class="dropdown-value inline-block dropdown-place-0">所在省</span>		
+						{elseif $province_p neq null}
+						<span id="native_province_p" value="{$userlist['native_province_id']}" class="dropdown-value inline-block dropdown-place-0 selected">{$province_p}</span>
+						{/if}	
+					</div>
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_native_province">						
+							{foreach $provincelist as $province}
+								<li value="{$province['id']}">{$province['pname']}</li>
+							{/foreach}
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div> 			
+				&nbsp;&nbsp;
+				<div class="hyq-dropdown-box " id= "native-city-list" placeholder="所在市">
+					<input type="hidden" value="{$userlist['native_city_id']}" name="character" id="native_city">
+					<div class="hyq-dropdown " type="text">
+						{if $city_p eq null}
+							<span class="dropdown-value inline-block dropdown-place-0">所在市</span>
+								
+						{elseif $city_p neq null}
+							<span id="native_city_p" value="{$userlist['native_city_id']}" class="dropdown-value inline-block dropdown-place-0 selected">{$city_p}</span>
+						{/if}	
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id = "on_native_city">
+							
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				&nbsp;&nbsp;
+				<div class="hyq-dropdown-box" id= "native-district-list" placeholder="所在区">
+					<input type="hidden" value="{$userlist['native_district_id']}" name="character" id="native_area">
+					<div class="hyq-dropdown " type="text">
+						{if $district_p eq null}
+							<span class="dropdown-value inline-block dropdown-place-0">所在区</span>
+								
+						{elseif $district_p neq null}
+							<span id="native_district_p" value="{$userlist['native_district_id']}" class="dropdown-value inline-block dropdown-place-0 selected">{$district_p}</span>
+						{/if}	
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_native_area">
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="pull-left">毕业学校：</label>
+				<input name="" form-err="a" value="{$userlist['school']}" placeholder="请输入毕业学校" type="text" class="input-school" id="school">
+				专业：
+				<input name="" form-err="a" value="{$userlist['specialty']}" placeholder="请输入专业" type="text" class="input-major" id="specialty">
+			</div>
+			<div class="form-group">
+				<label class="pull-left">毕业年份：</label>
+				<div class="hyq-dropdown-box pull-left" id="finish-year-list">
+					{if $userlist['finish_year'] neq ''}
+					<input type="hidden" value="{$userlist['finish_year']}" name="character" id="finish_year">
+					{elseif $userlist['finish_year'] eq ''}
+					<input type="hidden" value="" name="character" id="finish_year">
+					{/if}
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">请选择</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul  id="on_finish_year">
+						{foreach $yearnum as $year_num}
+							<li value = "{$year_num}">{$year_num}</li>
+						{/foreach}	
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+				<label class="pull-left">&nbsp;最高学历：</label>
+				<div class="hyq-dropdown-box pull-left" id="degree-list">
+					<input type="hidden" value="{$userlist['degree']}" name="character" id="degree">
+					<div class="hyq-dropdown " type="text">
+						<span class="dropdown-value inline-block role-select">选择学历</span>
+					</div>
+
+					<div class="hyq-dropdown-list" style="display: none;">
+						<ul id="on_degree">
+						{foreach name=degree_list from=$degree_list key = k item = v}
+							<li value="{$k}">
+								{$v}
+							</li>
+						{/foreach}								
+						<!--<li value="博士">博士</li>	
+							<li value="硕士">
+								硕士
+							</li>						
+							<li value="本科">
+								本科
+							</li>
+							<li value="大专">
+								大专
+							</li>							
+							<li value="高中">
+								高中
+							</li>
+							<li value="中专">
+								中专
+							</li>							
+							<li value="初中">
+								初中
+							</li>
+							<li value="小学">
+								小学
+							</li>
+							<li value="其它">其它</li>-->			
+						</ul>
+					</div>
+					<a class="hyq-dropdown-btn"> <i></i> </a>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="pull-left">所属机构：</label>
+				<input name="" form-err="a" value="{$userlist['in_org']}" placeholder="请输入所属机构" type="text" class="input-organ" id="in_org">
+			</div>
+				<div class="hyq-f-err hyq-f-err-pad-left" id="profile_tips" style = "display:none">
+					<i class="hyq-ic ic-vlid-err"></i> <label>哎呦,错误了</label>
+				</div>			
+			<br/>
+			<div class="form-group">
+				<input class="hyq-btn hyq-btn-lg" type="button" value="保&nbsp;&nbsp;存" id="profile-save-btn">
+				&nbsp;&nbsp;
+				<input type="button" value="取&nbsp;&nbsp;消" class="hyq-btn hyq-btn-thin-lg" id='profile-cancle-btn'/>
+			</div>
+		</div>
+</div>
+	<!-- 红资料编辑模式结束 -->
+</div>

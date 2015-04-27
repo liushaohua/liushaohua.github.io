@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<!--####### head头信息拿出来  我们会在里面加东西 ####### -->
+	<head> 
+		<meta charset="UTF-8">
+		<title>个人资料填写</title>
+		<meta name="description" content="">
+		
+		<!--  -->
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="styles/main.css">
+		<style type="text/css">
+		body,td,th {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, Mingliu;
+}
+        </style>
+		<script src="/js/jquery.js"></script>
+		<!--<script type="text/javascript" src="/js/state_code.js"></script>-->
+		 
+		<style type="text/css">
+		 	.pull-left {
+                float: left;
+                clear: none;
+            }
+            .pull-right {
+                float: right;
+                clear: none;
+            }
+			.role-select {
+                width: 100px;
+            }
+            .inline-block {
+                display: inline-block;
+                *display: inline;
+                *zoom: 1;
+            }
+            .btn-upload-pic {
+                background: url(images/btn-upload-pic.jpg) no-repeat;
+                display: block;
+                position: absolute;
+                width: 102px;
+                height: 25px;
+                bottom: -25px;
+                right: -15px;
+                text-indent: -9999px;
+                overflow: hidden;
+            }
+		</style>
+
+
+	</head>
+	<body>
+	<!--header_simple.html  只是logo的div块 -->
+	{include "templates/header.html"} 
+	<!-- 包含用于登陆和绑定账户的淡色页眉 -->
+	 
+		<div class="content-wrapper">
+			  <div class="main-column-a">
+
+                  <div class="column-wrapper RdBorderBtm ">
+
+                    <div class="row clearfix" style="padding-bottom:0px;">
+                        <div class="lead-title">
+                            <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">填写红名片 <small class="Gray8">(想红就要先有红名片er)</small></label>
+                        </div>
+                        </br>
+                        <div class="clearfix">
+                            <div class="form-group pull-left">
+                                <em>*</em>
+                                <input name="username" class="col-md-9" form-err="a" placeholder="艺名" type="text">
+                                <div class="hyq-f-err hyq-f-err-pad-left">
+                                 <i class="hyq-ic ic-vlid-err"></i><label>请输入你极其牛叉的艺名</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group pull-left">
+                                <em>*</em>
+                                <div class="hyq-dropdown-box col-md-10">
+                                    <input type="hidden" value="" name="character">
+                                    <div class="hyq-dropdown " type="text">
+                                        <span class="dropdown-value inline-block role-select">角色选择</span>
+                                    </div>
+
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                        <ul>
+                                            <li value="1">
+                                                男主角
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+                                <div class="hyq-f-err hyq-f-err-pad-left">
+                                 <i class="hyq-ic ic-vlid-err"></i><label>请选择你的角色</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group pull-right" style="margin-right:1em;">
+                                <em>&nbsp;</em>
+                                <input type="radio" class="hyq-nice-selectable-lg"  name='sex' value="0">
+                                <span><b></b> 男 </span>
+                                &nbsp;
+                                <input type="radio" class="hyq-nice-selectable-lg"  name='sex' value="0">
+                                <span><b></b> 女 </span>
+                                 <div class="hyq-f-err hyq-f-err-pad-left">
+                                 <i class="hyq-ic ic-vlid-err"></i> <label>请选择性别</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="col-md-8">
+                                <em>*</em>
+                                <div class="hyq-dropdown-box pull-left">
+                                    <input type="hidden" value="" name="character">
+                                    <div class="hyq-dropdown " type="text">
+                                        <span class="dropdown-value inline-block dropdown-place-0">所在地</span>
+                                    </div>
+
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                        <ul>
+                                            <li value="1">
+                                                北京市
+                                            </li>
+                                            <li value="2">
+                                                广东省
+                                            </li>
+                                            <li value="3">
+                                                河北省
+                                            </li>
+                                            <li value="4">
+                                                外务省
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+                             
+                             
+                                <em>&nbsp;</em>
+                                <div class="hyq-dropdown-box pull-left">
+                                    <input type="hidden" value="" name="character">
+                                    <div class="hyq-dropdown " type="text">
+                                        <span class="dropdown-value inline-block dropdown-place-1">所在地</span>
+                                    </div>
+
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                        <ul>
+                                            <li value="1">
+                                                前面
+                                            </li>
+                                            <li value="2">
+                                                后面
+                                            </li>
+                                            <li value="3">
+                                                里面
+                                            </li>
+                                            <li value="4">
+                                                外面
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+
+                             
+
+                             
+                                <em>&nbsp;</em>
+                                <div class="hyq-dropdown-box pull-left">
+                                    <input type="hidden" value="" name="character">
+                                    <div class="hyq-dropdown " type="text">
+                                        <span class="dropdown-value inline-block dropdown-place-2">所在地</span>
+                                    </div>
+
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                        <ul>
+                                            <li value="1">
+                                                这里
+                                            </li>
+                                            <li value="2">
+                                                那里
+                                            </li>
+                                            <li value="3">
+                                                那边
+                                            </li>
+                                            <li value="4">
+                                                这边
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+
+                             
+                            <div class="hyq-f-err hyq-f-err-pad-left pull-left">
+                                 <i class="hyq-ic ic-vlid-err"></i> <label>请选择您的所在地</label>
+                            </div>
+
+                        </div>
+
+                            <div class="form-group pull-right" style="margin-right:1em;">
+                                <em>&nbsp;</em>
+                                <div class="hyq-dropdown-box">
+                                    <input type="hidden" value="" name="character">
+                                    <div class="hyq-dropdown " type="text">
+                                        <span class="dropdown-value inline-block dropdown-status">目前状态</span>
+                                    </div>
+
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                        <ul>
+                                            <li value="4">
+                                                有档期
+                                            </li>
+                                            <li value="4">
+                                                没档期
+                                            </li>
+                                            <li value="4">
+                                                自由身
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+                                <div class="hyq-f-err hyq-f-err-pad-left">
+                                 <i class="hyq-ic ic-vlid-err"></i> <label>请选择您的状态 </label>
+                                </div>
+
+                            </div>
+                           
+                                <br/>
+                            <!--上传形象照片按钮-->
+                            <a class="btn-upload-pic" href="javascript:void(null)" id="avatar-btn">上传形象照</a>
+                        </div>
+
+                    </div>
+                    <!--红名片结束-->
+                     <div class="gray-spliter _hidden"></div>
+                    <!--形象照片上传器-->
+                    <div class="row _hidden" id="avatar-box">
+                        <div class="lead-title">
+                            <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传形象照 <small class="Gray8">(一张清晰美观的形象照,至少提升80%的吸引力)</small></label>
+                        </div>
+                        <!-- 图片截取器 -->
+
+                        <div class="hyq-image-cropper">
+
+                            <div img-cropper-uploder></div>
+                            <div class="busy-mask">
+                                <span><img src="images/loading.gif"/></span>
+                            </div>
+
+                            <div class="cropper">
+                                <div class="mask maskA"></div>
+                                <div class="mask maskB"></div>
+                                <div class="mask maskC"></div>
+                                <div class="mask maskD"></div>
+                                <div class="invite-btn"></div>
+                                <div class="invite-message">
+                                    <div>
+                                        上传形象照
+                                        <div class="Gray8 f13 _clb">  (请输入334X280或者更大的图片)</div>
+                                    </div>
+                                    <div>
+                                        支持JPG，JPEG，PNG格式，不超过5M
+                                    </div>
+                                </div>
+                                <div img-dock="" >
+                                    <div img-mask></div>
+                                </div>
+                            </div>
+
+                            <div class="preview-box">
+                                <div class="preview-a">
+                                    <img src="images/default_M_11.jpg" />
+                                </div>
+                                <div class="preview-b"><img src="images/default_M_43.jpg" />
+                                </div>
+                            </div>
+
+                            <div class='slider-box'>
+                                <div class="slide-btn-wrapper">
+                                    <div class="slide-button"></div>
+                                </div>
+                                <i class="zout">-</i>
+                                <div class='slider'>
+                                    <div class="white-bar"></div>
+                                </div>
+                                <i class="zin">+</i>
+                            </div>
+
+                            <div class="button-box">
+                                <input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+                                &nbsp;
+                                &nbsp;
+
+                                <input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+                                &nbsp;
+                                &nbsp;
+
+                                <input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+                            </div>
+
+                        </div>
+                        <!-- 图片截取器结束 -->
+                    </div>
+                    <!--形象照片上传器结束-->
+
+                </div><!--column-wrapper end-->
+                <div class="btn-group">
+             
+                <input type="button" class="hyq-btn hyq-btn-lg" value="确 定">
+             
+           
+            </div>
+
+            </div><!--END OF main-column-a-->
+			<!-- 右侧栏  拆成两个块-->
+			<div class="right-column">
+			{include file="ad.html"}			 
+			{include file="right_qrcode.html"}
+			<div class="column-spliter"></div>
+			{include file="right_advantage.html"}
+			<br class='_clb'/>
+			</div>
+		</div>
+        <!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="resend_valid_mail_success_modal" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+
+		<!-- footer -->
+		{include "footer.html"} 
+		
+        <script type="text/javascript">
+        //显示弹出框的 事件名称 "hyq/modal/show_with_message"
+            $(function(){
+                //本页独有JS 
+
+                $("#avatar-btn").click(function(){
+                    $(this).hide();
+                    $("#avatar-box").slideDown();
+                    if($("#avatar-box").prev().hasClass('gray-spliter')){
+                        $("#avatar-box").prev().show();
+                    }
+                     
+                });
+
+                var imgCropper = $('.hyq-image-cropper').HYQImageCropper({
+                    uploadApi:"upload.php",//在这里配置上传图片的API
+                    cropApi:"api.php"//在这里配置截图的API                  
+                });
+
+              
+
+              
+                imgCropper.on("hyq/imgcropper/success",function(event){
+                //接受成功信息
+                    //头像上传成功哦那个后，图片地址是一个数组，
+                    //保存在  event.images 
+                    // 格式为 ['1：1头像的地址','4：3头像第二张图的地址']
+                    // 你可以在这里提示上传头像成功，也可以获得图片地址作为其他用途
+                    console.log(event.images);
+
+                });
+
+                //以下两个时间的触发时机是一样的，第一个是带有状态信息的，第二个 是只有错误信息，根据情况使用
+                imgCropper.on('hyq/imgcropper/upload-error',function(event){
+                //当上传失败时，获得返回状态和信息 错误信息存储在 event.hyqData 中
+                
+                    console.log(event.hyqData);
+
+
+                });
+
+
+                imgCropper.on('hyq/imgcropper/error-message',function(event){
+                //接受失败信息
+                    //只获取错误信息 event.hyqMessage
+                    console.log(event.hyqMessage)
+                    $("#resend_valid_mail_success_modal")
+                    .trigger({
+                        type:'hyq/modal/show_with_message',
+                        hyqMessage:event.hyqMessage
+                    });
+                });
+            });
+        </script>
+	</body>
+</html>

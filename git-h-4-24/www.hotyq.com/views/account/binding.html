@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>账号绑定 – 红演圈</title>
+		<meta name="description" content="">
+		<!---->
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		{literal}
+		<style type="text/css">
+			#choice-box-a:hover, #choice-box-b:hover {
+				background: #fbfbfb;
+			}
+
+			.active-choice, .active-choice:hover {
+				background: #fbfbfb;
+			}
+			.active-choice .lead-title-sm {
+				font-weight: bold;
+			}
+			.hyq-f-err {display:none}
+		</style>
+		{/literal}
+	</head>
+	<body style="background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center no-repeat;background-size:cover;min-width:1000px;">
+	{include file="common/header_simple.html"}
+	{literal}
+	<script>
+		$(function() {
+			$.ajaxSetup({  
+				async : false  
+			});
+			var stuffA = $('#choice_A .lead-title-sm i,#choice_A .lead-title-sm label');
+			var stuffB = $('#choice_B .lead-title-sm i,#choice_B .lead-title-sm label');
+			var iA = $("#choice_A .lead-title-sm i"), iB = $("#choice_B .lead-title-sm i");
+			var boxA = $('#choice-box-a'), boxB = $('#choice-box-b');
+			$('#choice_A,#form_A').click(function() {
+				$('#choice_A+form').fadeIn();
+				$('#choice_B+form').fadeOut();
+				boxA.addClass("active-choice");
+				boxB.removeClass("active-choice");
+				stuffA.css({
+					"color" : "#ff3300"
+				})
+				stuffB.css({
+					"color" : "#666"
+				})
+				iB.removeClass('ic-plus-red').addClass("ic-plus-o-20-muted");
+				iA.addClass('ic-plus-red');
+
+			});
+
+			$('#choice_B,form_B').click(function() {
+				$('#choice_A+form').fadeOut();
+				$('#choice_B+form').fadeIn();
+				boxB.addClass("active-choice");
+				boxA.removeClass("active-choice");
+				stuffB.css({
+					"color" : "#ff3300"
+				})
+				stuffA.css({
+					"color" : "#666"
+				})
+				iA.removeClass('ic-plus-red').addClass("ic-plus-o-20-muted");
+				iB.addClass('ic-plus-red');
+			});
+
+		
+		
+			//ZQF--------------绑定-------------------
+			var mark = '0';
+			var login_type = $('#login_type').val();
+			$("#sns_bind_account").focus(function(){
+				$("#bind_tips").fadeOut();
+				if($(this).val() == this.defaultValue){
+					$(this).val("");
+				}
+			})		
+			.blur(
+				function(){
+					if($(this).val() == ''){
+						$(this).val(this.defaultValue);
+						$("#account_bind_tips").fadeOut();
+						mark = '0';
+						return false;
+					}else{
+						var email_pattern = new RegExp(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/);
+						var mobile_pattern = new RegExp(/^1[3578]\d{9}$/);
+						if(mobile_pattern.test($(this).val())){
+							login_type = 'mobile';
+							$('#login_type').prop('value',login_type);
+							$.post("/account/ajax/ajax_account.php",{'action':'get_user_exist','login_type':login_type,'account':$(this).val()},function(data){
+								if(parseInt(data) == 1000){
+									$("#account_bind_tips").fadeOut();
+									mark = '1';
+								}else{
+									$("#account_bind_tips label").text('该手机号不是本站账户！');
+									$("#account_bind_tips").fadeIn();
+									mark = '0';
+									return false;
+								}
+							},'html');
+						}else if(email_pattern.test($(this).val())){
+							login_type = 'email';
+							$('#login_type').prop('value',login_type);
+							$.post("/account/ajax/ajax_account.php",{'action':'get_user_exist','login_type':login_type,'account':$(this).val()},function(data){
+								if(parseInt(data) == 1000){
+									$("#account_bind_tips").fadeOut();
+									 mark = '1';
+								}else{
+									$("#account_bind_tips label").text('该邮箱不是本站账户！');
+									$("#account_bind_tips").fadeIn();
+									mark = '0';
+									return false;
+								}
+							},'html');
+						}else{
+							$("#account_bind_tips label").text('请输入正确的邮箱或手机账号!');
+							$("#account_bind_tips").fadeIn();
+							 mark = '0';
+							return false;
+						}
+					}
+				}
+					
+			);
+			
+			$("#sns_bind_password").focus(function(){
+				$("#bind_tips").fadeOut();
+				if($(this).val() == this.defaultValue){
+					$(this).val("");
+				}
+			})
+			.blur(
+				function(){
+					if($(this).val() == ''){
+						$(this).val(this.defaultValue);
+						$("#password_bind_tips").fadeOut();
+						mark = '0';
+						return false;
+					}else{
+						var password_length = $(this).val().length;
+						if(password_length < 6 || password_length > 16){
+							$("#password_bind_tips label").text('密码长度不符，请输入6-16位字符！');
+							$("#password_bind_tips").fadeIn();
+							 mark = '0';
+							return false;
+						}else{
+							$("#password_bind_tips").fadeOut();
+							mark = '2';
+						}
+					}
+				}
+						
+			);
+			/*$('#account_bind').click(function(){
+				if(login_type == ''){
+					return false;
+				}
+				$("#sns_bind_account").blur();
+				if(mark == '1'){
+					$("#sns_bind_password").blur();
+					if(mark == '2'){
+						$(this).prop('type','submit');
+					}
+				}
+			});*/
+			$('#sns_bind_password').bind('keypress',function(event){
+				if(event.keyCode == "13"){
+					$('#account_bind').trigger('click');
+				}
+			});
+			//ajax提交绑定	
+			$('#account_bind').click(function(){
+				$("#sns_bind_account").blur();
+				if(login_type == ''){
+					$("#account_bind_tips label").text('请输入您的邮箱或手机账号!');
+					$("#account_bind_tips").fadeIn();
+					return false;
+				}
+				if(mark == '1'){
+				$("#sns_bind_password").blur();
+				if($('#sns_bind_password').val() == ''){
+					$("#password_bind_tips label").text('请输入密码!');
+					$("#password_bind_tips").fadeIn();
+				}
+				if(mark == '2'){
+				$.post("/account/ajax/ajax_account.php",{'action':'bind_account','login_type':login_type,'account':$('#sns_bind_account').val(),'password':$('#sns_bind_password').val()},function(data){
+					if(parseInt(data) == 1000){
+						$("#bind_tips").fadeOut();
+						top.location.href = "/account/binding_tips.php?action=bind_account&account="+$('#sns_bind_account').val()+"&login_type="+login_type;
+					}else{
+						$("#bind_tips label").text(state_list[parseInt(data)]);
+						$("#bind_tips").fadeIn();
+						return false;
+					}
+				},'text');
+				}
+				}
+			});
+			
+			//ZQF------------创建并绑定------------------
+			mark = '0';
+			$("#email_create_account").focus(function(){
+				$("#email_create_tips").fadeOut();
+				if($(this).val() == this.defaultValue){
+					$(this).val("");
+				}
+			})
+			.blur(
+				function(){
+					if($(this).val() == ''){
+						$(this).val(this.defaultValue);
+						$("#account_tips").fadeOut();
+						mark = '0';
+						return false;
+					}else{
+						var email_pattern = new RegExp(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/);
+						var match=email_pattern.test($(this).val());
+						if(match){
+							$.post("/account/ajax/ajax_account.php",{'action':'get_account_exist','login_type':'email','account':$(this).val()},function(data){
+								if(parseInt(data) == 1000){
+									$("#account_tips label").text('该邮箱已在本站注册过，请直接去绑定或者换一个邮箱！');
+									$("#account_tips").fadeIn();
+									mark = '0';
+									return false;
+								}else{
+									$("#account_tips").fadeOut();
+									mark = '1';
+								}
+							},'html');	
+						}else{
+							$("#account_tips label").text('请输入正确邮箱地址!');
+							$("#account_tips").fadeIn();
+							mark = '0';
+							return false;
+						}
+					}
+				}
+					
+			);
+			$("#email_create_password").focus(function(){
+				$("#email_create_tips").fadeOut();
+				if($(this).val() == this.defaultValue){
+					$(this).val("");
+				}
+			})	
+			.blur(
+				function(){
+					if($(this).val() == ''){
+						$(this).val(this.defaultValue);
+						$("#password_tips").fadeOut();
+						mark = '0';
+						return false;
+					}else{
+						var password_length = $(this).val().length;
+						if(password_length < 6 || password_length > 16){
+							$("#password_tips label").text('密码长度不符，请输入6-16位字符！');
+							$("#password_tips").fadeIn();
+							mark = '0';
+							return false;
+						}else{
+							$("#password_tips").fadeOut();
+							mark = '2';
+						}
+					}
+				}
+			);
+			$("#email_create_re_password").focus(function(){
+				$("#email_create_tips").fadeOut();
+				if($(this).val() == this.defaultValue){
+					$(this).val("");
+				}
+			})
+			.blur(
+				function(){
+					if($(this).val() == ''){
+						$(this).val(this.defaultValue);
+						$("#re_password_tips").fadeOut();
+						mark = '0';
+						return false;
+					}else{
+						if($('#email_create_re_password').val() != $('#email_create_password').val()){
+							$("#re_password_tips label").text('两次密码输入不一致!');
+							$("#re_password_tips").fadeIn();
+							mark = '0';
+							return false;
+						}else{
+							$("#re_password_tips").fadeOut();
+							mark = '3';
+						}
+					}
+				}		
+			);
+			var user_type = $("input[name='user_type']:checked").val();
+			$("#user_type_radio").click(function(){
+				$("#email_create_tips").fadeOut();
+				user_type = $("input[name='user_type']:checked").val();
+				$('#user_type').prop('value',user_type);
+				$('#user_type_tips').fadeOut();
+			});
+			/*$('#create_email_bind').click(function(){
+				$("#email_create_account").blur();
+				if(mark == '1'){
+					$("#email_create_password").blur();
+					if(mark == '2'){
+						$("#email_create_re_password").blur();
+						if(mark == '3'){
+							if(user_type == null){
+								$("#user_type_tips label").text('请选择您的用户属性');
+								$("#user_type_tips").fadeIn();
+								return false;
+							}else{
+								$('#create_email_bind').prop('type','submit');
+							}
+						}
+					}
+				}
+			});*/
+			//ajax提交创建并绑定
+			$('#create_email_bind').click(function(){
+				if($('#email_create_account').val() == ''){
+					$("#account_tips label").text('请输入您的邮箱地址!');
+					$("#account_tips").fadeIn();
+					return false;
+				}
+				if($('#email_create_password').val() == ''){
+					$("#password_tips label").text('请输入密码!');
+					$("#password_tips").fadeIn();
+					return false;
+				}
+				if($('#email_create_re_password').val() == ''){
+					$("#re_password_tips label").text('请再次输入密码!');
+					$("#re_password_tips").fadeIn();
+					return false;
+				}
+				if(user_type == null){
+					$("#user_type_tips label").text('请选择您的用户属性');
+					$("#user_type_tips").fadeIn();
+					return false;
+				}else{
+					$("#email_create_account").blur();
+					if(mark == '1'){
+						$("#email_create_password").blur();
+						if(mark == '2'){
+							$("#email_create_re_password").blur();
+							if(mark == '3'){
+								$.post("/account/ajax/ajax_account.php",{'action':'create_email_bind_account','account':$('#email_create_account').val(),'password':$('#email_create_password').val(),'re_password':$('#email_create_re_password').val(),'user_type':user_type,'login_type':'email'},function(data){
+									console.log(data);
+									if(parseInt(data) == 1000){
+										$("#email_create_tips").fadeOut();
+										top.location.href = "/account/binding_tips.php?action=create_email_bind_account&account="+$('#email_create_account').val()+"&login_type="+login_type;
+									}else{
+										$("#email_create_tips label").text(state_list[parseInt(data)]);
+										$("#email_create_tips").fadeIn();
+										return false;
+									}
+								},'text');
+							}
+						}
+					}
+				}
+			});
+		}); 
+	</script>
+	{/literal}
+	</head>
+	<body>
+		<div class="content-wrapper _zeroPDTop" style="height:630px;">
+			<div class="main-column-a _relativePos" >
+
+				<div class="column-wrapper RdBorderBtm" >
+					<div class="row2">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="f18 _bold Blak2">[{$sns_username}]您好，请根据您的账户状态关联您的邮箱账号</label>
+						</div>
+					</div>
+					<div class="red-spliter"></div>
+
+					<div id="choice-box-a">
+						<div class="row2 _handCursor" style="padding-bottom:0px;" id="choice_A">
+							<div class="lead-title-sm">
+								<i class="f20 _bold hyq-ic ic-plus-o-20-muted  "></i><label class="Blak2 f16"> 您已经在红演圈注册过Email账号，使用已有账号绑定现在登录的QQ</label>
+							</div>
+							<div class="muted-subtitle-box">
+								<div class="muted-subtitle">
+									如果你用Email登录过红演圈，可以选择此项，将两种登录方式的账号绑定合并为一个账号，绑定后，两种登录方式均可登录到合并后的账号。
+
+								</div>
+								<br class="_clb"/>
+							</div>
+						</div>
+						<form class="row2 _hidden _handCursor" id="form_A">
+							<input type="hidden" name="action" value="bind_account">
+							<input type="hidden" name="login_type" value="" id="login_type">
+							<div class="form-group" >
+								<input  name="account" id="sns_bind_account" class="col-md-6" form-err="a" placeholder="请输入登录手机号或邮箱" type="text"/>
+								<div class="hyq-f-err" id="account_bind_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>请输入正确地手机号或邮箱。</label>
+								</div>
+							</div>
+
+							<div class="form-group ">
+
+								<input type="password" name="password" placeholder="请输入密码" class="col-md-6" id="sns_bind_password"/>
+								<div class="hyq-f-err" id="password_bind_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>错误的用户名或者密码。</label>
+								</div>
+							</div>
+
+							<div class="form-group col-md-12">
+
+								<input type="button" value="&nbsp;绑&nbsp;&nbsp;定&nbsp;" class="hyq-btn hyq-btn-lg f18" id="account_bind"/>
+								<div class="hyq-f-err" id="bind_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>绑定失败。</label>
+								</div>
+							</div>
+							<br class="_clb"/>
+						</form>
+					</div>
+
+					<div class="gray-spliter"></div>
+
+					<div id="choice-box-b" class="active-choice" style="padding-bottom:0px;">
+						<div class="row2 _handCursor" id="choice_B"style="padding-bottom:0px;"  >
+							<div class="lead-title-sm">
+								<i class="f20 _bold Rd hyq-ic ic-plus-red "></i>
+								<label class="Rd f16">创建一个Email账号，并绑定你想在登录的QQ</label>
+							</div>
+							<div class="muted-subtitle-box">
+								<div class="muted-subtitle  col-md-9">
+									绑定后，使用QQ或者Email均可登录到您现有的账号。
+									<br class="_clb"/>
+									<br class="_clb"/>
+								</div>
+							</div>
+							<br class="_clb"/>
+						</div>
+
+						<form  class="row2 _handCursor" id="form_B" >
+							<input type="hidden" name="action" value="create_email_bind_account">
+							<input type="hidden" name="user_type" value="" id="user_type">
+							<div class="form-group" >
+								<input  name="account" id="email_create_account" class="col-md-6" form-err="a" placeholder="请输入您的邮箱地址" type="text"/>
+								<div id="account_tips" class="hyq-f-err">
+								<i class="hyq-ic ic-vlid-err"></i><label>请输入正确的邮箱地址！</label>
+								</div>
+							</div>
+
+							<div class="form-group ">
+
+								<input type="password" name="password" placeholder="请输入密码" id="email_create_password" class="col-md-6"/>
+								<div id="password_tips" class="hyq-f-err">
+								<i class="hyq-ic ic-vlid-err"></i><label>请输入密码。</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+
+								<input type="password" name="re_password" placeholder="请再次输入密码" id="email_create_re_password" class="col-md-6"/>
+								<div class="hyq-f-err" id="re_password_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>两次输入的密码不一样。</label>
+								</div>
+							</div>
+
+							<div id="user_type_radio" class="form-group col-md-12">
+								<input type="radio" class="hyq-nice-selectable-lg"   name='user_type' value="user"/>
+								<span ><b></b> &nbsp;&nbsp;个 人 &nbsp;&nbsp; </span>
+								&nbsp;
+								<input type="radio" class="hyq-nice-selectable-lg"  name='user_type' value="org"/>
+								<span  title="公司、机构或者团体"><b></b> &nbsp;&nbsp;机 构&nbsp;&nbsp; </span>
+								<div class="hyq-f-err" id="user_type_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>请选择您的用户属性。</label>
+								</div>
+							</div>
+
+							<div class="form-group col-md-12">
+
+								<input type="button" value="&nbsp;创建并绑定&nbsp;" id="create_email_bind" class="hyq-btn hyq-btn-lg f18" />
+								<div class="hyq-f-err" id="email_create_tips">
+									<i class="hyq-ic ic-vlid-err"></i>
+									<label>请选择您的用户属性。</label>
+								</div>
+							</div>
+							<br class="_clb"/>
+						</form>
+
+					</div>
+				</div>
+				<!-- 绑定成功 -->
+				<!--<div class="column-wrapper RdBorderBtm ">
+					<div class="row2">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="_bold  f18 Blak2">绑定邮箱验证</label>
+						</div>
+					</div>
+					<div class="red-spliter"></div>
+
+					<div class="row2" style="padding-bottom:0px;" >
+						<div class="lead-title">
+							&nbsp;&nbsp;&nbsp;<label class="Blak2 f18"> 验证邮箱，完成绑定</label>
+						</div>
+						<div class="muted-subtitle-box">
+							<div class="muted-subtitle">
+								<div>
+									我们已将验证邮件发送至邮箱：<label class="link-red"><a href="#" class="Rd _bold">placeInTime@nowhere.com</a></label>
+								</div>
+								<div>
+									点击邮件内的链接可以即可完成绑定，并可以使用红演圈所有功能
+								</div>
+
+							</div>
+							<br class="_clb"/>
+						</div>
+					</div>
+
+					<div class="gray-spliter"></div>
+
+					<div class="row2" style="padding-bottom:0px;">
+						<div class="lead-title">
+							&nbsp;&nbsp;&nbsp;<label class="Blak2 f18"> 没有收到验证邮箱，怎么办？</label>
+						</div>
+						<div class="muted-subtitle-box">
+							<div class="muted-subtitle">
+								<div>
+									1. 邮箱地址填写错误？<label class="link-red"><a href="#" class="Rd">重新填写邮箱地址</a></label>
+								</div>
+								<div>
+									2. 看看是否在邮箱的垃圾邮件、广告邮件目录里
+								</div>
+								<div>
+									3. 稍等几分钟，若还未收到验证邮件， <label class="link-red"> <a href="javascript:void(null)" data-toggle="hyq-modal" data-target="#resend_valid_mail_success_modal" id='resend' class="Rd">重新发送验证邮件</a> </label>
+								</div>
+								<div>
+									4. 还未收到验证邮件，请联系我们，邮箱：<a class="_bold Blak4" href="mailto:info@hotyq.com">info@hotyq.com</a> 电话：<span class="_bold Blak4">400-888-8888</span>
+								</div>
+
+							</div>
+							<br class="_clb"/>
+						</div>
+					</div>
+
+				</div>-->
+
+			</div><!-- 主栏结束 -->
+
+			<!-- 通用右边栏 -->
+			<div class="right-column">
+				<!-- include "html/bind_right_first.html" -->
+				{include "html/right_qrcode.html"}
+				<div class="cl"></div>
+	<!-- 		include "html/bind_right_second.html" -->
+				
+				{include file="common/right_advantage.html"}
+				<br class='_clb'/>
+			</div>
+		</div>
+			<!--弹出窗口-->
+
+			<div class="hyq-modal hyq-modal-default" id="resend_valid_mail_success_modal" role="dialog">
+				<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+				<div class="hyq-modal-header">
+					验证邮箱成功
+				</div>
+				<div class="hyq-model-body">
+					<div class="muted-subtitle">
+						我们已将验证邮件发送至邮箱：<label class="link-red"><a href="#" class="Rd _bold">placeInTime@nowhere.com</a></label>
+						<div>
+							请点击邮件内的链接完成验证。
+						</div>
+					</div>
+				</div>
+				<div class="hyq-model-bottom">
+					<a type="button" class="hyq-btn hyq-btn-default">&nbsp;&nbsp;登录邮箱验证&nbsp;&nbsp;</a>
+				</div>
+			</div>
+			<!-- 通用页脚 -->
+			{include file="common/footer.html"}

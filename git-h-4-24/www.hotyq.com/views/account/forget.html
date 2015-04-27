@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>找回密码 - 红演圈</title>
+		<meta name="keywords" content="文化演艺，演艺服务，演艺明星，招募邀约，活动招募，影视招募，演艺公司，演艺圈，红演圈">
+		<meta name="description" content="登录红演圈，掌握文化演艺行业最新信息，享受最专业的文化演艺服务，实名认证、即时沟通。">
+		
+		
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		<style type="text/css">
+		 body{
+			background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center repeat;
+		 }
+		.fix-fg {
+			margin-bottom: 15px;
+			vertical-align: middle;
+			font-size: 14px;
+			line-height: 18px;
+			display: block;
+		}
+		.setp-box{
+		margin: 0px;
+		padding: 0px;
+		text-align: center;
+		width: 480px;
+		margin: 0 auto;
+		}
+		.setp-box input[type='text']{
+		margin: 0 auto;
+		width: 360px;
+		}
+		.setp-box .dash-line{
+		width:54px;
+		height: 0px;
+		position: absolute;
+		border: none;
+		display: block;
+		right: 3px;
+		top: 50%;
+		}
+		.setp-box .dash-line-red{
+		border-bottom: 2px dotted #ff3300;
+		}
+		.setp-box .dash-line-gray{
+		border-bottom: 2px dotted #ccc;
+		}
+		.dl-left{
+		left: -1px;
+		}
+		.step-icon{
+		width: 160px;
+		position: relative;
+		display: inline-block;
+		margin: 0px;
+		padding: 0px;
+		float: left;
+		}
+		.fix-field-width{
+		width: 320px;
+		}
+		.fix-field-width-2{
+		width: 480px;
+		}
+
+		</style>
+		</head>
+	<body>
+	{include "common/header_simple.html"} 
+	<div class="content-wrapper _zeroPDTop">
+		<div class="main-column-a _relativePos">
+			<!-- 第一步 -->
+			<div class="column-wrapper RdBorderBtm ">
+				<br/>
+				<br/>
+				<br/>
+				<div class="setp-box">
+
+					<div class="step-icon">
+						<div class="dash-line dash-line-gray"></div>
+						<div class="_clb Rd f20">
+							1
+						</Div>
+						<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							填写邮箱或者手机号
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-gray"></div>
+						<div class="dash-line dash-line-gray"></div>
+						<div class="dash-line"></div>
+						<div class="_clb Gray6 f20">
+							2
+						</Div>
+						<div class="hyq-ic ic-OO-muted _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							验证
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-gray"></div>
+						<div class="_clb Gray6 f20">
+							3
+						</Div>
+						<div class="hyq-ic ic-OK-muted  _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							重置密码
+						</div>
+					</div>
+				</div>
+				{literal}
+				<script>
+					$(function(){
+						var login_type = '';
+						//获取焦点 隐藏
+						$('#account').focus(function(){
+							$('#account_error').hide();
+							$('#account_exist').hide();
+						});
+						$('#account').blur(function(){
+							//输入有效的邮箱地址或手机号码
+							var account = $(this).val();
+							if(account == ''){
+								$('#account_error').show();
+								return false;
+							}
+							if(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/.test(account)){
+								login_type = 'email';
+							}else if(/^1[3578]\d{9}$/.test(account)){
+								login_type = 'mobile';
+							}else{
+								$('#account_error').show();
+								return false;
+							}
+							//验证account是否存在
+							var action = "get_account_exist";
+							$.ajax({  
+							  type : "post",  
+							  url : "/account/ajax/ajax_account.php",  
+							  data : "account="+account+"&login_type="+login_type+"&action="+action,  
+							  async : false,  
+							  success : function(data){
+								if(data != 1000){
+									var Msg = state_list[parseInt(data)];
+									//手机或邮箱账号未注册
+									$('#account_exist').text(Msg);
+									$('#account_exist').show();
+									return false;
+								}
+							  }  
+							});
+						});
+						$('#find_pwd').click(function(){
+							$("#account").trigger('blur');
+							if($('#account_error').css('display') == 'block'){
+								return false
+							}
+							if($('#account_exist').css('display') == 'block'){
+								return false
+							}
+							//获取输入值 并判断邮箱 还是 手机
+							var account = $('#account').val();
+							//alert(account);
+							if(login_type == 'email'){
+								location.href ="/account/forget_2.php?login_type="+login_type+"&account="+account;
+							}else if(login_type = 'mobile'){
+								location.href ="/account/forget_2.php?login_type="+login_type+"&account="+account;
+							}else{
+								$('#account_error').show();
+							}
+						});
+					});
+				</script>
+				{/literal}
+				<br class="_clb"/>
+				<br class="_clb"/>
+				 <form action="##" class="hyq-form"> 
+	<div class="form-group-centered fix-field-width">
+		<input id="account"  type="text" class="fix-field-width" placeholder="请输入注册时使用的手机号或邮箱地址" name="account">
+		<div id="account_error" style="display:none;" class="hyq-f-err">
+			<i class="hyq-ic ic-vlid-err"></i>
+			<label>请输入正确的手机号或邮箱。 </label>
+		</div>
+		<div id="account_exist" style="display:none;" class="hyq-f-err">
+		<i class="hyq-ic ic-vlid-err"></i>
+		<label>用户不存在。 </label>
+	</div>
+	</div>
+
+	
+
+
+
+<br class="_clb"/>
+<div class="setp-box">
+<input  id="find_pwd" type="button" class="hyq-btn hyq-btn-lg" value="找回密码">
+</div>
+
+</form>
+				<br class="_clb"/>
+			</div>
+			
+			
+		</div>
+		<div class="right-column">
+			{include file="html/right_qrcode.html"}
+			<br class='_clb'/>
+		</div>
+	</div>
+		{include "common/footer.html"}
+	</body>
+</html>

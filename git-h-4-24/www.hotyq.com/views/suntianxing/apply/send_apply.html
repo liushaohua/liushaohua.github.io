@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>报名发送页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">报名发送首页：</button><br><br>
+			<hr>
+
+			<button id="edit" align="center" style="background:red;height:100px;width:100px">报名</button><br><br>
+		</div>
+		<br><hr>
+		<div id="editarea" align="center" style="display:none">
+			<hr>
+			报名者ID：<input type="text" name="applyer" value="" placeholder="请输入数字ID"><br><br>
+			报名的招募：<select name="recruit">
+							<option value="">--请选择你要报名的招募--</option>
+							<option value="1">红眼圈年会活动礼仪招募</option>
+							<option value="2">邦羽国际集团年会主持招募</option>
+							<option value="3">阿里巴巴年会活动主持招募</option>
+							<option value="4">河南农大校庆活动礼仪招募</option>
+							<option value="5">君和天下市场推广活动主持招募</option>
+							<option value="6">百度大会礼仪招募</option>
+							<option value="7">邦羽国际集团年会主持招募</option>
+							<option value="8">邦羽国际集团年会主持招募</option>
+							<option value="9">邦羽国际集团年会主持招募</option>
+							<option value="10">邦羽国际集团年会主持招募</option>
+							<option value="11">邦羽国际集团年会主持招募</option>
+							<option value="12">邦羽国际集团年会主持招募</option>
+							<option value="13">邦羽国际集团年会主持招募</option>
+							<option value="15">邦羽国际集团年会主持招募</option>
+							<option value="15">邦羽国际集团年会主持招募</option>
+						</select><br><br>
+			报名的角色：<select name="role">
+							<option value="">--请选择招募的角色--</option>
+							<option value="1">礼仪</option>
+							<option value="2">主持</option>
+							<option value="3">综艺</option>
+							<option value="4">歌手</option>
+							<option value="5">导演</option>
+							<option value="6">相声</option>
+							<option value="7">演员</option>
+							<option value="8">猛男</option>
+							<option value="9">猛男</option>
+							<option value="10">猛男</option>
+							<option value="11">猛男</option>
+							<option value="12">猛男</option>
+							<option value="13">猛男</option>
+							<option value="14">猛男</option>
+							<option value="15">猛男</option>
+							<option value="16">猛男</option>
+							<option value="17">猛男</option>
+							<option value="18">四爷</option>
+						</select><br><br>
+			留下您的联系方式:<br><br> 
+					  电话:<input type="text" name="u_mobile" value="" placeholder="请输入您的电话"><br><br>
+					  邮箱:<input type="text" name="u_email" value="" placeholder="请输入您的邮箱"><br><br>	
+					  微信:<input type="text" name="u_weixin" value="" placeholder="请输入您的微信号"><br><br>	
+					  QQ:<input type="text" name="u_qq" value="" placeholder="请输入您的QQ">	
+			<hr>	
+			<input type="button" name="send_message" onclick="return subdata()" value="发送" />
+		</div>
+	</body>
+	{literal}
+		<script>
+			<!-- 添加标签或更新标签 -->
+			$('#edit').click(function(){
+				$('#editarea').fadeIn();
+			});
+			//报名信息ajax 提交
+			function subdata(){
+
+				<!-- 获取报名信息 -->
+				var action = 'user_send_apply';
+				var applyer = $("input[name='applyer']").val();
+				var recruit = $("select[name='recruit'] option:selected").val();
+				var role = $("select[name='role'] option:selected").val();
+				var mobile = $("input[name='u_mobile']").val();
+				var email = $("input[name='u_email']").val();
+				var weixin = $("input[name='u_weixin']").val();
+				var qq = $("input[name='u_qq']").val();
+				//alert(qq);
+				<!-- ajax传递报名信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_apply.php',
+					type:'post',
+					data:{"action":action,"applyer":applyer,"recruit":recruit,"role":role,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,报名成功!');
+						}else if(data == 1374){
+							alert('NO,请不要重复报名!');
+						}else{
+							alert('NO,报名失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

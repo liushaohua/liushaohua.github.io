@@ -1,0 +1,397 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>私信- 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+  </head>
+  <body class='hyq-messager'>
+  
+	{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+     
+    <div class="content-wrapper-b">
+
+      <!--面包屑-->
+      <div class="hyq-breadcrumb-bar">
+        <div class="breadcrumb-box">
+          <a href="/home/user">我的红演圈</a> &gt; <a href="javascript:;">私信</a>
+        </div>
+        <div class="decoration-bar"></div>
+      </div>
+
+      <!--左边栏-->
+      <div class="right-col-250">
+        <div class="lead-title-bar">
+          最近的联系人
+        </div>
+        <div class="friends-list">
+          <ul class="friends-group">
+        {if $list neq ''}
+          {foreach name=friend_list from=$list item=v}
+            <li class="
+            	{if $smarty.foreach.friend_list.first}
+				 active
+				{/if}
+            ">
+              <a href="javascript:;" id={$v.friend}></a>
+              <img title="{$v.friend_name}" src="{$v.friend_face}!f30"/>
+              {$v.friend_name}
+             
+              {if $v.unread_num neq 0}
+               <i>
+              	{$v.unread_num}
+               </i>
+              {/if}
+              
+             
+
+            </li>
+			{/foreach}
+		{else}
+			<li>
+             哥们,你还没有联系人呢~
+            </li>
+         {/if}
+          </ul>
+        </div>
+      </div>
+
+      <!--主栏-->
+      <div class="right-col-705">
+      	
+      	{if $detail_list neq ''}
+        <div class="lead-title-bar">
+          	与 <span id="chating-buddy">{$friend_name}</span> 对话中
+        </div>
+        {/if}
+        <div class="chat-box">
+        
+       {if $detail_list neq ''}
+            {foreach name=message_list from=$detail_list item=v key=k}
+            
+				{if $v.is_show eq 1}
+					
+					{if $v.send_time|difftime gt 60}
+						<div class="time-spliter" style="display:block">
+				            <i></i><label>{$v.send_time|goodtime}</label>
+				        </div>
+					{/if}
+					
+					<div class="msg-line">
+		              <div class="msg 
+		              
+		              	{if $v.user eq $v.sender}
+		              		out
+		              	{else}
+		              		in
+		              	{/if}	
+		              		     
+		              ">
+		                <span> <img src="
+		                
+		                	{if $v.user eq $v.sender}
+			              		{$my_face}!f60
+			              	{else}
+			              		{$friend_face}!f60
+			         {/if}	
+		      
+		                	"/> </span>
+		               
+		                    {if $v.type eq '0'}
+		                     <label> <em></em>
+		                 		 <p>
+								{$v.content|nl2br}
+								</p> <i style="display:none"></i> </label>
+							{elseif $v.type eq '1'}
+								<label> <em></em>
+				                  <p>
+				                    <img src="{$v.server_url}{$v.path_url}!f30" />
+				                  </p> <i style="display:none"></i> </label>
+								
+							{elseif $v.type eq '2'}
+								<u>12"</u>
+					              <label> <em></em> <p>
+					
+					                </p> <i style="display:none"></i> </label>
+							{elseif $v.type eq '3'}
+								视频文件
+							{/if}
+		                 
+		
+		              </div>
+		            </div>
+		            
+				{/if}
+				
+			{foreachelse}
+			
+				<div class="last time-spliter">
+	              <i></i><label>哥们,你还没有聊天记录哦!!!</label>
+	            </div>
+	            
+			{/foreach}
+			
+            <div class="last time-spliter">
+              <i></i><label>以上为历史消息</label>
+            </div>
+    {else}
+            	<div class="last time-spliter">
+	              <i></i><label>还没有收到 任何私信</label>
+	            </div>
+	{/if}
+            
+
+          </div>
+          <div class="type-box">
+            <div class="input-box">
+              <textarea id="input-field" placeholder="请输入要发送的私信内容(限1024个字符)..."></textarea>
+            </div>
+            <div class="btn-box">
+              <input type="button" value=" 发 送 " friend_id = "{$friend_id}" class="fr hyq-btn hyq-btn-defaule-lg"/>
+            </div>
+          </div>
+          
+          
+        </div><!--主栏结束-->
+      </div>
+
+   {include "common/footer.html"}
+   {literal} 
+      <script type="text/javascript">
+      
+      //滚动条置底
+      $(document).ready(function(){
+      		$('.chat-box').scrollTop( $('.chat-box')[0].scrollHeight );
+      		//clearInterval(timer);
+      		
+      });
+      
+      	
+      
+        $(".friends-group li a").click(function(event) {
+          $(".friends-group li").removeClass("active");
+          $(event.target || event.srcElment).parent().addClass('active');
+          event.stopPropagation();
+          var action = 'show_message';
+          var friend_id = $(this).prop('id');     
+        });
+        
+        //鼠标事件
+        $('.chat-box').click(function(){
+        	//alert(111111);
+        	//定时任务关闭
+        	clearInterval(timer);
+        	
+        });
+        
+        //$('.chat-box').mouseleave(function(){
+        	//alert(111111);
+        	//定时任务关闭
+        	//clearInterval(timer);
+        	
+      //  });
+       
+        //私信的发送 以及 即时显示
+        $('.hyq-btn-defaule-lg').click(function(){
+        	var action = 'send_message';
+        	var rec_id = $(this).attr('friend_id');
+			var message = $.trim($('#input-field').val());
+			//alert(rec_id);
+			
+        	if(message.length == 0){
+        		alert('发送内容不能为空!');
+        		return false;
+        	}else if(rec_id.length == 0){
+        		alert('不要捣乱哦!');
+        		return false;
+        	}else if(message.length > 1024){
+        		alert('输入内容过长,请删改后发送!');
+        		return false;
+        	}else{
+        		//消息发送不为空 ajax 发送消息
+        		$.ajax({
+					url:'/home/ajax/ajax_home_message.php',
+					type:'post',
+					data:{'action':action,'rec_id':rec_id,'message':message},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							//alert('消息发送成功！');
+							$('#input-field').val('');
+							show();
+						}else if(data == 'toshort'){
+							alert('消息内容不能为空!');
+						}else if(data == 'tolong'){
+							alert('消息内容超过限制!!');
+						}else if(data == 'wrong'){
+							alert('不要捣乱哦!');
+						}else{
+							alert('消息发送失败！');	
+						}
+					},
+					dataType:'text'
+				});
+        	}
+        });
+        var last_mes_time = 0;   //全局变量
+      //展示私信全部展示
+ 	   function show(){
+ 		   
+     	   var action = 'show_message';
+ 		   var friend = $('.hyq-btn-defaule-lg').attr('friend_id');
+ 		   if(friend.length == 0){
+ 			   return false;
+ 		   }
+ 			$.ajax({
+ 				url:'/home/ajax/ajax_home_message.php',
+ 				data:{'action':action,'friend':friend},
+ 				type:'post',
+ 				success:function(data){
+ 					if(data == 'wrong'){
+ 						alert('不要捣乱哦!');
+ 					}else{
+	 					$('.chat-box').find('div').remove();
+	 					$.each(data,function(i,v){
+		 					if(v.is_show == 1){
+		 						//转换时间显示格式
+		 						var Time = v.send_time;
+		 						var SendTime = get_unix_time(Time);
+		 						var send_time = TimeDiff(SendTime);
+		 						
+		 						var diff_time = DiffTime(SendTime, last_mes_time);
+		 						
+		 						var str = '';
+		 						if(diff_time > 60){
+		 							str += '<div class="time-spliter" style="display:block"><i></i><label>'+send_time+'</label></div>';
+		 						}else{
+		 							str += '<div class="time-spliter" style="display:none"><i></i><label>'+send_time+'</label></div>';
+		 						}
+		 						
+		 							str	+=	'<div class="msg-line">';
+		 							str	+=	'<div class="msg'; 
+		 						            
+					              	if(v.user == v.sender){
+					              		str	+=	' out';
+									}else{
+										str	+=	' in';
+					              	}	
+		 						              		     
+		 							str	+=	'">';
+		 							str	+=	'<span> <img src="';
+		 						                
+		 						                	if(v.user == v.sender){
+		 						                		str	+=	v.my_face+'!f60';
+		 						                	}else{
+		 							              		str	+=	v.friend_face+'!f60';
+		 							              	}	
+		 						      
+		 						                	str	+=	'"/> </span>';
+		 						               
+		 						                    if(v.type == '0'){
+		 						                    	str	+=	'<label> <em></em>';
+		 						                    	str	+=	'<p>';
+		 						                    	str	+=	v.content.replace(/\n/g, "<br />");
+		 						                    	str	+=	'</p> <i style="display:none"></i> </label>';
+		 						                    }else if(v.type == '1'){
+		 						                    	str	+=	'<label> <em></em>';
+		 						                    	str	+=	'<p>';
+		 						                    	str	+=	'<img src="'+v.server_url+v.path_url+'" />';
+		 						                    	str	+=	'</p> <i style="display:none"></i> </label>';
+		 												
+		 						                    }else if(v.type == '2'){
+		 						                    	str	+=	'<u>12"</u>';
+		 						                    	str	+=	'<label> <em></em> <p>';
+		 									
+		 						                    	str	+=	'</p> <i style="display:none"></i> </label>';
+		 						                    }else if(v.type == '3'){
+		 						                    	str	+=	'视频文件';
+		 											}
+		 						                 
+		 						
+			 						 	str +=	'</div>';
+			 					str	+=	'</div>';
+			 					last_mes_time = SendTime;
+		 					}
+		 					$('.chat-box').append(str);
+		 		
+ 					});
+	 				$('.chat-box').scrollTop( $('.chat-box')[0].scrollHeight );	
+ 				}
+ 				},
+ 				dataType:'json'
+ 			}); 
+ 	   }
+      
+ 	  //定时任务
+ 	  var timer = setInterval(show,1000);
+ 		
+ 		//获取时间差
+ 		function DiffTime(SendTime, last_mes_time){       
+ 			//var d_minutes,d_hours,d_days,d_months;       
+ 			//var timeNow = parseInt(new Date().getTime()/1000);       
+ 			var d;  
+ 			
+ 			//d = timeNow - SendTime;
+ 			d = SendTime - last_mes_time;
+ 			return d;       
+ 		}  
+ 		
+ 		
+ 		
+ 		//友好的时间格式显示
+ 		function TimeDiff(SendTime){       
+ 			var d_minutes,d_hours,d_days,d_months;       
+ 			var timeNow = parseInt(new Date().getTime()/1000);       
+ 			var d;       
+ 			d = timeNow - SendTime;
+ 			d_months = parseInt(d/259200);
+ 			d_days = parseInt(d/86400);       
+ 			d_hours = parseInt(d/3600);       
+ 			d_minutes = parseInt(d/60);
+ 			
+ 			if(d_minutes<1){
+ 				return "刚刚";
+ 			}else if(d_minutes>=1 && d_hours<1){       
+ 				return d_minutes+"分钟前";       
+ 			}else if(d_hours>=1 && d_days<1){       
+ 				return d_hours+"小时前";       
+ 			}else if(d_days>=1 && d_days<=3){       
+ 				return d_days+"天前";       
+ 			}else{       
+ 				var s = new Date(SendTime*1000);       
+ 				// s.getFullYear()+"年";
+ 				return (s.getMonth()+1)+"月"+s.getDate()+"日"+' '+s.getHours()+':'+s.getMinutes();       
+ 			}
+ 		}  
+ 		//获取时间戳
+ 		function get_unix_time(Time){
+ 			var newstr = Time.replace(/-/g,'/'); 
+ 			var date =  new Date(newstr); 
+ 			var time_str = date.getTime().toString();
+ 			return time_str.substr(0, 10);
+ 		}
+        
+ 		//获取联系人列表的私信记录
+ 		$('.friends-group a').click(function(){
+ 			var friend = $(this).prop('id');
+ 			var name = $(this).next().prop('title');
+ 			$('#chating-buddy').text(name);
+ 			$('.hyq-btn-defaule-lg').attr('friend_id',friend);
+ 			var friend = $('.hyq-btn-defaule-lg').attr('friend_id');
+ 			show();	
+ 		});
+        
+      </script>
+	{/literal}
+  </body>
+</html>

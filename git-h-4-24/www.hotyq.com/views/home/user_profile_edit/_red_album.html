@@ -1,0 +1,262 @@
+<!--这行专门用来存储数据的一定不要删除-->
+	
+	<div id="album-data-store" class="_hidden"></div>
+<!--这行专门用来存储数据的一定不要删除-->
+<div class="column-wrapper album-column ">
+	<!--页面载入的时候只需要做两种判断 如果相册是空的 则是选择 album-first-edit 如果是非空的则选择 album-review-->
+	<!--使用三个Class来控制显示  album-first-edit album-edit album-review -->
+	{if $album_list eq "[null,null,null,null,null,null]"}
+		<!-- <div class="album-manager column-wrapper album-review  RdBorderBtm 相册不空用这句"> -->
+		<div class="album-manager column-wrapper album-first-edit">
+	{else}
+		<div class="album-manager column-wrapper album-review">
+	{/if}
+
+		<div class="row album-lead">
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i>
+				<label class="f18 Blak2">红照片<small class="Gray8"> (上传美照、写真、艺术照、生活照、提升招募吸引力)</small></label>
+				<a class="profile-expend-btn inline-block pull-right" data-trigger-action="hide" data-toggle="hyq-slidedown-content" data-target="#red-gallery-edit-panel" alt="点击添加红照片" title="点击添加红照片"></a>
+				<a class="profile-edit-btn inline-block pull-right" id="album_edit_btn" alt="点击编辑红照片" title="点击编辑红照片"></a>
+			</div>
+		</div>
+
+		<div class="album-box" role="hyq-slidedown-content" id="red-gallery-edit-panel">
+			<div class="poster-album">
+				<ul class="album-wrapper">
+					
+					<li class="album-item">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item ">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item ">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item ">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item ">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+					<li class="album-item ">
+						<div class="busy-mask">
+								<div class="hyq-busy-animate">
+									<span></span><span></span><span></span>
+									<span></span><span></span><span></span>
+									<span></span>
+
+								</div>
+							</div>
+						<ul class="album-action-menu">
+								<li class="album-action-menuitem">
+									<!--<i class="fa fa-file-photo-o"></i> 设为封面-->
+								</li>
+								<li class="album-action-menuitem">
+									<i class="fa fa-trash"></i> 删除照片
+								</li>
+							</ul>
+
+						<div class="album-uploader">
+							<div class="click-mask"></div>
+							<div class="invite-btn">
+								<span></span>
+								<label></label>
+							</div>
+						</div>
+
+						<div class="album-img-box" alt="点击查看大图" title="点击查看大图">
+							<!--<img src="http://img.hotyq.com/albums/39/456/45639/23354853f84e4b84.jpg" photo-id="1">-->
+							<!--这里一定要制定 photo-id 否则很多功能不能用-->
+						</div>
+						<div class="album-no-img-box">
+						</div>
+						<div class="album-item-checkbox"></div>
+						<a class="album-action-btn" href="javascript:void(null)"><em></em><i></i> </a>
+						
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="btn-group album-btn-box">
+				<input type="button" class="hyq-btn hyq-btn-lg exit-edit-btn" value="浏览" />
+				&nbsp;&nbsp;
+				<span class="Gray8 album-message-box"></span>
+				<input type="button" class="hyq-btn hyq-btn-lg hyq-btn-gray pull-right _hidden delete-selected-photo-btn" value="删除选定" style="margin-right:16px;"/>
+				<br/><br/>
+			</div>
+		</div>
+		
+	</div>
+</div>

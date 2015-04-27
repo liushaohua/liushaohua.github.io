@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<!--####### head头信息拿出来  我们会在里面加东西 ####### -->
+	<head> 
+		<meta charset="utf-8">
+		<title>登录</title>
+		<meta name="description" content="">
+		
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="styles/main.css">
+		<style type="text/css">
+		body,td,th {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, Mingliu;
+}
+        </style>
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		<script>
+			$(function() {
+				//每个页面都需要用到的公共JS放在这里
+			});
+		</script>
+	</head>
+	<body>
+	<!--header_simple.html  只是logo的div块 -->
+	{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+	<!-- 包含用于登陆和绑定账户的淡色页眉 -->
+	 
+		<div class="content-wrapper">
+			 
+			<!-- 右侧栏  拆成两个块-->
+			<div class="right-column">
+			{include file="common/ad.html"}			 
+			{include file="common/right_qrcode.html"}
+			<div class="column-spliter"></div>
+			{include file="common/right_advantage.html"}
+			<br class='_clb'/>
+			</div>
+		</div>
+
+		<!-- footer -->
+		{include "common/footer.html"} 
+
+	</body>
+</html>

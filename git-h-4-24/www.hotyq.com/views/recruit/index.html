@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://xijinke.com/hyq/hyq-ui2/index.html -->
+<html class="no-js">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>文化演艺服务招募 - 红演圈</title>
+		<meta name="keywords" content="文化演艺，演艺服务，文化娱乐，演艺招募，名企招募，真实招募，权威招募，文化演艺服务，文化演艺服务招募">
+		<meta name="description" content="红演圈 － 国内最专业的文化演艺服务平台，最新、最火、最靠谱的招募邀约，一目了然、轻松报名。">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		
+		<!-- build:css(.tmp) styles/main.css -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<!-- endbuild -->
+	</head>
+	<body class="recruits-channel">
+		{include "common/header.html"} 
+		{include "common/nav_search.html"}
+        <!-- 主内容栏开始 -->
+		<div class="content-wrapper-index">
+        	<div class="city-con">
+                <span class="work-plcace">工作地点</span>
+                <ul class="hyq-city-category city-wrap">
+                    <li class="hyq-city" cid="0">
+                        <a href="/list/recruit" class="first">全国</a>
+                    </li>
+					{foreach $chief_city_list as $v}
+					<li class="hyq-city" cid="{$v.des}">
+						<!-- <a href="/recruit/?cid={$v.des}">{$v.city_name}</a> -->
+						<a href="/list/recruit?city={$v.des}">{$v.city_name}</a>
+					</li>
+					{/foreach}
+                    <a href="javascript:;" class="other-city-a" >其它<i class="hyq-ic ic-chevron-sm" style="margin:0px 4px 5px 15px;"></i></a>
+                    <div class="other-city-box">
+                         <div class="arrow-city">
+                            <img src="http://icon.hotyq.com/v2/city-arrow-top.jpg" width="21" height="13">
+                        </div>
+						<div class="other-city">
+							{foreach from=$citys item=city_info key=key}
+							<span>{$key}</span>
+							<p>
+								{foreach $city_info as $city}
+								<!-- <a href="/recruit/?cid={$city['id']}" class="hyq-city" cid="{$city['id']}" title="{$city['cname']}" alt="{$city['cname']}">{$city['cname']}</a> -->
+								<a href="/list/recruit?city={$city['id']}" class="hyq-city" cid="{$city['id']}" title="{$city['cname']}" alt="{$city['cname']}">{$city['cname']}</a>
+								{/foreach}
+							</p>
+							{/foreach}
+						</div>
+                    </div>
+				</ul>
+             	<div class="cl"></div>
+			</div>
+			<!--推荐招募-->
+			{include "html/index_recommend_recruit.html"}
+           
+		<!--第一个-->
+		{if isset($arr['专业表演拍摄制作类'])}
+			<div class="recruit-type">
+            	<div class="type-title">
+                    <span></span>
+                    <h3>专业表演拍摄制作类</h3>	
+                </div>
+                <!--选项卡-->
+                <div class="tabsWrap">
+                	<div class="tab-line"></div>
+                    <div class="tabBox">
+                        <ul class="tabScroll">
+                            {foreach name=type_list from=$arr['专业表演拍摄制作类'] key=k item=v}   
+                            <li class="tabUnit {if $smarty.foreach.type_list.iteration eq 1}active{/if}">
+                                <a class="{if key eq $smarty.foreach.type_list.last}last{/if}" title="{$k}" alt="{$k}">{$k}</a>
+                                {if !$smarty.foreach.type_list.first}
+                                <label>|</label>
+                                {/if}
+                            </li>
+                            {/foreach}
+                        </ul>
+                     </div>
+                     <div class="tabArrow">
+                    	<div class="arrow-l"></div>
+                        <div class="arrow-rr"></div>
+                    </div>
+                 </div>
+				<div class="cl"></div>
+              	<div class="hyq-tab-content" >
+					{foreach name=type_box from=$arr['专业表演拍摄制作类'] key=k item=v}
+                    <div class="hyq-tab-pane" {if $smarty.foreach.type_box.index == 0} style="display:block;"{/if}>
+						<p class="more-rec"><a href="/list/recruit?recruit_type={$v.0.type_id}&city={$city_id}" target="_blank">&raquo;&nbsp;更多</a></p>
+                    	{foreach $v as $v0}
+						<div class="recruit-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$v0.id}" target="_blank">
+                                  <div class="img-box">
+										<!--缺省图-->
+										{if $v0.cover_path_url neq ''}
+										<img  src="{$v0.cover_server_url}{$v0.cover_path_url}!f150" title="" alt="">
+										{else}
+										<img  src="{$img_path_arr['专业表演拍摄制作类']}" title="" alt="">
+										{/if}
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$v0.name}</h3>
+                                      <p class="service-con">
+											{foreach $v0['recruit_service_list'] as $v1}
+											<span>{$v1['service_2_name']}</span>
+											{/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span class="">{$v0.interview_end_time}</span><label>{$v0['city_name']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						{/foreach}
+						{for $var=1 to 6-($v|@count)}
+						<div class="box-default">
+                        	<img src="http://icon.hotyq.com/v2/default/rec-org-default.jpg" title="" alt="">
+                        </div>
+						{/for}
+                    </div>
+					{/foreach}
+				</div>
+            
+            </div>
+            <div class="cl"></div>
+            <!--ad1-->
+			{include "html/index_ad_1.html"}
+            <!-- <a href="#" target="_blank"><img src="http://icon.hotyq.com/v2/ad/ad-w1.png" style="margin:5px 0px 20px 0px;"></a> -->
+			<div class="cl"></div>
+		{/if}
+		<!--第二个-->
+		{if isset($arr['专业形象拍摄制作类'])}
+			<div class="recruit-type">
+            	<div class="type-title">
+                    <span></span>
+                    <h3>专业形象拍摄制作类</h3>	
+                </div>
+                <!--选项卡-->
+                <div class="cl"></div>
+                 <div class="tabsWrap">
+                	<div class="tab-line"></div>
+                    <div class="tabBox">
+                        <ul class="tabScroll">
+                            {foreach name=type_list from=$arr['专业形象拍摄制作类'] key=k item=v}   
+                            <li class="tabUnit {if $smarty.foreach.type_list.iteration eq 1}active{/if}">
+                                <a class="{if key eq $smarty.foreach.type_list.last}last{/if}" title="{$k}" alt="{$k}">{$k}</a>
+                                {if !$smarty.foreach.type_list.first}
+                                <label>|</label>
+                                {/if}
+                            </li>
+                            {/foreach}
+                        </ul>
+                     </div>
+                     <div class="tabArrow">
+                    	<div class="arrow-l"></div>
+                        <div class="arrow-rr"></div>
+                    </div>
+                </div>     
+              	<div class="hyq-tab-content"  >
+					{foreach name=type_box from=$arr['专业形象拍摄制作类'] key=k item=v}
+                    <div class="hyq-tab-pane" {if $smarty.foreach.type_box.index == 0} style="display:block;"{/if}>
+						<p class="more-rec"><a href="/list/recruit?recruit_type={$v.0.type_id}&city={$city_id}" target="_blank">&raquo;&nbsp;更多</a></p>
+                    	{foreach $v as $v0}
+						<div class="recruit-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$v0.id}" target="_blank">
+                                  <div class="img-box">
+										<!--缺省图-->
+										{if $v0.cover_path_url neq ''}
+										<img  src="{$v0.cover_server_url}{$v0.cover_path_url}!f150" title="" alt="">
+										{else}
+										<img  src="{$img_path_arr['专业形象拍摄制作类']}" title="" alt="">
+										{/if}
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$v0.name}</h3>
+                                      <p class="service-con">
+											{foreach $v0['recruit_service_list'] as $v1}
+											<span>{$v1['service_2_name']}</span>
+											{/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span class="">{$v0.interview_end_time}</span><label>{$v0['city_name']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						{/foreach}
+						{for $var=1 to 6-($v|@count)}
+						<div class="box-default">
+                        	<img src="http://icon.hotyq.com/v2/default/rec-org-default.jpg" title="" alt="">
+                        </div>
+						{/for}
+                    </div>
+					{/foreach}
+              </div>
+            
+            </div>
+            <div class="cl"></div>
+            <!--ad2-->
+			{include "html/index_ad_2.html"}
+            <!-- <a href="#" target="_blank"><img src="http://icon.hotyq.com/v2/ad/ad-w2.png" style="margin:5px 0px 20px 0px;"></a> -->
+			<div class="cl"></div>
+		{/if}
+		<!--第三个-->
+		{if isset($arr['社会现场活动类'])}
+			<div class="recruit-type">
+            	<div class="type-title">
+                    <span></span>
+                    <h3>社会现场活动类</h3>	
+                </div>
+                <!--选项卡-->
+                <div class="tabsWrap">
+                	<div class="tab-line"></div>
+                    <div class="tabBox">
+                        <ul class="tabScroll">
+                            {foreach name=type_list from=$arr['社会现场活动类'] key=k item=v}   
+                            <li class="tabUnit {if $smarty.foreach.type_list.iteration eq 1}active{/if}">
+                                <a class="{if key eq $smarty.foreach.type_list.last}last{/if}" title="{$k}" alt="{$k}">{$k}</a>
+                                {if !$smarty.foreach.type_list.first}
+                                <label>|</label>
+                                {/if}
+                            </li>
+                            {/foreach}
+                        </ul>
+                     </div>
+                     <div class="tabArrow">
+                    	<div class="arrow-l"></div>
+                        <div class="arrow-rr"></div>
+                    </div>
+                 </div>
+                <div class="cl"></div>
+              	<div class="hyq-tab-content" >
+					{foreach name=type_box from=$arr['社会现场活动类'] key=k item=v}
+                    <div class="hyq-tab-pane" {if $smarty.foreach.type_box.index == 0} style="display:block;"{/if}>
+						<p class="more-rec"><a href="/list/recruit?recruit_type={$v.0.type_id}&city={$city_id}" target="_blank">&raquo;&nbsp;更多</a></p>
+                    	{foreach $v as $v0}
+						<div class="recruit-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$v0.id}" target="_blank">
+                                  <div class="img-box">
+										<!--缺省图-->
+										{if $v0.cover_path_url neq ''}
+										<img  src="{$v0.cover_server_url}{$v0.cover_path_url}!f150" title="" alt="">
+										{else}
+										<img  src="{$img_path_arr['社会现场活动类']}" title="" alt="">
+										{/if}
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$v0.name}</h3>
+                                      <p class="service-con">
+											{foreach $v0['recruit_service_list'] as $v1}
+											<span>{$v1['service_2_name']}</span>
+											{/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span class="">{$v0.interview_end_time}</span><label>{$v0['city_name']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						{/foreach}
+						{for $var=1 to 6-($v|@count)}
+						<div class="box-default">
+                        	<img src="http://icon.hotyq.com/v2/default/rec-org-default.jpg" title="" alt="">
+                        </div>
+						{/for}
+                    </div>
+					{/foreach}
+              </div>
+            
+            </div>
+			<div class="cl"></div>
+		{/if}
+		<!--第四个-->	
+		{if isset($arr['社会大众类'])}
+			<div class="recruit-type">
+            	<div class="type-title">
+                    <span></span>
+                    <h3>社会大众类</h3>	
+                </div>
+                <!--选项卡-->
+                <div class="tabsWrap">
+                	<div class="tab-line"></div>
+                    <div class="tabBox">
+                        <ul class="tabScroll">
+                            {foreach name=type_list from=$arr['社会大众类'] key=k item=v}   
+                            <li class="tabUnit {if $smarty.foreach.type_list.iteration eq 1}active{/if}">
+                                <a class="{if key eq $smarty.foreach.type_list.last}last{/if}" title="{$k}" alt="{$k}">{$k}</a>
+                                {if !$smarty.foreach.type_list.first}
+                                <label>|</label>
+                                {/if}
+                            </li>
+                            {/foreach}
+                            
+                        </ul>
+                    </div>
+                    <div class="tabArrow">
+                    	<div class="arrow-l"></div>
+                        <div class="arrow-rr"></div>
+                    </div>
+                </div>
+                <div class="cl"></div>
+              	<div class="hyq-tab-content" >
+					{foreach name=type_box from=$arr['社会大众类'] key=k item=v}
+                    <div class="hyq-tab-pane" {if $smarty.foreach.type_box.index == 0} style="display:block;"{/if}>
+						<p class="more-rec"><a href="/list/recruit?recruit_type={$v.0.type_id}&city={$city_id}" target="_blank">&raquo;&nbsp;更多</a></p>
+                    	{foreach $v as $v0}
+						<div class="recruit-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$v0.id}" target="_blank">
+                                  <div class="img-box">
+										<!--缺省图-->
+										{if $v0.cover_path_url neq ''}
+										<img  src="{$v0.cover_server_url}{$v0.cover_path_url}!f150" title="" alt="">
+										{else}
+										<img  src="{$img_path_arr['社会大众类']}" title="" alt="">
+										{/if}
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$v0.name}</h3>
+                                      <p class="service-con">
+											{foreach $v0['recruit_service_list'] as $v1}
+											<span>{$v1['service_2_name']}</span>
+											{/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span class="">{$v0.interview_end_time}</span><label>{$v0['city_name']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						{/foreach}
+						{for $var=1 to 6-($v|@count)}
+						<div class="box-default">
+                        	<img src="http://icon.hotyq.com/v2/default/rec-org-default.jpg" title="" alt="">
+                        </div>
+						{/for}
+                    </div>
+					{/foreach}
+              </div>
+            
+            </div>
+			<div class="cl"></div>
+		{/if}
+		<!--第五个-->	
+		{if isset($arr['其他招募'])}
+			<div class="recruit-type">
+            	<div class="type-title">
+                    <span></span>
+                    <h3>其他招募</h3>	
+                </div>
+                <div class="cl"></div>
+                <!--选项卡-->
+                <div class="tabsWrap">
+                	<div class="tab-line"></div>
+                    <div class="tabBox">
+                        <ul class="tabScroll">
+                            {foreach name=type_list from=$arr['其他招募'] key=k item=v}   
+                            <li class="tabUnit {if $smarty.foreach.type_list.iteration eq 1}active{/if}">
+                                <a  class="{if key eq $smarty.foreach.type_list.last}last{/if}" title="{$k}" alt="{$k}">{$k}</a>
+                                {if !$smarty.foreach.type_list.first}
+                                <label>|</label>
+                                {/if}
+                            </li>
+                            {/foreach}
+
+                        </ul>
+                   </div>
+                   <div class="tabArrow">
+                    	<div class="arrow-l"></div>
+                        <div class="arrow-rr"></div>
+                    </div>
+                 </div>
+              	<div class="hyq-tab-content" >
+					{foreach name=type_box from=$arr['其他招募'] key=k item=v}
+                    <div class="hyq-tab-pane" {if $smarty.foreach.type_box.index == 0} style="display:block;"{/if}>
+						<p class="more-rec"><a href="/list/recruit?recruit_type={$v.0.type_id}&city={$city_id}" target="_blank">&raquo;&nbsp;更多</a></p>
+                    	{foreach $v as $v0}
+						<div class="recruit-box">
+                        	<div class="r-content">
+                            	<a href="/recruit/{$v0.id}" target="_blank">
+                                  <div class="img-box">
+										<!--缺省图-->
+										{if $v0.cover_path_url neq ''}
+										<img  src="{$v0.cover_server_url}{$v0.cover_path_url}!f150" title="" alt="">
+										{else}
+										<img  src="{$img_path_arr['其他招募']}" title="" alt="">
+										{/if}
+                                  </div>
+                                  <div class="txt-box">
+                                      <h3 title="" alt="">{$v0.name}</h3>
+                                      <p class="service-con">
+											{foreach $v0['recruit_service_list'] as $v1}
+											<span>{$v1['service_2_name']}</span>
+											{/foreach}
+                                      </p>
+                                      <div class="bot-ab">
+                                          <em>截止时间</em><span class="">{$v0.interview_end_time}</span><label>{$v0['city_name']}</label>
+                                      </div>
+                                  </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+						{/foreach}
+						{for $var=1 to 6-($v|@count)}
+						<div class="box-default">
+                        	<img src="http://icon.hotyq.com/v2/default/rec-org-default.jpg" title="" alt="">
+                        </div>
+						{/for}
+                    </div>
+					{/foreach}
+              </div>
+            
+            </div>
+			<div class="cl"></div>
+		{/if}
+		</div>
+		
+        <!-- 主内容栏结束 -->
+		{include "common/footer.html"}
+		{literal}
+		<script type="text/javascript">
+				{/literal}
+				var chief_city_list = {$json_chief_city_list};
+				var city_id = {$city_id};
+			{literal}
+			$(document).ready(function() {
+				$(".down-expend-btn,.down-foldup-btn,.read-more-info-zk-1").click(function() {
+					$(".down-expend-btn,.down-foldup-btn").toggle();
+					if ($("#reds-details").is(":hidden")) {
+						$("#reds-details").fadeIn();
+					} else {
+						$("#reds-details").fadeOut();
+					}
+				});
+				//另一种方案 点击城市  跳转到本页
+				$('.hyq-city').each(function(){
+					//处理城市飘红  
+					if($(this).attr('cid') == city_id){
+						$(this).addClass('active');
+					}
+				});
+				//处理其他变红的问题   cid不在手动城市里  其它变红
+				var is_red = true;
+				if(city_id == 0){is_red = false;}
+				for(var i=0;i<chief_city_list.length;i++){
+					if(city_id == chief_city_list[i]['des']){
+						//所选城市  在数组里  其他不变红（本来红 一旦在里面 不红）
+						is_red = false;
+					}
+				}
+				if(is_red){ 
+					$('.other-city-a').css('color','red');
+				}
+			});
+		</script>
+		<script src="../../sea.js"></script>
+		<script>
+			seajs.config({
+				base: 'js/dist'
+			});
+			seajs.use(['hyq/static/page/recruit/recruit.js']);
+		</script>
+		{/literal}
+	</body>
+</html>

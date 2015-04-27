@@ -1,0 +1,299 @@
+
+html{
+	background: #f2f2f2;
+	font-family: '微软雅黑';
+	color:#000;
+}
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+#slider,#slider1{
+	width: 100%;
+	background: #3c3c3c;
+}
+#slider a,#slider1 a{
+	display: block;
+}
+#slider img,#slider1 img{
+	display: block;
+	width:100%;
+}
+.sliderArc-one,.sliderArc-one1{
+	position: absolute;
+	width:100%;
+	bottom:0.66em;
+	background: none;
+	left:0;
+	z-index: 10;
+	text-align: center;
+}
+.sliderArc-one span,.sliderArc-one1 span{
+	height:8px;
+	width:8px;
+	background: #fff;
+	border-radius: 50%;
+	display: inline-block;
+	margin:0 4px;
+}
+.sliderArc-one span.on{
+	background: #ff3333;
+}
+.sliderArc-one1 span.on{
+	background: #ff3333;
+}
+.content .navs{
+	margin-top:1rem;
+	background: #fff;
+	overflow: hidden;
+}
+.biao{
+	width:100%;
+	height: 2.66rem;
+	border-top:0.06rem solid #ececec;
+	border-bottom:0.06rem solid #ececec;
+	position: relative;
+	font-size: 1rem;
+	line-height: 2.66rem;
+	text-indent: 1.33rem;
+}
+.biao:before{
+	content: '';
+    position: absolute;
+    width:0.33rem;
+    height: 100%;
+    left:0;
+    top:0;
+}
+.fuwu .biao:before{
+	background: #ff3300;
+}
+.fuwu .biaos{
+	width:100%;
+	overflow: hidden;
+}
+.fuwu .biaos a{
+	float: left;
+	width:25%;
+	height: auto;
+	overflow: hidden;
+}
+.fuwu .biaos img{
+	display: block;
+	width:56.5%;
+	margin: 0 auto;
+	margin-top:1.33rem;
+}
+.fuwu .biaos span{
+	display: block;
+	text-align: center;
+	width:100%;
+	font-size: 0.8rem;
+    color:#666;
+    margin-top: 0.8rem;
+}
+.fuwu .biaos{
+	padding-bottom: 1.33rem;
+	border-bottom:0.06rem solid #ececec;;
+}
+.ad{
+	display: block;
+	margin-top:1rem;
+}
+.ad img{
+	display: block;
+	width: 100%;
+}
+.hongren .biao:before{
+	background: #ff8e00;
+}
+.hots{
+	width:90%;
+	margin:0 auto;
+	height:2.26rem;
+	line-height: 2.26rem;
+	overflow-x:auto;
+	display:-webkit-box;
+	-webkit-box-orient:horizontal;
+	-webkit-box-lines:multiple;
+}
+.hots em{
+	font-size:0.8rem; 
+	color: #666;
+	display: block;
+	padding:0 0.4rem;
+}
+.hots-biao {
+    position: relative;
+}
+.hots-biao .before,.hots-biao .after{
+	position: absolute;
+    border-top: 0.5rem solid transparent;
+    border-right: 0.5rem solid #d4d4d4;
+    border-bottom: 0.5rem solid transparent;
+    right:96.5%;
+    top:50%;
+    -webkit-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -moz-transform: translate0%,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%); 
+}
+.hots-biao .after{
+	left:96.5%;
+	border:0;
+	border-top: 0.5rem solid transparent;
+    border-left: 0.5rem solid #d4d4d4;
+    border-bottom: 0.5rem solid transparent;
+}
+.hots em.hot-on{
+	color:#ff3300;
+	font-size: 1rem; 
+}
+.diandian{
+	text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.heads{
+	width:100%;
+	display: block;
+	overflow: hidden;
+	clear:both;
+	padding-top:0.33rem;
+	padding-bottom:1.33rem;
+}
+.heads a{
+	float: left;
+	width:25%;
+}
+.heads a img{
+	display: block;
+	width:70%;
+	margin:0 auto;
+	margin-top:1rem;
+	border-radius: 50%;
+	border:1px solid #b3b3b3;
+}
+.heads a span{
+	font-size: 0.8rem;
+	width:80%;
+	margin:0 auto;
+	display: block;
+	text-align: center;
+	color: #231815;
+	margin-top:0.8rem;
+	text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.zhuanti .biao:before{
+	background: #7cde8b;
+}
+.zhaomu .biao:before{
+	background: #99ccff;
+}
+.zhaomuCotent{
+	display: block;
+	clear: both;
+	overflow: hidden;
+}
+.zhaomuCotent a{
+	float: left;
+	width:49%;
+	overflow: hidden;
+}
+.zhaomuCotent img{
+	width:100%;
+	display: block;
+}
+.zhaomuCotent div{
+	width:100%;
+	height: 2rem;
+	background: #e6e6e6;
+	line-height: 2rem;
+	font-size: 0.8rem;
+	position: relative;
+}
+.zhaomuCotent div span{
+	float: left;
+	width: 60%;
+	text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+    padding-left:1rem;
+    color: #333;
+    position: absolute;
+    left:0;
+    top:0;
+}
+.zhaomuCotent div i{
+    float: right;
+    padding:0 0.5rem;
+    color:#666;
+    position: absolute;
+    right:0;
+    top:0;
+}
+.zhaomuCotent a:nth-of-type(odd){
+	margin-right: 2%;
+}
+.change{
+	width:100%;
+	height: 3rem;
+	font-size: 0.8rem;
+	line-height: 3rem;
+	color: #666;
+	text-align: center;
+	position: absolute;
+	z-index: 1;
+	top:-3rem;
+	left:0;
+}
+.contents{
+	position: relative;
+}
+.opa-back{
+	-webkit-animation-duration:0.3s;
+	-webkit-animation-name:opa-back;
+	-webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes opa-back
+{
+	
+to{  
+	 -webkit-transform: translate(0);
+}
+
+}
+.heads{
+	display: none;
+	opacity: 0;
+	-webkit-animation-delay:0s;
+	-webkit-animation-duration:1s;
+}
+div.hot-now{
+	display: block;
+}
+.go-back{
+	-webkit-animation-name:go-back;
+	-webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes go-back
+{
+	
+to{  
+	 opacity:1;
+}
+
+}

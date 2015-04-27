@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>意见反馈</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>		
+		<style>
+		{literal}
+		.hyq-complaint-info{min-height:290px;}
+		.hyq-complaint-info textarea{ color:#333;}
+		.hyq-complaint-info .btn-wrap{margin:20px 0 50px -14px;}
+		{/literal}
+		</style>
+		 
+	</head>
+	<body>
+		
+	{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+        <!-- 主内容栏开始 -->
+		<div class="content-wrapper">
+              <div class="lead-title lead-title-bg">
+              	<i class="hyq-ic ic-label-mark"></i><label class="Blak1">意见反馈</label>
+              </div>
+               <div class="hyq-complaint-success">
+            		<h3>
+                        <i class="hyq-ic ic-success-lg"></i>
+                        <span>意见已提交，非常感谢！</span>				
+                    </h3>
+                    <p>本页5秒内自动返回</p>
+                  	<p>你可以<a href="javascript:;">返回上一页</a>或<a href="javascript:;">返回首页</a></p>
+                    
+               </div>
+                
+      
+        </div>
+       
+        <!-- 主内容栏结束 -->
+		<!--尾部开始-->
+		<!-- footer -->
+		{include "common/footer.html"} 	
+       <!--尾部结束-->
+
+		<script type="text/javascript">
+		{literal}
+			$(document).ready(function(){//发布的时候把这行注释掉
+				//获得所有缩略图节点
+				var busyFlag = false;//防止没有载入完可以点
+				$(".thumb-item img").centerInBox();
+				$(".thumb-item").click(function(){
+					if(busyFlag) return;
+					busyFlag = true;
+					//先移除
+					$(".photo-wrapper").remove('img');
+					//在载入
+					var img = $("<img>").attr({"src":"http://a3.att.hudong.com/45/16/01300000013093119297165527653.jpg"});
+					$(".photo-wrapper").append(img);
+
+					//根据图片载入情况来操作
+					img.each(function(){
+
+						if(this.complete) $(this).load();
+						 
+					});
+
+					img.load(function(){
+						$(this).centerInBox();
+						busyFlag = false;
+					});
+					 
+
+				});
+
+
+			})
+		{/literal}	
+		</script>
+	</body>
+</html>

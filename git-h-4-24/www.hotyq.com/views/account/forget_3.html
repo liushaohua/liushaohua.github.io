@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>找回密码 - 红演圈</title>
+		<meta name="description" content="">
+		
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		<style type="text/css">
+			body {
+				background: url(http://icon.hotyq.com/v2/login-bg.jpg) top center repeat;
+			}
+			.fix-fg {
+				margin-bottom: 15px;
+				vertical-align: middle;
+				font-size: 14px;
+				line-height: 18px;
+				display: block;
+			}
+			.setp-box {
+				margin: 0px;
+				padding: 0px;
+				text-align: center;
+				width: 480px;
+				margin: 0 auto;
+			}
+			.setp-box input[type='text'] {
+				margin: 0 auto;
+				width: 360px;
+			}
+			.setp-box .dash-line {
+				width: 54px;
+				height: 0px;
+				position: absolute;
+				border: none;
+				display: block;
+				right: 3px;
+				top: 50%;
+			}
+			.setp-box .dash-line-red {
+				border-bottom: 2px dotted #ff3300;
+			}
+			.setp-box .dash-line-gray {
+				border-bottom: 2px dotted #ccc;
+			}
+			.dl-left {
+				left: -1px;
+			}
+			.step-icon {
+				width: 160px;
+				position: relative;
+				display: inline-block;
+				margin: 0px;
+				padding: 0px;
+				float: left;
+			}
+			.fix-field-width {
+				width: 320px;
+			}
+			.fix-field-width-2 {
+				width: 480px;
+			}
+			
+			.form-group-centered {
+				position:relative;
+			}
+			
+			.form-group-centered .form-group-pass-label{
+				position:absolute;
+				left:5px;
+			}
+
+		</style>
+	</head>
+	<body>
+		{include "common/header_simple.html"}
+		<form>
+			<input id="hide_login_type" type="hidden" value="{$account_info['login_type']}">
+			<input id="hide_account" type="hidden" value="{$account_info['account']}">
+			<input id="hide_uid" type="hidden" value="{$account_info['uid']}">
+			<input id="hide_forget_code" type="hidden" value="{$account_info['forget_code']}">
+			<!--mobile-->
+			<input id="hide_mobile" type="hidden" value="{$mobile_session_info['mobile']}">
+			<input id="hide_mobile_code" type="hidden" value="{$mobile_session_info['mobile_code']}">
+		</form>
+		<div class="content-wrapper _zeroPDTop">
+			<div class="main-column-a _relativePos">
+				<!-- 第三步 -->
+				<div class="column-wrapper RdBorderBtm ">
+					<br/>
+					<br/>
+					<br/>
+					<div class="setp-box">
+						<div class="step-icon">
+							<div class="dash-line dash-line-red"></div>
+							<div class="_clb Rd f20">
+								1
+							</Div>
+							<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+							<div class="_clb f15 lh32">
+								填写邮箱或者手机号
+							</div>
+						</div>
+						<div class="step-icon">
+							<div class="dash-line dl-left dash-line-red"></div>
+							<div class="dash-line dash-line-red"></div>
+							<div class="_clb Rd f20">
+								2
+							</Div>
+							<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+							<div class="_clb f15 lh32">
+								验证
+							</div>
+						</div>
+						<div class="step-icon">
+							<div class="dash-line dl-left dash-line-red"></div>
+							<div class="_clb Rd f20">
+								3
+							</Div>
+							<div class="hyq-ic ic-OK  _clb _centerTheBox"></div>
+							<div class="_clb f15 lh32">
+								重置密码
+							</div>
+						</div>
+					</div>
+					<br class="_clb"/>
+					<br class="_clb"/>
+					<div id="point" class="setp-box f18">
+						手机号码： 13800000000
+					</div>
+					<form id="reset_form" class="hyq-form" action="##">
+						<div class="form-group-centered fix-field-width ">
+							<label class="form-group-pass-label">请输入新密码</label>
+							<input id="password" type="password" name="new_passwd" class="fix-field-width" />
+							<div id="password_error" style="display:none;" class="hyq-f-err">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请输入6——16位密码</label>
+							</div>
+						</div>
+
+						<div class="form-group-centered fix-field-width">
+							<label class="form-group-pass-label">请再次输入新密码</label>
+							<input  id="re_password" type="password" class="fix-field-width"	/>
+							<div  id="repassword_error" style="display:none;"  class="hyq-f-err">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>两次密码输入不一致。 </label>
+							</div>
+						</div>
+						<div id="reset_msg" style="display:none;" class="txt-center f16 Rd">
+							你的信息
+						</div>
+						<br class="_clb">
+						<div id="find_btn" class="setp-box">
+							<input type="button" class="hyq-btn hyq-btn-lg" value="确定"/>
+						</div>
+						<div id="mobile_find_btn" style="display:none;" class="setp-box">
+							<input type="button" class="hyq-btn hyq-btn-lg" value="确定"/>
+						</div>
+					</form>
+					<form id="go_login_form" style="display:none;" action="##" class="hyq-form txt-center">
+						<div class="f18">
+							密码重置成功 !
+						</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+						<div class="setp-box">
+							<a type="button" class="hyq-btn hyq-btn-lg" href="/account/login.php">马上登录</a>
+						</div>
+					</form>
+					<br class="_clb"/>
+				</div>
+				{literal}
+				<script>
+					$(function() {
+						var login_type = $('#hide_login_type').val();
+						//var account = $('#hide_account').val();
+						//根据传递参数  判断 显示  隐藏
+						if (login_type == 'email') {
+							//email
+							var account = $('#hide_account').val();
+							$('#point').text(account);
+						} else if (login_type == 'mobile') {
+							//mobile
+							var account = $('#hide_mobile').val();
+							var point_account = '手机号码：' + account;
+							$('#point').text(point_account);
+
+							$('#find_btn').hide();
+							$('#mobile_find_btn').show();
+						}
+						//输入的时候  隐藏提示
+						$('#password').focus(function() {
+							$(this).prev('.form-group-pass-label').hide();
+							$('#password_error').hide();
+						});
+						
+						$('.form-group-pass-label').click(function () {
+							$(this).next('input').focus();
+						});
+						
+						$('#re_password').focus(function() {
+							$(this).prev('.form-group-pass-label').hide();
+							$('#repassword_error').hide();
+						});
+						//判断密码格式
+						$('#password').blur(function() {
+							var password = $(this).val();
+							//请输入密码！
+							if (password == '') {
+								$('#password_error label').text('请输入密码！');
+								$('#password_error').show();
+								$(this).prev('.form-group-pass-label').show();
+								return false;
+							}
+							//请输入6——16位密码，字母区分大小写
+							if (password.length < 6 || password.length > 16) {
+								$('#password_error label').text('请输入6——16位密码，字母区分大小写');
+								$('#password_error').show();
+								return false;
+							}
+						});
+						$('#re_password').blur(function() {		
+							var password = $('#password').val();
+							var re_password = $(this).val(),
+								$this = $(this);
+							
+							if ($this.val() == '') {
+								$this.prev('.form-group-pass-label').show();
+							}
+							
+							//两次密码输入不一致！
+							if (re_password != password) {
+								$('#repassword_error label').text('两次密码输入不一致！');
+								$('#repassword_error').show();
+								
+								return false;
+							}
+						});
+						//确定
+						$('#find_btn').click(function() {
+							$("#password").trigger('blur');
+							$("#re_password").trigger('blur');
+							if ($('#password_error').css('display') == 'block') {
+								return false
+							}
+							if ($('#repassword_error').css('display') == 'block') {
+								return false
+							}
+							var uid = $('#hide_uid').val();
+							var email_forget_code = $('#hide_forget_code').val();
+							var new_password = $('#password').val();
+							var re_new_password = $('#re_password').val();
+
+							var action = 'update_psw_email';
+							//ajax发送新密码  后台修改数据库 $uid,$new_password,$email_forget_code
+							$.post("/account/ajax/ajax_account.php", {
+								uid : uid,
+								new_password : new_password,
+								re_new_password : re_new_password,
+								email_forget_code : email_forget_code,
+								action : action
+							}, function(data) {
+								//alert(data);
+								if (parseInt(data) == 1000) {
+									//确定上方 显示密码重置成功
+									//var Mes = state_list[data];
+									$('#point').hide();
+									$('#reset_form').hide();
+									$('#go_login_form').show();
+									//location.href="";
+								} else {
+									var Mes = state_list[parseInt(data)];
+									$('#reset_msg').text(Mes);
+									$('#reset_msg').show();
+								}
+							});
+
+						});
+						//修改成功  上方显示  密码重置成功  跳转首页
+						//手机找回密码时的 确定按钮
+						$('#mobile_find_btn').click(function() {
+							$("#password").trigger('blur');
+							$("#re_password").trigger('blur');
+							if ($('#password_error').css('display') == 'block') {
+								return false
+							}
+							if ($('#repassword_error').css('display') == 'block') {
+								return false
+							}
+
+							var action = 'update_psw_mobile';
+							var account = $('#hide_mobile').val();
+							var mobile_forget_code = $('#hide_mobile_code').val();
+							var new_password = $('#password').val();
+							var re_new_password = $('#re_password').val();
+							//ajax发送新密码 account new_password re_new_password action 修改数据库
+							$.post("/account/ajax/ajax_account.php", {
+								account : account,
+								new_password : new_password,
+								re_new_password : re_new_password,
+								mobile_forget_code : mobile_forget_code,
+								action : action
+							}, function(data) {
+								//alert(data);
+								if (parseInt(data) == 1000) {
+									//确定上方 显示密码重置成功  //隐藏头 隐藏form  显示form
+									//var Mes = state_list[data];
+									$('#point').hide();
+									$('#reset_form').hide();
+									$('#go_login_form').show();
+									//location.href="";
+								} else {
+									var Mes = state_list[parseInt(data)];
+									$('#reset_msg').text(Mes);
+									$('#reset_msg').show();
+								}
+							});
+						});
+					});
+				</script>
+				{/literal}
+			</div>
+			<div class="right-column">
+				{include file="html/right_qrcode.html"}
+				<br class='_clb'/>
+			</div>
+		</div>
+		{include "common/footer.html"}
+	</body>
+</html>

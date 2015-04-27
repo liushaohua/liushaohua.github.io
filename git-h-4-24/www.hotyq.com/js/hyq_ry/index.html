@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app="RongIMDemo">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="full-screen" content="yes">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>融云 Demo - Web SDK</title>
+    <meta name="keywords"
+          content="融云,即时通讯,即时通讯云,即时通信云,移动 IM,开源 IM,IM 云服务,即时聊天软件,VOIP,移动客服,在线客服,免费,App 开发者服务，融云 Demo ，Web Demo，即时通讯 Demo"/>
+    <meta name="description" content="融云 Web Demo 下载体验！"/>
+    <link href="static/css/main.css?v=2" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body class="container">
+
+<div class="wrap">
+    <div class="left">
+        <div class="dialog_header header">
+                    <span class="owner_image" style="display: none;">
+                        <img RCTarget="owner.portrait" onerror="this.src='static/images/personPhoto.png'"/>
+                    </span>
+                    <span class="owner_name" RCTarget="owner.name">
+                    </span>
+                    <span class="setting" style="display: none;">
+                        <a href="javascript:void(0)" id="setting"><label></label> </a>
+                    </span>
+        </div>
+        <div class="phone_dialog_header header">
+                    <span class="logOut">
+                        <a href="javascript:void(0)" ng-click="logout()" title="退出"></a>
+                    </span>
+                    <span class="addrBtnBack btnBack">
+                        <a href="javascript:void(0)" title="返回">＜ 返回</a>
+                    </span>
+            融云
+                    <span class="addrBtn">
+                        <a href="javascript:void(0)" title="联系人"></a>
+                    </span>
+        </div>
+        <div class="settingView">
+            <span class="volSetting"><span class="hover" id="closeVoice">关闭声音</span></span>
+            <hr>
+            <span  class="logOut"><span id="close" class="hover">退出登录</span></span>
+        </div>
+
+        <div class="listConversation list">
+            <ul id="conversationlist">
+              
+            </ul>
+        </div>
+        <div class="listAddr list" style="display:none ;">
+            <div class="nameInitials">群组</div>
+            <ul>
+                <li targetId="group001" targetName="融云群一" targetType="3">
+                    <span class="user_img"><img src="static/images/user.png"/></span>
+                    <span class="user_name">融云群一</span>
+                </li>
+                <li targetId="group002" targetName="融云群二" targetType="3">
+                    <span class="user_img"><img src="static/images/user.png"/> </span>
+                    <span class="user_name">融云群二</span>
+                </li>
+                <li targetId="group003" targetName="融云群三" targetType="3">
+                    <span class="user_img"><img src="static/images/user.png"/> </span>
+                    <span class="user_name">融云群三</span>
+                </li>
+            </ul>
+            <div class="nameInitials">客服</div>
+            <ul>
+                <li targetId="rong.io.kefu.service112" targetName="融云客服" targetType="1">
+                    <span class="user_img"><img src="static/images/user.png"/></span>
+                    <span class="user_name">融云客服</span>
+                </li>
+            </ul>
+            <div class="nameInitials">好友列表</div>
+            <ul id="friendsList">
+                
+            </ul>
+        </div>
+    </div>
+    <div class="right_box" style="display:none ;">
+        <div class="right">
+            <div class="dialog_box_header header">
+                <a href="javascript:void(0)" class="btnBack">＜ 返回 <label></label></a>
+                <span id="conversationTitle"></span>
+            </div>
+            <div class="dialog_box">
+                
+            </div>
+            <div class="msg_box">
+                <div class="features">
+                            <span class="expression">
+                                <a href="javascript:void(0)" id="RongIMexpression" title="表情"></a>
+                            </span>
+                </div>
+                <div class="input_box">
+                    <div class="button_box">
+                        <div id="expresscontent"></div>
+                        <span><button id="send">发送</button></span>
+                        <span><font>Ctrl + Enter</font></span>
+                    </div>
+                    <div class="text_box">
+                        <textarea class="textarea" id="mainContent" style="resize: none"></textarea>
+                    </div>
+                </div>
+                <div class="RongIMexpressionWrap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+ <script src='jquery-1.8.2.min.js'></script>
+    <script src='jquery.nicescroll.js?v=2'></script>
+    <script src="http://res.websdk.rong.io/RongIMClient.min.js"></script>
+    <script src="engine.js"></script>
+    <script src="http://res.websdk.rong.io/RongIMClient.voice-0.9.1.min.js"></script>
+<script src="http://res.websdk.rong.io/RongIMClient.emoji-0.9.2.min.js"></script>
+<script src="common.js"></script>
+<audio style="width: 0px;height: 0px;display: none;" src="static/images/sms-received.mp3" controls="controls">
+</audio>
+</html>

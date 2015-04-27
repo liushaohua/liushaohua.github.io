@@ -1,0 +1,367 @@
+{assign var="raFirstEdit" value="_hidden"}
+{assign var="raReview" value=""}
+<!-- //有_hidden的 就是开启的模式 -->
+<div class="column-wrapper hyq-column-content ra-wrapper clearfix redcard-column">
+	<div class="row album-lead">
+			<div class="lead-title">
+				<i class="hyq-ic ic-label-mark"></i>
+				<label class="f18 Blak2">红艺人<small class="Gray8"> (上传旗下艺人资料，扩大机构传播推广)</small></label>
+				<a class="profile-expend-btn   pull-right {$raReview} " id="ra-expend-btn" alt="点击添加红艺人" title="点击添加红艺人"></a> 
+				<a class="profile-edit-btn   pull-right {$raFirstEdit}" id="ra-edit-btn" alt="点击编辑红艺人" title="点击编辑红艺人"></a>
+			</div>
+	</div>
+	<div id="ra-reviewbox" class="row2  hyq-review-box ">
+	</div>
+	
+
+	<div id="ra-formbox" class="row2  hyq-formbox _zeroPDBottom _hidden" >
+		<form class='ra-form' id="artist_frame">
+		<div class="ra-form-group">
+
+			<div class="form-group">
+										
+				<input name="artistName" class="col-md-5 err-field"  placeholder="名字" type="text">
+				<!-- 减号 -->	
+				<div class="role-minus-wrap"><i class="hyq-ic ic-minus-gray role_minus_btn del_button" style="margin-top:25px;"></i></div>
+			</div>			
+			<div class="form-group">
+				<textarea placeholder="简介" name="artistInfo" class="col-md-11" onkeyup="check_length(this);"></textarea>
+				<div class="word-hint">还可输入<span>150</span>字</div>
+			</div>
+		</div>
+		<div class="form-group" id="add_artist_button">
+			<a href="javascript:void(null)" class="f14" id="add-artist-btn">
+				<i class="hyq-ic ic-plus-red"></i>
+				<span class="f13">添加红艺人</span>
+			</a>
+		</div>
+
+		</form>
+		
+	</div>
+	<div class="row2 _hidden" id="ra-notice-message">保存成功</div>
+	<div class="row2 ra-btnbox _hidden">
+	 	
+			 
+		<input class="hyq-btn hyq-btn-lg" type="button" id="ra-save-btn" value="保&nbsp;&nbsp;存">
+		&nbsp;&nbsp;
+		<input type="button" value="取&nbsp;&nbsp;消" id="ra-cancle-btn" class="hyq-btn hyq-btn-thin-lg" />
+			<br class="_clb"/>
+			<br class="_clb"/>
+	</div>
+	<textarea id="artist_list" style="display:none">{$artist_list}</textarea>
+
+</div>
+{literal}
+<script type="text/javascript">
+
+	$(document).ready(function(){
+	
+{/literal}
+		var red_artist_state = '{$red_artist_state}'; //红艺人是否有数据(1有)
+		var artist_list = $('#artist_list').val();
+	
+{literal}
+		
+		if(artist_list == ''){
+			var rawJSON = null;	 
+		}else{
+			var rawJSON = artist_list;
+		}
+	
+		//如果觉得拼JSON麻烦 也可以直接拼成JS对象
+		var formData = rawJSON?JSON.parse( rawJSON.replace(/\n/g,"<br />")):[];
+		var formDataRaw =$.extend(true,{}, formData);
+		//var formData = artist_list; //临时解决方案
+		 
+		var expendBtn = $("#ra-expend-btn");	//加号
+		var raEditBtn = $("#ra-edit-btn"); 	//笔
+		var raReview = $(".ra-wrapper #ra-reviewbox");	//预览模式 框
+		var raFormBox  = $(".ra-wrapper .hyq-formbox");	//编辑模式 框
+		var raForm = $('.ra-wrapper .ra-form')		//整体框
+		var raBtnBx = $(".ra-btnbox");	//保存取消的框
+		var addAtistBtn = $("#add-artist-btn");	//添加红艺人按钮
+		var noticeNode = $("#ra-notice-message");
+
+		var raSaveBtn = $('#ra-save-btn');
+		var raCancleBtn =$('#ra-cancle-btn');
+		check_red_artist_state();
+		//判断编辑模式和加号模式
+		console.log(2)
+		function check_red_artist_state(){
+			if(red_artist_state == 1){
+				//编辑模式
+				expendBtn.hide();  //加号
+				raEditBtn.show();		//笔
+			}else if(red_artist_state == 0){
+				//加号模式
+				expendBtn.show();		//加号
+				raEditBtn.hide();	//笔
+			}
+		}	
+		console.log(3);
+		//rendering review 
+		var raRenderingReview =function(formData){
+		 
+			raReview.find('.ra-item').remove(); //预览模式
+			if(formData.length>0){
+				console.log("开始渲染");
+				//渲染 review模式
+				$.each(formData,function(i,e){
+					if(e.name.length !=0){
+					//e.info.replace(/\n/g,"<br />");
+						var item = $("<div>").addClass('ra-item').appendTo(raReview); //预览模式
+						item.append('<div class="ra-name"><label class="em Rd">&diams;</label><label>'+e.name+'</label></div>').append('<div class=ra-info>'+(e.info.replace(/\n/g,"<br />"))+'</div>');
+						if(i<formData.length-1)
+						item.append($("<div>").addClass('spliter-tall gray-spliter'));
+						//if((i+1)<formData.length){
+						//	raReview.append($("<div>").addClass('spliter-tall gray-spliter')); 
+						//}	
+					}
+				});
+			}
+		};
+		
+		//进入编辑模式
+		var raEditMode =  function(data){
+				raReview.hide();			 
+				raFormBox.removeClass("_hidden").slideDown(function(){
+					raBtnBx.slideDown();
+				});
+
+				if(formData.length>0){
+					raFormBox.find(".ra-form-group").remove();
+					$.each(formData,function(i,e){
+						var fNode = $("<div>").addClass('ra-form-group').css({
+							//"display":"table"
+						});
+						var inputNode = $("<input>").attr({
+							"type":"text",
+							"placeholder":"名字",
+							"name":"artistName",
+							"maxlength":"24"
+						}).addClass("col-md-5").val(e.name);
+
+						var textareaNode = $("<textarea>").addClass("col-md-11").attr({
+							"name":"artistInfo",
+							"placeholder":"简介",
+							"onkeyup":"check_length(this);",
+							"onload":"auto_check_length(this);"
+						}).val(e.info);
+						
+						//var divNode = $("div").addClass('role-minus-wrap').append(iNode);
+						//var iNode = $("<i>").addClass("hyq-ic ic-minus-gray role_minus_btn").attr({
+						//	"onclick":""
+						//});
+																																														
+						$("<div>").addClass('form-group').append(inputNode)
+						.append(textareaNode).appendTo(fNode).append('<div class="role-minus-wrap"><i class="hyq-ic id='+i+' ic-minus-gray role_minus_btn del_button" style="margin-top:25px;"></i></div>');
+
+						$("<div>").addClass('form-group').append(textareaNode)
+						.appendTo(fNode).append('<div class="word-hint">还可输入<span>150</span>字</div>');
+						
+						//$("<div>").addClass('role-minus-wrap').appendTo(iNode);	
+						
+						addAtistBtn.parent().before(fNode);
+						
+					});
+
+				} 
+		};
+
+		var showMessage = function(msg,isErrMsg){
+			
+			if(!isErrMsg){
+			
+				noticeNode.html(msg).fadeIn().delay(3000).fadeOut();
+			}else{
+
+				noticeNode.html("<label class=Rd>"+msg+"</label>").fadeIn().delay(3000).fadeOut();
+			}
+		}
+
+		//进入浏览模式
+		var raReviewMode =function(){			
+			 raRenderingReview(formData);
+			 raBtnBx.slideUp();		//保存取消的框
+			 raFormBox.slideUp(function(){	 //编辑模式 框
+			 	raReview.fadeIn();	//预览模式	
+			 });
+			 if(formData.length>0){
+			 	 raEditBtn.show();
+			 	 expendBtn.hide();
+			 }else{
+			 	raEditBtn.hide();
+			 	 expendBtn.show();
+			 }
+		}
+
+		//获得表单数据
+		var getFormData =function(toJson){
+			 var fg = raForm.find('.ra-form-group');	//整体框
+			 console.log(fg)
+			 var formData = [];
+			 if(fg.length>0){
+			 	$.each(fg,function(i,e){
+			 		var item = {
+			 			name:"",info:""
+			 		};
+			 		if($(e).find('input').val().length != 0){
+			 			item.name = $(e).find('input').val();
+				 		item.info = $(e).find('textarea').val();
+				 		formData.push(item);
+			 		}
+			 	});
+			 	if(toJson){
+				//alert(JSON.stringify(formData));
+			 		return JSON.stringify(formData);
+			 	}else 
+			 	return formData;
+			 	//return [{"name":"","info":""}];
+			 }
+			 else
+			 	//return [{"name":"","info":""}];
+			 	return null;
+		};
+
+		//添加表单项
+		addAtistBtn.click(function(){	//添加红艺人按钮
+			
+			var node = $("<div class='ra-form-group'>"+$(".ra-wrapper .ra-form-group").html()+"</div>");
+			node.find("input").removeClass('err-field');
+
+			$(this).parent().before(node);
+			count_font_nums();
+		});
+		console.log(4);
+
+		//加号展开按钮被点中
+		$("#ra-expend-btn").click(function(){ 	//加号
+			raEditMode(0);	//进入编辑模式
+			$(this).hide();
+		});
+
+		//右上角编辑按钮被点了
+		raEditBtn.click(function(){	//笔
+			//进入编辑模式渲染数据
+			raEditMode(1);	//进入编辑模式
+
+			$(this).hide();
+			 raReview.fadeOut(function(){	//预览模式
+			 	raFormBox.slideDown(function(){	//编辑模式 框
+			 		
+			 	});
+			 	raBtnBx.slideDown();	//保存取消的框
+			 })
+			count_font_nums(); 
+		});
+
+		console.log(6)
+		//取消按钮被点钟
+		raCancleBtn.click(function(){
+			raBtnBx.slideUp();	//保存取消的框
+			raFormBox.slideUp(function(){ //编辑模式 框
+				raReview.fadeIn();	//预览模式
+				check_red_artist_state();	//笔
+			
+			});
+			return;
+		});
+
+		//载入时初始化数据
+		raRenderingReview(formData);
+	
+		//保存操作
+		raSaveBtn.click(function(){
+			//获取数据后可以在这里进行AJAX保存的操作
+			//获取表单JSON数据
+	
+			 formData= getFormData();
+			//alert(formData);
+			
+			 //forDataJson = getFormData(true)//这个可以拿来传给服务器
+			var  forDataJson = eval('('+getFormData(true)+')');//这个可以拿来传给服务器
+			 //alert(forDataJson);
+			 //var action = 'update_artist';
+			//获取表单JS对象
+
+			$.ajax({
+				url:'/home/ajax/ajax_home_orgprofile.php?action=update_artist',
+				type:'post',
+				data:{'artist_info':forDataJson},
+				success:function(data){
+					//alert(data);
+					//console.log("========")
+					//console.log(data)
+					if(parseInt(data) == 1000){
+						raReviewMode();	
+						showMessage('保存成功。');
+						console.log("========")
+						console.log(formData);
+						$(document).trigger("hyq/userstate/changed");//如果cookie改动触发这个事件  实时更新 
+					}else if(parseInt(data) == 1154 || parseInt(data) == 1155){
+						//add_input();
+						$('#ra-formbox').css('display','none');
+						raBtnBx.css('display','none');
+						red_artist_state = 0;
+						check_red_artist_state();
+						showMessage('您填的数据不合法!',true);
+					}else{
+						showMessage('保存失败',true);
+						formData = formDataRaw;
+					}
+					//check_red_artist_state();
+				},
+				dataType:'text'
+			});
+			//如果
+			//如果保存成功可以用showMessage('信息')来提示，如果失败，采用 showMessage('信息',true)来提示
+			//showMessage('保存得不可谓不成功。');
+		});
+		/*$('.del_button').each(function(i){
+			alert(i);
+			$(this).click(function(){
+				alert(i);$(this).parents('.ra-form-group').remove();
+			});
+		//$('.del_button').each(function(i){	
+			//判断某元素下是否存在某元素
+			//if($("#元素ID").find("要确定的ID").length > 0){alert("存在");}else{alert("不存在");}
+		//});			
+		});*/
+	});
+	var add_table = '<div class="ra-form-group"><div class="form-group"><input name="artistName" class="col-md-5 err-field"  placeholder="名字" type="text"><div class="role-minus-wrap"><i class="hyq-ic ic-minus-gray role_minus_btn del_button"></i></div></div><div class="form-group"><textarea placeholder="简介" name="artistInfo" class="col-md-11"></textarea></div></div>';
+	
+			
+			
+	$('#artist_frame').on('click','.del_button',function(){		
+		$(this).parents('.ra-form-group').remove();
+		if($('#artist_frame').find('.ra-form-group').length > 0){
+			
+		}else{
+			$('#add_artist_button').before(add_table);
+		}
+	});
+    function check_length(gm) {
+		var maxChars = 150;
+		if (gm.value.length > maxChars){
+			gm.value = gm.value.substring(0,maxChars);
+		}
+		//console.log(gm);		
+		var curr = maxChars - gm.value.length;
+		//console.log(curr);
+		$(gm).next().html('还可输入<span>'+curr+'</span>字');
+		//alert(gm);onload="Load('index.php')"
+		//$("textarea[name='artistInfo']").html = "还可输入"+curr.toString()+"字";
+		//document.getElementById("leftnum").innerHTML = "还可输入"+curr.toString()+"字";
+		//
+    }	
+	function count_font_nums(){
+		$('textarea[name="artistInfo"]').each(function(){		
+			var maxChars = 150;
+			var curr = maxChars - $(this).val().length;
+			$(this).next().html('还可输入<span>'+curr+'</span>字');
+		});	
+	}
+
+</script>
+{/literal}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>邮箱验证</title>
+		<meta name="description" content="">
+		
+		
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+<body>
+	{include "common/header.html"} 
+	{include "common/nav_search.html"}
+	<form>
+		<input id="active_email_hide" type="hidden" value="{$result}">
+	</form>
+	<div class="content-wrapper" >
+		<div class="main-column-a _relativePos" >
+        <!-- 绑定成功 -->
+        <div class="column-wrapper RdBorderBtm ">
+          <div class="row2">
+            <div id="check_email_tips" class="lead-title">
+              <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">账号验证成功</label>
+            </div>
+          </div>
+          <div class="red-spliter"></div>
+          <div id="success_div" class="row2" style="padding-bottom:0px;" >
+            <br class="_clb"/>
+              <i class="hyq-ic ic-success-lg"></i><label class="f18 Blak2">您已经成功验证邮箱</label>
+                <br class="_clb"/>
+                <br class="_clb"/>
+                <br class="_clb"/>
+                &nbsp;&nbsp;
+                <label id="showdiv" class="f14 Gray6">将在5秒后自动跳转至我的个人主页</label>
+                <br class="_clb"/>
+                <br class="_clb"/>
+          </div>
+		  <div id="error_div" style="display:none" class="row2" style="padding-bottom:0px;">
+				<br class="_clb"/>
+                <br class="_clb"/>
+				<i class="hyq-ic ic-error-lg""></i><label class="f18 Blak2">邮箱验证失败!请稍后重试！</label>
+				<br class="_clb"/>
+                <br class="_clb"/>
+                <br class="_clb"/>
+                &nbsp;&nbsp;
+		  </div>
+        </div>
+      </div>
+	<script>
+		var secs = 5; //倒计时的秒数 
+		function load(){
+			for(var i=secs;i>=0;i--){ 
+			   window.setTimeout('doupdate(' + i + ')', (secs-i) * 1000); 
+			} 
+		}
+		function doupdate(num){ 
+			document.getElementById('showdiv').innerHTML = '将在'+num+'秒后自动跳转至我的个人主页' ;
+			if(num == 0) { location.href='/home/user/card'; }
+		}
+		
+		$(function(){
+			//根据分配过来的变量  判断邮箱验证是否成功
+			var active_email_hide = $('#active_email_hide').val();
+			if(!active_email_hide){
+				//1验证失败
+				$('#check_email_tips label').text('账号验证失败！请稍后重试！');
+				$('#success_div').hide();
+				$('#error_div').show();
+				return false;
+			}
+			load();
+		});
+	</script>
+      <!-- 主栏结束 -->
+		<!-- 通用右边栏 -->
+	<div class="right-column">
+		{include file="html/right_qrcode.html"}
+		<div class="column-spliter"></div>
+		{include file="common/right_advantage.html"}
+		<br class='_clb'/>
+	</div>
+</div>
+	{include "common/footer.html"}
+
+</body>
+</html>

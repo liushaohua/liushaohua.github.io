@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>点赞测试页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		
+		<div align="center">
+			<button id="show" style="background:pure;height:50px;width:200px">点赞发送首页：</button><br><br>
+			<button id="edit" align="center" style="background:red;height:100px;width:100px">点赞</button><br><br>
+		</div>
+		<br><hr>
+		<div id="editarea" align="center" style="display:none">
+			<hr>
+			被赞者ID：<input type="text" name="to_favour" value="" placeholder="请输入数字ID"><br><br>
+			<hr>	
+			点赞者ID：<input type="text" name="from_favour" value="" placeholder="请输入数字ID"><br><br>
+			
+			
+			<hr>	
+			<input type="button" name="send_message" onclick="return subdata()" value="发送" />
+		</div>
+	</body>
+	{literal}
+		<script>
+			<!-- 添加标签或更新标签 -->
+			$('#edit').click(function(){
+				$('#editarea').fadeIn();
+			});
+			//报名信息ajax 提交
+			function subdata(){
+
+				<!-- 获取报名信息 -->
+				var action = 'user_send_favour';
+				var to = $("input[name='to_favour']").val();
+				var from = $("input[name='from_favour']").val();
+				
+				//alert(to);
+				<!-- ajax传递报名信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_home_favour.php',
+					type:'post',
+					data:{"action":action,"favour_to":to,"favour_from":from},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,点赞成功!');
+						}else if(data == 10086){
+							alert('NO,请不要重复点赞!');
+						}else{
+							alert('NO,点赞失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

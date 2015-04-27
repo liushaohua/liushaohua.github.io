@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+	<meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/rest.css">
+	<title>test</title>
+</head>
+ <style>
+    html,body{
+      width:100%;
+      background: #e8e0cd;
+    }
+    body{
+      padding-bottom:3rem;
+    }
+    #loading{
+        width:100%;
+        height: 100%;
+        position: fixed;
+        z-index: 999;
+        background: #13051d;
+    }
+    .spinner {
+      position: absolute;
+      left:50%;
+      top:50%;
+      -webkit-transform: translate(-50%,-50%);
+    }
+
+    .spinner > div {
+      width: 1rem;
+      height: 1rem;
+      background-color: #fff;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+      animation: bouncedelay 1.4s infinite ease-in-out;
+      /* Prevent first frame from flickering when animation starts */
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0.0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes bouncedelay {
+      0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      } 40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+    .four1{
+      display: block;
+      width:100%;
+    }
+    .four2{
+      width:100%;
+      display: block;
+    }
+    .middle{
+      display: block;
+      width:90%;
+      margin:0 auto;
+    }
+    .p1{
+      font-size: 0.65rem;
+      color: #2f354f;
+      line-height: 1.3em;
+      padding:0 1em;
+    }
+    .p1 i{
+      color: #fd0326;
+    }
+    .p2{
+      padding:1.5rem;
+      background: #fefaf1;
+      border-radius: 0.5rem;
+      line-height: 3em;
+      color: #939393;
+      font-size: 0.7rem;
+      margin: 2rem auto;
+    }
+    .jian{
+      font-size: 1.12rem;
+      color: #fff;
+      background: #ff7e00;
+      display: block;
+      width:82%;
+      margin:0 auto;
+      text-align: center;
+      height: 3.3rem;
+      line-height: 3.3rem;
+      border-radius:0.5rem;
+      margin-bottom:2rem;
+      position: relative;
+    }
+    .jian:hover{
+      background: #fd8e21;
+    }
+    .jian i{
+      font-weight: bolder;
+      padding-right:1.5rem;
+      display: inline-block;
+    }
+    .zhi{
+      display: block;
+      position: relative;
+    }
+    .zhi a{
+      position: absolute;
+      left:33.3%;
+      top:40%;
+      width:33.3%;
+      height: 20%;
+      border-radius: 0.3rem;
+      -webkit-tap-highlight-color:rgba(255,255,255,0.1);
+    }
+    img{
+      pointer-events: none;
+    }
+    </style>
+<body>
+     <div id="loading" class="">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+    </div>
+   <div class="content">
+     <img src="img/four1.jpg" alt="" class="four1">
+     <div class="middle">
+       <p class="p1">
+         加入条件：<i>只限在校大学生。</i><br>
+(温馨提示：个人资料越丰富，越方便招募方快速找到你哦~ )
+       </p>
+       <p class="p2">
+                红演圈基于庞大的兼职招募数据库，成立了“
+红演圈-大学生勤工俭学中心”（Hotyq Work-Study Program，简称HWSP ），为大学生群体定向提供全国各城市的、不间断的、海量的、优质的招募资讯（大型赛事、影视拍摄、电视台幕后、家教、志愿者等），并提供有效报名和沟通渠道，为
+大学生勤工俭学开辟绿色通道。
+       </p>
+       <a href="" title="" class='jian'>
+         <i>></i>点击箭头，开始兼职
+       </a>
+       <div class="zhi">
+         <img src="img/four2.jpg" alt="" class="four2">
+         <a href="" title=""></a>
+       </div>
+       
+     </div>
+     
+   </div>
+    <script>
+        var img_num=0;
+        var loading;
+        var tt;
+        if(document.getElementById('loading')){
+            loading=document.getElementById('loading');
+            loading.addEventListener('touchmove',function(event){
+                event.preventDefault();
+                },false);
+        };
+         //loading页面
+      var numt=2;
+      var imgss=document.getElementsByTagName('img');
+      var img_le=imgss.length;
+    for (var t=0; t<img_le; t++) {
+        var imge=new Image();
+        imge.src=imgss[t].src;
+        imge.onload=function  () {
+            numt++;
+            if (numt>=img_num) {
+                loading.className='opa-zero';
+                    tt=setTimeout(function(){
+                        loading.style.display='none';
+                        //clearTimeout(tt);
+                    },1000)
+            }
+        }
+    }
+   //loading页面
+    </script>
+</body>
+</html>

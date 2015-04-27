@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>获取用户融云Token页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">		
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">获取用户融云Token：</button><br><br>
+			<hr>
+
+			<button id="edit" align="center" style="background:red;height:100px;width:100px">点击获取</button><br><br>
+		</div>
+		<br><hr>
+		<div id="editarea" align="center" style="display:none">
+			<hr>
+			用户ID：<input type="text" name="user_id" value="" placeholder="请输入数字ID"><br><br>
+			用户名：<input type="text" name="user_name" value="" placeholder="请输入用户名"><br><br>
+			用户头像：<input type="text" name="user_face" value="http://img.hotyq.com/user/46/456/45646/24054c5d832074a0.png" placeholder="请选择用户头像"><br><br>
+			<hr>	
+			<input type="button" name="get_token" onclick="return subdata()" value="发送" />
+		</div>
+			用户Token:<input type="text" name="user_token" value="" style="width:100%"/>
+	</body>
+	{literal}
+		<script>
+			<!-- 添加标签或更新标签 -->
+			$('#edit').click(function(){
+				$('#editarea').fadeIn();
+			});
+			//报名信息ajax 提交
+			function subdata(){
+
+				<!-- 获取报名信息 -->
+				var action = 'user_get_token';
+				var uid = $("input[name='user_id']").val();
+				var uname = $("input[name='user_name']").val();
+				var uface = $("input[name='user_face']").val();
+				//alert(qq);
+				<!-- ajax传递报名信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_rongyun.php',
+					type:'post',
+					data:{"action":action,"uid":uid,"uname":uname,"uface":uface},
+					success:function(data){
+						console.log(data);
+						console.log(data['token']);
+						if(data['code'] == 200){
+							$("input[name='user_token']").val(data['token']);
+							alert('OK,获取成功!');
+						}else if(data == 1375){
+							alert('用户ID不能为空!');
+						}else if(data == 1376){
+							alert('用户名不能为空!');
+						}else if(data == 1377){
+							alert('用户头像不能为空!');
+						}else if(data == 1378){
+							alert('NO,获取失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						//$('#editarea').fadeOut();
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title> 注册 - 红演圈</title>
+		<meta name="keywords" content="文化演艺，演艺服务，演艺明星，招募邀约，活动招募，影视招募，演艺公司，演艺圈，红演圈">
+		<meta name="description" content="登录红演圈，掌握文化演艺行业最新信息，享受最专业的文化演艺服务，实名认证、即时沟通。">
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		<style type="text/css">
+			
+			.login-form-sider {
+				position: absolute;
+				width: 220px;
+				height:auto;
+				top: 0px;
+				right: 0px;
+				bottom: 1px;
+				border-left:1px solid #BDBDBD;
+				margin-top:30px;
+				margin-bottom:30px;
+				padding-top:5px;
+				z-index:10;
+			}
+			.mgn-bottom-4px {
+				margin-bottom: 4px;
+			}
+			.content-wrapper{ margin-bottom:0px; height:650px;}
+			.main-column-a{
+				background:none!important;
+				height:650px!important;
+				overflow:hidden;
+			}
+			.column-wrapper form{
+				position:relative;
+				}
+			.column-wrapper form:before{
+				  content:'';
+				  position:absolute;
+				  width:1px;
+				  top:30px;
+				  bottom:30px;
+				  right:89px;
+				  background:#BDBDBD;
+			}
+			.login-form-sider{
+				background:none!important;
+				border:none!important;
+				
+			}
+		</style>
+		
+	
+	</head>
+<body style="background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center no-repeat;background-size:cover;min-width:1000px;">
+
+	<!-- 包含用于登陆和绑定账户的淡色页眉 -->
+	{include "common/header_simple.html"}
+	<div class="content-wrapper _zeroPDTop">
+    
+		<div class="main-column-a _relativePos">
+			<div class="login-form-sider bgGray2 pd1em" >
+				<div class="pd1em">
+					<i class="hyq-ic ic-label-mark mgn-bottom-4px" ></i><label class="f18 Blak1">已有红演圈账号</label>
+					<div class="link-red pd1em">
+						&nbsp;&nbsp;<a href="/account/login" class="f18">直接登录 <i class="hyq-ic ic-arrow-rt-rd "></i></a>
+					</div>
+				</div>
+				<div class="pd1em">
+					<div>
+						<span class="hyq-ic ic-label-mark mgn-bottom-4px"></span><label class="f18 Blak1">第三方登录</label>
+					</div>
+					<div class="pd1em">
+						<a href="/account/login_sns.php?sns_type=weibo" alt="微博登录" title="微博登录" class="link-weibo-o-rd" target="_blank"></a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="/account/login_sns.php" alt="QQ登录" title="QQ登录" class="link-qq-o-rd" target="_blank"></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="column-wrapper RdBorderBtm ">
+				<form action="##" id="reg_form" class="hyq-form pd1em pull-left ">
+					<br/>
+					<!-- <input type="hidden" name="account_type" value=""/> -->
+					<!-- 选机构和个人隐藏表单 id = "user_type" -->
+					<input type = "hidden" name = "user_type" id = "user_type_s" value="">
+					<input type = "hidden" name = "login_type" id = "login_type" value=""> 
+					<!-- 0 email 1: cellephone -->
+					<div class="pd1em ">
+					<!-- 选机构和个人 -->
+						<div class="form-group col-md-12" id = "user_type_radio">
+							<input type="radio" class="hyq-nice-selectable-lg"  name='account_type' value="user"/>
+							<span ><b></b> &nbsp;个 人 &nbsp;</span>
+							&nbsp;
+							<input type="radio" class="hyq-nice-selectable-lg"  name='account_type' value="org"/>
+							<span  title="公司、机构或者团体"><b></b> &nbsp;机 构&nbsp; </span>
+					<!-- 选机构和个人提示 -->						
+							<div class="hyq-f-err" id = "user_type_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>请选择个人或机构。</label></div>
+						</div>
+					<!-- 输入账号邮箱或者手机  id = "account"-->
+						<div class="form-group col-md-8">
+							<input  name="account" id="account"  class="col-md-12"  placeholder="手机或邮箱" type="text"/>
+					<!-- 输入密码提示 -->
+							<div class="hyq-f-err" id = "account_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>请输入正确的手机号或邮箱。</label></div>								
+						</div>
+					<!-- 输入密码 id="password" -->
+						<div class="form-group col-md-8">
+							<input type="password" id = "password" name="passwrd" class="col-md-12"  placeholder="密码" />
+					<!-- 输入密码提示 -->
+							<div class="hyq-f-err" id = "password_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>请输入6-16位新密码，字母区分大小写</label></div>	
+						</div>
+					<!-- 重复输入密码 id="re_password" -->	
+						<div class="form-group col-md-8">
+							<input id = "re_password" type="password" name="passwrd2"  class="col-md-12" 	placeholder="确认密码" />
+					<!-- 重复输入密码提示 -->
+							<div class="hyq-f-err" id = "re_password_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>两次密码输入不一致，请重新输入</label></div>						
+						</div>
+					<!-- 红演圈协议 -->
+						<div class="fix-fg col-md-10">
+							<input id = "agree" type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="A" checked="checked"/>
+							<span class="hyq-checkbox"></span>
+							<label class="f14">我已阅读并同意<a href="/about/agreement" target="_blank"><span class="Rd">《红演圈用户协议》</span></a></label>
+					<!-- 红演圈协议提示 -->
+							<div class="hyq-f-err" id = "agree_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>您必须同意《红演圈用户协议》!</label></div>					
+						</div>
+					<!-- 短信验证码 -->
+						<div class="form-group" id="sms-valid-code-box" style = "display:none;">
+							<input type="text" name="smsValidCode" class="col-md-3" placeholder="短信验证码"  id = "check_code">
+							&nbsp;
+							<input type="button" id="get-sms-valid-code" style="width:146px;height:35px;text-align:center;" value="获取短信验证码" class="hyq-btn hyq-btn-dark f18" onClick="javascript:get_reg_mobile_code();">
+					<!-- 短信输入提示 -->
+							<div class="hyq-f-err" id = "mobile_code_tips" style = "display:none;"><i class="hyq-ic ic-vlid-err"></i> <label>短信验证码有误，请重新输入</label></div>							
+						</div>
+					<!-- 图片验证码-->
+						<div class="form-group col-md-9 _hidden " id="img-valid-code-box">
+					<!-- 在此处设置图片验证码的链接-->
+							<img src="/account/check_code.php" onClick="refresh(this)" id="imgVliadCode" width=150 height=60 style="border:2px dotted #ddd;"/>
+							<label class="f15 pull-right" style="padding:13px 30px 0 0 ;" ><a href="javascript:refresh()" >看不清？换一张</a></label>
+							</span>
+						</div>
+						<div class="form-group _hidden col-md-8" id="img-valid-code-box-input">
+					<!-- 图片验证码输入-->
+							<input type="text" id="email_check_code" name="imgAutocode" class="col-md-12 col-md-6" placeholder="请输入上图中的字符，不区分大小写">
+					<!-- 图片验证码输入不对 -->
+							<div class="hyq-f-err" id="email_check_code_error" style="display:none"><i class="hyq-ic ic-vlid-err" ></i><label>图片验证码输入不对</label></div>				
+						</div>				
+							<!-- 后台验证提示<div class="hyq-f-err"><i class="hyq-ic ic-vlid-err" id="cpm">出错了</i></div>	 -->				
+						<br/>						
+						<div class="fix-fg col-md-10">						
+					<!-- 后台验证提示 -->
+							<div class="hyq-f-err" id = "error_mes" style="display:none"><i class="hyq-ic ic-vlid-err"></i><label></label></div>					
+						</div>						
+					<!-- 注册按钮-->
+						<div class="form-group">
+							<input type="button" id = "reg_user_button" value="&nbsp;注 册 &nbsp;" class="hyq-btn hyq-btn-lg f18" href = "javascript:void(0);" onclick = "return reg_user()"/>
+						</div>
+					</div>
+				</form>
+
+				<br class="_clb"/>
+			</div>
+
+		</div>
+
+		<!-- 通用右边栏 -->
+		<div class="right-column">
+			<!--二维码/排行耪/与你相关（面试时间）/广告-->
+			<!--Andorid 微信-->
+
+            {include "html/register_right_first.html"}
+			<div class="cl"></div>
+			{include "html/register_right_second.html"}
+             <div class="cl"></div>
+			{include "html/register_right_third.html"}
+			
+
+
+			{include file="common/right_advantage.html"}
+			<br class='_clb'/>
+		</div>
+	</div>
+    <!-- 通用页脚 -->
+	{include "common/footer.html"}
+    {literal}
+    
+		<script>	
+	//验证账号是否已注册
+	function get_account_exist(){
+		var  action = 'get_account_exist';
+		var  login_type = $('#login_type').val();
+		var  account = $('#account').val();
+		$.post("/account/ajax/ajax_account.php",{'action':action,
+								'account':account,
+								'login_type':login_type
+								},function(data){		
+							//alert(data);	
+			//var Mes = state_list[parseInt(data)];					
+			if(parseInt(data) == 1000){
+				$("#account_tips").fadeOut();
+				$("#account_tips").fadeIn(); 	
+				$("#account_tips label").text('账号已经被注册');							
+			}
+		},'text');
+	}
+
+	//初始化页面
+	$(document).ready(function(e){
+		$('#user_type_s').val("");	<!-- 选机构和个人隐藏表单 -->
+		$('#login_type').val("");
+		$("#account_tips").fadeOut();
+	//个人、机构选择
+		$("#user_type_radio").click(function(){
+			var user_type = $("input[name='account_type']:checked").val();	
+			$('#user_type_s').attr('value',user_type);
+			$("#user_type_tips").fadeOut();
+		});
+	//缺省值处理
+		$("#account").focus(function(){
+			if($(this).val() == this.defaultValue){
+				$(this).val("");
+			}
+			$('#error_mes').fadeOut();
+		})
+    //失焦验证账户
+		.blur(function(){
+			if ($(this).val() == '') {
+				$(this).val(this.defaultValue);
+				$("#login_type").val('');
+			}else{
+				var patn_email = new RegExp(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/);	
+			//匹配手机		
+				if($(this).val().match(/^1[3578]\d{9}$/) ){					
+					$("#account_tips").fadeOut();					
+					$("#login_type").val('mobile');
+					$("#sms-valid-code-box").fadeIn();
+					$("#img-valid-code-box").fadeOut();
+					$("#img-valid-code-box-input").fadeOut();
+					get_account_exist();
+					$("#account_tips").fadeOut();
+				}else if(patn_email.test($(this).val())){
+			//匹配邮件		
+					$("#account_tips").fadeOut();
+					$("#login_type").val('email');
+					$("#sms-valid-code-box").fadeOut();
+					$("#img-valid-code-box").fadeIn();
+					$("#img-valid-code-box-input").fadeIn();
+					get_account_exist();
+					$("#account_tips").fadeOut();
+				}else{
+			//错误格式
+					$("#sms-valid-code-box").fadeOut();
+					$("#account_tips label").text('输入正确的邮箱或手机作为登录账号');					
+					login_type = '';
+					$("#account_tips").fadeIn();
+					$("#login_type").val('');
+				}
+			}
+		});
+		//重复密码缺省
+		$("#re_password").focus(function(){
+			$(this).addClass("focus");
+			if($(this).val() == this.defaultValue){
+				$(this).val("");
+			}
+			$('#error_mes').fadeOut();
+		})
+
+		//失去焦点执行
+		.blur(function(){	
+			if ($(this).val() == '') {
+				$(this).val(this.defaultValue);
+				$("#re_password_tips").fadeOut();
+			}else if($(this).val().length < 6 || $(this).val().length > 16) {
+				$("#re_password_tips label").text('请输入确认密码，字母区分大小写!');
+				$("#re_password_tips").fadeIn();
+			}else{
+				if(($("#password").val()) == ($("#re_password").val())){
+					$("#re_password_tips").fadeOut();
+				}else{
+					$("#re_password_tips label").text('两次输入的密码不同!');
+					$("#re_password_tips").fadeIn();
+				}
+			}
+		})
+
+		$("#password").focus(function(){		
+			if($(this).val() == this.defaultValue){
+				$(this).val("");
+			}
+			$('#error_mes').fadeOut();
+		})
+		//失去焦点执行
+		.blur(function(){
+			if ($(this).val() == '') {
+				$(this).val(this.defaultValue);
+				$("#re_password_tips").fadeOut();
+				$("#password_tips").fadeOut();
+			}else if($(this).val().length < 6 || $(this).val().length > 16) {
+				$("#password_tips label").text('请输入6-16位密码，字母区分大小写!');
+				$("#password_tips").fadeIn();
+			}else{
+				$("#password_tips").fadeOut();
+			}
+		});
+		$('#agree').click(function(){
+			if($(this).prop('checked')){
+				//$("#agree_tips label").text();
+				$("#agree_tips").fadeOut();
+			}
+		})
+	//验证手机验证码
+		$("#check_code").blur( function(){
+			var check_code = $('#check_code').val();
+			$('#error_mes').fadeOut();
+			if(check_code.length= 0){
+				$("#mobile_code_tips label").text('请输入6位数字手机验证码!');
+				$("#mobile_code_tips").fadeIn();				
+			}else if(check_code.length!= 6 || isNaN(check_code)){
+				$("#mobile_code_tips label").text('请输入6位数字手机验证码!');
+				$("#mobile_code_tips").fadeIn();
+				return false;
+			}else{
+				$("#mobile_code_tips label").text();
+				$("#mobile_code_tips").fadeOut();
+			}
+		});				
+	//邮箱图片验证码验证		
+		$("#email_check_code").blur( function(){
+			$("#email_check_code_error").fadeOut();	
+			var action = 'check_reg_identify_code';
+			var email_code = $('#email_check_code').val();
+			$.post("/account/ajax/ajax_account.php",{'action':action,'email_code':email_code},function(data){
+				var Mes = state_list[parseInt(data)];
+				if(parseInt(data) !== 1000){ //alert(data);
+					$("#email_check_code_error label").text(Mes);
+					$("#email_check_code_error").fadeIn();			
+				}else{
+					$("#email_check_code_error label").text();
+					$("#email_check_code_error").fadeOut();	
+				}																	
+			},'text');
+		});	
+	});	
+	//点击注册
+	function reg_user(){	
+		$('#error_mes').fadeOut();
+		$('#account').blur();
+		var login_type = $('#login_type').val();
+		var user_type = $('#user_type_s').val(); <!--  选机构和个人隐藏表单id = "user_type" -->
+		var account = $('#account').val();
+		var password = $('#password').val();
+		var re_password = $('#re_password').val();
+		var check_code = $('#check_code').val();
+	//	alert(login_type);	
+	//	alert(user_type);	
+		if(user_type == ''){
+			$("#user_type_tips label").text('请选择个人或者机构用户！');
+			$("#user_type_tips").fadeIn();
+			return false;
+		}
+		if(login_type == ''){
+			$("#account_tips label").text('输入正确的邮箱或手机作为登录账号');
+			$("#account_tips").fadeIn();
+			return false;
+		}
+		if((password.length < 6) || (password.length  > 16)){
+			$("#password_tips label").text('请输入6-16位密码，字母区分大小写!');
+			$("#password_tips").fadeIn();
+			return false;
+		}
+		if((re_password.length < 6) || (re_password.length  > 16)){
+			$("#re_password_tips label").text('请输入确认密码，字母区分大小写!');
+			$("#re_password_tips").fadeIn();
+			return false;
+		}
+		if( re_password != password){
+			$("#re_password_tips label").text('两次输入的密码不同!');
+			$("#re_password_tips").fadeIn();
+			return false;
+		}
+	//判断是否选择协议
+		//$("#agree").keydown(function(){});
+		if(!$("#agree").prop("checked")){
+			$("#agree_tips label").text('您必须同意《红演圈用户协议》!');
+			$("#agree_tips").fadeIn();
+			return false;
+		}else{
+			$("#agree_tips").fadeOut();
+		}		
+		if( login_type == "mobile"){
+			if(check_code.length= 0){
+				$("#mobile_code_tips label").text('验证码为空,请输入验证码!');
+				$("#mobile_code_tips").fadeIn();				
+			}else if(check_code.length!= 6 || isNaN(check_code)){
+				$("#mobile_code_tips label").text('请输入6位数字手机验证码!');
+				$("#mobile_code_tips").fadeIn();
+				return false;
+			}else{
+				$("#mobile_code_tips").text();
+				$("#mobile_code_tips").fadeOut();
+			}
+		}
+		if($('#login_type').val() == 'mobile'){
+			var  action = 'add_mobile_user';
+		}else{
+			var  action = 'add_email_user';
+		}
+		var  account = $('#account').val();
+		var  password = $('#password').val();
+		var  re_password = $('#re_password').val();
+		var  user_type = $('#user_type_s').val();	<!-- 选机构和个人隐藏表单 id = "user_type_s" -->
+		var  check_code = $('#check_code').val();
+		var  safe_code = $('#email_check_code').val();
+		$.post("/account/ajax/ajax_account.php",{'action':action,
+										'account':account,
+										'password':password,
+										'user_type':user_type,
+										're_password':re_password,
+										'check_code':check_code,
+										'safe_code':safe_code
+										},function(data){	
+			if(parseInt(data) !== 1000){ //alert(data);
+				var Mes = state_list[parseInt(data)];
+				//alert(Mes);
+				if(Mes==undefined || Mes=="" || Mes==null){
+				//出错的话
+					$("#error_mes label").text('系统错误');
+					$("#error_mes").fadeIn();
+				//	location.href="/site/error_tips.php?state_code=1099";
+				//alert('系统错误');
+				}else if(parseInt(data) == 1519){
+					$("#mobile_code_tips label").text('手机注册验证码错误!');
+					$("#mobile_code_tips").fadeIn();
+				}else if(parseInt(data) == 1140){//验证码为空
+					$("#email_check_code_error label").text(Mes);
+					$("#email_check_code_error").fadeIn();
+					refresh();
+				}else if(parseInt(data) == 1141){//验证码已过期
+					$("#email_check_code_error label").text(Mes);
+					$("#email_check_code_error").fadeIn();
+					refresh();						
+				}else if(parseInt(data) == 1142){//输入的验证码不一致
+					$("#email_check_code_error label").text(Mes);
+					$("#email_check_code_error").fadeIn();
+					refresh();	
+				}else if(parseInt(data) == 1006){//验证码为空
+					$("#email_check_code_error label").text(Mes);
+					$("#email_check_code_error").fadeIn();
+					refresh();											
+				}else{				
+					$("#error_mes label").text(Mes);
+					$("#error_mes").fadeIn();
+				}
+			}else if(parseInt(data) == 1000){
+				//	alert('注册成功');				
+				if($('#login_type').val() == 'mobile'){
+					if($('#user_type_s').val() == 'user'){
+						location.href='/home/user/card';
+					}else{
+						location.href='/home/org/card';
+					}					
+				}else{
+					location.href='/account/success';
+				}
+			}
+		},'text');
+
+	}	
+	
+	//发送短息验证码
+	function get_reg_mobile_code(){
+		$('#error_mes').fadeOut();
+		$('#mobile_code_tips').val();
+		if($('#login_type').val() == 'mobile'){
+			var action='get_reg_mobile_code';
+			var mobile=$('#account').val()
+		}
+		
+		$.post("/account/ajax/ajax_account.php",{'action':action,'mobile':mobile},function(data){
+			//alert(data);
+			if(parseInt(data) == 1000){
+				//alert('验证码已经发送');
+				sendMessage();
+			}else{
+				var Mes = state_list[parseInt(data)];
+				$("#error_mes label").text(Mes);
+				$("#error_mes").fadeIn();
+			}
+		},'text');	
+	}
+
+	//控制时间发送验证码
+	var InterValObj; 
+	var count = 60;
+	var curCount;
+	function sendMessage(){
+	  　curCount = count;
+		 $("#get-sms-valid-code").attr("disabled", "true");		
+		// $("#get-sms-valid-code").css({"background": "#E4E2E2"});
+		 $("#get-sms-valid-code").val(curCount + "秒后重发");
+		 InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+	}
+	function SetRemainTime(){
+		if (curCount == 0){
+			window.clearInterval(InterValObj);//停止计时器
+			$(this).css("color","red");
+			$("#get-sms-valid-code").removeAttr("disabled");//启用按钮
+			$("#get-sms-valid-code").val("获取短信验证码");
+		}else{
+			curCount--;
+			$("#get-sms-valid-code").val(curCount + "秒后重发");
+		}
+	}
+	
+
+	//刷新图片验证码
+	 function refresh(){
+		document.getElementById("imgVliadCode").src="/account/check_code.php?"+Math.random();
+	 }
+	//回车输入 
+    $(function(){
+        $('#check_code').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+				reg_user();
+            }
+        });
+        $('#email_check_code').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+				reg_user();
+            }
+        });		
+    });	
+		</script>
+   {/literal}	
+		

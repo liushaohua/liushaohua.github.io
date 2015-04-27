@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>这是一个测试页</title>
+</head>
+<script type="text/javascript" src="/js/jquery.js"></script>
+	<script>
+		function ajax_json(){
+			var id_arr = {};
+			id_arr['i1'] = 'id1';
+			id_arr['i2'] = 'id2';
+			id_arr['i3'] = 'id3';
+			var action = '123aaaa';
+				$.post("test_all.php",{'id_arr':id_arr,'action':action},function(data){
+					var arr = eval('(' + data + ')');
+					alert(data);
+				});
+			}
+	</script> 
+<body>
+	<input type="button" value="json_ajax" onclick="ajax_json()">
+</body>
+</html>

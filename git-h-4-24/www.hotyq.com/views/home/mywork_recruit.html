@@ -1,0 +1,254 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>我发布的招募 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- endbuild -->
+  </head>
+  <body class="hyq-collction-null">
+    
+	{include "common/header.html"} 
+      <div class="content-wrapper-b">
+      
+        <!--面包屑-->
+        <div class="hyq-breadcrumb-bar">
+            <div class="breadcrumb-box">
+              <a href="/home/{$usertype}">我的红演圈</a> &gt; 
+              <a href="javascript:;">我的工作信息</a>
+            </div>
+            <!--<div class="decoration-bar"></div>-->
+        </div>
+
+        <!--左边栏-->
+        {include "common/home/left_work.html"}
+{if $recruit_list neq ''}
+        <!--主栏-->
+        <div class="right-col-754">  
+          <div class="grid-row GrayBorderBtm Blak2">
+          	<div class="c3">招募主题</div>
+            <em></em>
+            <div class="c8">招募类型</div>
+            <em></em>
+            <div class="c2">已邀约</div>
+            <em></em>
+            <div class="c2">已报名</div>
+            <em></em>
+            <div class="c7">截止时间</div>
+            <em></em>
+            <div class="c7">发布时间</div>
+            <em></em>
+            <div class="c4">操作</div>
+            
+          </div>
+          
+          
+          <div class="grid-sheet">
+      	{foreach name=recruit from=$recruit_list item=v}
+            <div class="grid-row 
+                {if $smarty.foreach.recruit.iteration mod 2 eq 1}
+                  bgE7 
+                {/if}
+                {if $v.status neq 1}
+                  mute
+                {/if}
+              " item="{$v.id}">
+              <div class="c3"><a href="/recruit/{$v.id}">{$v.name}</a></div>
+              <i></i>
+              <div class="c8"><a href="/recruit/{$v.id}" title="{$v.type}" alt="{$v.type}">{$v.type}</a>
+              </div>
+              <i></i>
+              <div class="c2">
+               {if $v.invite_count neq 0}
+                <a href="/home/mywork_recruit_invite?recruit={$v.id}" class="a-t">
+                  {$v.invite_count} 
+                </a>
+                {else}
+                <a href="javascript:;" class="a-t">
+                  0
+                </a>
+                {/if}
+              </div>
+              <i></i>
+              <div class="c2">
+               {if $v.apply_count neq 0}
+                <a href="/home/mywork_recruit_apply?recruit={$v.id}" class="a-t">
+                 {$v.apply_count}
+                </a>
+                {else}
+                <a href="javascript:;" class="a-t">
+                  0
+                </a>
+                {/if}  
+              </div>
+              <i></i>
+              <div class="c7 time" >
+                 {$v.work_end_time|date_format:"%Y-%m-%d %H:%M"}
+              </div>
+              <i></i>
+              <div class="c7 time"> 
+                {$v.add_date|date_format:"%Y-%m-%d %H:%M"}
+              </div>
+              <i></i>
+	              {if $v.status eq 1}
+	              <div class="c4"><a href="javascript:null(void)" class="action-close-recruit" rid="{$v.id}" data-toggle="hyq-modal" >关闭</a></div>	      
+	              {else if $v.status eq 2}
+	               <div class="c4"><a href="javascript:null(void)">已过期</a></div>	     
+	              {else if $v.status eq 3}
+	               <div class="c4"><a href="javascript:null(void)">已关闭</a></div>
+	              {/if}
+	        </div>
+       {/foreach}
+       		<!-- 载入提示 -->
+       		<!-- <div class="content-loading-txt">正在载入更多...</div>  -->
+    	     </div>
+      </div>
+      <!-- 分页 -->
+    
+          <div class="cutpage-con">
+			{if isset($page_list)}
+				{if $page_status eq 'true'}
+				<div class="cutpage2" >
+					<!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+					{if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+					{foreach from=$page_list item=page_info}
+						{if $page_info.current == "yes"}
+						<span class="current">{$page_info.no}</span>
+						{elseif $page_info.position == "begin"}
+						<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+						<span >...</span>
+						{elseif $page_info.position == "end"}
+						<span >...</span>
+						<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+						{else}
+						<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+						{/if}
+					{/foreach}
+					{if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+						<!-- <span class="p-left-10">转到</span><input type="text" class="turnTo" id="turnTo" />
+						<span class="p-right-10 ">页</span> -->
+						<!-- <input class="hyq-round-btn" type="button" value="GO" id="go_btn" /> -->
+						<!-- <a href="{$page_last_url}" class="p-left-10">末页</a> -->
+				</div>
+				{/if}
+			{/if}
+		  </div>
+   
+        <!--主栏结束-->  
+{else}
+			<div align="center" class="right-col-754 right-col-1000">
+				<div class="lead-title-bar"></div>
+				<p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+				<p>OMG!您还没有发过招募哦！</p>
+				<p><a href="javascript:void(0)" id="publish_recruit_btn">快去发招募吧</a>，每天都有当红艺人在等你，说不定还有意外的惊喜哦！</p>
+            </div>    
+{/if}             
+</div>
+
+  <!--关闭招募-->
+    <div class="hyq-modal tip-small" id="close-recruit-modal">
+        <input type="hidden" id="recruit_id_to_close"/>
+        <div class="hyq-ic ic-alert-lg">
+        </div>
+        <p>关闭后本招募将无法报名和邀约<br>确定要关闭么？</p>
+        <div class="album-btn-box2">
+            <input class="hyq-btn hyq-btn-lg" type="button"  value="确&nbsp;&nbsp;定" id="btn-yes-close-recruit">
+            &nbsp;&nbsp;
+            <input type="button" class="hyq-btn hyq-btn-thin-lg hyq-modal-close-btn" id="btn-no-close-recruit" value="取&nbsp;&nbsp;消" />
+        </div>
+    </div>
+     <!-- 主内容尾 -->
+	 {include "home/org_profile_edit/_popup_valid_dlgs.html"}
+     {include "common/footer.html"}
+    <!--接受弹窗-->
+{literal}	
+        <script type="text/javascript">
+         $(window).load(function(){
+                //关闭招募的按钮被点中时
+ 
+            $(".action-close-recruit").click(function(event){
+              //先获取要关闭的招募ID
+              var recruitId = $(this).attr('rid');
+              //console.log("要关闭的招募ID为："+recruitId);
+              
+              //给隐藏域赋值 
+              $("#recruit_id_to_close").val(recruitId);
+              $("#close-recruit-modal").trigger('hyq/modal/show');
+              //return false;
+            });
+
+        //关闭招募的确定按钮被点中的时候
+        $("#btn-yes-close-recruit").click(function(){
+              //先获得要关闭的招募的ID
+              var rid  = $("#recruit_id_to_close").val();
+              //alert(rid);
+              var action = 'close_recruit';
+              //ajax关闭招募
+              $.ajax({
+                url:'/home/ajax/ajax_home_apply.php',
+                type:'post',
+                data:{"action":action,"rid":rid},
+                success:function(data){
+                  //alert(data);
+                  if(data == 1000){
+                    alert('OK,关闭成功!');
+                    location.href="/home/mywork_recruit";
+                  }else{
+                    alert('NO,关闭失败!');
+                  }
+                  /*var Mes = state_list[parseInt(data)];
+                  alert(Mes);*/
+                  //$('#editarea').fadeOut();
+                },
+                dataType:'text'
+			});
+              //**** YOU CODE GOES HERE *****/
+              event.stopPropagation();
+            });
+         });
+		$(function(){
+			$('#publish_recruit_btn').click(function(){
+				//登录
+				if( typeof($.cookie('hyq_user_info')) != 'undefined' ){
+					//alert('登录了');
+					if( $.cookie('hyq_user_info').split('|')[1] == 'mobile' ){
+						top.location.href = "/home/recruit/set";
+					}else{
+						//alert('邮箱用户');
+						//检验该用户是否验证手机
+						var action = 'mobile_is_checked';
+						//var uid = $.cookie('hyq_user_info').split('|')[0];
+						$.post('/home/ajax/ajax_home_account.php',{ action:action},function(data){
+							//alert(data);
+							//console.log(data);
+							if(data == 0){
+								//alert('手机未验证');
+								//触发弹出框 弹出事件
+								$('#valid-mobile-modal').HYQModal();
+								$('#valid-mobile-modal').trigger('hyq/modal/show');
+							}else{
+								//alert('data不等于0')
+								top.location.href = "/home/recruit/set";
+							}
+						});
+					}
+				}else{
+					//alert('没登陆');
+					//跳转到登录页
+					top.location.href = "/account/login";
+				}
+			});
+		});
+        </script>
+{/literal}		 
+</body>
+</html>

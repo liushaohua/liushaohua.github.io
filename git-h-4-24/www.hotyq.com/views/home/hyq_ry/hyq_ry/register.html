@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    
+    <title>融云 Demo -  Web SDK</title>
+    <meta name="keywords"
+    content="融云,即时通讯,即时通讯云,即时通信云,移动 IM,开源 IM,IM 云服务,即时聊天软件,VOIP,移动客服,在线客服,免费,App 开发者服务，融云 Demo ，Web Demo，即时通讯 Demo"/>
+    <meta name="description" content="融云 Web Demo 下载体验！"/>
+    <link href="static/css/main.css" rel="stylesheet">
+    <script src='static/js/jquery-1.8.2.min.js'></script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <script>
+    $(function() {
+        var input = $("input");
+        input.blur(function() {
+            var that = $(this),
+                index = that.index("input"),
+                val = that.val().trim(),
+                symbol, str = "";
+            switch (index) {
+                case 0:
+                    str = "/email_exists?email=";
+                    symbol = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(val);
+                case 1:
+                    str === "" && (str = "/mobile_exists?mobile=");
+                    symbol === undefined && (symbol = /\d{11}/.test(val));
+                    if (symbol) {
+                        $.get(str + val).done(function(result) {
+                            result=JSON.parse(result);
+                            if (result.code == 200 && !result.result) {
+                                that.next().addClass("hidden");
+                            }else{
+                                that.val("").next().removeClass("hidden").end().focus();
+                            }
+                        }).fail(function() {
+                            that.val("").next().removeClass("hidden").end().focus();
+                        });
+                        return;
+                    }
+                    break;
+                case 2:
+                    symbol = /\S{1,10}$/.test(val);
+                case 3:
+                    symbol === undefined && (symbol = /[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,18}$/.test(val))
+                case 4:
+                    symbol === undefined && (symbol = (/[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,18}$/.test(val) && val == input.eq(3).val().trim()));
+                    if (symbol) {
+                        that.next().addClass("hidden");
+                        return;
+                    }
+                    break;
+            }
+            that.val("").next().removeClass("hidden");
+        });
+        $("#register").on("click tap",function() {
+            var empty = input.filter(function(s, i) {
+                return i.value == ""
+            });
+            if (empty.length == 0) {
+                $.ajax({
+                    type: "post",
+                    url: "/reg",
+                    data: {
+                        "email": input[0].value,
+                        "mobile": input[1].value,
+                        "username": input[2].value,
+                        "password": input[3].value
+                    },
+                    dataType: "json"
+                }).done(function(val) {
+                    if (val.code == 200) {
+                        location.href = "login.html";
+                        return;
+                    } else {
+                        alert("注册失败")
+                    }
+                }).fail(function() {
+                    input.val("")[0].focus();
+                })
+            } else {
+                empty.first().blur();
+            }
+        });
+    });
+</script>
+</head>
+<body class="login-container">
+    <div class="login-wrap">
+        <div class="login-header">
+            <div class="login-logo"><img src="static/images/logo_login.png"></div>
+            <div class="phone-login-logo"><img src="static/images/phone_logo_login.png"></div>
+            <div class="login-title">注&nbsp;&nbsp;册</div>
+        </div>
+        <div class="login-content">
+            <span class="mail">注册邮箱</span>
+            <span><input type="text" id="user_email" maxlength="30" autofocus=""/><label class="mail_error error hidden">邮箱格式不正确或已经注册</label></span>
+            <span class="name">手机号</span>
+            <span><input type="text" id="phone" maxlength="11" autofocus=""/><label class="mail_error error hidden">手机号码格式不正确或已被注册</label></span>
+            <span class="name">您的昵称</span>
+            <span><input type="text" id="user_name" maxlength="10"/><label
+                class="name_error error hidden">昵称格式不正确</label></span>
+                <span class="pass">密码</span>
+                <span><input type="password" maxlength="18" id="user_pass"/><label
+                    class="pass_error error hidden">密码格式不正确</label></span>
+                    <span class="pass">再次确认密码</span>
+                    <span><input type="password" maxlength="18" id="user_repass"/><label
+                        class="repass_error error hidden">密码不一致</label></span>
+                        <span class="btn"><button id="register">确认注册</button></span>
+                    </div>
+                    <div class="login-foot">
+                        <a href="login.html">返回登录页面</a>
+                    </div>
+                </div>
+                <div class="login-footer">© 2015 Rong Cloud. V 0.9.6</div>
+            </body>
+            <script type="text/javascript">
+
+            </script>
+            </html>

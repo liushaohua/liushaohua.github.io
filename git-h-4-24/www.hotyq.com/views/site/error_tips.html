@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.hotyq.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>错误提示页面</title>
+		<meta name="description" content="">
+		
+		
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		{literal}
+		<script>
+			$(function(){
+				setTimeout(function(){
+					location.href="/account/register";
+				},5000);
+				var s = 5;
+				setInterval(function(){
+					s--;
+					$('#s').html(s+"秒后自动跳转至网站主页");
+				},1000);
+			});
+		</script>
+		{/literal}
+	</head>
+	<body>
+	{include file="common/header_simple.html"}
+		<div class="content-wrapper _zeroPDTop" >
+			<div class="main-column-a _relativePos" >
+				<!-- 绑定成功 -->
+				<div class="column-wrapper RdBorderBtm ">
+					<div class="row2">
+						<div class="lead-title">
+							<i class="hyq-ic ic-label-mark"></i><label class="_bold  f18 Blak2">您的操作出错啦！</label>
+						</div>
+					</div>
+					<div class="red-spliter"></div>
+
+					<div class="row2" style="padding-bottom:0px;" >
+						<div class="lead-title">
+							&nbsp;&nbsp;&nbsp;<label class="Blak2 f18"> 兄弟！你想干嘛呢!</label>
+						</div>
+							<div class="muted-subtitle-box">
+							<div class="muted-subtitle">
+								<div>
+									以下是你的捣乱证据哦：
+								</div>
+								
+								<div>
+									error_code ：<label class="f16 _bold Blak4">{$state_code}</label>
+								</div>
+								<div>
+									error_tips ：<label class="f16 _bold Blak4">{$error_tips}</label>
+								</div>
+								<br class="_clb"/>
+								<br class="_clb"/>
+								<br class="_clb"/>
+								<br class="_clb"/>
+								<span id="s">5秒后自动跳转至网站主页</span>
+							</div>
+							<br class="_clb"/>
+							<a href="http://www.hotyq.com/" class="hyq-btn hyq-btn-lg">&nbsp;网站主页&nbsp;</a>
+
+							<br class="_clb"/>
+							<br class="_clb"/>
+						</div>
+					</div>
+
+				</div>
+
+			</div><!-- 主栏结束 -->
+
+			<!-- 通用右边栏 -->
+			<div class="right-column">
+				{include file="common/right_qrcode.html"}
+				<div class="column-spliter"></div>
+				{include file="common/right_advantage.html"}
+				<br class='_clb'/>
+			</div>
+		</div>
+
+			<!-- 通用页脚 -->
+			{include file="common/footer.html"}

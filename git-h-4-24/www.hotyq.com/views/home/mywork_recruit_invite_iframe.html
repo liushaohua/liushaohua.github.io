@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>已邀约</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="stylesheet" href="/css/main.css">
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/hyq-tabs.js"></script>
+		<script type="text/javascript" src="/js/hyq-misc.js"></script>
+		<style type="text/css">
+		body{
+			margin:0px;
+			padding:0px;
+			font-size: 12px;
+		}
+
+		.grid-row{
+			 border:1px solid #d7d7d7;
+			 background-color: #fff;
+			border-top:none;
+		}
+		  
+		.grid-row .c1{
+			width: 30%;
+			padding: 0px 10px;
+		}
+		.grid-row .c1 .avt{
+			display: inline-block; 
+			*display: block;
+			margin-left: 3em;
+		}
+		.grid-row .c1 .avt img{
+			width: 30px;
+			height: 30px;
+		}
+		.grid-row .c1 .who{
+			 
+			 margin-left: 1em;
+
+		}
+		.grid-row .c2{
+			width: 20%;
+		}
+		.grid-row .c3{
+			width: 12%;
+		}
+		.grid-row .c4{
+			width: 10%;
+		}
+		.grid-row .c5{
+			width: 14%;
+			float: right;
+			text-align: right;
+			 
+			 
+		}
+
+		.hyq-tabs{
+			background-color: #fff;
+		}
+		.hyq-tabs .hyq-tab a{
+			font-size: 12px;
+			background-color: #fff;
+			border-bottom: none;
+			border-left:none;
+			border-right: 1px solid #d7d7d7;
+		}
+		.hyq-tab-content .hyq-tab-pane{
+			margin: 0px;
+			padding: 0px;
+		}
+		 
+		.hyq-tabs .active a{
+			height: 38px;
+			font-size: 12px;
+			background-color: #f3f4f4;
+			border-left:none;
+			border-right: 1px solid #d7d7d7;
+			border-bottom:2px solid #ff3300;
+		}
+		.grid-row .foldup{
+			position: absolute; 
+			margin: 0px;
+			padding: 0px;
+			font-size: 12px;
+			right: 15px;
+			top:0;
+		}
+		.grid-row .msg-btn{
+			border:1px solid #d7d7d7;
+			background-color: #f7f7f7;
+			height: 20px;
+			line-height: 20px;
+			font-size: 12px;
+			padding: 0px 8px;
+			margin: 0px 20px 0px 0px;
+		}
+
+		.grid-row-pink{
+			border-top: none;
+		}
+		.c6 .tri{
+			border-left:1px solid #d7d7d7;
+			border-top:1px solid #d7d7d7;
+			z-index: 10;
+
+		}
+	 	.grid-box{
+	 		max-height: 200px;
+	 		display: block;
+	 		width: 100%;
+	 		overflow-x:hidden;
+	 		overflow-y:auto;
+	 	}
+
+		</style>
+	</head>
+
+	<body>
+		<!--载入PHP的时候把招募ID赋值给这个隐藏域 供全局使用 -->
+		<input type="hidden" id="current-recruit" value="{$rid}"/>
+		<!--载入PHP的时候把招募ID赋值给这个隐藏域 供全局使用 -->
+
+		<div class="grid-row bgWt">
+					<div class="c1 txt-left">被邀约人</div>
+					<i></i>
+					<div class="c2">邀约角色
+					</div>
+					<i></i>
+					<div class="c3">状态</div>
+					<i></i>
+					<div class="c4 c6">联系方式</div>
+		 			<i></i>
+					<div class="c5"> <label class="foldup"><a href="javascript:;" class="action-hide-me-daddy">&uarr; 收起</a></label></div>
+		</div>
+	 
+	 
+			 
+				
+				<!-- 滚动区域 -->
+				<div class="grid-box">
+					<!--  userId 很重要PHP遍历的时候一定要放上去 -->
+		{if $list neq ''}					
+				{foreach name=invite_list from=$list item=v}					
+					<div class="grid-row" userId="{$v.uid}">
+						<div class="c1">
+							<a class="avt fl" href="/{$v.user_type}/{$v.uid}" target="_blank" >
+								<img src="{$v.u_face}"  />
+							</a>
+							<a href="/{$v.user_type}/{$v.uid}" target="_blank" class="who fl">{$v.u_name}</a>
+						</div>
+						<i></i>
+						<div class="c2">
+							 {$v.role_name}
+						</div>
+						<i></i>
+						{if $recruit_info['status'] eq 1}
+							<div class="c3">
+							{if $v.u_status eq 'agree'}
+								已接受
+							{elseif $v.u_status eq 'refuse'}
+								已拒绝
+							{else}
+								等待对方确认
+							{/if}	
+							</div>
+						{else}
+							<div class="c3 weak">
+							{if $v.u_status eq 'agree'}
+								已接受
+							{elseif $v.u_status eq 'refuse'}
+								已拒绝
+							{else}
+								等待对方确认
+							{/if}	
+							</div>
+						{/if}
+						<i></i>
+						{if $recruit_info['status'] eq 1}
+							<div class="c6 c4">
+							{if $v.u_status eq 'agree'}
+								<a href="javascript:;"  class="action-show-contact">查看</a>
+								<span class="tri _hidden"></span>
+							{else}
+							-
+							{/if}	
+							</div>
+						{else}
+							<div class="c6 c4 weak">
+							{if $v.u_status eq 'agree'}
+								<a href="javascript:;"  class="action-show-contact">查看</a>
+								<span class="tri _hidden"></span>
+							{else}
+							-
+							{/if}	
+							</div>
+						{/if}
+						<i></i>
+						<div class="c5">
+							<a href="javascript:;" class="msg-btn action-msg">私信</a>
+						</div>
+					</div>
+					<!--联系信息-->
+					{if $v.u_status eq 'agree'}
+					<div class="grid-row-pink _hidden" userId="{$v.uid}">
+						  <label class="c">电话：<span>{$v.u_mobile}</span></label>
+						  <label class="c">邮箱：<span>{$v.u_email}</span></label>
+						  <label class="c">微信：<span>{$v.u_weixin}</span></label>
+						  <label class="c">QQ：<span>{$v.u_qq}</span></label>
+	            	</div>
+					{/if}
+				{/foreach}
+		{else}
+			<div class="grid-row" style="border-top:none" align="center">
+				暂无数据
+			</div>
+		{/if}				
+<!-- 	            	<div class="grid-row" userId="10">
+						<div class="c1">
+							<a class="avt fl">
+								<img src="http://img1.touxiang.cn/uploads/20120625/25-074600_138.jpg"  />
+							</a>
+							<a href="javascript:;" class="who fl">杨二车这姆</a>
+						</div>
+						<i></i>
+						<div class="c2">
+							 <span>主持人</span>
+						</div>
+						<i></i>
+						<div class="c3">
+							等待对方确认
+						</div>
+						<i></i>
+						<div class="c6 c4">
+							-
+						</div>
+						<i></i>
+						<div class="c5">
+							<a href="javascript:;" class="msg-btn action-msg">私信</a>
+						</div>
+					</div>
+
+	            	 
+
+	            	<div class="grid-row" userId="12">
+						<div class="c1">
+							<a class="avt fl">
+								<img src="http://img1.touxiang.cn/uploads/20120625/25-074600_138.jpg"  />
+							</a>
+							<a href="javascript:;" class="who fl">杨二车这姆</a>
+						</div>
+						<i></i>
+						<div class="c2">
+							 <span>歌手</span>
+						</div>
+						<i></i>
+						<div class="c3">
+							已拒绝
+						</div>
+						<i></i>
+						<div class="c6 c4">
+							-
+						</div>
+						<i></i>
+						<div class="c5">
+							<a href="javascript:;" class="msg-btn action-msg"  >私信</a>
+						</div>
+					</div>
+					  -->
+            	<div>
+			 
+				 
+			 
+			 
+			 
+		 
+		<script type="text/javascript">
+		        
+		$(window).load(function(){
+
+			var triggleSizeChangeEvent = function(){
+				parent.$(parent.top.document).trigger({
+			 	type:"hyq/iframe/doc/resizeme",
+			 	itemId:currentId,
+			 	docHeight:$(document.body).height(),
+			 	iframeName:window.name
+			 });
+
+			}
+			/********** 这个ID是从顶端隐藏域中获取的招募ID 非常重要 ******************/
+			////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////
+			//这是JS方法获取地址栏中的参数，不够保险 仅供测试静态页面的时候用
+			//var currentId = $.getUrlParameter('id');
+			//后台环境中 使用注释的这句
+			 var currentId = $("#current-recruit").val();
+			 
+
+			 ////////////////////////////////////////////////////////////////////
+			 ////////////////////////////////////////////////////////////////////
+			 /*********************************/
+
+			 triggleSizeChangeEvent();
+
+			 //通知爹窗口改变大小
+			 $(".hyq-tab").click(function(){
+			 	  triggleSizeChangeEvent();
+			 });
+
+			//查看联系人
+			$(".action-show-contact").click(function(event){
+				 var tar = $(event.target||event.srcElement);
+				 tar.parent().parent().next().toggle();
+				 tar.parent().find(".tri").toggle();
+				 triggleSizeChangeEvent();
+			});
+
+			//点击私信
+			$(".action-msg").click(function(event){
+				console.log(".action-msg被点中");
+				var tar = $(event.target||event.srcElement);
+				var userId = tar.parent().parent().attr('userId');
+				console.log("IFRAME 的私信按钮被点击 正在给父窗口发送hyq/iframe/doc/sms 请求发私信");
+				parent.$(parent.top.document).trigger({
+					type:"hyq/iframe/doc/sms",
+					toUserId:userId
+				});
+
+			});
+
+			//收起被点中时通知父窗口隐藏此iframe
+			$(".action-hide-me-daddy").click(function(event){
+				 parent.$(parent.top.document).trigger({
+				 	type:"hyq/iframe/doc/hideme",
+				 	frameName:window.name,
+				 	itemId:currentId,
+				 	pageType:0
+				 });
+			});
+
+		 	 
+
+		 	 
+
+		});
+		</script>
+	</body>
+</html>

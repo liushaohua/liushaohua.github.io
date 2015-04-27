@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/css/m/rest.css">
+    <link rel="stylesheet" type="text/css" href="/css/m/index.css">
+	<title>test</title>
+</head>
+<body>
+	<div class="contents">
+	    <div class="change">
+        下拉即可刷新
+        </div>
+		<div id='slider' class='swipe'>
+		  <div class='swipe-wrap'>
+			  <div>
+			  	<a href="#" title="">
+			  		<img src="/images/m/bg1.jpg" alt="">
+			  	</a>
+			  </div>
+			  <div>
+			  	<a href="#" title="">
+			  		<img src="/images/m/bg2.jpg" alt="">
+			  	</a>
+			  </div>
+			  <div>
+			  	<a href="#" title="">
+			  		<img src="/images/m/bg3.jpg" alt="">
+			  	</a>
+			  </div>
+			  <div>
+			  	<a href="#" title="">
+			  		<img src="/images/m/bg4.jpg" alt="">
+			  	</a>
+			  </div>
+		  </div>
+	   </div>
+	   <ul class="content">
+	   	   <li class="navs fuwu">
+	   	   	  <h2 class="biao">
+	   	   	  	服务分类
+	   	   	  </h2>
+	   	   	  <div class="biaos">
+			  {if $service_class neq ''}
+				{foreach $service_class as $k=>$v}
+		   	   	  <a href="/list/user?service_1_option={$v['id']}">
+		   	   	  	<img src="/images/m/fenlei1.jpg" alt="{$v['name']}">
+		   	   	  	<span>{$v['name']}</span>
+		   	   	  </a>
+				{/foreach}
+		   	   {/if}
+	   	   	  </div>
+	   	   </li>
+		   
+		   <!-- 广告一 -->
+	   	   <a href="" class="ad">
+	   	   	  	<img src="/images/m/ad.jpg" alt="">
+	   	   </a>
+		   
+	   	   <li class="navs hongren">
+	   	      <h2 class="biao">
+	   	   	    最新红人
+	   	   	  </h2>
+	   	   	  <div class="hots-biao">
+		   	   	  <div class="hots">
+		   	   	  	  <em class='hot-on'>演员</em>
+		   	   	  	  <em>综艺</em>
+		   	   	  	  <em>舞者</em>
+		   	   	  	  <em>歌手</em>
+		   	   	  	  <em>模特礼仪</em>
+		   	   	  	  <em>主持人</em>
+		   	   	  	  <em>幕后</em>
+		   	   	  	  <em>学生</em>
+		   	   	  	  <em>机构团体</em>
+		   	   	  	  <em>圈外人士</em>
+		   	   	  </div> 
+	   	   	  </div>
+	   	   	  <!--演员开始1-->
+		{if $role_user_arr neq ''}
+			{foreach name=user_arr from=$role_user_arr key=key item=value}
+				<div  
+					{if $smarty.foreach.user_arr.first}
+					class="heads hot-now" lazy="false"
+					{else}
+					class="heads" lazy="true"
+					{/if}
+				>
+				{if $smarty.foreach.user_arr.first}
+					{foreach $value as $k=>$v}
+							<a href="/user/{$v['id']}" title="{$v.nickname}">
+								<img src="{$v.icon_url}" alt="{$v['nickname']}">
+								<span>{$v['nickname']}</span>
+							</a>
+					{/foreach}
+				{else if $smarty.foreach.user_arr.iteration eq 9}	
+					{foreach $value as $k=>$v}
+							<a href="/org/{$v['id']}" title="{$v['nickname']}">
+								<img data-src="{$v['icon_url']}" alt="{$v['nickname']}">
+								<span>{$v['nickname']}</span>
+							</a>
+					{/foreach}
+				{else}
+					{foreach $value as $k=>$v}
+							<a href="/user/{$v['id']}" title="{$v['nickname']}">
+								<img data-src="{$v['icon_url']}" alt="{$v['nickname']}">
+								<span>{$v['nickname']}</span>
+							</a>
+					{/foreach}
+				{/if}
+	   	   	  </div>
+			{/foreach}
+		{/if}
+	   	   	  <!--演员结束-->
+	   	   
+	   	   </li>
+		   <!-- 广告二 -->
+	   	   <a href="" class="ad">
+	   	   	   <img src="/images/m/ad.jpg" alt="">
+	   	   </a>
+		   
+	   	   <li class="navs zhuanti">
+	       	  <h2 class="biao">
+	   	   	    
+	   	   	  </h2>
+		   	  <div id='slider1' class='swipe'>
+			      <div class='swipe-wrap'>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg1.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg2.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg3.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg4.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg4.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg4.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg4.jpg" alt="">
+					  	</a>
+					  </div>
+					  <div>
+					  	<a href="#" title="">
+					  		<img src="/images/m/bg4.jpg" alt="">
+					  	</a>
+					  </div>
+			      </div>
+		      </div>
+	   	   </li>
+	   	   <li class="navs zhaomu">
+	   	   	   <h2 class="biao">
+	   	   	    推荐招募
+	   	   	  </h2>
+	   	   	  <div class="zhaomuCotent">
+				{foreach $recruit_list as $k=>$v}
+	   	   	  	  <a href="/recruit/{$v['rid']}" data-mobile-uid="{$v['ruid']}" title="{$v['title']}">
+	   	   	  	  	  <img src="{$v['url']}" alt="{$v['title']}">
+	   	   	  	  	  <div>
+	   	   	  	  	  	<span>{$v['title']}</span><i>{$v['city']}</i>
+	   	   	  	  	  </div>
+	   	   	  	  </a>
+	   	   	  	{/foreach}
+	   	   	  </div>
+	   	   </li>
+	   </ul>
+	</div>
+   
+   <script src='/js/m/zepto.min.js'></script>
+   <script src='/js/m/swipe.min.js'></script>
+   {literal}
+   <script>
+	   $(function(){
+	      $('<div>').addClass('sliderArc-one').appendTo('#slider');
+	      for (var i = 0; i < $('#slider .swipe-wrap').children('div').length; i++) {
+	      	  $('<span>').appendTo('.sliderArc-one')
+	      };
+	      $('.sliderArc-one span').eq(0).addClass('on')
+	      var slider = Swipe(document.getElementById('slider'), {
+	          auto: 3000,
+	          continuous: true, 
+	          disableScroll: false,
+	          stopPropagation: false,
+	          transitionEnd: function(index, element) {
+	          	$('.sliderArc-one span').removeClass('on').eq(index).addClass('on')
+	          }
+	      });
+	       $('<div>').addClass('sliderArc-one1').appendTo('#slider1');
+	      for (var i = 0; i < $('#slider1 .swipe-wrap').children('div').length; i++) {
+	      	  $('<span>').appendTo('.sliderArc-one1')
+	      };
+	      $('.sliderArc-one1 span').eq(0).addClass('on')
+	      $('.hots').before('<span>').prev('span').addClass('before');
+	      $('.hots').after('<span>').next('span').addClass('after');
+	       var slider1 = Swipe(document.getElementById('slider1'), {
+	          auto: 3000,
+	          continuous: true, 
+	          disableScroll: false,
+	          stopPropagation: false,
+	          transitionEnd: function(index, element) {
+	          	$('.sliderArc-one1 span').removeClass('on').eq(index).addClass('on')
+	          }
+	      });
+	      var flag;
+          if($('.contents').length>0){
+          	$('.contents').get(0).addEventListener('touchstart',function  (event) {
+          		   $(this).removeClass('opa-back');
+          		   this.style.webkitTransform="translateY("+0+"px)";
+					 var touch = event.touches[0];
+					 this.start=touch.pageY;
+			},false);
+			$('.contents').get(0).addEventListener('touchmove',function  (event) {
+				     if($(window).scrollTop()==0){
+					 	 flag=true;
+					 	 var touch = event.touches[0];
+					 this.move=touch.pageY-this.start;
+					 if (this.move>0) {
+					 	 event.preventDefault();
+					 	 this.style.webkitTransform="translateY("+this.move/5+"px)";
+					 };
+					 }else{
+					 	flag=false;
+					 }
+			},false);
+			$('.contents').get(0).addEventListener('touchend',function  (event) {
+				 if(flag){
+					 var touch = event.touches[0];
+					 if(this.move>0){
+						 $(this).addClass('opa-back');
+						 if(this.move>$('.change').height()*10/3){
+							 	setTimeout(function(){
+							 	              location.reload() 
+							                  },300)
+						 }
+					}
+				}
+			},false);
+          };
+       //if($('.heads').attr('lazy')=='false'){alert(1)};
+       $('.hots em').each(function(ind,ob){
+       	    $(ob).click(function(){
+       	    	 $('.hots em').removeClass('hot-on').eq(ind).addClass('hot-on');
+       	    $('.heads').hide().eq(ind).show();
+       	    if($('.heads').eq(ind).attr('lazy')=='true'){
+       	    	$('.heads').eq(ind).find('img').each(function(indd,obb){
+       	    		$(obb).attr('src',$(obb).attr('data-src'));
+       	    		$('.heads').eq(ind).attr('lazy','false');
+       	    	})
+       	    }
+       	    })
+       });
+       $('.heads').addClass('go-back');
+	   function resizes(){
+	      $('.heads img').css({height:$(window).width()*7/40});
+		  $('.zhaomuCotent img').css({height:$(window).width()*49*233/39300});
+		  $('.biaos img').css({height:$(window).width()*565/4000})
+	   }
+	   resizes();
+	   $(window).resize(resizes);
+	   })  
+   </script>
+	{/literal}
+</body>
+</html>

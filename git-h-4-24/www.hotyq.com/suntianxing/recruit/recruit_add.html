@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>发布招募</title>
+	</head>
+	<body>
+		<form action="./recruit_add.php" method="post">
+			用户id:<input type="text" name="uid" value=""><br>
+			招募主题:<input type="text" name="recruit_name" value=""><br>
+			类型：	<select name="recruit_type">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>5</option>
+						<option>7</option>
+					</select><br>
+			截止时间：<input type="text" name="end_time" value="2015-02-27 10:20"><br>
+			工作开始时间：<input type="text" name="work_start_time" value="2015-03-27 10:20"><br>
+			工作结束时间：<input type="text" name="work_end_time" value="2015-03-31 10:20"><br>
+			工作地点：
+					省:<select name="province_id"><option value="1">北京</option></select>
+					市:<select name="city_id"><option value="1">北京</option></select>
+					区:<select name="district_id"><option value="3">崇文区</option></select><br>
+			招募简介：
+					<input type="text" name="descr" value="缓缓地发的招募顶顶顶"><br>
+			招募服务：<br>
+				<div>
+					一级<select name="service_1">
+						<option value="1">影视剧表演</option>
+					</select>
+					二级<select name="service_2">
+						<option value="21">演员表演</option>
+					</select>
+					性别<select name="sex">
+						<option value="m">男</option>
+						<option value="f">女</option>
+						<option value="0">不限</option>
+					</select>
+					数量<select name="num">
+						<option value="1">1名</option>
+						<option value="2">2名</option>
+						<option value="3">3名</option>
+						<option value="4">4名</option>
+						<option value="5">5名</option>
+					</select><br>
+					招募描述：<input type="text" name="service_require">
+					<br>
+					三级<div>
+						<input type="checkbox" name="service_3[]" value="33">电影表演
+						<input type="checkbox" name="service_3[]" value="34">电视剧表演
+						<input type="checkbox" name="service_3[]" value="36">广告片表演
+						<input type="checkbox" name="service_3[]" value="38">公益宣传片表演
+						<input type="checkbox" name="service_3[]" value="40">微视频表演
+						<input type="checkbox" name="service_3[]" value="41">微电影表演
+						<input type="checkbox" name="service_3[]" value="44">专题片表演
+						<input type="checkbox" name="service_3[]" value="45">MV表演
+					</div>
+				</div><br>
+				<input type="submit" value="发布">
+		</form>
+	</body>
+</html>

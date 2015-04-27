@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+body{min-width: 1020px;}
+/*banner*/
+.banner{width:100%;background:url(/images/constellation/constellation_banner.jpg) center top no-repeat !important;height:874px;overflow:hidden;}
+.intro{width:1020px;position:relative;margin:0 auto;padding-top:817px;}
+.intro p{padding-left:446px;font-size:18px;color:#e71883;line-height:31px;}
+.intro_title{position:relative;height:36px;line-height:36px;}
+.intro_title span{font-size:25px;color:#ea2d8a;letter-spacing: 1px;}
+.wrap{width:1020px;margin:0 auto;padding-top:36px;}
+.intro_hr{position:absolute;width:100%;height:1px;border-bottom:2px solid #ef62ab;top:20px;width:790px;right:3px;}
+.recruit{margin-top:60px;}
+.recruit ul{clear:both;overflow:hidden;}
+.recruit li{padding-bottom:67px;float:left;padding-left:34px}
+.recruit li.first{width:336px;}
+.recruit li.sec{width:315px;}
+.recruit li p{line-height:30px;font-size:17px;}
+.recruit_join a{width:112px;height:34px;line-height:34px;color:#fff;background:#e71883;border-radius: 14px;display:inline-block;font-size:18px;text-align:center;margin-top:13px;margin-bottom:9px;}
+.recruit_join a:hover{background:#ff389f;}
+.movie_intro p{line-height:40px;font-size:18px;margin-top:41px;letter-spacing: 1px;color:#040404;margin-bottom:97px;}
+.imgShow ul{clear:both;overflow:hidden;margin-top:27px;}
+.imgShow ul li{float:left;margin-bottom:26px;position:relative;}
+.imgShow ul li.imgShow_gap{margin-right:23px;}
+.imgShow .imgShow_link a{display:block;width:88px;height:88px;background:url(/images/constellation/play.png) no-repeat;position:absolute;left:206px;top:56px;}
+.imgShow .imgShow_link a:hover{background:url(/images/constellation/play_h.png) no-repeat;}
+.imgShow .imgShow_link{position: absolute;background:black;top: 0;left: 0;width: 100%;height: 100%;opacity: 0;filter: alpha(opacity=0);-moz-opacity: 0;-webkit-transition: opacity 0.8s;transition: opacity 0.8s;
+-moz-transition: opacity 0.8s;-ms-transition: opacity 0.8s;-o-transition: opacity 0.8s;font-size:22px;color:#fff;text-align:center;}
+.imgShow .imgShow_link p{margin-top:178px;}
+.imgShow_link:hover{opacity: 0.65;}
+.vide_link{font-size:17px;margin-top:11px;}
+.time_end{text-align:right;margin-bottom:96px;font-size:18px;}
+.time_end .unit{margin-right:46px;margin-left:42px;}
+.vide_link a:hover{text-decoration:underline;}
+.foot_banner{height:448px;width:100%;background:url(/images/constellation/constellation_b_banner.jpg) 48% top no-repeat !important;margin-top:-16px;border-bottom:64px solid #e71883;}
+.hyq-ft{margin-top:0;}
+.right_bar{position: fixed;top:300px;right: 180px;z-index:50;display:none;}
+.right_bar a{width:109px;height:109px;display:block;}
+.right_bar .sixin{background:url(/images/constellation/constellation_sixin.png) no-repeat;}
+.right_bar .sixin:hover{background:url(/images/constellation/constellation_sixin_h.png) no-repeat}
+.right_bar .shoucang{background:url(/images/constellation/constellation_shoucang.png) no-repeat;margin-top:27px;}
+.right_bar .yishoucang{background:url(/images/constellation/constellation_shoucang_cs.png) no-repeat;margin-top:27px;}
+.right_bar .shoucang:hover{background:url(/images/constellation/constellation_shoucang_h.png) no-repeat}
+div.foot-empty{height:335px;}
+.gotop{
+	position: fixed;
+	top:580px;
+	right:190px;
+	z-index:50;
+	width:90px;
+	height:90px;
+	display:none;
+	background:url(/images/top.png) no-repeat;
+}
+.gotop:hover{
+	background:url(/images/top_hover.png) no-repeat;
+}

@@ -1,0 +1,53 @@
+	<div class="relatedToYou-group-10">
+		<p class="relatedToYou-title">
+			<span class="pull-left">与你相关</span> 
+			<!-- <a href="javascript:void(null)" class="hyq-btn-refresh pull-right"><i></i><label>换一组</label></a> -->
+		</p>
+		<ul class="relatedToYou-ul" id="about_you_box">
+			<!--默认给最新的招募-->
+			{foreach $new_recruit_list as $v}
+			<li>
+				<a href="/recruit/{$v['id']}">
+					<span class="time-txt">{$v.sys_start_time}</span>
+					<i>|</i>
+					<span class="caption-txt" title="{$v['recruit_city_name']['cname']}">{$v['recruit_city_name']['cname']}</span>
+					<i>|</i>
+					<span class="caption-txt-l" title="{$v['name']}">{$v['name']}</span>
+				</a>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="cl"></div>
+	</div>
+	{literal}
+	<script>
+	$(function(){
+		//与你相关-----  默认按招募时间排序----------------------1.14新加侧边栏---------------------
+		if(typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1){
+			//alert('没登陆');    
+		}else{
+			//alert('登录了');
+			if($.cookie('hyq_user_info').split('|')[1] == 'user'){
+				//alert('红人');   //ajax提取改用户的角色信息
+				$.post("/ajax/ajax_relate_recruit_list_by_role.php",{uid:$.cookie('hyq_user_info').split('|')[0]},function(data){
+					//console.log(data);
+					var recruit_arr = new Array();
+					recruit_arr = eval('('+data+')');
+					//console.log(recruit_arr[0]);
+					//根据角色  发送后台获取相关的招募信息  替换掉当前的块
+					var about_html = '';
+					for(var i = 0; i < recruit_arr.length;i++){
+						//alert(recruit_arr[i]['id']);
+						//alert(recruit_arr[i]['recruit_city_name']['cname']);
+						about_html += "<li><a href='/recruit/"+recruit_arr[i]['id']+"'><span class='time-txt'>"+recruit_arr[i]['sys_start_time']+"</span><i>|</i><span class='caption-txt' title='"+recruit_arr[i]['recruit_city_name']['cname']+"'>"+recruit_arr[i]['recruit_city_name']['cname']+"</span><i>|</i><span class='caption-txt-l' title='"+recruit_arr[i]['name']+"'>"+recruit_arr[i]['name']+"</span></a></li>";
+					}
+					//console.log(about_html);
+					$('#about_you_box').html(about_html);
+				});
+			}else if($.cookie('hyq_user_info').split('|')[1] == 'org'){
+				//alert('机构'); //ajax获取最新的招募  替换块
+			}
+		}
+	});
+	</script>
+	{/literal}

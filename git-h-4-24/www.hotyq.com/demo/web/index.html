@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html ng-app="RongIMDemo">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="full-screen" content="yes">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>融云 Demo - Web SDK</title>
+    <meta name="keywords"
+          content="融云,即时通讯,即时通讯云,即时通信云,移动 IM,开源 IM,IM 云服务,即时聊天软件,VOIP,移动客服,在线客服,免费,App 开发者服务，融云 Demo ，Web Demo，即时通讯 Demo"/>
+    <meta name="description" content="融云 Web Demo 下载体验！"/>
+    <link href="static/css/main.css?v=2" rel="stylesheet">
+    <script src="http://res.websdk.rong.io/RongIMClient.min.js"></script>
+    <!--<script src="http://res.websdk.rongcloud.net/RONG.js"></script>-->
+    <script src='static/js/jquery-1.8.2.min.js'></script>
+    <script src='static/js/jquery.nicescroll.js?v=2'></script>
+    <script src="static/js/angular.min.js?v=2"></script>
+    <script src="static/js/controller.js?v=2"></script>
+    <script src="http://res.websdk.rongcloud.cn/RongIMClient.voice-0.9.1.min.js"></script>
+</head>
+<body class="container">
+<div class="bro_notice" style="z-index:1000;width:100%;position:fixed; background-color: #FCF8E3; color: #000;text-align: center;margin: 0 auto;display: none;">
+    <!-- <p>Web SDK Demo 正处于测试阶段，部分浏览器会有兼容问题，有问题请您 <a style="color: #428BCA;" href="https://developer.rongcloud.cn/ticket/create" target="_blank">提工单反馈。</a> 此 Demo 只做 Web SDK 演示，只截取部分好友显示。
+    </p> -->
+</div>
+<div class="wrap" ng-controller="RongC_chaInfo">
+    <div class="left" >
+        <div class="dialog_header header">
+                    <span class="owner_image">
+                        <img ng-src="{{owner.portrait}}" onerror="this.src='static/images/personPhoto.png'"/>
+                    </span>
+                    <span class="owner_name" ng-bind="owner.name">
+                    </span>
+                    <span class="setting">
+                        <a href="javascript:void(0)" id="setting"><label></label> </a>
+                    </span>
+        </div>
+        <div class="phone_dialog_header header">
+                    <span class="logOut">
+                        <a href="javascript:void(0)" title="退出"></a>
+                    </span>
+                    <span class="addrBtnBack btnBack">
+                        <a href="javascript:void(0)" title="返回">＜ 返回</a>
+                    </span>
+            融云
+                    <span class="addrBtn">
+                        <a href="javascript:void(0)" title="联系人"></a>
+                    </span>
+        </div>
+        <div class="settingView">
+            <span class="volSetting"><span class="hover" ng-click="playerHandle($event.target)">关闭声音</span></span>
+            <hr>
+            <span id="close" class="logOut"><span ng-click="logout()" class="hover">退出登录</span></span>
+        </div>
+        <div class="listOperatorContent">
+            <div class="conversationBtn selected">
+                <a href="javascript:void(0)" title="聊天"><span><font
+                        ng-class='{"msgNum":true,"hidden":totalunreadcount==0}'>{{totalunreadcount}}</font></span></a>
+            </div>
+            <div class="cutOffRule" style="width: 2px;"></div>
+            <div class="addrBtn">
+                <a href="javascript:void(0)" title="通讯录"><span></span></a>
+            </div>
+        </div>
+        <div class="listConversation list" style="display:none ;">
+            <ul id="conversationlist" ng-model="ConversationList">
+                <li ng-click="ConversationClick(item.getConversationType().getValue(),item.getTargetId(),item.getConversationTitle())" ng-repeat="item in ConversationList">
+                    <span class="user_img"><img load-portrait="{{item.getTargetId()}}" onerror="this.src='static/images/personPhoto.png'"/><font ng-class="{'conversation_msg_num':true,'hidden':item.unread==0}">{{item.unread}}</font></span><span
+                        class="conversationInfo"><p
+                        style="margin-top: 10px"><font class="user_name">{{item.getConversationTitle()}}</font><font
+                        class="date" >{{item.lastTime | showTime}}</font></p></span>
+                </li>
+            </ul>
+        </div>
+        <div class="listAddr list" style="">
+            <div class="nameInitials">群组</div>
+            <ul>
+                <li targetId="group001" ng-click="RongDefault($event.target,'融云群一',3)">
+                    <span class="user_img"><img src="static/images/user.png"/></span>
+                    <span class="user_name">融云群一</span>
+                </li>
+                <li targetId="group002" ng-click="RongDefault($event.target,'融云群二',3)">
+                    <span class="user_img"><img src="static/images/user.png"/> </span>
+                    <span class="user_name">融云群二</span>
+                </li>
+                <li targetId="group003" ng-click="RongDefault($event.target,'融云群三',3)">
+                    <span class="user_img"><img src="static/images/user.png"/> </span>
+                    <span class="user_name">融云群三</span>
+                </li>
+            </ul>
+            <div class="nameInitials">客服</div>
+            <ul>
+                <li targetId="rongcloud.net.kefu.service112" ng-click="RongDefault($event.target,'融云客服',1)">
+                    <span class="user_img"><img src="static/images/user.png"/></span>
+                    <span class="user_name">融云客服</span>
+                </li>
+            </ul>
+            <div class="nameInitials">好友列表</div>
+            <ul id="friendsList" ng-model="friendsList">
+                <li ng-click="ConversationClick(4,item.id,item.username)" ng-repeat="item in friendsList">
+                    <span class="user_img"><img ng-src="{{'static/images/personPhoto.png'||item.portrait}}"/></span> <span
+                        class="user_name">{{item.username}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="right_box" style="display:none ;">
+        <div class="right">
+            <div class="dialog_box_header header">
+                <a href="javascript:void(0)" class="btnBack">＜ 返回 <label></label></a>
+                <span id="conversationTitle">{{conversationTitle}}</span>
+            </div>
+            <div class="dialog_box">
+                <div class="xiaoxiti" ng-class="{'other_user':item.getMessageDirection().getValue() == 0,'self':item.getMessageDirection().getValue() == 1,'user':true}" ng-repeat="item in historyMessages">
+                    <div class="user_img"><img onerror="this.src='static/images/personPhoto.png'" load-portrait="{{item.getTargetId()+'@'+item.getMessageDirection().getValue()}}"/></div>
+                    <span>{{item.getSenderUserName()}}</span>
+                    <div class="msg">
+                        <div class="msgArrow"><img ng-src="{{item.getMessageDirection().getValue() == 0?'static/images/white_arrow.png':'static/images/blue_arrow.png'}}">
+                        </div>
+                        <span></span>
+                        <div class="msgBody" msg-type="{{item.getDetail()}}">
+                        </div>
+                    </div>
+                    <div messageId="{{item.getMessageId()}}" ng-class="{'status':true, 'status_error':false}"></div>
+                </div>
+            </div>
+            <div class="msg_box">
+                <div class="features">
+                            <span class="expression">
+                                <a href="javascript:void(0)" id="RongIMexpression" title="表情"></a>
+                            </span>
+                </div>
+                <div class="input_box">
+                    <div class="button_box">
+                        <div id="expresscontent"></div>
+                        <span><button id="send" ng-click="sendMessage()">发送</button></span>
+                        <span><font>Ctrl + Enter</font></span>
+                    </div>
+                    <div class="text_box">
+                        <!--<div class="textarea" id="mainContent" contenteditable="true"-->
+                             <!--style="resize: none;overflow: auto;"></div>-->
+                        <textarea class="textarea" id="mainContent" style="resize: none"></textarea>
+                    </div>
+                </div>
+                <div class="RongIMexpressionWrap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    © 2015 Rong Cloud. V 0.9.4
+</div>
+</body>
+<!--<script src="http://res.websdk.rongcloud.net/RongIMClient.emoji-0.9.1.min.js"></script>-->
+<script src="http://res.websdk.rong.io/RongIMClient.emoji-0.9.2.min.js"></script>
+<script src="static/js/common.js"></script>
+<audio style="width: 0px;height: 0px;display: none;" src="static/images/sms-received.mp3" controls="controls">
+</audio>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>邀约测试页</title>
+		<style type="text/css">
+			.three_service{
+				border: 1px solid red;	
+			}
+			.three_service input{
+					
+			}			
+			#editarea{
+				width:500px;
+			}
+		</style>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	
+
+		<div id="editarea">
+
+			邀约者ID：<input type="text" name="inviter" value="" placeholder="请输入数字ID"><br><br>
+			邀约的我的招募：<select name="recruit">
+							<option value="">--请选择你要邀约的招募--</option>
+							<option value="11">做报表的招募</option>
+							<option value="21">保镖的招募</option>
+							<option value="31">打麻将的招募</option>
+							<option value="41">陪吃的招募</option>
+							<option value="51">陪玩的招募</option>
+
+						</select><br><br>
+			邀约的服务：<select name="service">
+							<option value="">--请选择招募的服务--</option>
+							<option value="11">大宝剑</option>
+							<option value="21">按摩</option>
+							<option value="31">搓澡</option>
+							<option value="41">保姆</option>
+
+						</select><br><br>
+			对应的三级的服务：<br>
+					<div class="three_service">
+						<input type="checkbox" name="service_3" value="11">喷火
+						<input type="checkbox" name="service_3" value="12">喷水
+						<input type="checkbox" name="service_3" value="13">冻冰
+						<input type="checkbox" name="service_3" value="41">光环
+						<input type="checkbox" name="service_3" value="15">速度
+						<input type="checkbox" name="service_3" value="16">电机
+					</div>				
+						<br><br>
+			留下您的联系方式:<br><br> 
+					  电话:<input type="text" name="u_mobile" value="" placeholder="请输入您的电话"><br><br>
+					  邮箱:<input type="text" name="u_email" value="" placeholder="请输入您的邮箱"><br><br>	
+					  微信:<input type="text" name="u_weixin" value="" placeholder="请输入您的微信号"><br><br>	
+					  QQ:<input type="text" name="u_qq" value="" placeholder="请输入您的QQ">	
+			<hr>	
+			<input type="button" name="send_message" onclick="subdata()" value="发送" />
+		</div>
+	</body>
+	{literal}
+		<script>
+			<!-- 添加标签或更新标签 -->
+			//邀约信息ajax 提交
+			function subdata(){
+
+				<!-- 获取邀约信息 -->
+				var action = 'user_send_invite';
+				var inviter = $("input[name='inviter']").val();
+				var recruit = $("select[name='recruit'] option:selected").val();
+				var service = $("select[name='service'] option:selected").val();
+				//获取选中的三级服务id
+				var service_3 = '';
+				$("input[name='service_3']").each(function(){
+					if($(this).prop("checked")){
+						service_3 += $(this).val()+'|'; 
+					}
+				});
+				if(service_3.length == 0){
+					alert('请至少选择一项对应的服务!!!');
+					return false;
+				}
+				//alert(service_3);
+				var mobile = $("input[name='u_mobile']").val();
+				var email = $("input[name='u_email']").val();
+				var weixin = $("input[name='u_weixin']").val();
+				var qq = $("input[name='u_qq']").val();
+				//alert(qq);
+				alert(service_3);
+				$.ajax({
+					url:'http://www.hotyq.com:8888/home/ajax/ajax_invite5.php',
+					type:'post',
+					data:{"action":action,"uid":inviter,"rid":recruit,"service":service,"service_3":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+					success:function(data){
+						alert(data);
+						if(data == 1000){
+							alert('邀约成功!');
+						}else if(data == 1374){
+							alert('请不要重复邀约!');
+						}else{
+							alert('邀约失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						
+					},
+					dataType:'json'
+				});
+			}	
+		</script>
+	{/literal}
+</html>

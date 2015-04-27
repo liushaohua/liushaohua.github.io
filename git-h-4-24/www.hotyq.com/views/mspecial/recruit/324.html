@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+	<meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/css/mspecial/rest.css">
+	<script src="/js/jquery.js"></script>
+	<title>手机专题1</title>
+</head>
+ <style>
+    #loading{
+        width:100%;
+        height: 100%;
+        position: fixed;
+        z-index: 999;
+        background: #13051d;
+    }
+    .spinner {
+      position: absolute;
+      left:50%;
+      top:50%;
+      -webkit-transform: translate(-50%,-50%);
+    }
+
+    .spinner > div {
+      width: 1rem;
+      height: 1rem;
+      background-color: #fff;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+      animation: bouncedelay 1.4s infinite ease-in-out;
+      /* Prevent first frame from flickering when animation starts */
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0.0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes bouncedelay {
+      0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      } 40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+    img{
+      pointer-events: none;
+    }
+    </style>
+<body>
+    <div id="loading" class="">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+    </div>
+    <img src="/images/mspecial/one1.jpg" alt="">
+    <div class="four">
+        <img src="/images/mspecial/one2.jpg" alt="">
+        <div class="as">
+            <a href="/mspecial/recruit/recruit_apply.php?rid=324&eid=160&s_3_id=221" title="" id="aaa"></a>
+            <a href="/mspecial/recruit/recruit_apply.php?rid=324&eid=161&s_3_id=698" title=""></a>
+            <a href="/mspecial/recruit/recruit_apply.php?rid=324&eid=162&s_3_id=787" title=""></a>
+            <a href="/mspecial/recruit/recruit_apply.php?rid=324&eid=163&s_3_id=896" title=""></a>
+        </div>
+    </div>
+    <img src="/images/mspecial/one3.jpg" alt="">
+    <img src="/images/mspecial/one4.jpg" alt="">
+    <div class="font">
+    	        <p>ChinaJoy创办于中国网络游戏爆发的世纪之初，历经十余年的发展，已经发展成为全球数码互动娱乐领域最具影响力的盛会。</p>
+        <p>当前，ChinaJoy已发展成为以中国国际数码互动娱乐展览会（含B To C和B To B）为主，中国国际动漫及衍生品授权展览会（C.A.W.A.E）、次世代游戏机及家庭数字娱乐产品展览会（ACH）及 中国国际数码互动娱乐产业高峰论坛（CDEC）、世界移动游戏大会（WMGC）、中国游戏开发者大会（CGDC）和中国游戏商务大会（CGBC）共同带动的“三展四会” 系列会展阵容，是个名副其实的横跨数字娱乐全业态的产业交流和展示平台。</p>
+       <p>实至名归！10万平方米亚洲第一游戏盛宴ChinaJoy</p>
+       <p>最具规模：6个展馆，1600款全球顶尖游戏巨作，4天参观人数达25万人次；其中中外媒体记者9000人次；</p>
+       <p>最具影响力：全球30多个国家，550家创意企业，1500余台体验机带来震撼的游戏体验！</p>
+       <p>B to B综合商务洽谈区集企业品牌、产品、技术、资本于一体，打造产业综合商务服务功能，在展示、在线配对商务对话、洽谈及投融资推介等一系列商务途径中，继续推进国内、中外游戏企业之间的广泛商务沟通与合作，彰显ChinaJoy所具有的产业引领、带动和发展的功能与作用。</p>
+
+    </div>
+    <img src="/images/mspecial/one5.jpg" alt="">
+    <style>
+        html,body{
+        	background: #13051d;
+            padding-bottom:3rem;
+        }
+    	img{
+    		width:100%;
+    		-webkit-user-select: none;
+    		pointer-events: none;
+    	}
+        div.font{
+        	width:84%;
+        	margin:0 auto;
+        }
+        div p{
+        	font-size: 0.725rem;
+        	width:100%;
+        	text-indent: 2em;
+        	color: #e9e8fe;
+        	line-height: 2.5em;
+        }
+        .opa-zero{
+            -webkit-animation-delay:0s;
+            -webkit-animation-duration:2s;
+            -webkit-animation-name:opa-zero;
+            -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes opa-zero
+{
+    
+to{  
+     opacity:0;
+     -webkit-transform: scale(1.5);
+}
+
+}
+   .four{
+    position: relative;
+    width:100%;
+    height: auto;
+   }
+   .as{
+    position: absolute;
+    width:80%;
+    height: 100%;
+    left:10%;
+    top:0;
+   }
+   .as a{
+    float: left;
+    width: 50%;
+    height: 50%;
+    -webkit-tap-highlight-color:rgba(0,0,0,0.2)
+   }
+    </style>
+    <script>
+        var img_num=3;
+        var loading;
+        var tt;
+        if(document.getElementById('loading')){
+            loading=document.getElementById('loading');
+            loading.addEventListener('touchmove',function(event){
+                event.preventDefault();
+                },false);
+        };
+         //loading页面
+      var numt=0;
+      var imgss=document.getElementsByTagName('img');
+      var img_le=imgss.length;
+    for (var t=0; t<img_le; t++) {
+        var imge=new Image();
+        imge.src=imgss[t].src;
+        imge.onload=function  () {
+            numt++;
+            if (numt>=img_num) {
+                loading.className='opa-zero';
+                    tt=setTimeout(function(){
+                        loading.style.display='none';
+                        //clearTimeout(tt);
+                    },1000)
+            }
+        }
+    }
+   //loading页面
+    </script>
+</body>
+</html>

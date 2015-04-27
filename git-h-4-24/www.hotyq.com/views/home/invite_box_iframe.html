@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="no-js bgGray1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>已邀约</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<script src="http://www.hotyq.com/js/jquery.js"></script>
+		<script src="http://www.hotyq.com/js/hyq-placeholder.js"></script>
+		<script src="http://www.hotyq.com/js/hyq-checkbox.js"></script>
+		<script src="http://www.hotyq.com/js/hyq-dropdown-list.js"></script>
+		<script src="http://www.hotyq.com/js/hyq-checkbox-list.js"></script>
+		<script src="http://www.hotyq.com/js/main.js"></script>
+		<link rel="stylesheet" href="http://www.hotyq.com:8888/css/main.css">
+		<style type="text/css">
+		.hyq-checkbox-list .hyq-dropdown{
+	      width: 150px;
+	      display: block;
+	     }
+		 .fix-dd-width{
+			width:200px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow:hidden;
+			display:inline-block;
+			*display:inline;
+		 }
+	     .sel-div {
+	     	display: table;
+	     	height: auto;
+	     	padding: 0px 0px 10px 0px;
+	     	width: 90%;
+	     	margin-right: 10px;
+	     }
+		 .ser-box{
+			background: none repeat scroll 0 0 #fff;
+			border: 1px solid #e5e5e5;
+			margin: 5px 20px 15px 20px;
+			height:85px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			padding: 0 10px 10px;
+			width: 465px;
+			z-index: 112;
+		 }
+		 .sel-div{ padding-bottom:0px;
+		 padding-top:5px;}
+		 .con-p{
+		 border-top: 1px dotted #a4a4a4;
+		color: #000;
+		font-size: 14px;
+		margin: 10px 53px 0px 20px;
+		padding-top: 10px;
+		 }
+		</style>
+	</head>
+
+	<body class="bgGray1">	 
+	
+			<div class="sel-div">
+						<div class="hyq-dropdown-box fl" placeholder="请选择您要邀约的招募" style="margin-right:1em;" id="recruits">
+							<input type="hidden" name="character2" value="" id="recruits_id">
+							<div type="text" class="hyq-dropdown">
+								<span class="dropdown-value fix-dd-width" >请选择您要邀约的招募</span>
+							</div>
+							<div class="hyq-dropdown-list" style="width:100%">
+								<ul id= "recruits_list_dropdown">
+									{if $recruit_list neq ''}
+									{foreach $recruit_list as $v}
+										<li value="{$v['id']}">{$v['name']}</li>
+									{/foreach}
+									{/if}
+								</ul>
+							</div>
+							<a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+						</div>
+						<!-- <div class="hyq-dropdown-box hyq-checkbox-list fl" placeholder="邀约角色" id="roles">
+					          <input type="hidden" name="roles" value="-1">
+					          <div type="text" class="hyq-dropdown" >
+					              <span class="dropdown-value" hyq-title=""></span>
+					          </div>
+					            <div class="hyq-dropdown-list">
+					              <ul name="role">
+									
+					                <li value="1">话剧演员</li>
+		
+					              </ul>
+					            </div>
+					            <a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+					    </div> -->
+				    	<div class="hyq-dropdown-box fl" placeholder="服务需求" style="margin-right:1em;" id="service-2-list">
+								<input type="hidden" name="character2" value="" id="service-2-val">
+								<div type="text" class="hyq-dropdown">
+									<span class="dropdown-value fix-dd-width" id="service-2-list-span" >服务需求&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								</div>
+								<div class="hyq-dropdown-list" style="width:100%">
+									<ul id="on-service-2-val">
+										
+									</ul>
+								</div>
+								<a class="fa fa-chevron-down  hyq-dropdown-btn"><i></i></a>
+						</div>
+						
+				    
+				</div>
+				
+			<div class="ser-box" id= "service-3-list" style="display:none">
+						
+			</div>
+				
+			<div class="cl"></div>
+			<p class="con-p">
+				您的联系方式
+			</p>
+
+			<ul class="form-apply">
+			<input type="hidden" value="{$user_type}" id= "in_user_type">
+				<li>
+					<label for="username" class="f12 Gray6 ">电话：</label>
+					<input  name="r_mobile"  class="col-width-350 col-height-20" form-err="a" value="{$connect['contact_mobile']}" type="text"/>
+					<span class="Rd">*</span>
+				</li>
+				<li>
+					<label for="username" class="f12 Gray6 ">邮箱：</label>
+					<input  name="r_email"  class="col-width-350 col-height-20" form-err="a" value="{$connect['contact_email']}" type="text"/>
+				</li>
+				<li>
+					<label for="username" class=" f12 Gray6 ">微信：</label>
+					<input  name="r_weixin"  class="col-width-350 col-height-20" form-err="a" value="{$connect['contact_weixin']}" type="text"/>
+				</li>
+				<li>
+					<label for="username" class=" f12 Gray6 ">QQ：</label>
+					<input  name="r_qq"  class="col-width-350 col-height-20" form-err="a" value="{$connect['contact_qq']}" type="text"/>
+				</li>
+
+			</ul>
+			<p class="reminder-p fl f14 Gray6 lh24 p-left-25">
+				请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）
+			</p>
+			<p class="pull-left fr" style=" margin:0px 20px 0px 0px;">
+				<input type="hidden" id="receiver_id" value="{$receiver_id}" />
+				<input type="button" class="hyq-btn hyq-btn-lg" value="发送" id="send-invite-btn">
+				<div class="hyq-f-err hyq-f-err-pad-left fl" style="display:none">
+                    <i class="hyq-ic ic-vlid-err"></i><label>请至少填写一种联系方式!</label>
+                </div>
+			</p>
+			
+
+
+		{literal}
+		<script >
+		
+		var tellParent = function(how){
+
+		//发送成功
+		if(how){
+				parent.$(parent.top.document).trigger({
+					type:"hyq/invite/popup/sent",
+				});
+			}else{
+				parent.$(parent.top.document).trigger({
+					type:"hyq/invite/popup/sent/failure",
+				});
+			}
+		};
+			$(document).ready(function() {
+				var userId = $('#receiver_id').val();
+				var rid = '',eid = '',recruit_id = '';
+				$('#recruits_list_dropdown').on('click','li',function(){
+					var action = 'get_recruit_2_service',
+						recruit_id = $(this).val();
+						$('#recruits_id').val(recruit_id);
+					$(this).parents('.hyq-dropdown-list').hide();
+					$('.hyq-f-err-pad-left').hide();
+					
+					$.ajax({
+						url:'/home/ajax/ajax_home_invite.php',
+						type:'post',
+						data:{'action':action,'rid':recruit_id},
+						success:function(data){
+							$('#service-3-list').hide();
+							$('#service-2-list').trigger("clear");
+							$('#service-3-list').empty();
+							var drowList = $('.hyq-dropdown-list').eq(1),
+							str = '';
+							for (e in data){
+								str += '<li value="'+e+'">'+data[e]+'</li>';
+							}
+							drowList.html(str);
+							drowList.show();
+						},
+						dataType:'json'
+					});
+				});	
+
+				$('.hyq-dropdown-list').on('click','li',function () {
+					$this = $(this);
+					$this.parents('.hyq-dropdown-list').prev('.hyq-dropdown').find('span').html($this.html());
+					$this.parents('.hyq-dropdown-list').hide();
+					$('.hyq-f-err-pad-left').hide();
+					if (/service-2-val/.test($this.parents('.hyq-dropdown-box').find('input').attr('id'))) {
+						$('.ser-box').show();
+						var e_id = $(this).val();
+						$('#service-2-val').val(e_id);
+						eid = $('#service-2-val').val();
+						//alert(eid);
+						$.ajax({
+							url:'/home/ajax/ajax_home_invite.php',
+							type:'get',
+							data:{'e_id':e_id,'action':'get_3_service_by_2_service'},
+							success:function(data){
+								//console.log(data);
+								$('#service-3-list').find('p').remove();
+								$('#service-3-list').fadeIn();
+								$.each(data,function(i,v){
+									var p = $("<p/>").addClass("checkBox-unit").html('<input type="checkbox" class="hyq-nice-checkbox" name="mchoice[]" value="'+i+'"/><span class="hyq-checkbox"></span><label>'+v+'</label>').appendTo('#service-3-list');
+									p.find(":checkbox").HYQCheckbox();
+								});
+							},
+							dataType:'json'
+						});
+					}
+					
+				});
+				
+				$('.hyq-dropdown-box').on('click','.fa-chevron-down,.hyq-dropdown',function(ev) {
+					var $this = $(this),
+						target = ev.target || ev.srcElement;
+					if (target.nodeName == 'SPAN') {
+							var $list = $(this).parent().find('.hyq-dropdown-list');
+							if ($list.find('li').length) {
+								$(this).parent().find('.hyq-dropdown-list').show();
+							}
+					} else {
+						if ($this.prev().find('li').length) {
+							$(this).prev('.hyq-dropdown-list').show();
+						}
+					}
+					
+				});
+		
+				//点击发送按钮
+				$("#send-invite-btn").click(function(){
+					$('.hyq-f-err-pad-left').css('display','none');
+					var action = 'user_send_invite';
+					var receiver = userId;
+					var user_type = $('#in_user_type').val();
+					rid = $('#recruits_id').val();
+					eid = $('#service-2-val').val();
+					var service_3 = '';
+					$('#service-3-list').find('p').each(function(){
+						//console.log('xinxxxx');
+						if($(this).find('input').prop("checked")){
+							service_3 += $(this).find('input').val()+'|'; 
+						}
+					});	
+					//var role = rolesIdArr;
+				
+					if(service_3.length == 0){
+						$('.hyq-f-err-pad-left').find('label').text('请选择邀约的服务!');
+						$('.hyq-f-err-pad-left').css('display','block');
+						return false;
+					}
+					//alert(service_3);
+					
+					var mobile = $(".form-apply li:eq(0)").find("input").val();
+					var email = $(".form-apply li:eq(1)").find("input").val();
+					var weixin = $(".form-apply li:eq(2)").find("input").val();
+					var qq = $(".form-apply li:eq(3)").find("input").val();
+					//alert(qq);
+					if(mobile.length == 0 && email.length == 0 && weixin.length == 0 && qq.length == 0){
+						$('.hyq-f-err-pad-left').css('display','block');
+						$('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+						return false;
+					}
+					if(mobile.length == 0){
+						$('.hyq-f-err-pad-left').css('display','block');
+						$('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+						return false;
+					}
+					
+					$.ajax({
+							url:'/home/ajax/ajax_home_invite.php',
+							type:'post',
+							//data:{"action":action,"receiver":receiver,"eid":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+							data:{"action":action,"uid":receiver,"rid":rid,"service":eid,"service_3":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq,'user_type':user_type},
+							success:function(data){
+								//alert(data);
+								if(parseInt(data)  == 1000){
+									tellParent(true);
+									//alert('OK,邀约成功!');state_list[parseInt(data)]
+								}else if(parseInt(data)  == 1180){
+									//$('.hyq-f-err-pad-left').find('label').text(state_list[parseInt(data)]);
+									$('.hyq-f-err-pad-left').find('label').text('请不要重复邀约!');
+									$('.hyq-f-err-pad-left').css('display','block');
+								}else if(parseInt(data)  == 1181){
+									$('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+									$('.hyq-f-err-pad-left').css('display','block');
+								}else if(parseInt(data)  == 1183){
+									$('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+									$('.hyq-f-err-pad-left').css('display','block');
+								}else if(parseInt(data)  == 1182){
+									$('.hyq-f-err-pad-left').find('label').text('您没有选择服务');
+									//$('.hyq-f-err-pad-left').find('label').text(state_list[parseInt(data)]);
+									$('.hyq-f-err-pad-left').css('display','block');
+								}else if(parseInt(data)  == 1185){
+									$('.hyq-f-err-pad-left').find('label').text('添加服务失败');
+									$('.hyq-f-err-pad-left').css('display','block');
+								}else{
+									tellParent(false);
+									//alert('NO,邀约失败!');
+								}
+							},
+							dataType:'text'
+						});
+				});
+			});
+		</script>
+	{/literal}
+	</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>投诉举报</title>
+		<meta name="description" content="">
+		
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+	</head>
+	<body>
+	{include "common/header.html"}
+    {include "common/nav_search.html"} 
+		<div class="content-wrapper">
+              <div class="lead-title lead-title-bg">
+              	<i class="hyq-ic ic-label-mark"></i><label class="Blak1">红演圈举报平台</label>
+              </div>
+              <form action="/complain/success" method="post">
+               <div class="hyq-complaint-info hyq-big-dropdown">
+            		<div class="inform-user">
+                    	<p>尊敬的红演圈用户：<br>如您在红演圈发现违法、违规以及不文明的行为和用户，可以在此进行举报。我们将对其尽快处理，感谢你对本网的支持。</p>
+                    </div>  
+                    <h4>您正举报[{$nickname}]：</h4> 	
+                    <div class="hyq-dropdown-wrap">
+                        <input type="hidden" name="referer_url" value="{$referer_url}">
+                        <input type="hidden" name="source_id" value="{$source_id}">
+                        <input type="hidden" name="type" value="{$type}">
+                        <input type="hidden" name="s_type" value="complain">
+                        <label class="dropdown-title" for="reason"><span>*&nbsp;</span>举报原因：</label>
+                        <div class="hyq-dropdown-box" placeholder="请选择举报原因">
+                            <input type="hidden" name="reason" value="">
+                            <div type="text" class="hyq-dropdown ">
+                                <span class="dropdown-value inline-block fix-dropdown-1"></span>
+                            </div>
+
+                            <div class="hyq-dropdown-list">
+                                <ul>
+                                    <li value="仿冒他人">
+                                        仿冒他人
+                                    </li>
+                                    <li value="虚假招募">
+                                        虚假招募 
+                                    </li>
+                                    <li value="涉及色情">
+                                        涉及色情
+                                    </li>
+                                    <li value="反动政治">
+                                        反动政治 
+                                    </li>
+                                    <li value="泄露隐私">
+                                        泄露隐私 
+                                    </li>
+                                    <li value="其他">
+                                        其他 
+                                    </li>                                                                               
+                                </ul>
+                            </div>
+                            <a class="hyq-dropdown-btn"><i></i></a>
+                        </div>
+                        <div id="reason_tips"  class="hyq-f-err" style="padding-left:110px;display:none;">
+                            <i class="hyq-ic ic-vlid-err"></i>
+                            <label>请选择举报原因！</label>
+                        </div>
+                    </div>
+                    <div class="cl"></div>
+					<div class="form-group">
+                        <em class="pull-left">*&nbsp;</em>
+                        <label class="pull-left"><span>附加说明：</span><br><em>(相关链接)</em></label>
+                        <textarea class="inline-block fix-txtarea-2" name="descr" placeholder="详细的问题描述和举报理由有利于问题的尽快反馈和处理。"></textarea>
+                        <div id="descr_tips"  class="hyq-f-err" style="padding-left:110px;display:none;">
+                            <i class="hyq-ic ic-vlid-err"></i>
+                            <label style="color:#ff3300;">请填写附加说明！</label>
+                        </div>
+					</div>
+                    <div class="btn-wrap">
+                        <p class="row pull-left"><input type="button" class="hyq-btn hyq-btn-lg"  value="提交"/></p>
+                        <p class="row pull-left">
+                           <input type="reset" value="取&nbsp;&nbsp;消" id="rr-cancle-btn" class="hyq-btn hyq-btn-thin-lg">
+                        </p>
+                    </div>  
+               </div>
+               </form>
+        </div>
+	{include "common/footer.html"} 
+	</body>
+    {literal}
+    <script type="text/javascript">
+        $(".hyq-dropdown-box").on("change",function(){
+            
+        });
+        var mark = 0;
+        $("input[name='reason']").focus(function(){
+            $("#reason_tips").fadeOut();
+            if($(this).val() == this.defaultValue){
+                $(this).val("");
+            }
+        })
+        .blur(function(){
+            if($(this).val() == ''){
+                $(this).val(this.defaultValue);
+                $("#reason_tips").fadeIn();
+                mark = 0;
+                return;
+            }else{
+                $("#reason_tips").fadeOut();
+                mark = 1;
+            }
+        });
+
+         $("textarea[name='descr']").focus(function(){
+            $("input[name='reason']").blur();
+            $("#descr_tips").fadeOut();
+            if($(this).val() == $(this).attr('placeholder')){
+                $(this).val("");
+            }
+        })
+
+        .blur(function(){
+            if($(this).val() == ''){
+                $("#descr_tips").fadeIn();
+                mark = 0;
+                return ;
+            }else{
+                $("#descr_tips").fadeOut();
+                mark = 2;
+            }
+        });
+
+        $("input[type='button']").click(function(){
+            $("input[name='reason']").blur();
+            if(mark == 1){
+                $("textarea[name='descr']").blur();
+            }
+            if(mark == 2){
+                $('form').submit();  
+            }   
+        })
+    </script>
+    {/literal}
+</html>

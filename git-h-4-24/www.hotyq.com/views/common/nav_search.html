@@ -1,0 +1,65 @@
+<div class="sub-bar">
+	<div class="inner-wrapper">
+	  <form class="search-box" action="/search/user" method="get">
+		<input {if isset($q)} value="{$q}" {else} value="" {/if} placeHolder="请输入关键词" id="search_q" name="q" autocomplete="off" />
+		<input type="hidden" name="page" value="1">
+		<a type="button" class="search-btn"></a>
+	  </form>
+	 <!--  <div class="hot-words"><dl>
+		  <dt>热词：</dt>
+		  <span><a href="/search/recruit?q=%E5%AE%B6%E5%AE%B4" title="家宴">家宴</a></span> 
+		  <span><a href="/search/user?q=%E7%9B%B8%E5%A3%B0%E6%BC%94%E5%91%98" title="相声演员">相声演员</a></span>
+		  <span><a href="/search/user?q=%E6%9A%96%E5%9C%BA%E6%A8%A1%E7%89%B9" title="暖场模特">暖场模特</a></span>
+		  <span><a href="/search/user?q=%E5%8F%8D%E4%B8%B2%E4%BC%AA%E5%A8%98" title="反串伪娘">反串伪娘</a></span>
+		  <span><a href="/search/recruit?q=%E5%B1%8C%E4%B8%9D%E7%94%B7%E5%A3%AB" title="屌丝男士">屌丝男士</a></span>
+		  <span><a href="/search/user?q=Cosplay" title="Cosplay">Cosplay</a></span>
+		  <span><a href="/search/recruit?q=%E7%94%9F%E6%97%A5%E8%B6%B4" title="生日趴">生日趴</a></span>
+		  <span><a href="/search/user?q=%E4%BF%84%E7%BD%97%E6%96%AF%E7%BE%8E%E5%A5%B3" title="俄罗斯美女">俄罗斯美女</a></span> 
+		  <span><a href="/search/org?q=%E8%AF%9D%E5%89%A7%E7%A4%BE%E5%9B%A2" title="话剧社团">话剧社团</a></span>
+		  
+		   
+		</dl></div> -->
+		{include "html/common_hot_words.html"}
+	  <a class="publish-recruit-btn publish_recruit_btn" id="publish_recruit_btn" >
+	  	<div class="" style="position:relative;">
+		  	<span id="certify_mobile_gray_icon_edit" class="hyq-ic ic-mobile-lg-muted hoverIcon" data-toggle='hyq-modal' style="opacity:0;filter:alpha(opacity=0);position:absolute; top:0px; left:0px; width:95px; height:82px;z-index:10;"></span>
+		 </div>
+		<i class="hyq-ic ic-pplane-xxx">	
+		</i>
+		<label style="position:absolute; top:44px; left:20px; z-index:1;">发布招募</label>
+	  </a>
+	</div>
+ </div>
+ {include "home/org_profile_edit/_popup_valid_dlgs.html"}
+ {literal}
+ <script>
+	function clearString(s){ 
+		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]"); 
+		var rs = ""; 
+		for (var i = 0; i < s.length; i++) { 
+			rs = rs+s.substr(i, 1).replace(pattern, ''); 
+		} 
+		return rs;  
+	}
+ 	$('.search-btn').click(function(){
+		if($("#search_q").val().trim()){
+			var rs = clearString($("#search_q").val());
+			$("#search_q").val(rs);
+			$('.search-box').submit();
+		}
+ 	});
+    setTimeout(function () {
+		$('#search_q').keypress(function(event){
+			if(event.keyCode == "13"){
+				if($("#search_q").val().trim()){
+					var rs = clearString($("#search_q").val());
+					$("#search_q").val(rs);
+					$('.search-box').submit();
+				}else {
+					return false;
+				}
+			}
+		});	
+	},500);	
+ </script> 
+ {/literal}

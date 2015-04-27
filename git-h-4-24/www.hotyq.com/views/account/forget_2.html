@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>找回密码 - 红演圈</title>
+		<meta name="description" content="">
+		
+		
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	
+    <style type="text/css">
+		 body{
+			background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center repeat;
+		 }
+		.fix-fg {
+			margin-bottom: 15px;
+			vertical-align: middle;
+			font-size: 14px;
+			line-height: 18px;
+			display: block;
+		}
+		.setp-box{
+		margin: 0px;
+		padding: 0px;
+		text-align: center;
+		width: 480px;
+		margin: 0 auto;
+		}
+		.setp-box input[type='text']{
+		margin: 0 auto;
+		width: 360px;
+		}
+		.setp-box .dash-line{
+		width:54px;
+		height: 0px;
+		position: absolute;
+		border: none;
+		display: block;
+		right: 3px;
+		top: 50%;
+		}
+		.setp-box .dash-line-red{
+		border-bottom: 2px dotted #ff3300;
+		}
+		.setp-box .dash-line-gray{
+		border-bottom: 2px dotted #ccc;
+		}
+		.dl-left{
+		left: -1px;
+		}
+		.step-icon{
+		width: 160px;
+		position: relative;
+		display: inline-block;
+		margin: 0px;
+		padding: 0px;
+		float: left;
+		}
+		.fix-field-width{
+		width: 320px;
+		}
+		.fix-field-width-2{
+		width: 480px;
+		}
+
+		</style>
+		</head>
+	<body>
+	{include "common/header_simple.html"}
+	<form>
+		<input id="hide_login_type" type="hidden" value="{$user_info['login_type']}">
+		<input id="hide_account" type="hidden" value="{$user_info['account']}">
+	</form>
+	<div class="content-wrapper _zeroPDTop">
+		<div class="main-column-a _relativePos">
+			<!-- 第二步 A -->
+			<div id="email_div" class="column-wrapper RdBorderBtm ">
+				<br/>
+				<br/>
+				<br/>
+				<div class="setp-box">
+					<div class="step-icon">
+						<div class="dash-line dash-line-red"></div>
+						<div class="_clb Rd f20">
+							1
+						</Div>
+						<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							填写邮箱或者手机号
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-red"></div>
+						<div class="dash-line dash-line-gray"></div>
+						<div class="_clb Rd f20">
+							2
+						</Div>
+						<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							验证
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-gray"></div>
+						<div class="_clb Gray6 f20">
+							3
+						</Div>
+						<div class="hyq-ic ic-OK-muted  _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							重置密码
+						</div>
+					</div>
+				</div>
+				<br class="_clb"/>
+				<br class="_clb"/>
+				<div id="check_email_div">
+					<div class="setp-box f18">
+						密码重置邮件已发至您的邮箱：<span class="link-red f18">
+						 
+						<label id="qq"  class="Rd txt-center f18 _bld" >qq@qq.com</label></span>
+					</div>
+					<div class="muted-subtitle txt-center">
+						请在24小时内登陆你的邮箱接收邮件，链接激活后可重置密码
+					</div>
+					<br class="_clb"/>
+					<div class="setp-box">
+						<div  class="Rd txt-center f18 _bld"  />请登陆邮箱查看</div>
+						<br class="_clb"/>
+						<br class="_clb"/>
+					</div>
+				</div>
+				<div id="check_email_error_div" style="display:none;">
+					<br class="_clb"/>
+					<div id="check_email_error" class="txt-center f16 Rd">你的信息</div>
+					<br class="_clb"/>
+					<br class="_clb"/>
+				</div>
+				<br class="_clb"/>
+			</div>
+			{literal}
+			<script>
+				$(function(){
+					//根据type判断  显示  隐藏
+					var login_type = $('#hide_login_type').val();
+					var account = $('#hide_account').val();
+					if(login_type == 'email'){
+						//email
+						$('#qq').text(account);
+						//显示  隐藏
+						$('#email_div').show();//邮箱相关块
+						$('#mobile_div').hide();
+						//ajax 
+						var action = "send_update_psw_email";
+						$.post("/account/ajax/ajax_account.php",{ email:account,login_type:login_type,action:action},function(data){
+							//alert(data);
+							var Msg = state_list[parseInt(data)];
+							if(data != 1000){
+								$('#check_email_div').hide();
+								$('#check_email_error').text(Msg);
+								$('#check_email_error_div').show();	
+							}
+						});
+					}else if(login_type == 'mobile'){
+						//mobile
+						var point_account = '手机号码：'+account;
+						$('#point').text(point_account);
+						//显示  隐藏
+						$('#email_div').hide();//邮箱相关块
+						$('#mobile_div').show();
+						//$("#get_mobile_code").trigger('click');
+						get_forget_mobile_code();
+					}else{
+						location.href = "/account/forget.php";
+					}
+					//ajax 获取短信 验证码
+					//$('#get_mobile_code').click(function(){
+					function get_forget_mobile_code(){
+						var action = "get_forget_mobile_code";
+						$.post("/account/ajax/ajax_account.php",{ mobile:account,action:action},function(data){
+							//alert(data);
+							if(parseInt(data) == 1000){
+								sendMsgsage();
+							}else{
+								var Msg = state_list[parseInt(data)];
+								$('#mobile_code_error label').text(Msg);
+								$('#mobile_code_error').show();
+							}
+						},'text');
+					}
+					//});
+					//验证短信验证码 格式  数字 ''
+					$('#mobile_code').blur(function(){
+						var mobile_code = $(this).val();
+						//请填写短信验证码！
+						if(mobile_code.length!= 6 || isNaN(mobile_code)){
+							//显示  提示  请输入6位数字手机验证码!
+							$('#mobile_code_error label').text('请输入6位数字手机验证码');
+							$('#mobile_code_error').show();
+							return false;
+						}
+					});
+					$('#mobile_code').focus(function(){
+						$('#mobile_code_error').hide();
+					});
+					//验证短信按钮的  单击事件
+					$('#mobile_btn').click(function(){
+						$("#mobile_code").trigger('blur');
+						if($('#mobile_code_error').css('display') == 'block'){
+							return false;
+						}
+						//ajax发送   验证 码  手机 符合  
+						var action = 'check_forget_mobile_code';
+						var mobile_code = $('#mobile_code').val();
+						$.ajax({
+							  type : "post",  
+							  url : "/account/ajax/ajax_account.php",  
+							  data : "mobile="+account+"&login_type="+login_type+"&mobile_code="+mobile_code+"&action="+action,  
+							  async : false,  
+							  success : function(data){ 
+									//alert(data); 
+									if(data == 1000){
+										location.href = "/account/forget_3.php?login_type="+login_type;
+									}else{
+										var Msg = state_list[parseInt(data)];
+										//alert(Msg);
+										$('#mobile_code_error label').text(Msg);
+										$('#mobile_code_error').show();
+										return false;
+									}
+								},
+								dataType:'text'
+							});
+						//跳转 到reset_psw.php
+					});
+				});
+				//控制时间发送验证码
+
+				var InterValObj; //timer变量，控制时间
+				var count = 60; //间隔函数，1秒执行
+				var curCount;//当前剩余秒数
+				function sendMsgsage(){
+				  　curCount = count;
+					 $("#get_mobile_code").attr("disabled", "true");
+					 $("#get_mobile_code").css({"background": "#E4E2E2"});
+					 $("#get_mobile_code").val(curCount + "秒后重发");
+					 InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+				}
+				function SetRemainTime(){
+					if (curCount == 0){
+						window.clearInterval(InterValObj);//停止计时器
+						$(this).css("color","red");
+						$("#get_mobile_code").removeAttr("disabled");//启用按钮
+						$("#get_mobile_code").val("获取短信验证码");
+					}else{
+						curCount--;
+						$("#get_mobile_code").val(curCount + "秒后重发");
+					}
+				}
+
+				setTimeout(function () {
+					$('#mobile_code').keydown(function (ev) {
+						if (ev.keyCode == 13) {
+							$('#mobile_btn').click();
+							return false;
+						}
+					});
+				},500);
+			</script>
+			{/literal}
+			<!-- 第二步 B-->
+			<div id="mobile_div" style="display:none;" class="column-wrapper RdBorderBtm ">
+				<br/>
+				<br/>
+				<br/>
+				<div class="setp-box">
+					<div class="step-icon">
+						<div class="dash-line dash-line-red"></div>
+						<div class="_clb Rd f20">
+							1
+						</Div>
+						<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							填写邮箱或者手机号
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-red"></div>
+						<div class="dash-line dash-line-gray"></div>
+						<div class="_clb Rd f20">
+							2
+						</Div>
+						<div class="hyq-ic ic-OO _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							验证
+						</div>
+					</div>
+					<div class="step-icon">
+						<div class="dash-line dl-left dash-line-gray"></div>
+						<div class="_clb Gray6 f20">
+							3
+						</Div>
+						<div class="hyq-ic ic-OK-muted  _clb _centerTheBox"></div>
+						<div class="_clb f15 lh32">
+							重置密码
+						</div>
+					</div>
+				</div>
+				<br class="_clb"/>
+				<br class="_clb"/>
+				<div id="point" class="setp-box f18">
+					手机号码： 13800000000
+				</div>
+				<!-- 短信验证码 -->
+				<form class="hyq-form">
+					<div class="form-group-centered fix-field-width-2">
+						<div class="fix-field-width-2">
+							<input id="mobile_code" type="text" class="pull-left col-md-6" placeholder="短信验证码" name="smsValidCode">
+							&nbsp;&nbsp;
+							<input id="get_mobile_code" onclick="get_forget_mobile_code()" type="button" style="height:42px;" class="hyq-btn hyq-btn-dark f18 " value="获取短信验证码" id="get-sms-valid-code">
+
+							<div id="mobile_code_error" style="display:none;" class="hyq-f-err">
+								<i class="hyq-ic ic-vlid-err"></i>
+								<label>请输入6位数字手机验证码 </label>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="setp-box">
+					<a id="mobile_btn" class="hyq-btn hyq-btn-lg" />确&nbsp;&nbsp;定</a>
+				</div>
+				<br class="_clb"/>
+			</div>
+		</div>
+		<div class="right-column">
+			{include file="html/right_qrcode.html"}
+			<br class='_clb'/>
+		</div> 
+	</div>
+		{include "common/footer.html"}
+	</body>
+</html>

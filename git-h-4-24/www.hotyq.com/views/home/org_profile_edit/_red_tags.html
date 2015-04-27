@@ -1,0 +1,310 @@
+{assign var ="isOrtFirstEdit" value=""}
+{assign var ="isOrtReview" value="_hidden"}
+{literal}
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+    var hide_edit_tags  = $('#hide_edit_tags').val();
+
+    var tagSaveBtn = $('#ort-save-btn');
+        var tagCancleBtn = $('#ort-cancle-btn');
+        var tagEditBtn = $('#ort-edit-btn');
+        var tagExpendBtn = $('#ort-expend-btn');
+        //各种盒子
+        var tagReviewBox = $('#ort-review-box');
+        var tagEditBox = $('#ort-edit-box');
+        var tagDiyBox = $('#ort-diys');
+        var tagDiyMaker = $("#ort-diy-maker");
+		var tagDiyMaker2 = $(".plus-square-wrap");
+        //样式名
+        var tgFirstEditCss = "rt-first-edit";
+        var tgEditCss = "rt-edit";
+        var tgReviewCss = "rt-review";
+
+        //整个栏
+        var tgColumn = $("#ort-column");
+
+        //初始化显示状态状态
+        var updateTagMode = function() {
+            //第一次编辑模式
+            if (tgColumn.hasClass(tgFirstEditCss)) {
+                tagReviewBox.hide();
+                tagEditBox.hide();
+                tagExpendBtn.show();
+                tagEditBtn.hide();
+
+            }
+
+            //编辑模式
+            if (tgColumn.hasClass(tgEditCss)) {
+                tagReviewBox.hide();
+                tagEditBox.show();
+                tagExpendBtn.hide();
+                tagEditBtn.hide();
+
+            }
+            //浏览模式
+            if (tgColumn.hasClass(tgReviewCss)) {
+                tagReviewBox.show();
+                tagEditBox.hide();
+                tagExpendBtn.hide();
+                tagEditBtn.show();
+
+            }
+            tgColumn.show();
+        };
+
+
+        var tgSetEditMode = function() {
+            tgColumn.removeClass(tgReviewCss).removeClass(tgFirstEditCss).addClass(tgEditCss);
+            updateTagMode();
+        }
+        var tgSetReviewMode = function() {
+            tgColumn.addClass(tgReviewCss).removeClass(tgFirstEditCss).removeClass(tgEditCss);
+            updateTagMode();
+        }
+        var tgSetFirstEditMode = function() {
+            tgColumn.removeClass(tgReviewCss).addClass(tgFirstEditCss).removeClass(tgEditCss);
+            updateTagMode();
+        }
+        if(hide_edit_tags == ''){
+            tgSetFirstEditMode();
+        }else{
+            tgSetReviewMode();
+        }
+
+        //点击编辑按钮
+        tagEditBtn.click(function() {
+            tgSetEditMode();
+        });
+        //展开编辑按钮
+        tagExpendBtn.click(function() {
+            tgSetEditMode();
+        });
+        //取消按钮
+        tagCancleBtn.click(function() {
+            var hide_edit_tags  = $('#hide_edit_tags').val();
+           if(hide_edit_tags == ''){
+                    tgSetFirstEditMode();
+                }else{
+                    tgSetReviewMode();
+                }
+        });
+
+        //保存按钮
+        tagSaveBtn.click(function() {    
+            <!-- 获取用户勾选的标签内容 -->
+            var action = 'add_org_tag';
+            var sys = '';
+            $("input[name='mchoice']").each(function(){
+                if($(this).prop("checked")){
+                    sys += $(this).val()+'|'; 
+                }
+            });
+            
+            <!-- 获取自定义标签内容 -->
+            var self = '';
+            $(".diy-tag-value").each(function(){
+                self += $.trim($(this).text())+'|';
+            });
+
+            <!-- ajax传递用户标签 -->
+            $.ajax({
+                url:'/home/ajax/ajax_home_orgprofile.php',
+                type:'post',
+                data:{'action':action,'sys':sys,'self':self},
+                success:function(data){
+                    //alert(data);
+                    if(data == 1310){
+                        alert('标签数目超出规定数目!');
+                        return false;
+                    }
+                    if(data == 1313){
+                        $('.ort-review-inner').find('label').remove();
+                        $('#hide_edit_tags').val('');
+                        tgSetFirstEditMode();
+                        return false;
+                    }else{
+						$(document).trigger("hyq/userstate/changed");//如果cookie改动触发这个事件  实时更新	
+                         $('#hide_edit_tags').val('OK');
+                        tgSetReviewMode();
+                    }
+
+                    $('.ort-review-inner').find('label').remove();
+
+                    $("input[name='mchoice']").each(function(){
+                        if($(this).prop("checked")){
+                            var sys_tag = $(this).parent().find('label').text();
+                            //alert(sys_tag);
+                            $('.ort-review-inner').append('<label class="ort-review-tag"><i class="Rd">&bull;</i>'+sys_tag+'</label>');
+                        }
+                    }); 
+
+                    $(".diy-tag-value").each(function(){
+                        var self_tag = $(this).text();
+                        $('.ort-review-inner').append('<label class="ort-review-tag"><i class="Rd">&bull;</i>'+self_tag+'</label>');
+                    });
+                },
+                dataType:'text'
+            });
+        });
+
+        //删除自定义标签的回调
+        var deleteTaghandler = function(event) {
+            var tar = event.target || event.srcElement;
+            $(tar).parent().remove();
+        }
+
+        //检查自定义标签个数
+        var checkNumberOfTags = function() {
+            if (tagDiyBox.find('.diy-tag').length >= 5) {
+                tagDiyMaker.hide();
+				tagDiyMaker2.hide();
+            } else {
+                tagDiyMaker.show();
+				tagDiyMaker2.show();
+            }
+            return tagDiyBox.find('.diy-tag').length;
+        }
+
+        //处理自定义标签
+        checkNumberOfTags();
+
+        //在页面载入的时候给已有的tag添加删除时间的绑定
+        tagDiyBox.find('.close-btn-tiny').click(function(event) {
+            var tar = $(event.target || event.srcElement);
+            tar.parent().remove();
+            checkNumberOfTags();
+        });
+
+         tagDiyMaker.on("keypress", function(evt) {
+			//限制自定义标签的内容长度为6个字符
+			if($.trim($(this).val()).length >6){
+				//alert('自定义标签字符长度不超过六个字符!');
+				return false;
+			}
+            if(checkNumberOfTags()>=5) return;
+            if (evt.keyCode == 13) {
+
+                if ($.trim(tagDiyMaker.val()) != "") {
+                    var tg = $("<span>").addClass('diy-tag inline-block').html("<span class='diy-tag-value'>" + tagDiyMaker.val() + '</span> &nbsp;&nbsp;<a class="close-btn-tiny"></a>').appendTo(tagDiyBox);
+                    tagDiyMaker.val("");
+                    tg.find('.close-btn-tiny').click(function(event) {
+                        var tar = $(event.target || event.srcElement);
+                        tar.parent().remove();
+
+                        checkNumberOfTags();
+                    });
+  
+                }
+
+                checkNumberOfTags();
+            } else {
+                //不许超过32个字符
+                if ($.trim(tagDiyMaker.val()).length >= 32) {
+
+                    return false;
+                }
+            }
+        });
+		tagDiyMaker2.on("click", function(evt) {
+			//限制自定义标签的内容长度为6个字符
+			if($.trim(tagDiyMaker.val()).length >6){
+				//alert('自定义标签字符长度不超过六个字符!');
+				return false;
+			}
+            if(checkNumberOfTags()>=5) return;
+                if ($.trim(tagDiyMaker.val()) != "") {
+                    var tg = $("<span>").addClass('diy-tag inline-block').html("<span class='diy-tag-value'>" + tagDiyMaker.val() + '</span> &nbsp;&nbsp;<a class="close-btn-tiny"></a>').appendTo(tagDiyBox);
+                    tagDiyMaker.val("");
+                    tg.find('.close-btn-tiny').click(function(event) {
+                        var tar = $(event.target || event.srcElement);
+                        tar.parent().remove();
+
+                        checkNumberOfTags();
+                    });
+  
+                }
+                checkNumberOfTags();
+        });
+
+    
+    });
+
+</script>
+{/literal}
+<input type="hidden" value="{$org_tag}" id ="hide_edit_tags">
+<div class="column-wrapper  ort-review" id="ort-column">
+	<div class="row handle" >
+		<div class="lead-title">
+			<i class="hyq-ic ic-label-mark"></i>
+			<label class="f18 Blak2">红标签<small class="Gray8">(增加机构魅力指数，提升搜索排名，最多设置10个标签)</small></label>
+			<a href="javascript:void(null)" class="profile-edit-btn {$isOrtFirstEdit} pull-right" id="ort-edit-btn" alt="点击编辑红标签" title="点击编辑红标签"></a>
+			<a href="javascript:void(null)" class="profile-expend-btn {$isOrtReview} pull-right" id="ort-expend-btn" alt="点击添加红标签" title="点击添加红标签"></a>
+		</div>
+	</div>
+	{if $org_tag neq ''}
+		<div id="ort-review-box" style="display:block">
+			<div class="row2 " style="margin-top:0px;padding-top:0px;">
+				<div class="ort-review-inner">
+					{foreach $org_tag as $key => $tag}
+					<label class="ort-review-tag"><i class="Rd" style="margin-right:4px;">&bull;</i>{$tag}</label>
+					{/foreach}  
+				</div>
+			</div>
+		</div>
+	{else}
+		<div id="ort-review-box" style="display:none">
+			<div class="row2 " style="margin-top:0px;padding-top:0px;">
+				<div class="ort-review-inner"></div>
+			</div>
+		</div>
+	{/if}
+	<div id="ort-edit-box">
+		<div class="row clearfix toggle-content">
+			
+			<div class="lead-content">
+				<div class="form-group clearfix">
+				
+						{foreach $org_tag_list as $tid => $tag}	
+						<div class="checkbox-group pull-left">
+							<input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="{$tid}" 
+								{if $sys_tag_p neq 'null'}
+									{foreach $sys_tag_p as $k=>$v}
+										{if $k eq $tid}
+											checked = "true" 
+										{/if}
+									{/foreach} 
+								{/if}
+							/>
+							<span class="hyq-checkbox"></span>
+							<label>{$tag}</label>
+						</div>
+						{/foreach}
+
+				</div>
+			</div>
+
+			<div class="lead-content diy-tags" style="border: none;">
+				<div class="form-group clearfix">
+					<div style="padding-bottom:10px;" id="ort-diys">
+					
+				 		{foreach $self_tag as $k=>$self}
+						<span class="diy-tag inline-block"><span class="diy-tag-value">{$self}</span> &nbsp;&nbsp;<a class="close-btn-tiny"></a></span>
+						{/foreach}
+					
+					</div>
+
+					<input type="text" id="ort-diy-maker" style="width:330px;float:left;" maxlength="6" placeholder="按回车添加标签(标签内容请不要超过6个字符!)"/>
+					<div class="plus-square-wrap"><i class="hyq-ic ic-plus-square-org"></i></div>
+				</div>
+			</div>
+
+			<div class="btn-group clearfix" style='padding-bottom:0px;'>
+				<input class="hyq-btn hyq-btn-lg" type="button" id="ort-save-btn" value="保&nbsp;&nbsp;存">
+				&nbsp;&nbsp;
+				<input type="button" value="取&nbsp;&nbsp;消" id="ort-cancle-btn" class="hyq-btn hyq-btn-thin-lg" />
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+	<meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/rest.css">
+	<title>test</title>
+</head>
+ <style>
+    #loading{
+        width:100%;
+        height: 100%;
+        position: fixed;
+        z-index: 999;
+        background: #13051d;
+    }
+    .spinner {
+      position: absolute;
+      left:50%;
+      top:50%;
+      -webkit-transform: translate(-50%,-50%);
+    }
+
+    .spinner > div {
+      width: 1rem;
+      height: 1rem;
+      background-color: #fff;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+      animation: bouncedelay 1.4s infinite ease-in-out;
+      /* Prevent first frame from flickering when animation starts */
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0.0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes bouncedelay {
+      0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      } 40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+    html,body{
+      width:100%;
+      background: #34363a;
+    }
+    body{
+      padding-bottom:3rem;
+    }
+    img{
+      width:100%;
+      display: block;
+    }
+    .content{
+      width:100%;
+      display: block;
+      height: auto;
+    }
+    .p1{
+      color:#bfc3cb;
+      font-size: 0.7rem;
+      text-align: center;
+      line-height: 2em;
+      margin-top:1rem;
+    }
+    .p2{
+      color: #fff;
+      font-size: 0.7rem;
+      text-align: center;
+      line-height: 3em;
+      margin-top: 0.4rem;
+    }
+    .p2 span{
+      color: #ff0054;
+      font-size: 1.12rem;
+    }
+    .click{
+      display: block;
+      overflow: hidden;
+      width:90%;
+      margin:0 auto;
+      padding:1rem 0;
+    }
+    .click-left{
+      float: left;
+      width:46%;
+      position: relative;
+      margin-top: 1rem;
+    }
+    .click-left img:nth-child(1){
+      display: block;
+      width: 100%;
+    }
+     .click-left img:nth-child(2){
+      position: absolute;
+      width:94.4%;
+      left:2.7%;
+      top:-6%;
+      box-shadow: 0 0.5rem 1rem 0.5rem rgba(0,0,0,0.5);
+      border-radius: 7%;
+      -webkit-animation-duration:0.1s;
+      z-index: 1;
+    }
+    .click a{
+      display: block;
+      position: relative;
+    }
+    .box-back{
+        -webkit-animation-name:box-back;
+        -webkit-animation-fill-mode: forwards;
+      }
+      @-webkit-keyframes box-back
+      {
+        
+      to{  
+         box-shadow:none;
+         -webkit-transform: translate(0,9%);
+      }
+
+      }
+      .click-right{
+        width:54%;
+        float: left;
+      }
+      .click-right p{
+        font-size: 0.68rem;
+        -webkit-box-sizing:border-box;
+        padding-left:0.7rem;
+        line-height: 1.8em;
+      }
+      .click-right p span:nth-child(1){
+        color: #c0c4cc;
+      }
+      .click-right p span{
+        color: #fff;
+      }
+      .click-right p span i{
+        color: #fd1764;
+      }
+      .yu{
+        display: block;
+        color: #fff;
+        font-size: 0.8rem;
+        width:90%;
+        margin:0 auto;
+        padding-bottom:1rem;
+      }
+      .p3{
+        font-size: 0.68rem;
+        color: #fff;
+        line-height: 2em;
+        width:90%;
+        margin:0 auto;
+        padding-top:0.8rem;
+        padding-bottom:1rem;
+      }
+      .p3 span:nth-child(1){
+        color: #aeaeae;
+      }
+      .p3 span i{
+        color: #fd1764;
+        font-size: 1rem;
+      }
+      .img-full{
+        display:block;
+        width:100%;
+      }
+      .p4{
+        font-size: 0.7rem;
+        color: #fff;
+        line-height: 2em;
+        width:90%;
+        margin:1rem auto;
+      }
+      .p4 span{
+        display: block;
+      }
+      .click-left a:before{
+        content: '';
+        position: absolute;
+        z-index: 10;
+        width:100%;
+        height: 100%;
+        left:0;
+        top:0;
+      }
+       img{
+      pointer-events: none;
+    }
+    </style>
+<body>
+     <div id="loading" class="">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+    </div>
+    <div class="content">
+        <img src="img/three1.jpg" alt="">
+        <p class="p1">
+            无数个与代码博弈的深夜，我们对自己说：<br>
+            “再细一点”<br>
+            无数个与像素纠缠的黎明，我们对自己说：<br>
+            “再美一点”<br>
+            无数个封装待上线的前夜，我们对自己说：<br>
+            “再改一点”<br>
+            不断地让自己再好一点<br>
+            只是想给你的便利再多一点<br><br>
+
+            终于到了登台亮相的时刻，<br>
+            我们对自己说：“福利，再狠一点”
+        </p>
+        <p class="p2">
+          请容许我们介绍下自己<br> 
+          —<br> 
+          <span>我们是红演圈</span><br>
+         专业的文体演艺服务贸易平台。<br>
+
+         简单地说，就是你可以在这里展示自己、推广自己、<br>
+         经营自己，在这里发现招募、报名招募，<br>
+         接收你之前接触不到的海量文体演艺招募信息，<br>
+         给你充分展现自己的各种舞台。
+        </p>
+        <div class="click">
+          <div class="click-left">
+            <a href="" title="" id='click-a'>
+              <img src="img/ka-bg.jpg" alt="">
+              <img src="img/click.png" alt="" id="clickImg">
+            </a>
+          </div>
+          <div class="click-right">
+            <p>
+              <span>是的，只有狠福利，才能配得上过去这段时间对自己的狠劲儿<br>于是，我们着手准备了这份上线大礼。<br>
+              我们决定：</span><br>
+              <span>只要是咱的注册用户，<br><i>点击左侧“我要拍！”</i>报名按钮就可获得一次免费拍模特卡的特权有效期一整年！</span>
+            </p>
+          </div>
+        </div>
+        <span class='yu'>欲知详情如何？请见下表分解：</span>
+        <img src="img/three2.jpg" alt="" class='img-full'>
+        <p class="p3">
+          <span>活动时限：2015年4月15日~2016年4月15日<br>
+支持机构：红演圈（北京）网络科技有限公司、私人定制摄影工
+作室</span><br>
+    <span><i>您务必知道的3件事儿：</i><br>
+1、红演圈账号请务必绑定手机，这样，我们才能把拍照预约码发
+到您的手机上。<br>
+2、提前预约：为保障拍照质量，摄影师需要控制每日的服务人数，因此请务必提前3天预定拍摄档期，否则摄影工作室可能会另行安排您的拍照时间。<br>
+3、工作室提供既定套餐内模卡及精修照片等资料电子版，除此以
+外，顾客如需更多精修照片或其他资源则需自理费用给摄影工作
+室，与红演圈不产生关系。</span>
+        </p>
+        <img src="img/map.jpg" alt="" class='img-full'>
+        <p class='p4'>
+           <span> 地址：北京市丰台区三环新城8号院14号楼25号底商（10号线丰台站，步行500米即到）<br>
+电话：010-56077075</span>
+             
+         <img src="img/three4.jpg" alt="" style='display:block;width:50%;padding:2rem 0;'>
+         <span> 私人定制摄影工作室，靠近丰台地铁站，走几步就到，懒人的福利有木有~<br>
+环境优雅、布景丰富、配饰齐全、服务周到，很美很温馨有木有~</span>
+<br>
+         <img src=" img/three5.jpg" alt="" class="img-full">
+         <span style='border:1px solid #ff1e65;padding:0.7rem;margin:0.5rem auto;'> 
+           <i style='color:#ff1e65'>该工作室成功举办了第一届亚洲美业视觉艺术大赛模特大赛，拥有500余万粉丝</i><br>
+店内常驻摄影师，均具备丰富写真、模卡拍摄经验，哎呦，不错哦~<br>
+话不多说，上大片~
+         </span>
+         <img src=" img/three6.jpg" alt="" class="img-full">
+         </p>
+    </div>
+    
+    <script>
+        var img_num=3;
+        var loading;
+        var tt;
+        if(document.getElementById('loading')){
+            loading=document.getElementById('loading');
+            loading.addEventListener('touchmove',function(event){
+                event.preventDefault();
+                },false);
+        };
+         //loading页面
+      var numt=0;
+      var imgss=document.getElementsByTagName('img');
+      var img_le=imgss.length;
+    for (var t=0; t<img_le; t++) {
+        var imge=new Image();
+        imge.src=imgss[t].src;
+        imge.onload=function  () {
+            numt++;
+            if (numt>=img_num) {
+                loading.className='opa-zero';
+                    tt=setTimeout(function(){
+                        loading.style.display='none';
+                        //clearTimeout(tt);
+                    },1000)
+            }
+        }
+    }
+   //loading页面
+   document.getElementById('click-a').addEventListener('touchstart',function(){
+      document.getElementById('clickImg').className='box-back'
+   },false);
+    document.getElementById('click-a').addEventListener('touchend',function(){
+     document.getElementById('clickImg').className=''
+   },false);
+    </script>
+</body>
+</html>

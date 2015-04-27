@@ -1,0 +1,625 @@
+<!doctype html>
+<html class="no-js hyq-collction-null">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>我的工作信息 - 报名</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/state_code.js"></script>
+
+
+    <style type="text/css">
+  .hyq-myworksheet-fix-modal-1{
+
+     margin:0 auto;
+  }
+  .hyq-myworksheet-fix-modal-1 form{
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+  }
+  .hyq-myworksheet-fix-modal-1 input[type=text]{
+    height:18px;
+    width: 210px;
+    font-size: 13px;
+    padding: 0 5px;
+  }
+  .fixed-message-box{
+    
+    margin: 0 auto;
+    padding: 0px;
+    margin: 0 15px; 
+    line-height: 24px;
+    min-width: 450px;
+     
+
+  }.fixed-message-box label{
+    font-size: 13px;
+    line-height: 90%;
+
+  }
+  .fixed-message-box tr,
+  .fixed-message-box td{
+    vertical-align: middle;
+  }
+  table .labl{
+    width: 44px;
+    padding:0px;
+    margin: 8px 0px;
+    display: inline-block;;
+    *display: inline;
+    text-align: right;
+
+  }   
+   .grid-sheet{
+  position:relative;
+  }
+  .grid-row {
+position:relative;  
+  z-index:50;
+  }
+  .grid-row .c1{
+  	width:30%;
+  	margin: 0 5px;
+  }
+  .grid-row .c2{
+  	width:10%;
+  }
+  .grid-row .c3{
+  	position: relative;
+  	width: 12%;
+ 
+  }
+  .grid-row .c4{
+  	position: relative;
+  	width: 12%;
+  }
+ .grid-row .c5{
+  	width: 14%;
+  }
+  .grid-row .c6{
+  	width: 16%;
+  }
+
+  .exp-btn{
+
+  	display: block;
+  }
+  .exp-btn .hyq-ic{
+  	margin: 0px 4px 2px 1px;
+  }
+
+  .c3 .tri,.c4 .tri{
+	border-top: 1px solid #d7d7d7;
+	border-left: 1px solid #d7d7d7;
+	position: absolute;
+	z-index:40;
+	background:#fff;
+	width: 8px;
+	height: 8px;
+	left: 50%;
+	bottom:-4px;
+	margin-left: -4px;
+	margin-top: -4px;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg);
+  }
+  .exp-iframe{
+ 
+  	left: 0px;
+  	right: 0px;
+  	height: 40px;
+	top:-1px;
+  	/*border:1px solid #e7e7e7;*/
+  	border-top:transparent;
+  	background-color: #fff;
+  }
+  iframe{
+ 
+  	right: 0px;
+   /* border-top: 1px solid #BDBDBD;*/
+  	bottom: 0px;
+  }
+  
+  .tri{
+ 
+  }
+  
+</style>
+
+  </head>
+  <body>
+    
+      {include "common/header.html"} 
+	{include "common/nav_search.html"} 
+      <div class="content-wrapper-b">
+      
+        <!--面包屑-->
+        <div class="hyq-breadcrumb-bar">
+            <div class="breadcrumb-box">
+              <a href="/home/user">我的红演圈</a> &gt; 
+              <a href="javascript:;">我的工作信息</a>
+            </div>
+            <div class="decoration-bar"></div>
+        </div>
+
+        <!--左边栏-->
+       {include "common/home/left_work.html"}
+        
+        <!--主栏-->
+        <div class="right-col-754 right-col-1000">
+          <div class="lead-title-bar">
+          </div>
+ {if $recruit_list neq ''}       
+        	<div class="grid-row GrayBorderBtm Blak2">
+	            <div class="c1">招募主题</div>
+	            <em></em>
+	            <div class="c2">状态</div>
+	            <em></em>
+	            <div class="c3">已邀约</div>
+	            <em></em>
+	            <div class="c4">已报名</div>
+	            <em></em>
+	            <div class="c5">操作</div>
+	            <em></em>
+	            <div class="c6">发布时间</div>            	 
+         	</div>
+          <div class="grid-sheet">
+
+           
+	{foreach name=recruit from=$recruit_list item=v}
+            <div class="grid-row 
+				{if $smarty.foreach.recruit.iteration mod 2 eq 1}
+					bgE7 
+				{/if}
+				{if $v.status neq 1}
+					mute
+				{/if}
+			" item="{$v.id}">
+	            <div class="c1 ltxt">
+		            <a href="/recruit/{$v.id}" target="_blank">{$v.name}</a>
+	          	</div>
+              <i></i>
+              <div class="c2">
+					{if $v.status eq 1}
+						进行中
+					{else if $v.status eq 2}
+						已过期
+					{else if $v.status eq 3}
+						已关闭
+					{/if}
+			  </div>
+              <i></i>
+              
+              <div class="c3">
+              {if $v.invite_count neq 0}
+              	<a href="javascript:;" item="{$v.id}" class="exp-btn exp-btn-invited">
+              		{$v.invite_count} 
+              		<span class="hyq-ic ic-chevron-sm inline-block"></span>
+              	</a>
+              	<span class="tri _hidden" item="{$v.id}" relate="invited"></span>
+              {else}
+              	<a href="javascript:;" class="exp-btn">
+              		0
+              		<span class="hyq-ic ic-chevron-sm"></span>
+              	</a>
+              {/if}
+              </div>
+              
+              <i></i>
+              <div class="c4">
+            {if $v.apply_count neq 0}
+              	<a href="javascript:;" item="{$v.id}" class="exp-btn exp-btn-applied">
+              		{$v.apply_count}
+              		<span class="hyq-ic ic-chevron-sm"></span>
+              	</a>
+              	<span class="tri _hidden" item="{$v.id}" relate="applied"></span>
+			{else}
+				<a href="javascript:;" class="exp-btn">
+              		0
+              		<span class="hyq-ic ic-chevron-sm"></span>
+              	</a>
+			{/if}              	
+              	
+              </div>
+              <i></i>
+			  {if $v.status neq 1}
+					<div class="c5">
+						-
+					</div>
+			  {else}
+				  <div class="c5">
+					<a href="javascript:;" class="action-close-recruit">关闭招募</a>
+					&nbsp;
+					<!-- <a href="javascript:;">编辑</a> -->
+				  </div>
+			  {/if}
+              <i></i>
+              <div class="c6 time">
+                {$v.add_date|date_format:"%Y-%m-%d %H:%M"}
+              </div>
+            </div>
+{/foreach}
+{else}
+        <p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+        <p>OMG!您咋介低调咧！</p>
+        <p>即刻<a href="/home/recruit/set">发布招募</a>，寻找你想要的大明星！</p>	
+{/if} 
+          </div>
+          <!-- 载入提示 -->
+          
+          <!-- <div class="content-loading-txt">正在载入更多...</div> -->
+        </div><!--主栏结束-->
+      </div>
+  
+    <!-- 主内容尾 -->
+    {include "common/footer.html"} 
+ 
+ 
+     <!--确认对方的报名 发送联系方式弹窗-->
+<div class="hyq-modal hyq-modal-default RdBorderTop" id="permit-apply-modal" style="width:600px;"role="dialog">
+  <input type="hidden" id="applyId-to-permit"/>
+  <input type="hidden" id="recruit_id_to_permit"/>
+
+  <div class="hyq-modal-header txt-left">
+    <label class="f16 pull-left Gray8">&nbsp;<span class="Blak1 p-left-25 fl">给报名人发送您的联系方式</span></label>
+    <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+  </div>
+  <div class='gray-spliter _clb'></div>
+  <div class="hyq-model-body _clb field-fix-width" >
+
+      
+
+       <p class="Blak1 p-left-25 f14 txt-left">您的联系方式</p>
+      
+        <ul class="form-apply txt-left">
+          
+          <li><label class="Gray6">电话：</label><input type="text" name="r_mobile" value="{$connect['contact_mobile']}" placeholder="请输入您的电话"></li>
+          <li><label class="Gray6">邮箱：</label><input type="text" name="r_email" value="{$connect['contact_email']}" placeholder="请输入您的邮箱"></li>
+          <li><label class="Gray6" >微信：</label><input type="text" name="r_weixin" value="{$connect['contact_weixin']}" placeholder="请输入您的微信号"></li>
+          <li><label class="Gray6">QQ：</label><input type="text" name="r_qq" value="{$connect['contact_qq']}" placeholder="请输入您的QQ"></li>
+          
+        </ul>
+         <p class="reminder-p fl f14 Gray6 lh24 p-left-25">请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）</p>
+          &nbsp;<input type="button" class="hyq-btn hyq-btn-lg fr" id="btn-yes-permit" value="确定并发送" style="margin-right:8em;position:absolute;"/>
+				
+      <div class="hyq-f-err hyq-f-err-pad-left fl" style="display:none">
+                                 <i class="hyq-ic ic-vlid-err"></i><label>至少填写一种联系方式</label>
+                                </div>
+     
+  </div>
+  <div class="hyq-model-bottom">
+
+  </div>
+</div>
+ <!--/拒绝报名的确认弹窗-->
+
+ <!--拒绝报名的确认弹窗-->
+ <div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="decline-apply-modal"  role="dialog" style="width:350px; margin:0 auto;">
+ 	<!--隐藏域：存储要拒绝报名的用户ID和招募ID 当用户点击确认的时候，会用AJAX执行确认操作，操作成功则刷新页面操作失败则提醒-->
+ 	<input type="hidden" id="user_id_to_decline"/>
+ 	<input type="hidden" id="recruit_id_to_decline"/>
+ 	<input type="hidden" id="apply_id_to_decline"/>
+  <br/>
+    <p class='txt-center'>
+      <i class="hyq-ic ic-alert-lg"></i>
+    </p>您是否拒绝该报名？
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <input type="button" value="确 定" class="hyq-modal-close-trigger hyq-btn hyq-btn-lg" id="btn-yes-decline"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="点错了" class="hyq-modal-close-trigger hyq-btn hyq-btn-thin-lg" id="btn-no-decline"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+  </div>
+ <!--/拒绝报名的确认弹窗-->
+
+<!--关闭招募的确认弹窗-->
+ <div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="close-recruit-modal"  role="dialog" style="width:350px; margin:0 auto;">
+ 	<!--隐藏域：存储要关闭的招募ID 当用户点击确认的时候，会用AJAX执行确认操作，操作成功则刷新页面操作失败则提醒-->
+ 	<input type="hidden" id="recruit_id_to_close"/>
+  <br/>
+    <p class='txt-center'>
+      <i class="hyq-ic ic-alert-lg"></i>
+    </p>您是否关闭该招募？
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <input type="button" value="确 定" class="hyq-modal-close-trigger hyq-btn hyq-btn-lg" id="btn-yes-close-recruit"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="点错了" class="hyq-modal-close-trigger hyq-btn hyq-btn-thin-lg" id="btn-no-close-recruit"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+    <br class="_clb"/>
+  </div>
+ <!--/拒绝报名的确认弹窗-->
+
+
+ 
+<!--TIP -->
+<div class="hyq-tip" id="tip-message" style="width:320px;" >
+    <label class="hyq-tip-msg-node"></label>
+</div>
+
+ <!--发私信窗口-->
+ {include "common/home/include_message_box.html"}
+ 
+ 
+	{literal}
+         <script type="text/javascript">
+          
+         var cfm ={
+         	 ifrmFixedHeight:"240px",//iFrame定高
+         	 idPrefixIvt:"invitedIFRM",//已邀约iFrame名字前缀
+         	 idPrefixApl:"appliedIFRM",//已报名iFrame名字前缀
+         	 ifrmSrcIvt:"/home/mywork_recruit_invite_iframe.php?t=520",//邀请iframe母本
+         	 ifrmSrcApl:"/home/mywork_recruit_apply_iframe.php?t=520"
+         };
+
+         
+         //holder 是管这个节点的关联节点，应该是一行招募记录的DIV
+         // type 0,1 0 =  已邀约  1 = 已报名
+         cfm.makeIframe=function(holder,recruitId,type){
+
+         	var name = "";
+         	if(type==0){
+         		name = cfm.idPrefixIvt+recruitId;
+         	}
+         	if(type==1){
+         		name = cfm.idPrefixApl+recruitId;
+         	}
+         	var _ifr = $("iframe[name="+name+"]");
+         	if(_ifr.length>0){
+         	 return _ifr;
+         	}
+
+         	var page = type==0?cfm.ifrmSrcIvt:cfm.ifrmSrcApl;
+
+         	var ifr = $("<iframe>").attr({
+            "width":"100%","name":name,"frameborder":"0","scrolling":"no"
+          }).hide();
+         	ifr.attr({
+            "src":page+"&id="+recruitId
+          });
+         	holder.after(ifr);
+         	return ifr;
+         }
+                    
+         $(document).ready(function(){
+
+          
+
+            $(".exp-btn-invited,.exp-btn-applied").click(function(event){
+            	var tar = $(event.target || event.srcElement);
+            	// 如果用户不小心点到红箭头 则视为点的父亲节点 a 
+            	if(tar.hasClass('hyq-ic')) tar = tar.parent();
+            	
+            	var recruitId = tar.attr("item");
+                  var type = 0;
+                 if(tar.hasClass('exp-btn-applied')) type=1;
+                 var ifr = cfm.makeIframe(tar.parent().parent(),tar.attr("item"),type);
+                 
+                 //隐藏相关联的互斥的iframe
+                 var invertedNamePrefix = type==1?cfm.idPrefixIvt:cfm.idPrefixApl;
+                 //console.log(invertedNamePrefix+recruitId);
+                 var iframeForHide = $("iframe[name="+invertedNamePrefix+recruitId+"]");
+                 //console.log(iframeForHide)
+                 iframeForHide.hide();
+                 //隐藏三角箭头
+                 var inveretedRelativeFlag = type==1?"invited":"applied";
+            	$(".tri[item="+recruitId+"][relate="+inveretedRelativeFlag+"]").hide();
+
+				if($(ifr).is(":hidden")){
+					ifr.show();
+					tar.parent().find('.tri').show();
+				}else{
+					ifr.hide();
+					tar.parent().find('.tri').hide();
+					
+				}
+                
+                event.stopPropagation();
+                 
+            });
+
+        	 
+
+            //关闭招募的按钮被点中时
+ 
+            $(".action-close-recruit").click(function(event){
+
+            	var target=$(event.target || event.srcElement);
+
+            	//先获取要关闭的招募ID
+            	var recruitId = target.parent().parent().attr("item");
+            	//console.log("要关闭的招募ID为："+recruitId);
+
+            	//给隐藏域赋值 
+            	$("#recruit_id_to_close").val(recruitId);
+                $("#close-recruit-modal").trigger('hyq/modal/show');
+                event.stopPropagation();
+            });
+
+            //关闭招募的确定按钮被点中的时候
+            $("#btn-yes-close-recruit").click(function(){
+            	//先获得要关闭的招募的ID
+            	var rid  = $("#recruit_id_to_close").val();
+            	//alert(rid)
+            	//然后开始搞的你AJAX来关闭招募
+				var action = 'close_recruit';
+				<!-- ajax关闭招募 -->
+				$.ajax({
+					url:'/home/ajax/ajax_home_apply.php',
+					type:'post',
+					data:{"action":action,"rid":rid},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							alert('OK,关闭成功!');
+						}else{
+							alert('NO,关闭失败!');
+						}
+						/*var Mes = state_list[parseInt(data)];
+						alert(Mes);*/
+						//$('#editarea').fadeOut();
+					},
+					dataType:'text'
+				});
+            	//**** YOU CODE GOES HERE *****/
+            	event.stopPropagation();
+            });
+
+
+
+            //当有IFRAME发来内容改变的事件时
+            $(document).on("hyq/doc/frame/change",function(event){
+            	var frm =  event.frameId;
+            });
+
+            //某个IFRAME发过来的 收起自身的请求
+            $(document).on("hyq/iframe/doc/hideme",function(event){
+            	//隐藏箭头
+            	//判断是邀约的IFRAME 还是 报名的IFRAME
+            	var relatedFlag = event.pageType==0?"invited":"applied";
+              //console.log(relatedFlag)
+            	$(".tri[item="+event.itemId+"][relate="+relatedFlag+"]").hide();
+            	$("iframe[name="+event.frameName+"]").hide();
+            	              	   
+            });
+
+            //收到调整IFRAME的请求
+            $(document).on("hyq/iframe/doc/resizeme",function(event){
+            	//console.log(event);
+            	$("iframe[name="+event.iframeName+"]").height(event.docHeight);
+            });
+
+			//收到子窗口要确认报名的请求
+			$(document).on("hyq/iframe/doc/popup/confirm/apply",function(event){
+				var applyId = event.applyId;
+				var recruitId = event.recruitId;
+				//先把弹窗的隐藏域填上值
+				$("#applyId-to-permit").val(applyId);
+				$('#recruit_id_to_permit').val(recruitId);
+				//再显示弹窗
+				$("#permit-apply-modal").trigger("hyq/modal/show");
+				 
+			});
+
+			//当确认报名的弹窗里 确定 按钮被点中时：
+			$("#btn-yes-permit").click(function(event){
+				//先获得报名相关信息
+				var aid = $("#applyId-to-permit").val();
+				var recuritId = $('#recruit_id_to_permit').val();
+				//console.log(aid);
+				//开始开始确认报名的 AJAX
+
+				var action = 'recruit_sure_apply';
+				var mobile = $("input[name='r_mobile']").val();
+				var email = $("input[name='r_email']").val();
+				var weixin = $("input[name='r_weixin']").val();
+				var qq = $("input[name='r_qq']").val();
+				
+				if(mobile.length == 0 && email.length == 0 && weixin.length == 0 && qq.length == 0){
+					$('.hyq-f-err-pad-left').css('display','block');
+					return false;
+				}else{
+					$('.hyq-f-err-pad-left').css('display','none');
+					<!-- ajax传递报名确认信息 -->
+					$.ajax({
+						url:'/home/ajax/ajax_home_apply.php',
+						type:'post',
+						data:{"action":action,"aid":aid,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+						success:function(data){
+							//alert(data);
+							if(data == 1000){
+								$("#btn-yes-permit").trigger("hyq/modal/close");
+								window.parent.frames['appliedIFRM'+recuritId].location.reload();
+							}else if(data == 1375){
+								$('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+								$('.hyq-f-err-pad-left').css('display','block');
+							}else{
+								$('.hyq-f-err-pad-left').find('label').text('网络错误,报名失败!');
+								$('.hyq-f-err-pad-left').css('display','block');
+							}
+						},
+						dataType:'text'
+					});
+				}
+				//如果失败的话显示提示 
+				//如果成功的话刷新页面
+				//要手动关闭对话框 请使用  $("#btn-yes-permit").trigger("hyq/modal/close");
+				event.stopPropagation();
+			});
+				
+
+
+
+			//收到子窗口要拒绝报名的请求
+			$(document).on("hyq/iframe/doc/popup/confirm/decline",function(event){
+				var userId=event.userId;
+				var recruitId = event.recruitId;
+				var applyId = event.applyId;
+				//console.log("用户要求拒绝用户ID为["+userId+"]的用户对招募ID为["+recruitId+"]做出的报名请求");
+
+				//先把弹窗的隐藏域填上值
+				$("#user_id_to_decline").val(userId); 
+				$("#recruit_id_to_decline").val(recruitId);
+				$("#apply_id_to_decline").val(applyId);
+
+				//再显示弹窗
+				$("#decline-apply-modal").trigger("hyq/modal/show");
+			});
+
+			//当拒绝报名的弹窗里 确定 按钮被点中时：
+			$("#btn-yes-decline").click(function(event){
+				//先获得报名相关信息
+				var userId = $("#user_id_to_decline").val();
+				var recuritId =  $("#recruit_id_to_decline").val();
+				var aid =  $("#apply_id_to_decline").val();
+				/* console.log(userId);
+				console.log(recuritId);
+				console.log(aid); */
+
+				//开始开始拒绝报名的 AJAX
+				
+				var action = 'recruit_refuse_apply';
+				$.ajax({
+					url:'/home/ajax/ajax_home_apply.php',
+					type:'post',
+					data:{"action":action,"aid":aid},
+					success:function(data){
+						//alert(data);
+						if(data == 1000){
+							window.parent.frames['appliedIFRM'+recuritId].location.reload();
+							//alert('OK,拒绝成功!');
+						}else{
+							alert('NO,拒绝失败!');
+						}
+					},
+					dataType:'text'
+				});
+					//如果失败的话显示提示 
+					//如果成功的话刷新页面
+
+				 event.stopPropagation();
+
+			});
+
+  });
+         </script>
+		 {/literal}
+</body>
+</html>

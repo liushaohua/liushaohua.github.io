@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://xijinke.com/hyq/hyq-ui2/index.html -->
+<html class="no-js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<title>红人筛选 - 红演圈</title>
+<meta name="keywords" content="{foreach from=$all_option_list item=v name=option}{if $smarty.foreach.option.last}{$v[2]}{else}{$v[2]}，{/if}{/foreach}">
+<meta name="description" content="红演圈－ 中国文化演艺服务第一平台，聚集全国文化演艺人才，千万级演艺红人数据库， 700多项文化演艺服务，实名认证、即时沟通、全民演艺！">
+
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+{literal}
+<style>
+  .search-secBox input.hyq-nice-selectable-sm+span{margin-bottom: 8px;}
+  .search-secBox{background: #FFF;margin-top: 15px;padding: 10px 10px 5px 15px;clear:both;overflow:hidden;}
+  .fl{float:left;}
+  div.role-filter-categray {width: 923px;padding: 0 10px 5px 25px;}
+  .search-secQuerySec{margin-left:75px;}
+  .form-role-filter-simple div{color: #8A8A8A;font-size: 12px;padding-left: 25px}
+  div.search-secQuery{width:785px;padding-left:0;}
+  div.role-filter-categray-p{padding-left: 99px;width: 849px;}
+</style>
+{/literal}
+<link rel="stylesheet" href="/css/main.css"><!-- endbuild -->
+<script type="text/javascript" src="/js/jquery.js"></script>
+</head>
+<body class="filter-reds">
+{include "common/header.html"} 
+{include "common/nav_search.html"}
+<!-- 主内容栏开始 -->
+<div class="content-wrapper-index" style="padding-top:0px">
+  <!-- 主内容栏开始 -->
+  <!-- <p class="lh24 Gray7 f12">所有分类&nbsp;&nbsp;&gt;&nbsp;&nbsp;<span >红人</span></p> -->
+  <div class="search-top-gray"></div>
+   <!--所在地-->
+    <form action="/list/user" method="get" id="filter_form">
+   <div class="city-con">
+                <span class="work-plcace">所在地</span>
+                <ul class="hyq-city-category city-wrap">
+                <li class="hyq-city city_op" province_id="0" city_id="0">
+		                <a href="javascript:;" class="first">全国</a>
+		            </li>
+                {foreach from=$chief_city_list item=chief_city key=key}
+		            <li class="hyq-city city_op" province_id="{$chief_city['pid']}" city_id="{$key}">
+		                <a href="javascript:;">{$chief_city['cname']}</a>
+		            </li>
+                {/foreach}
+                   <a href="javascript:;" class="other-city-a" {if $other_color eq 'red'} style="color:red" {/if}>其它<i class="hyq-ic ic-chevron-sm" style="margin:0px 4px 5px 10px;"></i></a>
+		            <div class="other-city-box">
+		           		 <div class="arrow-city">
+		                      <img src="http://icon.hotyq.com/v2/city-arrow-top.jpg" width="21" height="13">
+		                 </div>
+		                 <div class="other-city">
+		                    {foreach from=$citys item=city_info key=key}
+		                    <span>{$key}</span>
+		                    <p>
+		                      {foreach $city_info as $city}
+		                      <a href="javascript:;" province_id="{$city['pid']}" city_id="{$city['id']}" alt="{$city['cname']}" title="{$city['cname']}" class="city_op">{$city['cname']}</a>
+		                      {/foreach}
+		                    </p>
+		                    {/foreach}
+		                </div>
+                
+             </div>
+            
+             </ul>
+             	<div class="cl"></div>
+       	   </div>
+  <!--角色类型表单-->
+  <div class="form-role-filter-wrap">
+    <div class="form-role-filter-simple">
+        <div class="search-secBox"> <span class="p-right-15 fl">服务类型：</span>
+          <a class="fl p-right-15 f14 {if $service_1_option eq 0} Rd {/if}" href="javascript:;" id="service_1_limit_a">不限</a>
+          <input type="hidden" name="service_1_limit" id="service_1_limit_input" value="yes">
+		  <div class="fl search-secQuery">
+               {foreach $service_1_list as $service_1_info}
+                    <input type="radio" value="{$service_1_info}" name="service_1_option" class="hyq-nice-selectable-sm find_user_service_1_option" {if $service_1_info eq $service_1_option} checked {/if}>
+                    <span><b></b> &nbsp; {$service_names[$service_1_info]} &nbsp; </span>
+                {/foreach}   
+                    <!--<input type="radio" value="-1" name="role_1_option" class="hyq-nice-selectable-sm find_user_parent_option" >
+          <span><b></b> &nbsp; 其他 &nbsp; </span>-->
+		  </div>
+        </div>
+         {if $service_2_list}
+        <div class="search-secBox">
+			  <a class="fl search-secQuerySec p-right-15 f14 {if $service_2_option eq 0} Rd {/if}" href="javascript:;" id="service_2_limit_a">不限</a>
+			  <input type="hidden" name="service_2_limit" id="service_2_limit_input" value="yes">
+			 <div class="fl search-secQuery"> 
+       
+          {foreach $service_2_list as $service_2_info}
+          <input type="radio" value="{$service_2_info}" name="service_2_option" class="hyq-nice-selectable-sm find_user_service_2_option" {if $service_2_info eq $service_2_option} checked {/if}>
+          <span><b></b> &nbsp; {$service_names[$service_2_info]} &nbsp; </span>
+          {/foreach}
+        
+			</div>
+        </div>
+        {/if}
+        {if $service_3_list}
+        <div class="role-filter-categray role-filter-categray-p">
+        
+          {foreach $service_3_list as $service_3_info}
+            <p class="role-unit">
+              <input type="checkbox" class="hyq-nice-checkbox" name="service_3_option[]" value="{$service_3_info}" {if $service_3_info|in_array:$service_3_option} checked {/if}>
+              <span class="hyq-checkbox"></span>
+              <label class="find_user_service_3_option">{$service_names[$service_3_info]}</label>
+            </p>
+          {/foreach}
+               
+       </div>
+       {/if}
+      </div>
+  </div>
+
+  <div class="form-role-filter-wrap">
+    <div  class="form-role-filter-simple">
+        <div class="search-secBox"> <span class="p-right-15 fl">角色类型：</span>
+          <a class="fl p-right-15 f14 {if $role_1_option eq 0} Rd {/if}" href="javascript:;" id="role_1_limit_a">不限</a>
+          <input type="hidden" name="role_1_limit" id="role_1_limit_input" value="yes"> 
+		  <div class="fl search-secQuery">
+          {foreach $parent_role_list as $role_1_info}
+          <input type="radio" value="{$role_1_info['id']}" name="role_1_option" class="hyq-nice-selectable-sm find_user_parent_option" {if $role_1_info['id'] eq $role_1_option} checked {/if}>
+          <span><b></b> &nbsp; {$role_1_info['name']} &nbsp; </span>
+          {/foreach}
+          <!--<input type="radio" value="-1" name="role_1_option" class="hyq-nice-selectable-sm find_user_parent_option" {if $role_1_option eq '-1'} checked {/if}>
+          <span><b></b> &nbsp; 其他 &nbsp; </span>-->
+		  </div>
+        </div>
+        {if $role_1_option > 0}
+        <div class="role-filter-categray role-filter-categray-p">
+          {foreach $role_2_list[$role_1_option] as $role_2_info}
+          <p class="role-unit">
+            <input type="checkbox" class="hyq-nice-checkbox" name='role_2_option[]' value="{$role_2_info['id']}" {if $role_2_info['id']|in_array:$role_2_option} checked {/if}/>
+            <span class="hyq-checkbox"></span>
+            <label class="find_user_son_option">{$role_2_info['name']}</label>
+          </p>
+          {/foreach}
+        </div>
+        {/if}
+      </div>
+    
+  </div>
+    <div class="three-linkage-con hyq-small-dropdown"> 
+        <div class="hyq-dropdown-wrap" >
+    		<label class="dropdown-title" for="sex_option">性别：</label>
+  		  <!--角色种类-->
+  		  <div class="hyq-dropdown-box find_user_drop_option" placeholder="不限">
+
+  									<input type="hidden" name="sex_option" value="{$sex_option}">
+  									<div type="text" class="hyq-dropdown ">
+  										<span class="dropdown-value inline-block fix-dropdown-1">不限</span>
+  									</div>
+
+  									<div class="hyq-dropdown-list">
+  										<ul>
+  											{foreach from=$common_config['SEX'] item=sex key=key}
+                        <li value="{$key}">
+                          {$sex}
+                        </li>
+                        {/foreach}
+  										</ul>
+  									</div>
+  									<a class="hyq-dropdown-btn"><i></i></a>
+  								</div>
+        
+        </div>   
+         <div class="hyq-dropdown-wrap" >                    
+          <label class="dropdown-title" for="verify_option">身份验证：</label>
+  		  <!--角色种类-->
+  		  <div class="hyq-dropdown-box find_user_drop_option" placeholder="不限">
+
+  									<input type="hidden" name="verify_option" value="{$verify_option}">
+  									<div type="text" class="hyq-dropdown ">
+  										<span class="dropdown-value inline-block fix-dropdown-1">不限</span>
+  									</div>
+
+  									<div class="hyq-dropdown-list">
+  										<ul>
+  											<li value="yes">
+  												已验证
+  											</li>
+  											<li value="no">
+  												未验证
+  											</li>
+  										</ul>
+  									</div>
+  									<a class="hyq-dropdown-btn"><i></i></a>
+  								</div> 
+         </div> 
+        <div class="hyq-dropdown-wrap" >
+                <label class="dropdown-title" for="age_option">年龄：</label>
+                <!--种类-->
+                <div class="hyq-dropdown-box find_user_drop_option" placeholder="不限">
+        
+                      <input type="hidden" name="age_option" value="{$age_option}">
+                      <div type="text" class="hyq-dropdown ">
+                          <span class="dropdown-value inline-block fix-dropdown-1">不限</span>
+                      </div>
+        
+                      <div class="hyq-dropdown-list">
+                          <ul>
+                              {foreach from=$common_config['AGE']['OPTION'] item=age key=key}
+                        <li value="{$key}">
+                          {$age}
+                        </li>
+                        {/foreach}
+                          </ul>
+                      </div>
+                      <a class="hyq-dropdown-btn"><i></i></a>
+                  </div>
+        
+        </div>
+		 <div class="hyq-dropdown-wrap" >
+                <label class="dropdown-title" for="height_option">身高：</label>
+                <!--种类-->
+                <div class="hyq-dropdown-box find_user_drop_option" placeholder="不限">
+        
+                      <input type="hidden" name="height_option" value="{$height_option}">
+                      <div type="text" class="hyq-dropdown ">
+                          <span class="dropdown-value inline-block fix-dropdown-1">不限</span>
+                      </div>
+        
+                      <div class="hyq-dropdown-list">
+                          <ul>
+                            {foreach from=$common_config['HEIGHT']['OPTION'] item=height key=key}
+                            <li value="{$key}">
+                              {$height}
+                            </li>
+                            {/foreach}
+                          </ul>
+                      </div>
+                      <a class="hyq-dropdown-btn"><i></i></a>
+                  </div>
+        
+        </div>
+             <div class="hyq-dropdown-wrap" >
+                <label class="dropdown-title" for="star_option">星座：</label>
+                <!--种类-->
+                <div class="hyq-dropdown-box find_user_drop_option" placeholder="不限">
+        
+                      <input type="hidden" name="star_option" value="{$star_option}">
+                      <div type="text" class="hyq-dropdown ">
+                          <span class="dropdown-value inline-block fix-dropdown-1">不限</span>
+                      </div>
+        
+                      <div class="hyq-dropdown-list">
+                          <ul>
+                              {foreach from=$common_config['STAR'] item=star key=key}
+                        <li value="{$key}">
+                          {$star}
+                        </li>
+                        {/foreach}
+                          </ul>
+                      </div>
+                      <a class="hyq-dropdown-btn"><i></i></a>
+                  </div>
+        
+             </div>                            
+         <div class="cl"></div>                       
+    </div>
+	<input type="hidden" name="city" value="" id="city_option">
+	</form>
+  <div class="selected-conditions-con">
+             <strong>已选条件&nbsp;&nbsp;&raquo;</strong>
+             <div class="selected-condition selected-tags">
+              {foreach from=$all_option_list item=option_info key=key}
+                <span><label>{$option_info[2]}</label><i class="selected_option_x" input_name="{$option_info[0]}" input_val="{$option_info[1]}"></i></span>
+              {/foreach}
+             </div>
+             <em class="fr" id="clear_selected_all">清空</em>
+         </div>
+  <div class="cl"></div>
+  {if $find_user_list}
+  <div class="filter-reds-con">
+        {foreach from=$find_user_list item=user_info name=show}
+   	<div class="hotman-list-1 {if $smarty.foreach.show.iteration %5 eq 0} end-of-line {/if}">
+		<a class="hot-man-a" href="/user/{$user_info['id']}" target="_blank">
+			<img src="{if $user_info['icon_url']}{$user_info['icon_url']}!f180 {else}http://icon.hotyq.com/v2/default/150x150.png {/if}" alt="{$user_info['nickname']}" title="{$user_info['nickname']}">
+			<div class="list-bottom">
+				<ul class="list-li">
+					<li class="fixed-li">
+						<span>{$user_info['nickname']}</span>
+					</li>
+					<li class="li">
+						<i class="hyq-ic ic-person"></i><span class="f12 Gray6">{$user_info['role_str']}</span>
+					</li>
+				</ul>
+				<div class="reds-list-bottom-bar">
+						<i class="hyq-ic {if $user_info['identity_card_status'] eq 
+						'yes'} ic-pinfo-sm {else} ic-pinfo-sm-muted {/if}"></i>
+					
+						<i class="hyq-ic {if $user_info['mobile_status'] eq 'yes'} ic-mobile-sn {else} ic-mobile-sn-muted {/if}"></i>
+					
+					<span class="reds-state"><em>{$user_info['address']}</em></span>
+				</div>
+			</div>
+		</a>
+	</div>
+    {/foreach}                   
+  </div>
+   {else}
+<div class="filter-reds-con">
+  没有找到符合条件的红人！请重新选择条件。
+</div>
+
+  {/if}   
+  <div class="cl"></div>
+   <div class="cutpage-con">
+            {if isset($page_list)}
+              {if $page_status eq 'true'}
+              <div class="cutpage2" >
+                <!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+                {if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+                {foreach from=$page_list item=page_info}
+                  {if $page_info.current == "yes"}
+                  <span class="current">{$page_info.no}</span>
+                  {elseif $page_info.position == "begin"}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  <span >...</span>
+                  {elseif $page_info.position == "end"}
+                  <span >...</span>
+                  <!--<a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>-->
+                  {else}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  {/if}
+                {/foreach}
+                {if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+              </div>
+              {/if}
+            {/if}
+      </div>
+</div>
+<!-- 主内容栏结束 -->
+{include "common/footer.html"}
+<script src="../../sea.js"></script>
+<script>
+	seajs.config({
+		base: 'js/dist'
+	});
+	seajs.use(['hyq/static/page/recruit/search.js']);
+</script>
+{literal}
+<script type="text/javascript">
+    $(document).ready(function(){
+    {/literal}
+		$("#city_option").val({$city_option});
+    {literal}
+		$(".city_op").each(function(){
+			if($(this).attr("city_id") == {/literal} {$city_option} {literal}){
+				$(this).addClass("active");
+			}
+			$(this).click(function(){
+				$("#city_option").val($(this).attr("city_id"));
+				$('#filter_form').submit();
+			});
+
+		});
+		$('#role_1_limit_a').click(function(){
+		  $('#role_1_limit_input').val('no');
+		  $("input[name='role_1_option']").attr('disabled','disabled');
+		  $('#filter_form').submit();
+		});
+    $('#service_1_limit_a').click(function(){
+      $('#service_1_limit_input').val('no');
+      $("input[name='service_1_option']").attr('disabled','disabled');
+      $('#filter_form').submit();
+    });
+    $('#service_2_limit_a').click(function(){
+      $('#service_2_limit_input').val('no');
+      $("input[name='service_2_option']").attr('disabled','disabled');
+      $('#filter_form').submit();
+    });
+        $('.find_user_son_option').each(function(){
+            $(this).siblings().click(function(){
+              $('#filter_form').submit();
+            });
+        });
+        $('.find_user_parent_option').each(function(){
+            $(this).siblings().click(function(){
+              $('.find_user_son_option').siblings('input').val('nolimit');
+              $('#filter_form').submit();
+            });
+        });
+         $('.find_user_service_1_option').each(function(){
+            $(this).siblings().click(function(){
+              $('.find_user_service_2_option').siblings('input').val('nolimit');
+              $('.find_user_service_3_option').siblings('input').val('nolimit');
+              $('#filter_form').submit();
+            });
+        });
+          $('.find_user_service_2_option').each(function(){
+            $(this).siblings().click(function(){
+              $('.find_user_service_3_option').siblings('input').val('nolimit');
+              $('#filter_form').submit();
+            });
+        });
+          $('.find_user_service_3_option').each(function(){
+            $(this).siblings().click(function(){
+              $('#filter_form').submit();
+            });
+        });
+        $(".find_user_drop_option").each(function(){
+          $(this).on("change",function(event){ 
+            $(this).parents('.hyq-dropdown-list').siblings('input').val(event.value);
+            $('#filter_form').submit();
+          });
+        });
+        $('.selected_option_x').each(function(){
+          var input_name = $(this).attr('input_name');
+          if(input_name == 'role_1_option'){
+            $(this).click(function(){
+              var input_val = $(this).attr('input_val');
+              $("input[name='"+input_name+"'][value='"+input_val+"']").val('nolimit');
+              $("input[name='role_2_option[]']").val('nolimit');
+              $(this).parent().hide();
+              $('#filter_form').submit();
+            });
+          }else if(input_name == 'address'){
+            $(this).click(function(){
+              $("input[name='province_option']").val('nolimit');
+              $("input[name='city_option']").val('nolimit');
+              $("input[name='district_option']").val('nolimit');
+              $(this).parent().hide();
+              $('#filter_form').submit();
+            });  
+          }else{
+            $(this).click(function(){
+              var input_val = $(this).attr('input_val');
+              $("input[name='"+input_name+"'][value='"+input_val+"']").val('nolimit');
+              $(this).parent().hide();
+              $('#filter_form').submit();
+            });
+          }
+        });
+        $('#clear_selected_all').click(function(){
+           $("input").val('nolimit');
+           $("input[name='city']").val('0');
+          $('#filter_form').submit();
+        });
+        {/literal}
+        {if isset($page_list)}{literal}
+        //分页  go 跳转页面
+        $('#go_btn').click(function(){
+          var sum_page = {/literal}{$sum_page}{literal};
+          var page = Number($("#turnTo").val());
+          if(isNaN(page) || page < 1 || page > sum_page){
+            return false;
+          }
+          location.href = "{/literal}http://www.hotyq.com{$goto_url}{literal}&page="+page;
+        });
+        {/literal}{/if}{literal}
+    });    
+         
+       
+      </script>
+{/literal}
+</body>
+</html>

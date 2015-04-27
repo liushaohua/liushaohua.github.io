@@ -1,0 +1,371 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>study program活动页</title>
+		<meta name="description" content="">
+		
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+        <link rel="stylesheet" href="/css/reset.css">
+        <link rel="stylesheet" href="/css/study/study.css">
+		{literal}
+        <style type="text/css">
+		
+		body{background:#e8e0cd;}
+		</style>
+		<script>
+		$(document).ready(function(){
+			$(window).scroll(function(){
+				if ($(window).scrollTop()>30){
+					$(".study-right").fadeIn(500);
+				}
+				else
+				{
+					$(".study-right").fadeOut(500);
+				}
+
+			});
+		});
+		
+		</script>
+		{/literal}
+	</head>
+	<body>
+		{include "common/header.html"} 
+		{include "common/nav_search.html"}
+        <!-- 主内容栏开始 -->
+		<!--banner-->
+        <div class="study-ban"></div>
+       	<div class="study-con1">
+        	<div class="study-center">
+        		<p>加入条件：<span>只限在校大学生。</span>(温馨提示：个人资料越丰富，越方便招募方快速找到你哦~ )</p>
+                <div class="text-left">
+                    <div class="text-wrap">
+                        <p>红演圈基于庞大的兼职招募数据库，成立了"红演圈-大学生勤工俭学中心"( Hotyq Work-Study Program，简称 HWSP )，为大学生群体定向提供全国各城市的、不间断的、海量的、优质的招募资讯（大型赛事、影视拍摄、电视台幕后、家教、志愿者等），并提供有效报名和沟通渠道，为大学生勤工俭学开辟绿色通道。</p>
+                    
+                    
+                    </div>
+                    <a class="work-a yet_apply_btn" href="javascript:;" eid="179" data-toggle="hyq-modal" data-target="#be-recruited-modal-1" sid="895"></a>
+                </div>
+                <div class="join-wrap">
+                	<a class="join-a yet_apply_btn" href="javascript:;" eid="179" data-toggle="hyq-modal" data-target="#be-recruited-modal-1" sid="895"></a>
+                </div>
+                
+            </div>
+        </div>
+        <!--右侧悬浮-->
+        <div class="study-right">
+        	<a href="javascript:;" class="study-letter" id="profile-letter-a"  data-target="#send-message-btn" data-toggle="hyq-modal" userId="100214"></a>
+            <!--未收藏-->
+            <a class="study-collect collect_button" collect_type="recruit" dynamic_id="363"></a>
+             <!--已收藏-->
+            <!--<a href="javascript:;" class="study-cs"></a>-->
+   	    	<a href="#" class="gotop"></a>
+        </div>
+        
+        <!--发私信窗口-->
+            {include "common/home/include_message_box.html"}
+        <!--弹窗-->
+        <!--报名-->
+        <div class="hyq-modal hyq-modal-default RdBorderTop form-apply-wrap" id="be-recruited-modal-1" role="dialog">
+                  <div class="hyq-modal-header GrayBorderBtm">
+                      <label>&nbsp;<span id="service_name">你正在加入：红演圈-大学生勤工俭学中心</span></label>
+                      <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+                  </div>
+                 
+                  <div class="hyq-model-body _clb" >
+                    <p class="contact-p">请选择服务类型（可复选）</p>
+                      <div class="ser-box">
+                            <p class="checkBox-unit">
+                                <input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="896"/>
+                                <span class="hyq-checkbox"></span>
+                                <label>志愿者</label>
+                            </p>
+                             <p class="checkBox-unit">
+                                <input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="897"/>
+                                <span class="hyq-checkbox"></span>
+                                <label>商业兼职</label>
+                            </p>
+                      </div>
+                      <div class="cl"></div>
+                     <p class="contact-p">您的联系方式</p>
+                    
+                      <ul class="form-apply">
+                        <li><label>电话：</label><input type="text" class="mobile_way" name="u_mobile" value="" placeholder="请输入您的电话"> <span class="Rd">*</span></li>
+                        <li><label>邮箱：</label><input type="text" class="email_way" name="u_email" value="" placeholder="请输入您的邮箱"></li>
+                        <li><label>微信：</label><input type="text" class="weixin_way" name="u_weixin" value="" placeholder="请输入您的微信号"></li>
+                        <li><label>QQ：</label><input type="text" class="qq_way" name="u_qq" value="" placeholder="请输入您的QQ"></li>
+                        
+                      </ul>
+                      <p class="reminder-p">请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）</p>
+                        &nbsp;<input type="button" class="hyq-btn hyq-btn-default-lg fr" value="确定并发送" />
+                              <input type="hidden" value="179" />
+                    <div class="hyq-f-err hyq-f-err-pad-left fl" style="display:none">
+                       <i class="hyq-ic ic-vlid-err"></i><label>请至少填写一种联系方式!</label>
+                    </div>
+        
+                  </div>                        
+         </div> 
+
+          <!--报名失败窗口-->
+        <div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-registration" style="width:360px;">
+          <div class="hyq-modal-header txt-left" ></div>
+          <div class="hyq-modal-body">
+            <div><i class="hyq-ic ic-alert-lg"></i></div>
+              <label>对不起，招募已关闭，请稍后再试。</label>
+                 
+                <br/>
+                <br/>
+                <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+          </div>
+          <br/>
+          <br class="_clb"/>
+          <div class="hyq-modal-footer"></div>
+        </div>
+
+        <!--报名失败窗口过期-->
+        <div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-registration-end" style="width:360px;">
+          <div class="hyq-modal-header txt-left" ></div>
+          <div class="hyq-modal-body">
+            <div><i class="hyq-ic ic-alert-lg"></i></div>
+              <label>对不起，招募已过期。</label>
+                 
+                <br/>
+                <br/>
+                <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+          </div>
+          <br/>
+          <br class="_clb"/>
+          <div class="hyq-modal-footer"></div>
+        </div>
+        <!-- tips 框 -->
+        <div class="hyq-tip" id="tip-message">
+          <i hyq-tip-icon-node></i>
+          <label class="hyq-tip-msg-node"></label>
+        </div>
+		<!--尾部开始-->
+      	{include "common/footer-new-sub.html"}
+        <script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/hyq-placeholder.js"></script>
+        <script src="/js/hyq-modal.js"></script>
+        <script src="/js/hyq-valid-helper.js"></script>
+        <script src="/js/hyq-checkbox-list.js"></script>
+        <script src="/js/hyq-dropdown-list.js"></script>
+        <script src="/js/hyq-dropdown-button.js"></script>
+        <script src="/js/hyq-checkbox.js"></script>
+        <script src="/js/hyq-nice-radio.js"></script>         
+        <script src="/js/hyq-extends.js"></script>
+        <script src="/js/hyq-tip.js"></script>
+        <script src="/js/hyq-busy-animate.js"></script>
+        <script src="/js/hyq-role-select.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/hyq-percent-pie.js"></script>
+        <script src="/js/hyq-misc.js"></script>
+        <script src="/js/hyq-static-album.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
+        <script src="/js/hyq-pv.js"></script>
+        <script src="/js/state_code.js"></script>
+       <!--尾部结束-->
+       {literal}
+		<script>
+		$(function () {
+			
+			$('.gotop').click(function () {
+    			$("html, body").animate({
+    			scrollTop: 0}, {
+    				duration: 500,
+    				easing: "swing"
+    			});
+    				return false;
+    			});
+
+                //收藏
+                $('.collect_button').each(function(){
+                    var main = $(this); 
+                    $(this).click(function(){
+                        if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+                            var url = window.location.href;
+                            location.href="/account/login?url="+url;
+                            return;
+                        }   
+                        if($.cookie('hyq_user_info').split('|')[2].length ==0){             
+                            location.href="/home/user/card";
+                            return;
+                        }               
+                        $.post("/home/ajax/ajax_home_collect.php",{'action':'add_collect','dynamic_id':$(this).attr('dynamic_id'),'collect_type':$(this).attr('collect_type')},function(data){
+                            var add_result = eval('('+data+')');
+                            main.attr("disabled",true);
+                            var tip = $("#tip-message").HYQTip();
+                            tip.showSuccess(add_result.desc);
+                            setTimeout(function (){window.location.reload()}, 1500);
+                        },'text');
+                    });
+                });
+
+                //报名处理
+                //提取当前用户的联系方式
+                $.ajax({
+                    url:'/home/ajax/ajax_home_apply.php',
+                    type:'post',
+                    data:{'action':'get_user_connect_way_and_check_recruit','rid':363},
+                    success:function(data){
+                        var result = eval('('+data+')');
+                        console.log(result['status']);
+                        $("input[name='u_mobile']").val(result['mobile']);
+                        $("input[name='u_email']").val(result['email']);
+                        $("input[name='u_weixin']").val(result['weixin']);
+                        $("input[name='u_qq']").val(result['qq']);
+                        $('#check-status').val(result['status']);
+                    },
+                    dataType:'text'
+                });
+                //判断当前招募的过期与否
+                //alert($('#check-status').val());
+                var apply_this;
+                var cookie_user_type;
+                //弹窗报名
+                $('.yet_apply_btn').click(function(){
+                    if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+                        //alert('没登陆');
+                        var url = window.location.href;
+                        location.href="/account/login?url="+url;
+                    }
+                    cookie_user_type = $.cookie('hyq_user_info').split('|')[1];
+                    $.ajax({
+                        url:'/home/ajax/ajax_home_apply.php',
+                        type:'post',
+                        data:{'action':'get_user_connect_way_and_check_recruit','rid':363},
+                        success:function(data){
+                            var result = eval('('+data+')');
+                            console.log(result['status']);
+                            $("input[name='u_mobile']").val(result['mobile']);
+                            $("input[name='u_email']").val(result['email']);
+                            $("input[name='u_weixin']").val(result['weixin']);
+                            $("input[name='u_qq']").val(result['qq']);
+                            $('#check-status').val(result['status']);
+                        },
+                        dataType:'text'
+                    });
+                    var status = $('#check-status').val();
+                    //alert(status);
+                    if(status == 2){   //招募已关闭
+                        $($(this).attr('data-target')).remove();
+                        $("#hyq-registration-end").trigger("hyq/modal/show"); 
+                        return false;
+                    }else if(status == 3){  //招募已过期
+                        $($(this).attr('data-target')).remove();
+                        $("#hyq-registration").trigger("hyq/modal/show"); 
+                        return false;
+                    }
+                    apply_this = $(this);
+                }); 
+                
+                $('.hyq-btn-default-lg').click(function(){
+                    //alert(cookie_user_type);
+                    //获取报名的三级服务
+                    var tthis = $(this);
+                    var win_name = tthis.parents('.hyq-modal-default');
+                    var service_3 = '';
+                    tthis.prevAll('.ser-box').find('p').each(function(){
+                        if($(this).find('input').prop("checked")){
+                            service_3 += $(this).find('input').val()+'|'; 
+                        }
+                    });
+                    //alert(service_3);
+                    if(service_3.length == 0){
+                        tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少选择一项服务报名!');
+                        tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                        return false;
+                    }
+                    
+                    //获取报名者的联系方式
+                    var mobile = tthis.prevAll('ul').find("input[name='u_mobile']").val();
+                    var email = tthis.prevAll('ul').find("input[name='u_email']").val();
+                    var weixin = tthis.prevAll('ul').find("input[name='u_weixin']").val();
+                    var qq = tthis.prevAll('ul').find("input[name='u_qq']").val();
+                    //alert(mobile);
+                
+                    if(mobile.length == 0 && email.length == 0 && weixin.length == 0 && qq.length == 0){
+                        tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+                        $('.hyq-f-err-pad-left').css('display','block');
+                        return false;
+                    }
+                    if(mobile.length == 0){
+                        tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+                        $('.hyq-f-err-pad-left').css('display','block');
+                        return false;
+                    }
+                    var e_service_id = tthis.next().val();
+                    var action = 'user_send_apply';
+                    //return false;
+                    
+                    
+                    <!-- ajax传递报名信息 -->
+                    $.ajax({
+                        url:'/home/ajax/ajax_home_apply.php',
+                        type:'post',
+                        data:{"action":action,"recruit":363,'recruit_uid':100214,"service":179,"service_3":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq,"user_type":cookie_user_type},
+                        success:function(data){
+                            //alert(data);
+                            if(data == 1000){
+                                //alert('OK');
+                                var tip = $("#tip-message").HYQTip();
+                                tip.showSuccess('报名成功');
+                                //报名成功替换 样式
+                                //apply_this.next().show();
+                                //apply_this.hide();
+                                
+                                win_name.trigger("hyq/modal/close"); 
+                            }else if(data == 1375){
+                                tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+                                tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                            }else if(data == 1374){
+                                tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请不要重复报名!');
+                                tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                            }else if(data == 1378){
+                                tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少选择一项服务报名!');
+                                tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                            }else if(data == 1379){
+                                tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+                                tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                            }else{
+                                tthis.nextAll('.hyq-f-err-pad-left').find('label').text('网络错误,报名失败!');
+                                tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+                            }
+                        },
+                        dataType:'text'
+                    });
+                    
+                    
+                }); 
+                //////////////////私信  start////////////////////////////////////////////////////
+                //当发送私信的按钮被点中
+                $("#profile-letter-a").click(function(){
+                    if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+                        console.log('没登陆');
+                        var url = window.location.href;
+                        location.href="/account/login?url="+url;                
+                    }
+                    
+                    //发送事件让发私信的窗口弹出，同事要把用户ID传过去
+                    var toUserId = $(this).attr('userId');    
+                    $(document).trigger({
+                        type:"hyq/iframe/doc/sms",
+                        //fromUserId:toUserName,//这个ID由PHP判断
+                        toUserId:toUserId//这个ID由PHP判断
+                    });
+                });
+                //////////////////私信  end////////////////////////////////////////////////////
+
+			});
+		</script>
+	   {/literal}
+</body>
+</html>

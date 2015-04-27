@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>红演圈 - 一步踏进演艺圈</title>
+		<meta name="keywords" content="文化演艺，演艺服务，演艺明星，招募邀约，活动招募，影视招募，演艺公司，演艺圈，红演圈">
+		<meta name="description" content="登录红演圈，掌握文化演艺行业最新信息，享受最专业的文化演艺服务，实名认证、即时沟通。">
+		<!---->
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		<script>
+			$(function() {
+				//每个页面都需要用到的公共JS放在这里
+			});
+
+		</script>
+<script>
+/*!
+ * jQuery Cookie Plugin v1.4.1
+ * https://github.com/carhartl/jquery-cookie
+ *
+ * Copyright 2013 Klaus Hartl
+ * Released under the MIT license
+ */
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		factory(require('jquery'));
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function ($) {
+
+	var pluses = /\+/g;
+
+	function encode(s) {
+		return config.raw ? s : encodeURIComponent(s);
+	}
+
+	function decode(s) {
+		return config.raw ? s : decodeURIComponent(s);
+	}
+
+	function stringifyCookieValue(value) {
+		return encode(config.json ? JSON.stringify(value) : String(value));
+	}
+
+	function parseCookieValue(s) {
+		if (s.indexOf('"') === 0) {
+			// This is a quoted cookie as according to RFC2068, unescape...
+			s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+		}
+
+		try {
+			// Replace server-side written pluses with spaces.
+			// If we can't decode the cookie, ignore it, it's unusable.
+			// If we can't parse the cookie, ignore it, it's unusable.
+			s = decodeURIComponent(s.replace(pluses, ' '));
+			return config.json ? JSON.parse(s) : s;
+		} catch(e) {}
+	}
+
+	function read(s, converter) {
+		var value = config.raw ? s : parseCookieValue(s);
+		return $.isFunction(converter) ? converter(value) : value;
+	}
+
+	var config = $.cookie = function (key, value, options) {
+
+		// Write
+
+		if (value !== undefined && !$.isFunction(value)) {
+			options = $.extend({}, config.defaults, options);
+
+			if (typeof options.expires === 'number') {
+				var days = options.expires, t = options.expires = new Date();
+				t.setTime(+t + days * 864e+5);
+			}
+
+			return (document.cookie = [
+				encode(key), '=', stringifyCookieValue(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path    ? '; path=' + options.path : '',
+				options.domain  ? '; domain=' + options.domain : '',
+				options.secure  ? '; secure' : ''
+			].join(''));
+		}
+
+		// Read
+
+		var result = key ? undefined : {};
+
+		// To prevent the for loop in the first place assign an empty array
+		// in case there are no cookies at all. Also prevents odd result when
+		// calling $.cookie().
+		var cookies = document.cookie ? document.cookie.split('; ') : [];
+
+		for (var i = 0, l = cookies.length; i < l; i++) {
+			var parts = cookies[i].split('=');
+			var name = decode(parts.shift());
+			var cookie = parts.join('=');
+
+			if (key && key === name) {
+				// If second argument (value) is a function it's a converter...
+				result = read(cookie, value);
+				break;
+			}
+
+			// Prevent storing a cookie that we couldn't decode.
+			if (!key && (cookie = read(cookie)) !== undefined) {
+				result[name] = cookie;
+			}
+		}
+
+		return result;
+	};
+
+	config.defaults = {};
+
+	$.removeCookie = function (key, options) {
+		if ($.cookie(key) === undefined) {
+			return false;
+		}
+
+		// Must not alter options, thus extending a fresh object...
+		$.cookie(key, '', $.extend({}, options, { expires: -1 }));
+		return !$.cookie(key);
+	};
+
+}));
+
+</script>
+<style type="text/css">
+	.fix-fg {
+		margin-bottom: 15px;
+		vertical-align: middle;
+		font-size: 14px;
+		line-height: 18px;
+		display: block;
+	}
+
+	.login-form-sider {
+		position: absolute;
+		width: 220px;
+		height:auto;
+		top: 0px;
+		right: 0px;
+		bottom: 1px;
+		border-left:1px solid #BDBDBD;
+		margin-top:30px;
+		margin-bottom:30px;
+		padding-top:5px;
+		z-index:10;
+	}
+	.mgn-bottom-4px {
+		margin-bottom: 4px;
+	}
+    .content-wrapper{ margin-bottom:50px; height:440px;}
+	.main-column-a{
+			background:none!important;
+			height:430px!important;
+			overflow:hidden;
+		}
+		.column-wrapper form{
+			position:relative;
+			}
+		.column-wrapper form:before{
+			  content:'';
+			  position:absolute;
+			  width:1px;
+			  top:30px;
+			  bottom:-20px;
+			  right:228px;
+			  background:#BDBDBD;
+		}
+		.login-form-sider{
+			background:none!important;
+			border:none!important;
+		}
+		
+</style>
+
+	</head>
+	<body style="background:url(http://icon.hotyq.com/v2/login-bg.jpg) top center no-repeat;background-size:cover; min-width:1000px;">
+	{include "common/header_simple.html"} 
+	<!-- 包含用于登陆和绑定账户的淡色页眉 -->
+	<form>
+		<input id="url_hide" type="hidden" value="{$url}">
+		
+		<input id="error_login_count_hide" type="hidden" value="{$error_login_count}">
+	</form>
+		<div class="content-wrapper _zeroPDTop">
+			<div class="main-column-a _relativePos">
+				<div class="login-form-sider bgGray2 pd1em" >
+					<div class="pd1em">
+						<i class="hyq-ic ic-label-mark mgn-bottom-4px" ></i><label class="f18 Blak1">没有红演圈账号</label>
+						<div class="link-red pd1em">
+							&nbsp;&nbsp;<a href="/account/register" class="f18">注册账号 <i class="hyq-ic ic-arrow-rt-rd "></i></a>
+						</div>
+					</div>
+					<div class="pd1em">
+						<div>
+							<span class="hyq-ic ic-label-mark mgn-bottom-4px"></span><label class="f18 Blak1">第三方登录</label>
+						</div>
+						<div class="pd1em">
+							<a href="/account/login_sns.php?sns_type=weibo" title="微博登录" alt="微博登录" class="link-weibo-o-rd" target="_blank"></a>
+							&nbsp;&nbsp;&nbsp;
+							<a href="/account/login_sns.php" title="QQ登录" alt="QQ登录" class="link-qq-o-rd" target="_blank"></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="column-wrapper RdBorderBtm">
+					<form action="##" class="hyq-form pd1em pull-left col-md-11">
+						
+						<div class="pd1em" style="padding-top:45px;">
+							<div class="form-group">
+								<input id="account"  name="username"  class="col-md-6" form-err="a" placeholder="请输入登录手机号或邮箱" type="text"/>
+								<div id="account_tips" style="display:none;" class="hyq-f-err">
+									<i class="hyq-ic ic-vlid-err"></i><label>请输入正确的手机号或邮箱。</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="password" type="password" name="passwrd" placeholder="请输入密码" class="col-md-6"/>
+								<div id="password_tips" style="display:none;" class="hyq-f-err">
+									<i class="hyq-ic ic-vlid-err"></i><label>请输入6——16位密码，字母区分大小写</label>
+								</div>
+							</div>
+							<div class="fix-fg col-md-6">
+								<input id="remeber_login" checked="checked" type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="A"/>
+								<span class="hyq-checkbox"></span>
+								<label class="f14">记住我</label>
+								<label class="f14 pull-right" ><a href="/account/forget.php">忘记密码？</a></label>
+							</div>
+							<!-- 图片验证码-->
+							<div id="identify_code_div" style="display:none;">
+							<div class="form-group col-md-6">
+								<!-- 在此处设置图片验证码的链接-->
+								<img src="/account/check_code.php" onClick="refresh(this)" id="imgAutocodeImg" width=150 height=60/>
+								<label class="link-red f15 pull-right" style="padding:33px 0px 0px 0px; "><a href="javascript:refresh()">看不清？换一张</a></label>
+								</span>
+							</div>
+							<div class="form-group">
+								<input id="identify_code" type="text" name="imgAutocode" placeholder="请输入上图中的字符，不区分大小写" class="col-md-6"/>
+								<div id="identify_code_tips" style="display:none;" class="hyq-f-err">
+									<i class="hyq-ic ic-vlid-err"></i><label>验证码错误。</label>
+								</div>
+							</div>
+							</div>
+							<div id="return_tips"></div>
+							<div class="form-group">
+								<input id="login_btn" type="button" value="&nbsp;登 录&nbsp;" class="hyq-btn hyq-btn-lg f18" />
+							</div>
+						</div>
+					</form>
+					<br class="_clb"/>
+					<br class="_clb"/>
+					<br class="_clb"/>
+				</div>
+			</div>
+            {literal}
+            <script>
+            $(function(){
+                var bReady = true;
+                $('.pull-right').click(function(ev){
+                    $('#account_tips').hide();
+                    ev.stopPropagation();
+                });
+                //所有的ajax 声明为同步
+                $.ajaxSetup({
+                  async: false
+                });
+                //失焦的时候  验证用户名格式 
+                $('#account').blur(function(){
+                    var account = $(this).val();
+                    if(account == '' || ( !/^1[3578]\d{9}$/.test(account) && !/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/.test(account) ) ){
+                        //不符合显示提示
+                        $('#account_tips').show();
+                        return;
+                    }else {
+                        $('#account_tips').hide();
+                    }	
+                });
+                //输入时 隐藏提示
+                $('#account').focus(function(){
+                    $('#account_tips').hide();
+                    $('#return_msg').remove();										
+                });
+                $(document).click(function(ev){
+                    var ev = ev || event,
+                        nodeType = $(ev.target || ev.srcElement).attr('type');
+                    if (bReady || nodeType == 'password') {return;}
+                    var password = $('#password').val();
+                    if(password == ''){
+                        error2 = '请输入密码！';
+                        $('#password_tips label').text(error2);
+                        $('#password_tips').show();
+                        return;
+                    }
+                    //请输入6——16位密码，字母区分大小写
+                    else if(password.length < 6 || password.length > 16){
+                        error2 = '请输入6——16位密码，字母区分大小写';
+                        $('#password_tips label').text(error2);
+                        $('#password_tips').show();
+                        return;
+                    }	
+
+                    else {
+                        $('#password_tips').hide();
+                    }
+                });
+                
+                //输入时 隐藏提示
+                $('#password').focus(function(){
+                    bReady = false;
+                    $('#password_tips').hide();
+                    $('#return_msg').remove();
+                });
+                //判断 刷新页面  是否  显示验证码框-------------
+                var error_login_count_hide = $('#error_login_count_hide').val();
+                if(error_login_count_hide > 3){
+                    $('#identify_code_div').show();
+                }
+                //验证码输入框失焦事件----------
+                $('#identify_code').blur(function(){
+                    var identify_code = $(this).val();
+                    //验证码格式  5位字母数字
+                    if(identify_code.length != 5 || ( !/^[0-9a-zA-Z]{5}$/.test(identify_code) ) ){
+                        $('#identify_code_tips label').text('请输入5位验证码！');
+                        $('#identify_code_tips').show();
+                        return false;
+                    }
+                    //发送后台验证是否正确
+                    var action = 'check_login_identify_code';
+                    $.post('/account/ajax/ajax_account.php',{ action:action,identify_code:identify_code},function(data){
+                        console.log(data)
+                        if(data != 1000){
+                            //验证码输入错误  显示
+                            $('#identify_code_tips label').text('验证码错误！');
+                            $('#identify_code_tips').show();
+                            //alert(1111);
+                            return false;
+                        }
+                    });
+                });
+                //输入验证码时隐藏提示------------
+                $('#identify_code').focus(function(){
+                    $('#identify_code_tips').hide();
+                    $('#return_msg').remove();
+                });
+                //密码输入框的回车事件  验证码输入框的回车事件
+                $('#password,#identify_code').bind('keypress',function(event){
+                    if(event.keyCode == "13"){
+                        $('#login_btn').trigger('click');
+                    }
+                });
+                //验证并发送数据
+                $('#login_btn').click(function(){
+                    //判读是否记住
+                    var remeber_login = $('#remeber_login').prop('checked');
+                    //删除错误提示
+                    $('#return_msg').remove();
+                    $("#account").trigger('blur');
+                    bReady = false;
+                    $(document).trigger('click');
+                    if($('#account_tips').css('display') == 'block'){
+                        return false
+                    }
+                    if($('#password_tips').css('display') == 'block'){
+                        return false
+                    }
+                    //如果没隐藏 就手动触发失焦事件--------
+                    if($('#identify_code_div').css('display') == 'block'){
+                        $("#identify_code").trigger('blur');
+                        //alert($('#identify_code_tips').css('display'));
+                        if($('#identify_code_tips').css('display') == 'block'){
+                            //alert(22222);
+                            return false;
+                        }
+                    }
+                    var account = $('#account').val();
+                    var password = $('#password').val();
+                    var action = 'user_login';
+                    //判断account格式类型   
+                    if(/^1[3578]\d{9}$/.test(account)){
+                        //mobile
+                        var login_type = 'mobile';
+                    }else if(/^[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/.test(account)){
+                        //email
+                        var login_type = 'email';
+                    }else{
+                        $('#account_tips').show();
+                        return false;
+                    }
+                    $.post("/account/ajax/ajax_account.php",{ account:account,password:password,login_type:login_type,action:action,remeber_login:remeber_login},function(data){
+                        //alert(data);
+                        //成功写入数据库  跳转页面???
+                        if(data == 1000){
+                            var hyq_user_info = $.cookie('hyq_user_info');
+                            hyq_user_info = hyq_user_info.split('|');
+                            if(hyq_user_info[2] == ""){
+                                location.href = "/home/"+hyq_user_info[1]+"/card";
+                            }else{
+                                //判断是否带有url
+                                var url = $('#url_hide').val();
+                                if( url != ''){
+                                    location.href = url;
+                                }else{
+                                    //location.href = "/";
+                                    location.href = "/home/"+hyq_user_info[1];
+                                }
+                            }
+                        }else if(data == 1225){
+                            var Msg = state_list[parseInt(data)];
+                            $('#return_tips').append("<div id='return_msg' class='hyq-f-err'><i class='hyq-ic ic-vlid-err'></i><label></label>"+Msg+"</div>");
+                            //超过三次 密码错误 显示验证码
+                            $('#identify_code_div').show();
+                        }else{
+                            var Msg = state_list[parseInt(data)];
+                            $('#return_tips').append("<div id='return_msg' class='hyq-f-err'><i class='hyq-ic ic-vlid-err'></i><label></label>"+Msg+"</div>");
+                        }
+                        refresh();//刷新验证码
+                    } );
+                });
+        });
+            function refresh(){
+                document.getElementById("imgAutocodeImg").src="/account/check_code.php?"+Math.random();
+            }
+            </script>
+            {/literal}
+			<div class="right-column">
+			<!--二维码/排行耪/与你相关（面试时间）/广告-->
+			<!--Andorid 微信-->
+			 
+            {include "html/login_right_first.html"}
+			<div class="cl"></div>
+			{include "html/login_right_second.html"}
+             <div class="cl"></div>
+			{include "html/login_right_third.html"}
+			
+			{include file="common/right_advantage.html"}
+			<br class='_clb'/>
+			</div>
+		</div>
+		{include "common/footer.html"} 	
+	</body>
+</html>

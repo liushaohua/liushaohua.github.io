@@ -1,0 +1,162 @@
+<!-- 上传图片的对话框 -->
+<div class="hyq-modal hyq-modal-default _hidden _clb" id="img-cropper-dialog" role="dialog">
+<!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+             
+    <div class="hyq-modal-header">
+      <div class="hyq-modal-close-btn"></div>
+    </div>
+    <div class="hyq-model-body txt-left">
+        <div class="lead-title">
+                    <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传企业Logo <small class="Gray8">(上传企业Logo，提升企业吸引力)</small></label>
+                </div>
+                <!-- 图片截取器 -->
+
+                <div class="hyq-image-cropper">
+
+                    <div img-cropper-uploder></div>
+                    <div class="busy-mask">
+                        <span><img src="http://icon.hotyq.com/v2/loading.gif"/></span>
+                    </div>
+
+                    <div class="cropper">
+                        <div class="mask maskA"></div>
+                        <div class="mask maskB"></div>
+                        <div class="mask maskC"></div>
+                        <div class="mask maskD"></div>
+                        <div class="invite-btn"></div>
+                        <div class="invite-message">
+                            <div>
+                                上传企业Logo
+                            </div>
+                            <div>
+                                支持JPG，JPEG，PNG格式，不超过5M
+                            </div>
+                        </div>
+                        <div img-dock="" >
+                            <div img-mask></div>
+                        </div>
+                    </div>
+
+                    <div class="preview-box">
+                        <div class="preview-a">
+                            <img src="http://icon.hotyq.com/v2/default_M_11.jpg"/>
+                        </div>
+                        <div class="preview-b"><img src="http://icon.hotyq.com/v2/default_M_43.jpg" />
+                        </div>
+                    </div>
+
+                    <div class='slider-box'>
+                        <div class="slide-btn-wrapper">
+                            <div class="slide-button"></div>
+                        </div>
+                        <i class="zout">-</i>
+                        <div class='slider'>
+                            <div class="white-bar"></div>
+                        </div>
+                        <i class="zin">+</i>
+                    </div>
+
+                    <div class="button-box _zeroPDBottom">
+                        <input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+                        &nbsp;
+                        &nbsp;
+
+                        <input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+                    </div>
+                </div>
+
+    </div>
+</div>
+<!-- 上传图片的对话框结束 -->
+
+<!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="error-message-box" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+<!-- 报错窗口结束 -->
+<script type="text/javascript">
+    $(window).load(function(){
+         /********* TIP 各种弹 ***********/
+        var tip = $("#tip-message").HYQTip();
+
+        
+
+        /***********************************
+         图片上传的的脚本开始
+         ************************************/
+        var dlg = $("#img-cropper-dialog");
+
+        var imgCropper = $('.hyq-image-cropper').HYQImageCropper({
+            uploadApi : "/home/ajax/ajax_home_orgprofile.php?action=upload_logo", //在这里配置上传图片的API
+            cropApi : "/home/ajax/ajax_home_orgprofile.php?action=cut_logo"//在这里配置截图的API
+        });
+
+        dlg.on("hyq/modal/hidden", function() {
+            imgCropper.trigger('hyq/imagecropper/reset');
+        });
+
+        imgCropper.on("hyq/imgcropper/success", function(event) {
+            //接受成功信息
+
+            //头像上传成功哦那个后，图片地址是一个数组，
+            //保存在  event.images
+            // 格式为 ['1：1头像的地址','4：3头像第二张图的地址']
+            // 你可以在这里提示上传头像成功，也可以获得图片地址作为其他用途
+            console.log(event.images);
+
+            dlg.trigger('hyq/modal/close');
+            //关闭
+            tip.showSuccess("修改头像成功！");
+			//切割成功后  替换logo的src --
+			$('#org_logo_show').prop("src",event.images[0]);
+			$('#org_logo_edit').prop("src",event.images[0]);
+			//改变样式  一个显示  一个隐藏
+			$('#logo_save_before').hide();
+			$('#logo_save_after').show();
+			//记录下保存成功状态 隐藏域 = 1
+			//$('#hide_save_states').val('1');
+        });
+
+        imgCropper.on("hyq/imagecropper/uiactived", function(event) {
+            $("#img-cropper-dialog").trigger('hyq/modal/sizechanged');
+        });
+        /*** 以下两个时间的触发时机是一样的，第一个是带有状态信息的，可以自己控制报错的方式，第二个 是只有错误信息，使用弹出框报错，根据情况使用*/
+        /*************************************************************************************/
+        // 一
+        imgCropper.on('hyq/imgcropper/upload-error', function(event) {
+            //当上传失败时，获得返回状态和信息 错误信息存储在 event.hyqData 中
+            console.log(event.hyqData);
+
+        });
+
+        // 二
+        imgCropper.on('hyq/imgcropper/error-message', function(event) {
+            //接受失败信息
+            //只获取错误信息 event.hyqMessage
+            //触发报错窗口
+            $('#error-message-box').trigger({
+                type : 'hyq/modal/show_with_message',
+                hyqMessage : event.hyqMessage
+            });
+        });
+        /***********************************
+         图片上传 脚本结束
+         ************************************/
+     });
+</script>

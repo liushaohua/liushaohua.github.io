@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>红名片 - 红演圈</title>
+		<meta name="description" content="">
+		
+		<!--  -->
+		<!-- Place http://www.hotyq.com/favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="/css/main.css">
+		<style type="text/css">
+		body,td,th {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, Mingliu;
+}
+        </style>
+		<script src="/js/jquery.js"></script>
+		<!--<script type="text/javascript" src="/js/state_code.js"></script>-->
+		 
+		<style type="text/css">
+		 	.pull-left{
+            float: left;
+            clear: none;
+        }
+        .pull-right{
+            float: right;
+            clear: none;
+        }
+        .stage-name{
+            width: 235px;
+        }
+        .role-select{
+            width: 100px;
+        }
+        .inline-block{
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
+        .btn-upload-pic{
+            background: url(images/btn-upload-pic.jpg) no-repeat;
+            display: block;
+            position: absolute;
+            width: 102px;
+            height: 25px;
+            bottom: -25px;
+            right: -10px;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+         
+        .dropdown-place-0{
+            width: 60px;
+        }
+        .dropdown-loc-fixed{
+        	 width: 85px;
+        }
+        .dropdown-place-1{
+            width: 80px;
+        }
+        .dropdown-place-2{
+            width: 110px;
+        }
+        .dropdown-status{
+            width: 70px;
+        }
+         
+        .organ-left{
+            width: 500px;
+        }
+        .organ-left .row2{
+            padding-left: 20px;
+        }
+        .logo-show{
+            margin-left: 500px;
+            padding-top: 60px;
+        }
+        .logo-show a{
+            position: relative;
+            display: block;
+        }
+        
+        .logo-show .btn-upload{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color: #808080;
+            z-index: 2;
+        }
+        .logo-show .btn-upload-exist{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 150px;
+            height: 150px;
+            background-color:transparent;
+            z-index: 2;
+      cursor: default;
+        }
+    .logo-show .btn-upload-exist .btn-change-logo{
+      height: 32px;
+      width: 150px;
+      text-align: center;
+      line-height: 32px;
+      font-size:14px;
+      color: #fff;
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      opacity: .5;
+      cursor: pointer;
+      background-color:#4a4a4a;
+
+    }
+        .logo-show a:hover .btn-upload,
+        .logo-show a:hover .btn-upload-exist{
+            display: block;
+        }
+        
+		</style>
+
+
+	</head>
+	
+	<body>
+	<!--header_simple.html  只是logo的div块 -->
+		{include "common/header.html"} 
+	{include "common/nav_search.html"} 
+	<!-- 包含用于登陆和绑定账户的淡色页眉 -->
+	 
+		<div class="content-wrapper">
+			     <div class="main-column-a">
+             
+                <div class="column-wrapper RdBorderBtm clearfix">
+                    <div class="organ-left pull-left">
+                        <div class="row">
+                          <div class="lead-title">
+                            <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">填写红名片</label>
+                            <p class="Rd f12 p-left-10">(提醒：只有完善以下资料才可以使用报名、邀约、私信、发布招募、举报等功能哦)</p>
+                          </div>
+                        </div>
+                        <div class="row clearfix" style="padding-bottom:0px;">
+                          <div class="clearfix">
+						  
+							<div class="form-group pull-left">
+								<em>*</em>
+					<!--标出某个控件的输入有错误的红边，可以使用 样式类 .err-field 这个样式只有当被 form-group包含时才管用-->
+					<!-- 输入机构名 -->
+								<input name="username" class="stage-name" form-err="a"  placeholder="某某有限公司/乐队/社团" type="text" id="nickname">
+									<div class="hyq-f-err hyq-f-err-pad-left" id="nickname_tips" style = "display:none">
+										<i class="hyq-ic ic-vlid-err"></i> <label>请填写机构名 </label>
+								</div>
+							</div>
+
+                     <div class="form-group pull-left">
+                                <em>*</em>
+							<!-- 成立时间 -->	
+							<div class="hyq-dropdown-box">
+								<input type="hidden" value="" name="character" id="create_time">
+								<div class="hyq-dropdown " type="text">
+								  <span class="dropdown-value inline-block role-select">成立时间</span>
+								</div>
+								
+								<div class="hyq-dropdown-list" style="display: none;">
+								  <ul id="on_create_time">
+									{foreach $create_year as $year}
+										<li value = "{$year}">{$year}</li>
+									{/foreach}						
+								  </ul>
+								</div>
+								<a class="hyq-dropdown-btn">
+									<i></i>
+								</a>
+							</div>
+							<div class="hyq-f-err hyq-f-err-pad-left" style = "display:none" id="create_time_tips">
+								<i class="hyq-ic ic-vlid-err"></i> <label>请填写成立时间</label>
+							</div>
+                     </div>
+                          </div>
+						  <!-- 省市区三级联动 -->
+                          <div class="form-group clearfix">
+                             
+                                <em>*</em>
+                             <div class="hyq-dropdown-box pull-left" id= "province-list" placeholder="所在省">
+										<input type="hidden" value="" name="character" id="province">
+									<div class="hyq-dropdown " type="text">
+										<span class="dropdown-value inline-block dropdown-place-0">所在省</span>
+									</div>
+
+									<div class="hyq-dropdown-list" style="display: none;">
+										<ul id="on_province">
+											{foreach $provincelist as $province}
+												<li value="{$province['id']}">{$province['pname']}</li>
+											{/foreach}
+										</ul>
+									</div>
+									<a class="hyq-dropdown-btn"> <i></i> </a>
+                            </div>
+                             
+                             
+                                <em>&nbsp;</em>
+                                <div class="hyq-dropdown-box pull-left" id= "city-list" placeholder="所在市">
+								<input type="hidden" value="" name="character" id="city">
+									<div class="hyq-dropdown " type="text">
+										<span class="dropdown-value inline-block dropdown-place-1">所在市</span>
+									</div>
+
+									<div class="hyq-dropdown-list" style="display: none;">
+										<ul id = "on_city">
+									<!-- 		<li value="0">
+												请选择市
+											</li> -->
+										</ul>
+									</div>
+									<a class="hyq-dropdown-btn"> <i></i> </a>
+                                </div>
+                             
+                             
+                                <em>&nbsp;</em>
+                         <div class="hyq-dropdown-box pull-left" id= "district-list"  placeholder="所在区">
+									<input type="hidden" value="" name="character" id="area">
+									<div class="hyq-dropdown " type="text">
+										<span class="dropdown-value inline-block dropdown-place-2">所在区</span>
+									</div>
+
+									<div class="hyq-dropdown-list" style="display: none;">
+										<ul id="on_area">
+											<!-- <li value="0">
+												请选择区
+											</li> -->
+										</ul>
+									</div>
+									<a class="hyq-dropdown-btn"> <i></i> </a>
+                         </div>
+                             
+				<div class="hyq-f-err hyq-f-err-pad-left pull-left" id="addr_tips" style = "display:none">
+					 <i class="hyq-ic ic-vlid-err"></i> <label>请选择您的所在地</label>
+				</div>
+             </div>
+                <!--所在地结束-->
+
+                          <div class="clearfix">
+                     <div class="form-group pull-left">
+                                <em>*</em>
+                                <div class="hyq-dropdown-box">
+                                    <input type="hidden" value="" name="character" id="type">
+                                    <div class="hyq-dropdown " type="text">
+                                      <span class="dropdown-value inline-block dropdown-status">机构类型</span>
+                                    </div>
+                                    
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                      <ul id="on_type">									  
+											{foreach $tlist as $type}
+												<li value="{$type['id']}">{$type['name']}</li>
+											{/foreach}                                 
+                                      </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn">
+                                        <i></i>
+                                    </a>
+                                </div>
+                    <!--下拉菜单结束-->
+                    <div class="hyq-f-err hyq-f-err-pad-left" id="type_tips" style = "display:none">
+                       <i class="hyq-ic ic-vlid-err"></i> <label>请选择机构类型 </label>
+                    </div>
+                  </div>
+
+                  <em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                  <label></label>
+                  <div class="form-group   pull-left">
+                                <em>*</em>
+						
+                                <div class="hyq-dropdown-box">
+                                    <input type="hidden" value="" name="character" id ="state_select">
+                                    <div class="hyq-dropdown " type="text">
+                                      <span class="dropdown-value inline-block dropdown-status">目前状态</span>
+                                    </div>
+                                    
+                                    <div class="hyq-dropdown-list" style="display: none;">
+                                      <ul id ="on_state_select">
+						{foreach name=state_list from=$state_list key = k item = v}
+							<li value="{$k}">
+								{$v}
+							</li>
+						{/foreach}	                          
+                                      </ul>
+                                    </div>
+                                    <a class="hyq-dropdown-btn">
+                                        <i></i>
+                                    </a>
+                                </div>
+                    <!--下拉菜单结束-->
+                    <div class="hyq-f-err hyq-f-err-pad-left" id ="state_select_tips" style = "display:none">
+                       <i class="hyq-ic ic-vlid-err"></i> <label>请选择您当前的状态请</label>
+                    </div>
+                 </div>
+                          </div>
+				<!-- 法人选择 -->	
+               <div class="form-group" id="legal_person_off">
+                  <em>*</em>
+                 <label class=""> 是否为法人机构：</label>
+						<input type="hidden" id="legal_person" value="">
+						<input type="radio" class="hyq-nice-selectable-circle"  name='r1' value="0"/>
+						<span name="legal"><b></b></span> 
+						<label class="f16" value="yes">是</label>
+						<input type="radio" class="hyq-nice-selectable-circle"  name='r1' value="1"/>
+						<span name="legal"><b></b></span>
+						<label class="f16" value="no">否</label> 
+						<div class="hyq-f-err hyq-f-err-pad-left" id="legal_person_tips" style = "display:none">
+                       <i class="hyq-ic ic-vlid-err"></i> <label>请确认您的机构是否是法人机构 </label>
+                    </div>
+                </div>
+
+                </div>
+                    </div>
+                    <div class="logo-show">
+                        <a href="javascript:void(null)">
+
+                            <img id="org_logo" style="height:150px;width:150px;" src="http://icon.hotyq.com/v2/logo.jpg">
+								<div id = "logo_upload_tips" style="color:#FF3000;font-size:12px;display:none">
+										<i class="hyq-ic ic-vlid-err"></i><label>您没上传logo</label>
+								</div>
+              <!--更换 LOGO按钮开始 -->
+              <!-- 当LOGO不存在的时候 使用这个按钮 -->
+                            <span id="logo_save_before" class="btn-upload" data-toggle="hyq-modal" data-target="#img-cropper-dialog">
+								<i class="hyq-ic ic-upload-lg "></i>
+							</span>  
+
+              <!-- 当LOGO已经存在的时候使用下面这个按钮 -->
+							<span id="logo_save_after" style="display:none;" class="btn-upload-exist _relativePos" >
+                                <span class="btn-change-logo" data-toggle="hyq-modal" data-target="#img-cropper-dialog" >更换logo</span>    
+                            </span>
+              <!--更换LOGO按钮结束-->
+
+                        </a> 
+                    </div>
+                </div>
+              <div class="btn-group col-md-4">
+        <input type="button" class="hyq-btn hyq-btn-lg" value=" 确 定 " id="submit">
+		<!--记录保存状态的隐藏域-->
+		<form>
+			<input id="hide_save_states" type="hidden" value="0">
+		</form>
+        </div>
+            </div><!--END OF main-column-a-->
+			<!-- 右侧栏  拆成两个块-->
+			<div class="right-column">
+			<!--二维码，广告，10大好处-->				
+			<!-- include "html/redcard_right_first.html" -->
+			{include "html/redcard_right_first.html"}
+			<div class="cl"></div>
+			{include "html/redcard_right_second.html"}
+			<!--租个演员-->
+			<div class="cl"></div>
+            {include "html/redcard_right_third.html"}
+			     <!--红演圈十大好处Benefits-->
+				<div class="cl"></div> 
+			{include "html/redcard_right_fourth.html"}
+			<br class='_clb'/>
+			</div>
+		</div>
+        
+<!-- 上传图片的对话框 -->
+<div class="hyq-modal hyq-modal-default _hidden _clb" id="img-cropper-dialog" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+             
+            <div class="hyq-modal-header">
+              <div class="hyq-modal-close-btn"></div>
+            </div>
+            <div class="hyq-model-body txt-left">
+                <div class="lead-title">
+                            <i class="hyq-ic ic-label-mark"></i><label class="f18 Blak2">上传企业Logo <small class="Gray8">(上传企业Logo，提升企业吸引力)</small></label>
+                        </div>
+                        <!-- 图片截取器 -->
+
+                        <div class="hyq-image-cropper">
+
+                            <div img-cropper-uploder></div>
+                            <div class="busy-mask">
+                                <span><img src="http://icon.hotyq.com/v2/loading.gif"/></span>
+                            </div>
+
+                            <div class="cropper">
+                                <div class="mask maskA"></div>
+                                <div class="mask maskB"></div>
+                                <div class="mask maskC"></div>
+                                <div class="mask maskD"></div>
+                                <div class="invite-btn"></div>
+                                <div class="invite-message">
+                                    <div>
+                                        上传企业Logo
+                                    </div>
+                                    <div>
+                                        支持JPG，JPEG，PNG格式，不超过5M
+                                    </div>
+                                </div>
+                                <div img-dock="" >
+                                    <div img-mask></div>
+                                </div>
+                            </div>
+
+                            <div class="preview-box">
+                                <div class="preview-a">
+                                    <img src="http://icon.hotyq.com/v2/logo.jpg"/>
+                                </div>
+                                <div class="preview-b"><img/>
+                                </div>
+                            </div>
+
+                            <div class='slider-box'>
+                                <div class="slide-btn-wrapper">
+                                    <div class="slide-button"></div>
+                                </div>
+                                <i class="zout">-</i>
+                                <div class='slider'>
+                                    <div class="white-bar"></div>
+                                </div>
+                                <i class="zin">+</i>
+                            </div>
+
+                            <div class="button-box _zeroPDBottom">
+                                <input type="button" name="saveBtn" class="hyq-btn hyq-btn-lg" value="保 存"/>
+                                &nbsp;
+                                &nbsp;
+
+                                <input type="button" name="changeBtn"  class="hyq-btn hyq-btn-lg" value="更 换"/>
+                                &nbsp;
+                                &nbsp;
+
+                                <input type="button" name="resetBtn" class="hyq-btn hyq-btn-thin-lg" value="重 置"/>
+                            </div>
+
+                        </div>
+
+            </div>
+          <!--   <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-thin-lg" data-dismiss="modal">&nbsp; 取 消 &nbsp;</a>
+            </div>-->
+             
+        </div>
+<!-- 上传图片的对话框结束 -->
+
+<!-- 报错窗口 -->
+        <div class="hyq-modal hyq-modal-default" id="error-message-box" role="dialog">
+            <!-- <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>  -->
+            
+            <div class="hyq-modal-header"></div>
+            <div class="hyq-model-body">
+                <div><i class="hyq-ic ic-alert-lg _clb"></i></div>
+                 <label class="txt-center">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div hyq-modal-meesage-dock></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 </label>
+            </div>
+            <div class="hyq-model-bottom">
+                <a type="button" class="hyq-btn hyq-btn-default" data-dismiss="modal">&nbsp; 确 定 &nbsp;</a>
+            </div>
+        </div>
+<!-- 报错窗口结束 -->
+		<!-- footer -->
+			{include "common/footer.html"} 
+         <script type="text/javascript">
+            $(function(){
+                var dlg = $("#img-cropper-dialog");
+                var imgCropper = $('.hyq-image-cropper').HYQImageCropper({
+                    uploadApi:"/home/ajax/ajax_home_userprofile.php?action=upload_icon",//在这里配置上传图片的API
+                    cropApi:"/home/ajax/ajax_home_userprofile.php?action=head_photo_cut",//在这里配置截图的API
+					width:600,
+					height:600,
+					type:2
+                });
+                dlg.on('hyq/modal/hide',function(){
+                     
+                    imgCropper.trigger('hyq/imagecropper/uimuted');
+                })
+                imgCropper.on("hyq/imgcropper/success",function(event){
+                //接受成功信息
+                    //头像上传成功哦那个后，图片地址是一个数组，
+                    //保存在  event.images 
+                    // 格式为 ['1：1头像的地址','4：3头像第二张图的地址']
+                    // 你可以在这里提示上传头像成功，也可以获得图片地址作为其他用途
+                    console.log(event.images );
+					dlg.trigger('hyq/modal/close');//关闭
+					//切割成功后  替换logo的src
+					$('#org_logo').prop("src",event.images[0]);
+					//改变样式  一个显示  一个隐藏
+					$('#logo_save_before').hide();
+					$('#logo_save_after').show();
+					//记录下保存成功状态 隐藏域 = 1
+					$('#hide_save_states').val('1');
+					var fan = $('#hide_save_states').val();
+					if(fan == '0'){
+						$("#logo_upload_tips").fadeIn();
+					}else{
+						$("#logo_upload_tips").fadeOut();			
+					}					
+                });
+                imgCropper.on("hyq/imagecropper/uiactived",function(event){
+                  $("#img-cropper-dialog").trigger('hyq/modal/sizechanged');
+                });
+                //以下两个时间的触发时机是一样的，第一个是带有状态信息的，第二个 是只有错误信息，根据情况使用
+                imgCropper.on('hyq/imgcropper/upload-error',function(event){
+                //当上传失败时，获得返回状态和信息 错误信息存储在 event.hyqData 中
+                    console.log(event.hyqData);
+                });
+				dlg.on("hyq/modal/hidden",function(){
+					//当对话框关闭时，通知截图器重置状态
+						  imgCropper.trigger('hyq/imagecropper/reset');
+				});
+                imgCropper.on('hyq/imgcropper/error-message',function(event){
+                //接受失败信息
+                    //只获取错误信息 event.hyqMessage
+                    console.log(event.hyqMessage)
+                    $('#error-message-box').trigger({
+                        type:'hyq/modal/show_with_message',
+                        hyqMessage:event.hyqMessage
+                    });
+                });
+            });
+ 
+ 
+    
+ 
+        </script>
+
+	{literal}		
+	<script>
+			
+	$(document).ready(function(e){		
+		 $('#nickname').blur(function (ev) {
+			$this = $(this);
+			if (ev.keyCode != 37 && ev.keyCode != 39) {
+				$this.val($this.val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\_]/g,''));
+			}
+	    });			
+		//省市区联动
+		$("#province-list").on("change",function(){
+			//var $s = $(event.target||event.srcElement);
+			//console.log(event)
+			//$('#province').val(event.value);
+			var pid = $('#province').val();
+			$('#city').val(0);
+			$('#area').val(0);
+			if (pid ==""){
+				$("#addr_tips").fadeIn();
+				scroll_tips();
+				return;
+			}else{
+				$("#addr_tips").fadeOut();
+			}			
+			$.ajax({
+				url:'/ajax/ajax_address_array.php',
+				type:'get',
+				data:{'pid':pid},
+				success:function(data){
+					//$("#city").next().find('span').text('所在市');
+					//$("#area").next().find('span').text('所在区');
+					// $("#city").next().find('span').removeClass("selected");
+					// $("#area").next().find('span').removeClass("selected");
+					// $('#on_city').find('li').remove();
+					// $('#on_area').find('li').remove();	
+					$("#city-list").trigger("clear");
+					$("#district-list").trigger("clear");				
+					$.each(data,function(i,v){
+							$("#city-list").trigger({
+								type:"addItem",
+								value:v.id,
+								name:v.cname
+							})
+						// var str = '<li value="'+v.id+'">'+v.cname+'</li>';
+						// $('#on_city').append(str);
+						 });
+						//find_district();
+				},
+				dataType:'json'
+			});
+		})
+
+		$("#city-list").on('change',function(){
+			//var cid = $(this).attr('value');
+			//console.log(event);
+			//$('#city').val(event.value);
+			var cid = $('#city').val();
+			$('#area').val(0);	
+			if ((cid =="")||(cid ==0)){
+				$("#addr_tips").fadeIn();
+				return;
+				scroll_tips();
+			}else{
+				$("#addr_tips").fadeOut();
+			}	
+			$.ajax({
+				url:'/ajax/ajax_address_array.php',
+				type:'get',
+				data:{'cid':cid},
+				success:function(data){
+					//alert(data);
+					$("#district-list").trigger("clear");
+					//$('#on_area').find('li').remove();
+					$.each(data,function(i,v){
+						$("#district-list").trigger({
+							type:"addItem",
+							value:v.id,
+							name:v.dname
+						})
+						// var str = '<li value="'+v.id+'">'+v.dname+'</li>';
+						// $('#on_area').append(str);
+					});
+				},
+				dataType:'json'
+			});
+		})	
+		/*
+		$("#on_area").on('click','li',function(){
+			$('#area').val($(this).attr('value'));
+			var did = 	$('#area').val();	
+			$("#area").next().find('span').text( $(this).text());
+			$("#area").next().find('span').addClass('selected');
+		})	
+		*/
+		//获取选择时间	
+		$("#on_create_time li").click(function(){
+			$('#create_time').val($(this).val());
+			var create_time= $('#create_time').val();
+			//alert(create_time);
+			if (create_time == ''){
+				$("#create_time_tips").fadeIn();
+				return false;
+			}else{
+				$("#create_time_tips").fadeOut();
+			}		
+		});
+		//选择类型	
+		$("#on_type li").click(function(){
+			$('#type').val($(this).val());
+			var type= $('#type').val();
+			//alert(type);
+			if (type ==''){
+				$("#type_tips").fadeIn();
+				return;
+			}else{
+				$("#type_tips").fadeOut();
+			}				
+		});		
+		
+		//状态选择
+		$("#on_state_select li").click(function(){
+			$('#state_select').val($(this).attr('value'));
+			var state = $('#state_select').val();
+			if (state ==''){
+				$("#state_select_tips").fadeIn();
+				return;
+			}else{
+				$("#state_select_tips").fadeOut();
+			}
+		});		
+		//状态选择
+		$("span[name=legal]").click(function(){
+			$('#legal_person').val($(this).next().attr('value'));	
+			var legal = $('#legal_person').val();
+			if(legal_person == ''){
+				$("#legal_person_tips").fadeIn();		
+			}else{
+				$("#legal_person_tips").fadeOut();	
+			}			
+		});	
+		//出错时滚动到错误			
+		function scroll_tips(){
+			$('html,body').animate({scrollTop:$('.content-wrapper').offset().top},1000)
+		}	
+		$('#nickname').blur( function () { 
+			var nickname = $('#nickname').val();//机构名称
+			if(nickname ==""){
+				$("#nickname_tips label").text('您的机构名为空!');			
+				$("#nickname_tips").fadeIn();
+				return;
+			}else if(nickname.length  > 60){	
+				$("#nickname_tips label").text('您的机构名长度不符!');			
+				$("#nickname_tips").fadeIn();
+				return;
+			}else{
+				$("#nickname_tips").fadeOut();
+			}
+		})
+		/*
+		$("span[name=legal]").blur( function () { 
+			var legal_person = $('#legal_person').val();
+			if(legal_person == ''){
+				$("#legal_person_tips").fadeIn();		
+			}else{
+				$("#legal_person_tips").fadeOut();	
+			}	
+		})	
+		*/
+		$('#submit').click(function(){
+			$(".hyq-f-err-pad-left").fadeOut();
+			var nickname = $('#nickname').val();//机构名称
+			var create_time = $('#create_time').val();//创建时间	
+			var pid=$('#province').val();//省id
+			var cid=$('#city').val();//市id
+			var did=$('#area').val();//区id
+			var state = $('#state_select').val();//目前状态
+			var type = $('#type').val();
+			var legal_person = $('#legal_person').val();
+			var action = 'org_card';
+			if(nickname ==""){
+				$("#nickname_tips label").text('您的机构名为空!');			
+				$("#nickname_tips").fadeIn();
+				return false;
+			}else if(nickname.length  > 60){	
+				$("#nickname_tips label").text('您的机构名长度不符!');					
+				$("#nickname_tips").fadeIn();
+				return false;
+			}else{
+				$("#nickname_tips").fadeOut();
+			}
+			if (create_time == ''){
+				$("#create_time_tips").fadeIn();
+				return false;
+			}else{
+				$("#create_time_tips").fadeOut();
+			}					
+			if (pid ==""){
+				$("#addr_tips").fadeIn();
+				return false;
+			}else{
+				$("#addr_tips").fadeOut();
+			}
+			if ((cid =="")||(cid =="0")){
+				$("#addr_tips").fadeIn();
+				return false;
+			}else{
+				$("#addr_tips").fadeOut();
+			}	
+			if (type ==''){
+				$("#type_tips").fadeIn();
+				return false;
+			}else{
+				$("#type_tips").fadeOut();
+			}		
+			if (state ==''){
+				$("#state_select_tips").fadeIn();
+				return false;
+			}else{
+				$("#state_select_tips").fadeOut();
+			}
+			if(legal_person == ''){
+				$("#legal_person_tips").fadeIn();		
+			}else{
+				$("#legal_person_tips").fadeOut();	
+			}
+			//判断头像是否为空
+			var src = $('#hide_save_states').val();
+			if(src == '0'){
+				//提示  并阻止提交
+				$("#logo_upload_tips").fadeIn();	
+				return;
+			}else{
+				$("#logo_upload_tips").fadeOut();			
+			}
+
+			$.post("/home/ajax/ajax_home_orgprofile.php",{'nickname':nickname,'create_time':create_time,'pid':pid,'cid':cid,'did':did,'type':type,'state':state,'legal_person':legal_person,'action':action
+					},function(data){
+					//alert(data);			
+					if(parseInt(data) == 1000){
+						//$(".hyq-f-err-pad-left").fadeOut();
+						top.location='/home/org/set';
+						//alert('修改成功');
+					}else if(parseInt(data) ==1101){						
+							$("#nickname_tips").fadeIn();			
+							$("#nickname_tips label").text('您的艺名长度太长或格式不对');	
+					}else if(parseInt(data) ==1136){						
+							$("#create_time_tips").fadeIn();
+					}else if(parseInt(data) ==1103){						
+							$("#addr_tips").fadeIn();	
+					}else if(parseInt(data) ==1104){						
+							$("#addr_tips").fadeIn();	
+					}else if(parseInt(data) ==1137){						
+							$("#type_tips").fadeIn();	
+					}else if(parseInt(data) ==1138){						
+							$("#state_tips").fadeIn();	
+					}else if(parseInt(data) ==1139){						
+							$("#legal_person_tips").fadeIn();							
+					}else{
+						alert('修改失败');
+					}					
+			},'text')
+			
+		});	
+
+			
+	})		
+			</script>	
+	{/literal}		
+	</body>
+</html>

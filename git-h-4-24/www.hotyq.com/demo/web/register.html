@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>融云 Demo -  Web SDK</title>
+    <meta name="keywords"
+          content="融云,即时通讯,即时通讯云,即时通信云,移动 IM,开源 IM,IM 云服务,即时聊天软件,VOIP,移动客服,在线客服,免费,App 开发者服务，融云 Demo ，Web Demo，即时通讯 Demo"/>
+    <meta name="description" content="融云 Web Demo 下载体验！"/>
+    <link href="static/css/main.css" rel="stylesheet">
+    <script src="static/js/CommonUtil.js"></script>
+    <script src='http://rongcloud-web.qiniudn.com/js_jquery-1.11.1.min.js'></script>
+    <script>
+        $(function () {
+            var input = $("input");
+            input.blur(function () {
+                var that = $(this), index = that.index("input"), val = that.val().trim();
+                switch (index) {
+                    case 0:
+                        if (/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(val)) {
+                            var xhr = Util.XHR();
+                            xhr.open("get", "../index.php/email_exists?email=" + val, false);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    var result = Util.JSONParse(xhr.responseText);
+                                    if (result.code == 200 && !result.result) {
+                                        that.next().addClass("hidden");
+                                        return;
+                                    }
+                                }
+                                that.val("").next().removeClass("hidden").end().focus();
+                            };
+                            xhr.send(null);
+                            return;
+                        }
+                        break;
+                    case 1:
+                        if (/\d{11}/.test(val)) {
+                            var xhr = Util.XHR();
+                            xhr.open("get", "../index.php/mobile_exists?mobile=" + val, false);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    var result = Util.JSONParse(xhr.responseText);
+                                    if (result.code == 200 && !result.result) {
+                                        that.next().addClass("hidden");
+                                        return;
+                                    }
+                                }
+                                that.val("").next().removeClass("hidden").end().focus();
+
+                            };
+                            xhr.send(null);
+                            return;
+                        }
+                        break;
+                    case 2:
+                        if (/\S{1,10}$/.test(val)) {
+                            that.next().addClass("hidden");
+                            return;
+                        }
+                        break;
+                    case 3:
+                        if (/[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,18}$/.test(val)) {
+                            that.next().addClass("hidden");
+                            return;
+                        }
+                        break;
+                    case 4:
+                        if (/[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,18}$/.test(val) && val == input.eq(3).val().trim()) {
+                            that.next().addClass("hidden");
+                            return;
+                        }
+                        break;
+                }
+                that.val("").next().removeClass("hidden");
+            });
+            $("#register").click(function () {
+                var empty = input.filter(function (s, i) {
+                    return i.value == ""
+                });
+                if (empty.length == 0) {
+                    var xhr = Util.XHR();
+                    xhr.open("POST", "../index.php/reg", false);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            switch (xhr.status) {
+                                case 200:
+                                    var val = Util.JSONParse(xhr.responseText);
+                                    if (val.code == 200) {
+                                        location.href = "login.html";
+                                        return;
+                                    } else {
+                                        alert("注册失败")
+                                    }
+                                default :
+                                    input.val("")[0].focus();
+                                    break;
+                            }
+                        }
+                    };
+                    xhr.send("email=" + input[0].value + "&mobile=" + input[1].value + "&username=" + input[2].value + "&password=" + input[3].value);
+                } else {
+                    empty.first().blur();
+                }
+            });
+        });
+    </script>
+</head>
+<body class="login-container">
+<div class="login-wrap">
+    <div class="login-header">
+        <div class="login-logo"><img src="static/images/logo_login.png"></div>
+        <div class="phone-login-logo"><img src="static/images/phone_logo_login.png"></div>
+        <div class="login-title">注&nbsp;&nbsp;册</div>
+    </div>
+    <div class="login-content">
+        <span class="mail">注册邮箱</span>
+        <span><input type="text" id="user_email" maxlength="30" autofocus=""/><label class="mail_error error hidden">邮箱格式不正确或已经注册</label></span>
+        <span class="name">手机号</span>
+        <span><input type="text" id="phone" maxlength="11" autofocus=""/><label class="mail_error error hidden">手机号码格式不正确或已被注册</label></span>
+        <span class="name">您的昵称</span>
+        <span><input type="text" id="user_name" maxlength="10"/><label
+                class="name_error error hidden">昵称格式不正确</label></span>
+        <span class="pass">密码</span>
+        <span><input type="password" maxlength="18" id="user_pass"/><label
+                class="pass_error error hidden">密码格式不正确</label></span>
+        <span class="pass">再次确认密码</span>
+        <span><input type="password" maxlength="18" id="user_repass"/><label
+                class="repass_error error hidden">密码不一致</label></span>
+        <span class="btn"><button id="register">走起！开始体验融云</button></span>
+    </div>
+    <div class="login-foot">
+        <a href="login.html">开启畅聊之旅</a>
+    </div>
+</div>
+<div class="login-footer">© 2015 Rong Cloud. V 0.9.4</div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

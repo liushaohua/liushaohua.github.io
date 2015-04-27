@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>个人私信对话交互页</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+	<body>
+	<div style="z-index:1002;display:block" id="hide_show">
+		<div align="center">
+			私信对话内容列表：
+			<table border="1" width="700px" id="tab">
+					<tr>
+						<th colspan="8">我（ID={$uid}） 与 XXX(ID={$friend}) 对话中：</th>
+					</tr>
+					<tr>
+						<th>私 信 ID</th>
+						<th>发送者ID</th>
+						<th>接收者ID</th>
+						<th>发送时间</th>
+						<th>私信内容</th>
+						<th>私信类型</th>	
+						<th>私信操作</th>	
+					</tr>
+				{foreach name=message_list from=$detail_list item=v key=k}
+					{if $v.is_show eq 1}
+					<tr>
+						<td>{$v.mid}</td>
+						<td>{$v.sender}</td>
+						<td>{$v.receiver}</td>		
+						<td>{$v.send_time|goodtime}</td>
+						<td>
+						{if $v.type eq '0'}
+							{$v.content}
+						{elseif $v.type eq '1'}
+							<img title="点击看大图" class="image" src="{$v.server_url}{$v.path_url}" style="width:150px">
+						{elseif $v.type eq '2'}
+							音频文件
+						{elseif $v.type eq '3'}
+							视频文件
+						{/if}
+						</td>
+						<td>
+						{if $v.type eq '0'}
+							文本
+						{elseif $v.type eq '1'}
+							图片
+						{elseif $v.type eq '2'}
+							音频
+						{elseif $v.type eq '3'}
+							视频
+						{/if}
+						</td>
+						<td align="center">
+							<a href="javascript:;" index="{$k}" id="{$v.mid}" from_id="{$v.user}"  to_id="{$v.friend}"  class="del_mes">删除</a>
+						</td>
+					</tr>
+					{/if}
+				{foreachelse}
+					<tr>
+						<td colspan="8">哥们,你还没有聊天记录哦!!!</td>
+					</tr>
+				{/foreach}
+			</table>
+				<a href="javascript:;" id="load_more"><b>点击加载更多...</b></a>
+		</div>
+		<br><br><hr>	
+		<div align="center">
+			<iframe name="iframeUpload" id="right" src="operate.php" style="display:block;width:100%"></iframe> 
+			<form action="operate.php" method="post" enctype="multipart/form-data" target="iframeUpload">
+				<input type="hidden" name="rec_id" value="{$friend}">
+				靓照在此:<input id="file_btn" type="file" name="image" value="fuck">
+				<input type="submit" id="submit" name="submit" value="上传" style="display:none">
+			</form><br><hr>
+			接收者ID：<input type="text" name="receiver" value="{$friend}" placeholder="请输入数字ID"><br><br>
+			消息内容：<textarea id="message" name="message" rows="3" cols="25" placeholder="随便发，不要客气...">默认,孙天信最拽!</textarea><br><br>
+			我 的 ID: <input type="text" name="sender" value="{$uid}" placeholder="请输入数字"><br><br>
+			私信类型: <input type="text" name="type_class" value="0" placeholder="请输入数字0-3">	
+			<hr>		
+			<input type="button" name="send_message" onclick="return subdata()" friend_id="{$friend}" value="发送" />
+		</div>
+		<hr>
+		<div align="center">
+			最近联系人列表：
+			<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+			<tr>
+				<td>最近联系人ID</td>
+				<td>我的ID</td>
+				<td>最近联系时间</td>
+				<td>未读私信数</td>
+			</tr>
+			</table>
+		</div>
+	</div>	
+
+	<div align="center" id="show_div" style="display:none;height:100%;width:100%;background-color: white;z-index:1001;">
+		<img id="show_img" src="" title="点击图片或刷新回到小图">
+	</div>
+	</body>
+	{literal}
+		<script>
+			$('#file_btn').change(function(){
+				$("#submit").trigger('click');
+				show();
+			});
+			$('.image').on('click',function(){
+				//alert('放大图片');
+				var img_url = $(this).attr('src');
+				$('#show_img').attr('src',img_url);
+				$('#hide_show').css('display','none');
+				$('#show_div').css('display','block');
+			});
+			$('#show_img').click(function(){
+				$('#show_img').attr('src','');
+				$('#hide_show').css('display','block');
+				$('#show_div').css('display','none');
+			});
+			function subdata(){
+				<!-- 发送私信 -->
+				<!-- 获取私信相关内容 -->
+				var rec_id = $("input[name='receiver']").val();
+				var message = $("textarea[name='message']").val();
+				var send_id = $("input[name='sender']").val();
+				var type_class = $("input[name='type_class']").val();
+ 				<!-- ajax传递用户私信 -->
+				if(rec_id.length ==0 && message.length == 0 && send_id == 0){
+					return false;
+				}else{
+					$.ajax({
+						url:'/ajax/suntianxing/ajax_message.php?action=send_message',
+						type:'post',
+						data:{'rec_id':rec_id,'message':message,'send_id':send_id,'type_class':type_class},
+						success:function(data){
+							//alert(data);
+							if(data == 1000){
+								alert('消息发送成功！');
+								show();
+							}else{
+								alert('消息发送失败！');
+							}
+						},
+						dataType:'text'
+					});
+				}	
+			}
+			
+			//展示私信
+		   function show(){
+				var friend = $("input[name='send_message']").attr('friend_id');
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_message.php?action=show_message',
+					data:{'friend':friend},
+					type:'post',
+					success:function(data){
+						alert(data);
+						//var list = eval('('+data+')');
+						console.log(data);
+						$('#tab').find('tr:gt(1)').remove();
+						$.each(data,function(i,v){
+						if(v.is_show == 1){
+							//转换时间显示格式
+							var Time = v.send_time;
+							var SendTime = get_unix_time(Time);
+							var send_time = TimeDiff(SendTime);
+							
+							var str = '<tr>';
+								str += '<td>'+v.mid+'</td>';
+								str += '<td>'+v.sender+'</td>';
+								str += '<td>'+v.receiver+'</td>';		
+								str += '<td>'+send_time+'</td>';
+								str += '<td>';
+								if (v.type == 0){
+									str += v.content;
+								}else if (v.type == 1){
+									str += '<img class="image" src="'+v.server_url+v.path_url+'" style="width:150px">';
+								}else if (v.type == 2){
+									str += '音频附件';
+								}else if (v.type == 3){
+									str += '视频附件';
+								}
+								str += '</td>';
+								str += '<td>';
+								if (v.type == 0){
+									str += '文本';
+								}else if (v.type == 1){
+									str += '图片';
+								}else if (v.type == 2){
+									str += '音频';
+								}else if (v.type == 3){
+									str += '视频';
+								}
+								str += '</td>';
+								str += '<td align="center">';
+									str += '<a href="javascript:;"  index='+i+' id="'+v.mid+'" from_id="'+v.sender+'" to_id="'+v.receiver+'" class="del_mes">删除</a>';
+								str += '</td>';
+							str += '</tr>';
+						}
+						$('#tab').append(str);
+						});
+					},
+					dataType:'json'
+				}); 
+		   }
+		  //定时任务
+		  //setInterval(show,5000);
+			//友好的时间格式显示
+			function TimeDiff(SendTime){       
+				var d_minutes,d_hours,d_days,d_months;       
+				var timeNow = parseInt(new Date().getTime()/1000);       
+				var d;       
+				d = timeNow - SendTime;
+				d_months = parseInt(d/259200);
+				d_days = parseInt(d/86400);       
+				d_hours = parseInt(d/3600);       
+				d_minutes = parseInt(d/60);
+				
+				if(d_minutes<5){
+					return "刚刚";
+				}else if(d_minutes>=5 && d_hours<1){       
+					return d_minutes+"分钟前";       
+				}else if(d_hours>=1 && d_days<1){       
+					return d_hours+"小时前";       
+				}else if(d_days>=1 && d_days<=3){       
+					return d_days+"天前";       
+				}else{       
+					var s = new Date(SendTime*1000);       
+					// s.getFullYear()+"年";
+					return (s.getMonth()+1)+"月"+s.getDate()+"日"+' '+s.getHours()+':'+s.getMinutes();       
+				}
+			}  
+			//获取时间戳
+			function get_unix_time(Time){
+				var newstr = Time.replace(/-/g,'/'); 
+				var date =  new Date(newstr); 
+				var time_str = date.getTime().toString();
+				return time_str.substr(0, 10);
+			}
+		  //联系人列表刷新
+			  function contacts_list(){
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_message.php?action=contacts_list',
+					data:'',
+					type:'post',
+					success:function(data){
+						//alert(data);
+						$('#constacts_tab').find('tr:gt(1)').remove();
+						$.each(data,function(i,v){
+							var str = '<tr>';
+								str += '<td>'+v.friend+'</td>';
+								str += '<td>'+v.user+'</td>';
+								str += '<td>'+v.last_time+'</td>';
+								str += '<td>'+v.unread_num+'</td>';
+								str += '</tr>';
+							$('#constacts_tab').append(str);
+						});
+						
+						
+					},
+					dataType:'json'
+				});
+			  }
+			contacts_list();
+		
+		//删除对话信息(单条)
+		$('.del_mes').click(function(){
+			var mid = $(this).prop('id');		 //消息ID
+			var fid = $(this).attr('from_id'); //发送者ID	
+			var tid = $(this).attr('to_id');   //接收者ID
+			var mes_index = $(this).attr('index');   //接收者ID
+			//alert(mid+'___'+fid+'___'+tid);
+			//exit;
+			$.ajax({
+				url:'/ajax/suntianxing/ajax_message.php?action=delete_mes',
+				data:{'mid':mid,'fid':fid,'tid':tid,'mes_index':mes_index},
+				type:'post',
+				success:function(data){
+					if(data == 1000){
+						alert('删除私信成功！');
+					}else{
+						alert('系统忙，删除私信失败！');
+					}
+					
+				},
+				dataType:'text'
+			});
+		});
+		</script>
+	{/literal}
+</html>

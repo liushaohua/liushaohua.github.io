@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>我的邀约</title>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+	</head>
+<!-- array(2) { [0]=> array(19) { ["id"]=> string(1) "1" ["uid"]=> string(3) "444" ["recruit_id"]=> string(2) "12" ["role_id"]=> string(2) "15" ["add_date"]=> string(19) "2014-12-11 09:00:00" ["u_deal_date"]=> string(19) "2014-12-12 17:00:00" ["r_mobile"]=> string(9) "123456789" ["r_email"]=> string(11) "zzzz@qq.com" ["r_weixin"]=> string(8) "nidadada" ["r_qq"]=> string(5) "85541" ["r_show"]=> string(1) "1" ["u_mobile"]=> string(1) "0" ["u_email"]=> string(10) "aaa@qq.com" ["u_weixin"]=> string(7) "sadwxxx" ["u_qq"]=> string(8) "12324214" ["u_status"]=> string(7) "waiting" ["u_show"]=> string(1) "1" ["add_ip"]=> string(13) "123.12.123.21" ["add_agent"]=> string(0) "" }	 -->
+	<body>	<!-- 遍历数据 -->
+
+	<div>
+			<h2>同意邀约</h2>
+			<a href="">同意邀约</a>
+	<table>
+	{foreach $invite_list as $ilist}
+		<ul>
+		<li><input type="checkbox" name="" value="{$ilist['id']}" />
+			<input type="submit" class ="handle1" alt="{$ilist['id']}" value="接受"/><input type="submit" class ="handle2" value="拒绝" alt="{$ilist['id']}"/>
+			<li>id:{$ilist["id"]}
+			<li>邀约角色{$ilist["role_id"]}(查role)
+			<li>招募方{$ilist["recruit_id"]}(查招募方用户头像)
+			<li>招募主题{$ilist["recruit_id"]}(根据招募方id查主题)
+			<li>状态{$ilist["invite_date"]}(根据时间判断)
+			<li>操作{$ilist["u_status"]}
+			<li>查看联系方式
+			<li>接收时间{$ilist}
+		</ul>
+		<ul>
+			<li>查看联系方式招募方电话{$ilist["r_mobile"]}
+			<li>查看联系方式招募方邮箱{$ilist["r_email"]}
+			<li>查看联系方式招募方qq{$ilist["r_qq"]}
+			<li>查看联系方式招募方微信{$ilist["r_weixin"]}
+		</ul><hr>	
+	{/foreach}		
+	</table>			
+	</div>
+	<div id="agree_box" style="display:none">
+		<input type="hidden" id="uiid" /> 
+		手机<input type="text" id="mobile" value ="" />
+		email<input type="text" id="email"/>
+		qq<input type="text" id="qq"/>
+		微信<input type="text" id="weixin"/>
+		<input type="submit" value="提交" id="tjzl" onclick="javascript:tjzl()">
+	</div>
+	<div id="refuse_box" style="display:none">
+		<input type="hidden" id = "iiid" value ="" />
+		<input type="submit" name ="canle" alt="yes" value="确认删除" id ="del" onclick="javascript:del()"/>
+		<input type="submit" name="canle" value="取消" alt="no"/>
+	</div>
+	<hr>
+	
+	<div style="z-index:1002;display:block" id="hide_show">
+		
+		<div align="center">
+			`<button id="show" style="background:pure;height:50px;width:200px">邀约发送首页：</button><br><br>
+			<hr>
+				我的收藏列表：
+				<table border="1px" style="border-style:solid;border-color:green;border-width:1px" id="constacts_tab">
+				<tr>
+					<td>收藏的ID</td>
+					<td>所属类别</td>
+					<td>操作</td>
+				</tr>
+				<tr>
+					<td>王大哥</td>
+					<td>主持</td>
+					<td><input type="checkbox" name="user" rid="2" id="9525" /></td>
+				</tr>
+				<tr>
+					<td>王二凡</td>
+					<td>演员</td>
+					<td><input type="checkbox" name="user" rid="7" id="9526" /></td>
+				</tr>
+				<tr>
+					<td>赵大嬛</td>
+					<td>歌手</td>
+					<td><input type="checkbox" name="user" rid="4" id="9527" /></td>
+				</tr>
+				<tr>
+					<td>张庆芳</td>
+					<td>相声</td>
+					<td><input type="checkbox" name="user" rid="6" id="9528" /></td>
+				</tr>
+				<tr>
+					<td>孙天信</td>
+					<td>导演</td>
+					<td><input type="checkbox" name="user" rid="5" id="9529" /></td>
+				</tr>
+				</table>
+			<hr>
+			<button id="edit" align="center" style="background:red;height:100px;width:100px">邀约</button><br><br>
+		</div>
+		<br><hr>
+		<div id="editarea" align="center" style="display:none">
+			<hr>
+			邀约对象ID：<input type="text" name="receiver" value="" placeholder="请输入数字ID"><br><br>
+			邀约的招募：<select name="recruit">
+							<option value="">--请选择你要邀约的招募--</option>
+							<option value="1">红眼圈年会活动礼仪招募</option>
+							<option value="2">邦羽国际集团年会主持招募</option>
+							<option value="3">阿里巴巴年会活动主持招募</option>
+							<option value="4">河南农大校庆活动礼仪招募</option>
+							<option value="5">君和天下市场推广活动主持招募</option>
+							<option value="6">百度大会礼仪招募</option>
+						</select><br><br>
+			邀约的角色：<select name="role">
+							<option value="">--请选择招募的角色--</option>
+							<option value="1">礼仪</option>
+							<option value="2">主持</option>
+							<option value="3">综艺</option>
+							<option value="4">歌手</option>
+							<option value="5">导演</option>
+							<option value="6">相声</option>
+							<option value="7">演员</option>
+						</select><br><br>
+			留下您的联系方式:<br><br> 
+					  电话:<input type="text" name="r_mobile" value="" placeholder="请输入您的电话"><br><br>
+					  邮箱:<input type="text" name="r_email" value="" placeholder="请输入您的邮箱"><br><br>	
+					  微信:<input type="text" name="r_weixin" value="" placeholder="请输入您的微信号"><br><br>	
+					  QQ:<input type="text" name="r_qq" value="" placeholder="请输入您的QQ">	
+			<hr>		
+			<input type="button" name="send_message" onclick="return subdata()" value="发送" />
+		</div>
+	</body>
+	{literal}
+		<script>
+			$(".handle1").click(function(){
+				$('#agree_box').fadeIn();
+				$('#uiid').val($(this).attr('alt'));
+				var uiid = $('#uiid').val();
+				$('#refuse_box').fadeOut();
+				
+				alert($('#uiid').val());
+			})
+			$(".handle2").click(function(){
+				$('#refuse_box').fadeIn();
+				$('#agree_box').fadeOut();
+				$('#iiid').val($(this).attr('alt'));
+				var iiid = $('#iiid').val();
+			    alert(iiid);
+			})			
+			<!-- 添加标签或更新标签 -->
+			$('#edit').click(function(){
+				$('#editarea').fadeIn();
+			});
+			//邀约信息ajax 提交
+			function tjzl(){
+				var uiid = $('#uiid').val();
+				var action = 'update_invite';
+				var status = 'agree';
+				var mobile = $('#mobile').val();
+				var email = $('#email').val();
+				var weixin = $('#weixin').val();
+				var qq = $('#qq').val();						
+				<!-- ajax传递邀约信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_invite.php',
+					type:'post',
+					data:{"action":action,"id":uiid,"status":status,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq},
+					success:function(data){
+						alert(data);
+						if(data == 1000){
+							alert('OK');
+						}else{
+							alert('NO');
+						}
+					},
+					dataType:'json'
+				});
+			}	
+		function del(){
+				var iiid = $('#iiid').val();
+				var action = 'delete_invite';						
+				<!-- ajax传递邀约信息 -->
+				$.ajax({
+					url:'/ajax/suntianxing/ajax_invite.php',
+					type:'post',
+					data:{"action":action,"id":iiid},
+					success:function(data){
+						alert(data);
+						if(data == 1000){
+							alert('OK');
+						}else{
+							alert('NO');
+						}
+					},
+					dataType:'json'
+				});
+			}				
+
+		</script>
+	{/literal}
+</html>

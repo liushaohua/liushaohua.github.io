@@ -1,0 +1,83 @@
+ <!--发私信窗口-->
+ <style type="text/css">
+ .hyq-modal iframe{
+  	position: absolute;
+  	top:50px;
+  	width: 100%;
+  	height: 250px;
+    left:0px;
+    border-top: none;
+  }
+  .hyq-modal .hyq-modal-header{
+  	height: 40px;
+  }
+  </style>
+<div class="hyq-tip txt-center" id="hyq-common-tip-send-msg-message-success" style="width:180px;" >
+  <div><i class="hyq-ic ic-success-lg"></i></div>
+    <div><label class="hyq-tip-msg-node"></label></div>
+</div>
+
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-global-modal-send-message-failure-modal" style="width:360px;">
+  <div class="hyq-modal-header txt-left" ></div>
+  <div class="hyq-modal-body">
+    <div><i class="hyq-ic ic-alert-lg"></i></div>
+      <label>对不起，私信发送失败，请稍后再试。</label>
+         
+        <br/>
+        <br/>
+        <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+  </div>
+  <br/>
+  <br class="_clb"/>
+  <div class="hyq-modal-footer"></div>
+</div>
+
+
+<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-common-modal-send-msg"  role="dialog" style="width:480px; height:250px;margin:0 auto;">
+ 	<div class="hyq-modal-header GrayBorderBtm txt-left" >
+			<label class="f16 pull-left Blak2">&nbsp;&nbsp;发私信</label>
+			<a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+	</div>
+ 
+ 	<input type="hidden" id="user_id_to_send_msg"/>
+   <iframe   id="hyq-common-iframe-send-msg" frameborder="0" scrolling=false></iframe>
+  </div>
+
+<script type="text/javascript">
+	$(function(){
+
+	//收到子窗口想要发私信的请求
+		$(document).on("hyq/iframe/doc/sms",function(event){
+
+			var frm = event.fromUserId;//发送者用户ID
+      var to = event.toUserId//收信者用户ID
+      //拼链接
+      $("#hyq-common-iframe-send-msg").attr({
+        'src':"?page=_send_msg_iframe.html"+"&from="+frm+"&to="+to
+      });
+      //显示发私信的弹窗 怎么发 在私信的IFRAME里面做 此处不管
+      $("#hyq-common-modal-send-msg").trigger("hyq/modal/show");
+
+
+		});
+
+    //如果私信成功发送
+      $(document).on("hyq/sms/popup/sent",function(){
+        $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-common-tip-send-msg-message-success").trigger({
+            type:"hyq/tip/show/success",message:"私信发送成功！"
+          }); 
+        });
+         
+      });
+
+      //如果私信发送失败
+      $(document).on("hyq/sms/popup/sent/failure",function(){
+         $("#hyq-common-modal-send-msg").trigger("hyq/modal/close").one("hyq/modal/hidden",function(){
+          $("#hyq-global-modal-send-message-failure-modal").trigger("hyq/modal/show"); 
+        });
+      });
+
+
+	});
+</script>

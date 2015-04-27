@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html class=no-js>
+	<!--####### head头信息拿出来  我们会在里面加东西 ####### -->
+	<head> 
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>{$recruit_info.name} - 红演圈</title>
+		<meta name="keywords" content="{$recruit_info.name}{foreach $recruit_service_list as $v},{$v.service_2_name}{/foreach},{$recruit_info['type_info']['type']},文化演艺服务,文化演艺服务招募">
+		<meta name="description" content="{$recruit_info.name} - {$user_info.nickname}正在红演圈寻找{$recruit_info['type_info']['type']}相关的人才，如果你能提供{foreach from=$recruit_service_list item=v name=show}{if $smarty.foreach.show.last}{$v.service_2_name}{else}{$v.service_2_name},{/if}{/foreach},快来报名吧！">
+		
+
+		<!--<link rel="stylesheet" href="/css/main.css">-->
+        <link rel="stylesheet" href="/css/main.css">
+		<script src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/state_code.js"></script>
+		{literal}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(window).scroll(function(){
+					 
+					if ($(window).scrollTop()>440){
+						$(".rec-nav-box").fadeIn(500);
+					}
+					else
+					{
+						$(".rec-nav-box").fadeOut(500);
+					}
+	
+				});
+			});
+			document.onreadystatechange=function()     
+			{  
+			if(document.readyState == "complete")          
+			  
+			{  
+			 
+			  var navA = document.getElementsByName("nav-a");    
+			  for(var i=0;i<navA.length;i++)                                     
+			  {  
+			   navA[i].onclick=function(){                                           
+						for(var j=0;j<navA.length;j++){  
+							 navA[j].className="";                   
+							 
+						}  
+						this.className="active-a"; 
+						$('#nav-float').find('a').eq($(this).index()).addClass('active-a2').siblings().removeClass('active-a2');
+				}  
+			  }  
+			}  
+			}  
+		</script>
+		{/literal}
+		<script>
+			//该招募id和 发布招募者id
+			var recruit_id = {$recruit_info.id};
+			var recruit_uid = {$recruit_info.uid};
+		</script>
+		{literal}
+		<script>
+			$(function(){
+				var hide_head_url = $('#hide_head_url').val();
+				if(hide_head_url != ''){
+					hide_head_url = hide_head_url+'!f200';
+					$('#head_path').prop('src',hide_head_url);
+				}
+			});
+		</script>		
+   		{/literal}      
+	</head>
+	<body class="rec-detail">
+		<input id="hide_head_url" type="hidden" value="{$recruit_info.cover_server_url}{$recruit_info.cover_path_url}">
+		{include "common/header.html"} 
+		{include "common/nav_search.html"}
+        <!--浮动固定在顶部居中的导航-->
+        <div class="rec-nav-box">
+            <div class="rec-nav-float" id="nav-float">
+                 <a href="#service-txt" name="fnav-a" class="active-a2" id="first-a" >服务内容</a>
+                 <a href="#service-time" name="fnav-a">时间地点</a>
+                 <a id="recruit_descr_box" href="#rec-profile" name="fnav-a">招募简介</a>
+                 <a id="photo_box" href="#public-photo" name="fnav-a">宣传照片</a>
+                 <a href="#rec-host" name="fnav-a">招募方</a>
+                 
+             </div>
+        </div>
+  
+        <script>
+		window.onload=window.onscroll=function(){
+			var oTop=document.documentElement.scrollTop||document.body.scrollTop;
+			//var aDiv=document.getElementsByName("div-a");
+			var floatA=document.getElementsByName("fnav-a");
+			var i=0;
+			for(i=0;i<floatA.length;i++){
+		
+				floatA[i].onclick=function(){                                           
+					for(var i=0;i<floatA.length;i++)  
+						{  
+						 floatA[i].className="";                   
+						  
+						} 
+					this.className="active-a2";
+				} 
+				var serTxt=document.getElementById("service-txt");
+				var serTime=document.getElementById("service-time");
+				var recPro=document.getElementById("rec-profile");
+				var pubPho=document.getElementById("public-photo");
+				var recHost=document.getElementById("rec-host");
+				var top1=serTxt.offsetTop;
+				var top2=serTime.offsetTop;
+				var top3=recPro.offsetTop;
+				var top4=pubPho.offsetTop;
+				var top5=recHost.offsetTop;
+				
+				if(oTop>top1 && oTop<top2)
+				{	 floatA[i].className="";
+					 floatA[0].className="active-a2"; 
+				}else if(oTop>top2 && oTop<top3)
+				{
+					floatA[i].className="";
+					floatA[1].className="active-a2"; 
+				}
+				else if(oTop>top3 && oTop<top4)
+				{	floatA[i].className="";
+					floatA[2].className="active-a2"; 
+				}
+				else if(oTop>top4 && oTop<top5)
+				{	floatA[i].className="";
+					floatA[3].className="active-a2"; 
+				}else if(oTop>=top5)
+				{
+					floatA[i].className="";
+					floatA[4].className="active-a2"; 
+				}
+				
+			}
+		};
+		</script>
+        
+        <!-- 主内容栏开始 -->
+		 <div class="content-wrapper-index">
+        <!-- 主内容栏开始 -->
+   			 <div class="content-left-con">
+               <!--招募头部-->
+                <div class="recruit-top">
+               		<img id="head_path" src="http://icon.hotyq.com/v3/recruit-cover-photo.png" >
+                    <div class="middle-info">
+                    	<h3 class="headTitle" title="{$recruit_info.name}" >
+                            {$recruit_info.name|truncate:"20":"..."}
+                        </h3>
+                        <span class="string">|&nbsp;</span>
+            			<span class="right-small" title="{$recruit_info['type_info']['type']}" >{$recruit_info['type_info']['type']}</span>
+           			    <span class="string2">&nbsp;|</span> 
+                        <div class="cl"></div> 
+                        <p>招募时间&nbsp;:<span>&nbsp;{$recruit_info['add_date']}~{$recruit_info['interview_end_time']}</span>
+                            <span class="str">|</span>
+                            <!--<label>小于1小时</label>-->
+                            <!--小于1天时红色显示-->
+                            <label class="Rd" id="rest_time"></label>
+                        </p>
+                        <p>招募方：{$user_info.nickname}</p>
+                        <div class="mid-bot">
+                        <!--未收藏-->
+                         <a id="collect_btn" class="profile-collect-a collect_button" collect_type="recruit" dynamic_id="{$recruit_info['id']}">
+                         <i class="hyq-ic ic-heart-k-wt"></i>收藏
+                         </a>
+                        	<!--私信-->
+                         <a class="profile-letter-a" id="letter_btn" href="javascript:;" data-target="#send-message-btn" data-toggle="hyq-modal" userId="{$recruit_info.uid}"><i class="hyq-ic ic-email-k-wt"></i>私信</a>
+                        </div>
+                    </div>
+                    <a href="/complain/?source_id={$recruit_info['id']}&nickname={$recruit_info.name_r}&type=recruit" target="_blank" class="report-a">举报</a>
+               </div>
+				<!--nav 描点跳转-->
+                 <ul class="recruit-nav">
+                     <a href="#service-txt" name="nav-a" class="active-a"><li>服务内容</li></a>
+                     <a href="#service-time" name="nav-a"><li>时间地点</li></a>
+                     <a class="recruit_descr_box" href="#rec-profile" name="nav-a"><li>招募简介</li></a>
+                     <a class="photo_box" href="#public-photo" name="nav-a"><li>宣传照片</li></a>
+                     <a href="#rec-host" name="nav-a"><li class="last">招募方</li></a>
+                     
+                 </ul>
+                 
+         		<!--服务内容-->
+                 <a name="service-txt" id="service-txt"></a>
+                <div class="rec-part">
+                    <div class="rec-title">
+                       <div class="ic-label-b-ora-vertical"></div> 
+                       <span>服务内容</span>
+                    </div>
+					{foreach name=list from=$recruit_service_list item=v key=key}
+						{if key neq $smarty.foreach.list.last}
+						<div class="ser-txt-con">
+							<div class="rec-bar recruit_role_apply_box" eid="{$v.id}">
+								<em>{$v['service_2_name']}</em>
+								<label>&nbsp;|&nbsp;</label>
+								<span>{if $v.sex eq 'f'}女{elseif $v.sex eq 'm'}男{else}性别不限{/if}</span>
+								<label>&nbsp;|&nbsp;</label>
+								<span>{$v.number}</span>
+								<!--报名-->
+								<a class="profile-apply-a yet_apply_btn" href="javascript:;" data-target="#be-recruited-modal-{$smarty.foreach.list.iteration}" sid="{$v['service_2_id']}" data-toggle="hyq-modal" eid="{$v.id}">
+									<i class="hyq-ic ic-grab-wt"></i>报名
+								</a>       
+								<!--已报名-->
+								<a class="profile-applyed-a have_apply_btn" href="javascript:void(null)" style="display:none">已报名</a>
+							</div>
+							
+							<p class="role-txt-demond">
+								<span>至少满足其中一项：</span><br>
+								<!--最后一个没有竖线-->
+								{foreach name=service_list from=$v['service_3_list'] item=v0 key=key0}
+									{if key0 neq $smarty.foreach.service_list.last}
+									<label><span>{$v0['service_3_name']}</span>&nbsp;|&nbsp;</label>
+									{else}
+									<label><span>{$v0['service_3_name']}</span></label> 
+									{/if}
+								{/foreach}        
+							</p>
+							<p class="role-txt-demond">
+								<span>服务要求：&nbsp;</span><br>
+								{if $v.service_require eq ''}
+									这么重要的服务招募方都没要求，么么哒，还不赶紧报名！
+								{else}
+									{$v.service_require|regex_replace:"/[\n]/":"<br />"}
+								{/if}
+							</p>
+						</div>
+						<!--弹窗-->
+				        <!--报名-->
+						<div class="hyq-modal hyq-modal-default RdBorderTop form-apply-wrap" id="be-recruited-modal-{$smarty.foreach.list.iteration}" role="dialog">
+				            <div class="hyq-modal-header GrayBorderBtm">
+				                <label>&nbsp;<span id="service_name">你报名的服务：{$v['service_2_name']}</span></label>
+				                <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+				            </div>
+				           
+				            <div class="hyq-model-body _clb" >
+				            	<p class="contact-p">请选择你报名的服务内容（可复选）</p>
+				                <div class="ser-box">
+				                {foreach $v['service_3_list'] as $vv}
+				                	<p class="checkBox-unit">
+				                        <input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="{$vv['service_3_id']}"/>
+				                        <span class="hyq-checkbox"></span>
+				                        <label>{$vv['service_3_name']}</label>
+				                    </p>
+				                {/foreach}
+				                </div>
+				                <div class="cl"></div>
+				               <p class="contact-p">您的联系方式</p>
+				              
+				                <ul class="form-apply">
+						                <li><label>电话：</label><input type="text" class="mobile_way" name="u_mobile" value="" placeholder="请输入您的电话"> <span class="Rd">*</span></li>
+						                <li><label>邮箱：</label><input type="text" class="email_way" name="u_email" value="" placeholder="请输入您的邮箱"></li>
+						                <li><label>微信：</label><input type="text" class="weixin_way" name="u_weixin" value="" placeholder="请输入您的微信号"></li>
+						                <li><label>QQ：</label><input type="text" class="qq_way" name="u_qq" value="" placeholder="请输入您的QQ"></li>
+						                
+						        </ul>
+				                <p class="reminder-p">请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）</p>
+				                  &nbsp;<input type="button" class="hyq-btn hyq-btn-default-lg fr" value="确定并发送" />
+				                        <input type="hidden" value="{$v.id}" />
+				              <div class="hyq-f-err hyq-f-err-pad-left fl" style="display:none">
+				                 <i class="hyq-ic ic-vlid-err"></i><label>请至少填写一种联系方式!</label>
+				              </div>
+				            </div>				      
+				        </div>
+				        
+						{else}
+						<!--最后一个加一个类ser-txt-last-->
+						<div class="ser-txt-con ser-txt-last">
+							<div class="rec-bar recruit_role_apply_box" eid="{$v.id}">
+								<em>{$v['service_2_name']}</em>
+								<label>&nbsp;|&nbsp;</label>
+								<span>{if $v.sex eq 'f'}女{elseif $v.sex eq 'm'}男{else}性别不限{/if}</span>
+								<label>&nbsp;|&nbsp;</label>
+								<span>{$v.number}</span>
+								<!--报名-->
+								<a class="profile-apply-a yet_apply_btn" href="javascript:;" data-target="#be-recruited-modal-{$smarty.foreach.list.iteration}" data-toggle="hyq-modal" eid="{$v.id}">
+									<i class="hyq-ic ic-grab-wt"></i>报名
+								</a>
+                                
+								<!--已报名-->
+								<a class="profile-applyed-a have_apply_btn" href="javascript:void(null)" style="display:none">已报名</a>
+							</div>
+							
+							<p class="role-txt-demond">
+								<span>至少满足其中一项：</span><br>
+								<!--最后一个没有竖线-->
+								{foreach name=service_list from=$v['service_3_list'] item=v0 key=key0}
+									{if key0 neq $smarty.foreach.service_list.last}
+									<label><span>{$v0['service_3_name']}</span>&nbsp;|&nbsp;</label>
+									{else}
+									<label><span>{$v0['service_3_name']}</span></label> 
+									{/if}
+								{/foreach}        
+							</p>
+							<p class="role-txt-demond">
+								<span>服务要求：&nbsp;</span><br>
+								{if $v.service_require eq ''}
+									这么重要的服务招募方都没要求，么么哒，还不赶紧报名！
+								{else}
+									{$v.service_require|regex_replace:"/[\n]/":"<br />"}
+								{/if}
+							</p>
+						</div>
+						
+						<!--弹窗-->
+      					<!--报名-->
+						<div class="hyq-modal hyq-modal-default RdBorderTop form-apply-wrap" id="be-recruited-modal-{$smarty.foreach.list.iteration}" role="dialog">
+						          <div class="hyq-modal-header GrayBorderBtm">
+						              <label>&nbsp;<span id="service_name">你报名的服务：{$v['service_2_name']}</span></label>
+						              <a class="hyq-modal-close-btn" href="javascript:void(null)"></a>
+						          </div>
+						         
+						          <div class="hyq-model-body _clb" >
+						          	<p class="contact-p">请选择你报名的服务内容（可复选）</p>
+						              <div class="ser-box">
+						              	{foreach $v['service_3_list'] as $vv}
+						                	<p class="checkBox-unit">
+						                        <input type="checkbox" class="hyq-nice-checkbox" name='mchoice' value="{$vv['service_3_id']}"/>
+						                        <span class="hyq-checkbox"></span>
+						                        <label>{$vv['service_3_name']}</label>
+						                    </p>
+						                {/foreach}
+						              </div>
+						              <div class="cl"></div>
+						             <p class="contact-p">您的联系方式</p>
+						            
+						              <ul class="form-apply">
+						                <li><label>电话：</label><input type="text" class="mobile_way" name="u_mobile" value="" placeholder="请输入您的电话"> <span class="Rd">*</span></li>
+						                <li><label>邮箱：</label><input type="text" class="email_way" name="u_email" value="" placeholder="请输入您的邮箱"></li>
+						                <li><label>微信：</label><input type="text" class="weixin_way" name="u_weixin" value="" placeholder="请输入您的微信号"></li>
+						                <li><label>QQ：</label><input type="text" class="qq_way" name="u_qq" value="" placeholder="请输入您的QQ"></li>
+						                
+						              </ul>
+						              <p class="reminder-p">请至少填写一种联系方式，以便对方能够联系上您（红演圈不会将你的联系方式给任何人）</p>
+						                &nbsp;<input type="button" class="hyq-btn hyq-btn-default-lg fr" value="确定并发送" />
+						                      <input type="hidden" value="{$v.id}" />
+						            <div class="hyq-f-err hyq-f-err-pad-left fl" style="display:none">
+						               <i class="hyq-ic ic-vlid-err"></i><label>请至少填写一种联系方式!</label>
+						            </div>
+						
+						          </div>						
+						 </div>
+						 
+						{/if}
+					{/foreach}
+                </div>
+                 <!--时间地点-->
+                 <a name="service-time" id="service-time"></a>
+                 <div class="rec-part">
+                    <div class="rec-title">
+                       <div class="ic-label-b-ora-vertical"></div> 
+                       <span>时间地点</span>
+                    </div>
+                    <div class="ser-time-con">
+                        <p class="workPlace-txt"><span>工作时间：</span>{$recruit_info.work_start_time}~{$recruit_info.work_end_time}</p>
+                        <p class="workPlace-txt"><span>工作地点：</span>{$addr.address}{$recruit_info.addr_detail}</p>
+                    </div>
+          		</div>
+				<input id="hide_descr_value" type="hidden" value="{$recruit_info.descr}">
+				<script>
+					$(function(){
+						//如果简介不为空 将回车转成  为空 隐藏各项
+						var descr = $('#hide_descr_value').val();
+						if(descr == ''){
+							$('.recruit_descr_box').hide();
+							$('#recruit_descr_box').hide();
+						}else{
+							var recruit_descr = descr.replace(/\n/g,"<br />");
+							$('#recruit_descr').html(recruit_descr);
+						}
+					});
+				</script>
+                <!--招募简介-->
+                <a name="rec-profile" id="rec-profile"></a>
+                <div class="rec-part recruit_descr_box" name="div-a"> 
+                   <div class="rec-title">	
+                      <div class="ic-label-b-ora-vertical"></div> 
+                      <span>招募简介</span>
+                  </div>
+                  <div class="ser-time-con">
+                       <p id="recruit_descr" class="role-txt-demond">
+                    
+                       </p>
+                   </div>
+               </div>
+               <!--宣传照片-->
+               <a name="public-photo" id="public-photo"></a>
+               <div class="rec-part photo_box">
+                   <div class="rec-title">
+                        <div class="ic-label-b-ora-vertical"></div> 
+                        <span>宣传照片</span>
+                  </div>
+                    <div class="static-album">
+						<div class="hyq-album-viewport hyq-album-static-viewport" id="user-profile-album-viewport">
+							<div class="txt-center f12 Gray5"></div>
+							<div class="viewport-inner">
+								<div class="view-box">
+								<i class="go-prev"></i>
+								<i class="go-next"></i>
+									<div class="photo-wrapper">
+										   
+									</div>
+								</div>
+								<div class="thumb-box">
+									<ul class="thumb-wrapper">
+										{foreach from=$recruit_photo_list item=photo_info name=photo_show}
+										<li class="thumb-item">
+											<!--有图把图显示在这个div里面 -->
+											<div class="image-box" alt="点击查看大图" title="点击查看大图">
+												<img src="{$photo_info['server_url']}{$photo_info['path_url']}!150.100" order="{$smarty.foreach.photo_show.index + 1}" pid="{$photo_info['id']}"  bigSrc="{$photo_info['server_url']}{$photo_info['path_url']}!s640.350" />
+											</div>
+
+										</li>
+										{foreachelse}
+										<li class="thumb-item">
+											<!--有图把图显示在这个div里面 -->
+											<div class="image-box" alt="点击查看大图" title="点击查看大图">
+												<img src="" pid=""/>
+											</div>
+
+										</li>
+										{/foreach}			 
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+             <!--招募方-->
+               <a name="rec-host" id="rec-host" ></a>
+               <div class="rec-part">   
+                 <div class="rec-title">
+                        <div class="ic-label-b-ora-vertical"></div> 
+                        <span>招募方</span>
+                 </div>
+				 {if $user_info.user_type eq 'org'}
+				 <!--机构发布的-->
+                 <div class="rec-hostBox">
+                    <div class="r-content">
+                        <a href="/{$user_info.user_type}/{$user_info.id}">
+                          <div class="img-box">
+                              <img src="{if $user_info.icon_path_url neq ''}{$user_info.icon_server_url}{$user_info.icon_path_url}!f150{else}http://icon.hotyq.com/v3/recruit-cover-photo.png{/if}" title="" alt="">
+                          </div>
+                          <div class="txt-box">
+                              <h3 title="" alt="">{$user_info.nickname}</h3>
+                              {if $user_info.business_card_status  eq 'yes'}
+							   <!--彩色-->
+                              <i class="hyq-ic ic-cinfo-sm"></i>
+							  {else}
+								<!--灰色-->
+                              <i class="hyq-ic ic-cinfo-sm-muted "></i>
+							  {/if}
+							  
+							  {if $user_info.mobile_status eq 'yes'}
+                              <!--彩色-->
+                              <i class="hyq-ic ic-mobile-sn"></i>
+							  {else}
+                              <!--灰色-->
+                              <i class="hyq-ic ic-mobile-sn-muted"></i>
+							  {/if}
+                              <div class="cl"></div>
+                              <p class="build-t">
+                                  成立时间：{$orglist.create_time}年
+                              </p>
+                              <div class="bot-ab">
+                                  <i class="hyq-ic ic-brief-case "></i><span>{$orglist['type_name']['name']}</span>
+                                  <i class="hyq-ic ic-loc"></i><span>{$orglist['address_info']['address']}</span>
+                              </div>
+                          </div>
+                        </a>
+                        
+                    </div>
+                </div>
+				{else}
+				  <!--个人发布的-->
+                 <div class="rec-hostBox">
+                    <div class="r-content">
+                        <a href="/{$user_info.user_type}/{$user_info.id}">
+                          <div class="img-box">
+                              <img  src="{if $user_info.icon_path_url neq ''}{$user_info.icon_server_url}{$user_info.icon_path_url}!f150{else}http://icon.hotyq.com/v3/recruit-cover-photo.png{/if}" title="" alt="">
+                          </div>
+                          <div class="txt-box">
+                              <h3 title="" alt="">{$user_info.nickname}</h3>
+							  {if $user_info.identity_card_status  eq 'yes'}
+								<!--彩色-->
+                              <i class="hyq-ic ic-cinfo-sm"></i>
+							  {else}
+							   <!--灰色-->
+                              <i class="hyq-ic ic-cinfo-sm-muted "></i>
+							  {/if}
+							  
+							   {if $user_info.mobile_status eq 'yes'}
+                              <!--彩色-->
+                              <i class="hyq-ic ic-mobile-sn"></i>
+							  {else}
+                              <!--灰色-->
+                              <i class="hyq-ic ic-mobile-sn-muted"></i>
+							  {/if}
+                              <div class="cl"></div>
+                              <p class="build-t">
+                                  <i class="hyq-ic ic-person"></i>
+								<span>
+								  {foreach name=list from=$userlist['user_role'] item=v key = key}
+									{if key neq $smarty.foreach.list.last }
+										{$v['name']} |
+									{/if}
+									{if key eq $smarty.foreach.list.last}
+										{$v['name']}
+									{/if}
+								{/foreach}
+								</span>
+                              </p>
+                              <div class="bot-ab">
+                                  
+                                  <i class="hyq-ic ic-loc"></i><span>{$userlist['address_info']['address']}</span>
+                              </div>
+                          </div>
+                        </a>
+                        
+                    </div>
+                </div>
+				{/if}
+            </div>
+    
+    	 </div>
+			<!--右侧栏-->
+       		<div class="detail-right-con fr">
+				{include "html/rcruit_info_right_first.html"}
+				<div class="cl"></div>
+				{include "html/rcruit_info_right_second.html"}
+				<div class="cl"></div>
+				{include "html/rcruit_info_right_third.html"}				
+				<div class="cl"></div>
+				<!--与你相关new是招募的处理-->
+				{include "common/maybe_like_recruit_right.html"}
+				<div class="cl"></div>
+				<!--猜你喜欢红人-->
+				{include "common/maybe_like_user_right.html"}
+				<div class="cl"></div>
+            </div>
+       <!-- 主内容栏结束 -->
+       </div>
+
+       <!--报名失败窗口-->
+		<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-registration" style="width:360px;">
+		  <div class="hyq-modal-header txt-left" ></div>
+		  <div class="hyq-modal-body">
+		    <div><i class="hyq-ic ic-alert-lg"></i></div>
+		      <label>对不起，招募已关闭，请稍后再试。</label>
+		         
+		        <br/>
+		        <br/>
+		        <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+		  </div>
+		  <br/>
+		  <br class="_clb"/>
+		  <div class="hyq-modal-footer"></div>
+		</div>
+
+		<!--报名失败窗口过期-->
+		<div class="hyq-modal hyq-modal-default RdBorderTop txt-center" id="hyq-registration-end" style="width:360px;">
+		  <div class="hyq-modal-header txt-left" ></div>
+		  <div class="hyq-modal-body">
+		    <div><i class="hyq-ic ic-alert-lg"></i></div>
+		      <label>对不起，招募已过期。</label>
+		         
+		        <br/>
+		        <br/>
+		        <input type="button" class="hyq-btn hyq-btn-default-lg hyq-modal-close-trigger" value="知道了" />
+		  </div>
+		  <br/>
+		  <br class="_clb"/>
+		  <div class="hyq-modal-footer"></div>
+		</div>
+
+        <!--私信-->
+         <!--发私信窗口-->
+ 		{include "common/home/include_message_box.html"} 
+		<!--弹窗结束-->
+		<input type="hidden" id="check-status" value="">
+		<!-- tips 框 -->
+	    <div class="hyq-tip" id="tip-message">
+	      <i hyq-tip-icon-node></i>
+	      <label class="hyq-tip-msg-node"></label>
+	    </div>
+		<!--尾部开始-->
+		{include "common/footer.html"}
+		{literal}
+         <script type="text/javascript">
+        {/literal}
+        	var recruit_id = {$recruit_info.id};
+        {literal}
+			$(document).ready(function(){
+				//提取当前用户的联系方式
+				$.ajax({
+					url:'/home/ajax/ajax_home_apply.php',
+					type:'post',
+					data:{'action':'get_user_connect_way_and_check_recruit','rid':recruit_id},
+					success:function(data){
+						var result = eval('('+data+')');
+						//console.log(result['status']);
+                        $("input[name='u_mobile']").val(result['mobile']);
+                        $("input[name='u_email']").val(result['email']);
+                        $("input[name='u_weixin']").val(result['weixin']);
+                        $("input[name='u_qq']").val(result['qq']);
+                        $('#check-status').val(result['status']);
+					},
+					dataType:'text'
+				});
+				//判断当前招募的过期与否
+				//alert($('#check-status').val());
+				var apply_this;
+				var cookie_user_type;
+				//弹窗报名
+				$('.yet_apply_btn').click(function(){
+					if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+						//alert('没登陆');
+						var url = window.location.href;
+						location.href="/account/login?url="+url;
+					}
+					cookie_user_type = $.cookie('hyq_user_info').split('|')[1];
+					$.ajax({
+						url:'/home/ajax/ajax_home_apply.php',
+						type:'post',
+						data:{'action':'get_user_connect_way_and_check_recruit','rid':recruit_id},
+						success:function(data){
+							var result = eval('('+data+')');
+							//console.log(result['status']);
+	                        $("input[name='u_mobile']").val(result['mobile']);
+	                        $("input[name='u_email']").val(result['email']);
+	                        $("input[name='u_weixin']").val(result['weixin']);
+	                        $("input[name='u_qq']").val(result['qq']);
+	                        $('#check-status').val(result['status']);
+						},
+						dataType:'text'
+					});
+					var status = $('#check-status').val();
+					//alert(status);
+					if(status == 2){   //招募已关闭
+						$($(this).attr('data-target')).remove();
+						$("#hyq-registration-end").trigger("hyq/modal/show"); 
+						return false;
+					}else if(status == 3){  //招募已过期
+						$($(this).attr('data-target')).remove();
+						$("#hyq-registration").trigger("hyq/modal/show"); 
+						return false;
+					}
+					apply_this = $(this);
+				}); 
+				
+				$('.hyq-btn-default-lg').click(function(){
+					//alert(cookie_user_type);
+					//获取报名的三级服务
+					var tthis = $(this);
+					var win_name = tthis.parents('.hyq-modal-default');
+					var service_3 = '';
+					tthis.prevAll('.ser-box').find('p').each(function(){
+						if($(this).find('input').prop("checked")){
+							service_3 += $(this).find('input').val()+'|'; 
+						}
+					});
+					//alert(service_3);
+					if(service_3.length == 0){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少选择一项服务报名!');
+						tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+						return false;
+					}
+					
+					//获取报名者的联系方式
+					var mobile = tthis.prevAll('ul').find("input[name='u_mobile']").val();
+					var email = tthis.prevAll('ul').find("input[name='u_email']").val();
+					var weixin = tthis.prevAll('ul').find("input[name='u_weixin']").val();
+					var qq = tthis.prevAll('ul').find("input[name='u_qq']").val();
+					//alert(mobile);
+				
+					if(mobile.length == 0 && email.length == 0 && weixin.length == 0 && qq.length == 0){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+						$('.hyq-f-err-pad-left').css('display','block');
+						return false;
+					}
+					if(mobile.length == 0){
+						tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+						$('.hyq-f-err-pad-left').css('display','block');
+						return false;
+					}
+					var e_service_id = tthis.next().val();
+					var action = 'user_send_apply';
+					//return false;
+					
+					
+					<!-- ajax传递报名信息 -->
+					$.ajax({
+						url:'/home/ajax/ajax_home_apply.php',
+						type:'post',
+						data:{"action":action,"recruit":recruit_id,'recruit_uid':recruit_uid,"service":e_service_id,"service_3":service_3,"mobile":mobile,"email":email,"weixin":weixin,"qq":qq,"user_type":cookie_user_type},
+						success:function(data){
+							//alert(data);
+							if(data == 1000){
+								//alert('OK');
+								var tip = $("#tip-message").HYQTip();
+								tip.showSuccess('报名成功');
+								//报名成功替换 样式
+								apply_this.next().show();
+								apply_this.hide();
+								
+								win_name.trigger("hyq/modal/close"); 
+							}else if(data == 1375){
+								tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少填写一种联系方式!');
+								tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+							}else if(data == 1374){
+								tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请不要重复报名!');
+								tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+							}else if(data == 1378){
+								tthis.nextAll('.hyq-f-err-pad-left').find('label').text('请至少选择一项服务报名!');
+								tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+							}else if(data == 1379){
+								tthis.nextAll('.hyq-f-err-pad-left').find('label').text('手机号为必填联系方式!');
+								tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+							}else{
+								tthis.nextAll('.hyq-f-err-pad-left').find('label').text('网络错误,报名失败!');
+								tthis.nextAll('.hyq-f-err-pad-left').css('display','block');
+							}
+						},
+						dataType:'text'
+					});
+					
+					
+				}); 
+				
+				/////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////////
+				//当发送私信的按钮被点中
+		        $(".profile-letter-a").click(function(){
+					if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+						//console.log('没登陆');
+						var url = window.location.href;
+						location.href="/account/login?url="+url;				
+					}
+					
+		            //发送事件让发私信的窗口弹出，同事要把用户ID传过去
+					var toUserId = $(this).attr('userId');	  
+		            $(document).trigger({
+						type:"hyq/iframe/doc/sms",
+						//fromUserId:toUserName,//这个ID由PHP判断
+						toUserId:toUserId//这个ID由PHP判断
+		            });
+		        });
+				//---------------------------wangyifan  start----------------------
+				//------------------------------------------------------------------
+				
+				//rest_time   js获取当前时间戳  和截止时间时间错比较
+				var myDate = new Date();
+				var now_time = Math.ceil(myDate.valueOf()/1000);
+				{/literal}
+				var end_time = {$recruit_info['interview_end_time_time_stamp']};
+				var Msg = '';
+				var recruit_status = {$recruit_info['status']};
+				if(recruit_status == 1){
+					if(now_time < end_time && now_time > end_time-60*60){
+						Msg = '小于1小时';
+						$('#rest_time').html(Msg);
+					}else if(now_time < end_time-60*60 && now_time > end_time-48*60*60){
+						Msg = '小于2天';
+						$('#rest_time').html(Msg);
+					}else if(now_time < end_time-48*60*60 && now_time > end_time-24*3*60*60){
+						Msg = '还剩48小时';
+						$('#rest_time').html(Msg);
+					}else if(now_time < end_time-24*3*60*60){
+						var day = Math.ceil((end_time - now_time)/(24*60*60));
+						//alert(day);
+						Msg = '还剩'+day+'天';
+						$('#rest_time').html(Msg);
+					}else{
+						Msg = '已过期';
+						$('#rest_time').html(Msg);
+					}
+				}else if(recruit_status == 2){
+					Msg = '已过期';
+					$('#rest_time').html(Msg);
+					$('.yet_apply_btn').each(function(){
+						//1 变灰
+						$(this).addClass('profile-applymuted-a');
+					});
+				}else if(recruit_status == 3){
+					Msg = '已关闭';
+					$('#rest_time').html(Msg);
+					$('.yet_apply_btn').each(function(){
+						//1 变灰
+						$(this).addClass('profile-applymuted-a');
+						//2 不可点
+						//$(this).removeClass('yet_apply_btn');
+						//$(this).removeAttribute('data-target');
+						//$(this).removeAttribute('data-toggle');
+					});
+				}
+				//无宣传照的时候 隐藏块
+				var json_recruit_photo_list = {$json_recruit_photo_list};
+				if(json_recruit_photo_list.length == 0){
+					//alert('照片为空');
+					$(".photo_box").hide();
+					$("#photo_box").hide();
+				}
+					
+				//---------------------------wangyifan  end----------------------
+				//------------------------------------------------------------------
+			})
+		</script>
+	</body>
+	<script type="text/javascript" src="/js/hyq_applyed.js"></script>
+	<script type="text/javascript" src="/js/hyq_collected.js"></script>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+	<meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/rest.css">
+	<title>test</title>
+</head>
+ <style>
+    #loading{
+        width:100%;
+        height: 100%;
+        position: fixed;
+        z-index: 999;
+        background: #13051d;
+    }
+    .spinner {
+      position: absolute;
+      left:50%;
+      top:50%;
+      -webkit-transform: translate(-50%,-50%);
+    }
+
+    .spinner > div {
+      width: 1rem;
+      height: 1rem;
+      background-color: #fff;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+      animation: bouncedelay 1.4s infinite ease-in-out;
+      /* Prevent first frame from flickering when animation starts */
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0.0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes bouncedelay {
+      0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      } 40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+    .content img{
+      width:100%;
+      display: block;
+    }
+    .middle{
+      width:90%;
+      margin:0 auto;
+    }
+    html,body{
+      width:100%;
+      background: #fff;
+    }
+    body:after{
+      content:'';
+      display: block;
+      width:100%;
+      height: 1rem;
+      background: #e71883;
+    }
+    .p1{
+       color: #6d6d6d;
+       font-size: 0.8rem;
+       line-height: 2em;
+       text-align: center;
+       padding:1rem 0;
+    }
+    .middle h2{
+      width:100%;
+      color:#e71883;
+      font-size: 1.2rem;
+      text-align: center;
+      position: relative;
+      font-weight: normal;
+      margin-bottom: 1.6rem;
+    }
+    .middle h2 span{
+      padding:0 0.7rem;
+      background: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .middle h2:before{
+      content: '';
+      position: absolute;
+      z-index: 1;
+      height: 0.08rem;
+      width:100%;
+      background: #e71883;
+      top:50%;
+      left:50%;
+      -webkit-transform:translate(-50%,-50%);
+    }
+    .baoming{
+      width:100%;
+      overflow: hidden;
+      clear: both;
+    }
+    .baoming .divtwo{
+      float: left;
+      width:50%;
+    }
+    .divtwo a{
+      display: block;
+      width:74%;
+      margin:1rem auto;
+      font-size: 0.96rem;
+      background: #e71883;
+      color: #fff;
+      text-align: center;
+      line-height: 2.4rem;
+      height: 2.4rem;
+      border-radius: 3rem;
+      -webkit-tap-highlight-color:rgba(157,6,84);
+    }
+    .divtwo p{
+      font-size: 0.7rem;
+      color: #3f3f3f;
+      line-height: 2em;
+      margin-left:13%;
+      margin-bottom: 1.4rem;
+    }
+    .middle em{
+      color: #3f3f3f;
+      font-size: 0.7rem;
+      display: block;
+      text-align: center;
+      margin-bottom:3rem;
+    }
+    .middle em i{
+      display: inline-block;
+      width:2rem;
+    }
+    .p2{
+      width:100%;
+      display: block;
+      text-indent:2em;
+      font-size: 0.7rem;
+      color: #040404;
+      line-height: 2em;
+      margin-top:-1rem;
+      margin-bottom: 1.5rem;
+    }
+    .diva{
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .diva img{
+      position: relative;
+      z-index: 1;
+    }
+    .diva .as {
+      position: absolute;
+      width:100%;
+      height: 100%;
+      left:0;
+      top:0;
+      z-index: 3;
+    }
+    .diva .as a{
+      float: left;
+      width:50%;
+      height: 50%;
+    }
+    img{
+      pointer-events: none;
+    }
+    </style>
+<body>
+     <div id="loading" class="">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+    </div>
+    <div class="content">
+      <img src="img/two1.jpg" alt="">
+      <div class="middle">
+        <p class="p1">
+          风靡海内外的《大姨吗星座诊断报告》，<br>
+          已经启动第二季招募了<br>
+          各路星座达人、能人异士、时尚潮人、大姨吗粉丝，<br>
+          还不速速报名？<br>
+        </p>
+        <h2><span>现招募以下人才</span></h2>
+        <img src="img/two2.jpg" alt="">
+        <div class='baoming'>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              1.具备专业的表演功底<br>
+              2.具备职业素养，配合拍摄<br>
+              3.领悟能力、塑造能力强<br>
+              4.男女皆招<br>
+            </p>
+          </div>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              1.具备专业的导演功底<br>
+              2.具备导演实践经验<br>
+              3.思想前卫、敢于创新<br>
+            </p>
+          </div>
+        </div>
+        <img src="img/two3.jpg" alt="">
+        <div class='baoming'>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+            要求：<br>
+            1.文字功底深厚<br>
+            2.敢于创新、大胆创意<br>
+            3.有编剧经验者优先
+            </p>
+          </div>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              仅限大姨吗用户
+            </p>
+          </div>
+        </div>
+        <img src="img/two4.jpg" alt="">
+        <div class='baoming'>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              1.舞蹈功底深厚<br>
+              2.具备一定的表演能力<br>
+              3.有演出经历者优先
+            </p>
+          </div>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              1.至少掌握一门乐器<br>
+              2.具备一定的表演能力<br>
+              3.有演出经历者优先
+            </p>
+          </div>
+        </div>
+        <img src="img/two5.jpg" alt="">
+        <div class='baoming'>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+             1.声音条件优越<br>
+             2.具备电影、广播配音经验
+            </p>
+          </div>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+             要求：<br>
+             1.熟练运用化妆技巧<br>
+             2.具有明星、模特造型经验者优先
+            </p>
+          </div>
+        </div>
+        <img src="img/two6.jpg" alt="">
+        <div class='baoming'>
+          <div class="divtwo">
+            <a href="" title="">报 名</a>
+            <p>
+              要求：<br>
+              1.口语表达能力强<br>
+              2.现场应变能力强
+            </p>
+          </div>
+        </div>
+        <em>拍摄时间：2015年<i></i>招募单位：大姨吗</em>
+        <h2><span>微电影简介</span></h2>
+        <p class="p2">
+                 《大姨吗星座诊断报告》是一部由亚洲最受欢迎的女性经期管理App“大姨吗”出品的微电影。第一季每集时长2-3分钟左右，既短小精悍，又节奏紧凑、搞笑幽默，是大姨吗继《大姨妈之歌》MV和《大姨来了吗》系列迷你科普动画之后又一部自制剧力作。
+        </p>
+        <h2><span>第一季精彩回放</span></h2>
+        <div class="diva">
+          <img src="img/two7.jpg" alt="">
+          <div class="as">
+            <a href="#" title=""></a>
+            <a href="#" title=""></a>
+            <a href="#" title=""></a>
+            <a href="#" title=""></a>
+          </div>
+        </div>
+      </div>
+      <img src="img/two8.jpg" alt="">
+    </div>
+    <script>
+        var img_num=5;
+        var loading;
+        var tt;
+        if(document.getElementById('loading')){
+            loading=document.getElementById('loading');
+            loading.addEventListener('touchmove',function(event){
+                event.preventDefault();
+                },false);
+        };
+         //loading页面
+      var numt=0;
+      var imgss=document.getElementsByTagName('img');
+      var img_le=imgss.length;
+    for (var t=0; t<img_le; t++) {
+        var imge=new Image();
+        imge.src=imgss[t].src;
+        imge.onload=function  () {
+            numt++;
+            if (numt>=img_num) {
+                loading.className='opa-zero';
+                    tt=setTimeout(function(){
+                        loading.style.display='none';
+                        //clearTimeout(tt);
+                    },1000)
+            }
+        }
+    }
+   //loading页面
+    </script>
+</body>
+</html>

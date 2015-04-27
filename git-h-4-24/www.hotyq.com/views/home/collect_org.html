@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+    <title>收藏的机构 - 红演圈</title>
+    <meta name="description" content="">
+    
+    <meta http-equiv="Pragma" content="no-cache">    
+    <meta http-equiv="Cache-Control" content="no-cache">    
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/jquery.js"></script>
+  </head>
+  <body class="hyq-collction hyq-collction-null">
+    
+      {include "common/header.html"} 
+	{include "common/nav_search.html"} 
+        <div class="content-wrapper-b">
+      
+          <!--面包屑-->
+          <div class="hyq-breadcrumb-bar">
+              <div class="breadcrumb-box">
+                <a href="/home/{$user_info['user_type']}">我的红演圈</a> &gt; 
+                <a href="/home/collect_user">收藏</a>
+              </div>
+          </div>
+
+          <!--左边栏-->
+          {include "common/home/left_collect.html"}
+          <!--主栏-->
+          {if $collect_org_info}
+          <div class="right-col-754">
+            <div class="lead-title-bar">
+            </div>
+            
+            <!-- 标签内容 -->
+            <div class="org-collection-wrapper">
+              <ul class="orgs-items" id="orgs-all" >
+                <!-- 循环li标签的时候请注意 奇数的LI需要多加一个样式类 .fix-mgr -->
+              {foreach from=$collect_org_info item=org_info key=key name=show}
+                <li href="#" class="orgs-item">
+                 <i class="hyq-ic ic-xbutton-rd deleteBtn" collect_id="{$key}" dynamic_id="{$org_info['dynamic_id']}" collect_type="org"></i>
+                  <a href="/org/{$org_info['dynamic_id']}" class="orgs-avt pull-left">
+                    <img src="{$org_info['icon_url']}!150"/>
+                  </a>
+                  <dl>
+                    <dt class='orgs-name'><a href="javascript:;">{$org_info['nickname']}</a> 
+                    </dt>
+                    <dd class="orgs-loc">
+                     {$org_info['org_type']}
+                    </dd>
+                    <dd class="orgs-btns">
+                         <a href="javascript:;" class="c-invite-a" userId="{$org_info['dynamic_id']}" to_uname="{$org_info['nickname']}">邀约</a>
+                         <a href="javascript:;" class="c-letter-a" userId="{$org_info['dynamic_id']}">私信</a>
+                    </dd>
+                    <dd class="orgs-bot-bar">
+                        <a href="javascript:;">
+                          {if $org_info['identity_card_status'] eq 'yes'}
+                          <i class="hyq-ic ic-pinfo-sm" alt="身份证已验证" title="身份证已验证"></i>
+                          {else}
+                          <i class="hyq-ic ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证"></i>
+                          {/if}
+                        </a>
+                        <a href="javascript:;">
+                          {if $org_info['mobile_status'] eq 'yes'}
+                          <i class="hyq-ic ic-mobile-sn" alt="手机已验证" title="手机已验证"></i>
+                          {else}
+                          <i class="hyq-ic ic-mobile-sn-muted" alt="手机未验证" title="手机未验证"></i>
+                          {/if}
+                        </a>
+                        <span class="orgs-state" alt="{$org_info['address']}" title="{$org_info['address']}">{$org_info['address']}</span>
+                    </dd>
+                  </dl>
+                </li>
+                {/foreach}
+                
+              </ul>
+            </div>
+              <div class="cutpage-con">
+            {if isset($page_list)}
+              {if $page_status eq 'true'}
+              <div class="cutpage2" >
+                <!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+                {if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+                {foreach from=$page_list item=page_info}
+                  {if $page_info.current == "yes"}
+                  <span class="current">{$page_info.no}</span>
+                  {elseif $page_info.position == "begin"}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  <span >...</span>
+                  {elseif $page_info.position == "end"}
+                  <span >...</span>
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  {else}
+                  <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                  {/if}
+                {/foreach}
+                {if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+                  <!-- <span class="p-left-10">转到</span><input type="text" class="turnTo" id="turnTo" />
+                  <span class="p-right-10 ">页</span> -->
+                  <!-- <input class="hyq-round-btn" type="button" value="GO" id="go_btn" /> -->
+                  <!-- <a href="{$page_last_url}" class="p-left-10">末页</a> -->
+              </div>
+              {/if}
+            {/if}
+      </div>
+          </div>
+          {else}
+        <div class="right-col-754 right-col-1000">
+              <div class="lead-title-bar"></div>
+            <p><img src="http://icon.hotyq.com/v2/OMG.png" width="227" height="227"></p>
+            <p>OMG!您还没有收藏过任何东东哦！</p>
+            <p><a href="/list/org">随便逛逛</a>，每天都有当红艺人、招募事件等你，说不定还有意外的惊喜哦！</p>
+            </div>
+      {/if}
+         
+        </div>
+      </div>
+      <!--隐藏域 存储是否成功 的状态-->
+      <input id="hide_save_states" type="hidden" value="0">
+      <!-- tips 框 -->
+      <div class="hyq-tip" id="tip-message" >
+        <i hyq-tip-icon-node></i>
+        <label class="hyq-tip-msg-node"></label>
+      </div>
+    <!--发私信窗口-->
+    {include "common/home/include_message_box.html"}
+    <!--通用发邀约窗口-->
+    {include "common/home/include_invite_box.html"}
+    {include "common/footer.html"} 
+
+</body>
+  {literal}
+  <script>
+     //当发送邀约的按钮被点击时
+        if( typeof($.cookie('hyq_user_info')) != 'undefined' ){
+          var uid = $.cookie('hyq_user_info').split('|')[0];
+          $.post("/home/ajax/ajax_home_recruit.php",{'action':'get_recruit_list_by_uid','uid':uid},function(data){
+            if (data == 1000) {
+              $('#has_recruit').val('OK');
+            }else{
+              $('#has_recruit').val('');
+            }
+          }); 
+        }     
+        $('.c-invite-a').click(function(){
+              //这里要做个判断，判断当前登录的用户有没有招募
+			if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+				console.log('没登陆');
+				var url = window.location.href;
+				location.href="/account/login?url="+url;				
+			}else{		
+				var userType = $.cookie('hyq_user_info').split('|')[1];
+				//这里要做个判断，判断当前登录的用户有没有招募
+			   if($('#has_recruit').val() == 'OK'){
+					var hasRecruit = true;//可以根据后台的情况判断这个值
+				}else{
+					var hasRecruit = false;//可以根据后台的情况判断这个值
+				} 
+				var toUserId = $(this).attr('userId');
+				var toUserName = $(this).attr('to_uname');
+				// alert(toUserId+toUserName);
+				if(hasRecruit){
+					//alert('应该弹出邀约框');
+					//发送事件让发邀约的窗口弹出，同时要把用户ID传过去
+					$(document).trigger({
+						type:"hyq/doc/invite",
+						userType:userType,    //当前用户的ID
+						toUserName:toUserName,    
+						toUserId:toUserId      //邀约用户的ID
+						
+					});
+				}else{
+				   // alert('应该弹出没有邀约框');
+					$(document).trigger("hyq/invite/no-recruit/alert");
+				}
+			}	
+        });
+
+
+
+    $(".deleteBtn").each(function(){
+      $(this).click(function(){
+        $.post("/home/ajax/ajax_home_collect.php",{'action':'cancel_collect','collect_id':$(this).attr('collect_id'),'dynamic_id':$(this).attr('dynamic_id'),'collect_type':$(this).attr('collect_type')},function(data){
+              var cancel_result = eval('('+data+')');
+              var tip = $("#tip-message").HYQTip();
+              tip.showSuccess("删除"+cancel_result.desc);
+              setTimeout("location.reload()",2000);
+            },'text');  
+      });
+    });
+    //当发送私信的按钮被点中
+  $(".c-letter-a").click(function(){
+      if( typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1 ){
+        console.log('没登陆');
+        var url = window.location.href;
+        location.href="/account/login?url="+url;        
+      }
+        
+            //发送事件让发私信的窗口弹出，同事要把用户ID传过去
+      var toUserId = $(this).attr('userId');    
+            $(document).trigger({
+        type:"hyq/iframe/doc/sms",
+        //fromUserId:toUserName,//这个ID由PHP判断
+        toUserId:toUserId//这个ID由PHP判断
+            });
+    });  	
+  </script>
+  {/literal}
+</html>

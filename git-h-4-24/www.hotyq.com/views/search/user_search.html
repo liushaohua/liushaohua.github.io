@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://xijinke.com/hyq/hyq-ui2/index.html -->
+<html class="no-js">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+        <title>{$q} - 红人搜索 - 红演圈</title>
+        <meta name="keywords" content="{$q}">
+        <meta name="description" content="找{$q}相关人才就在红演圈,中国文化演艺服务第一平台,聚集全国文化演艺人才,实名认证、即时沟通、全民演艺！">
+        
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        
+        <link rel="stylesheet" href="/css/main.css">
+        <script type="text/javascript" src="/js/jquery.js"></script>
+
+    </head>
+	<body class="search-reds">
+
+	{include "common/header.html"} 
+	{include "common/nav_search.html"}
+		<!-- 主内容栏开始 -->
+		<div class="content-wrapper-index">
+			{if isset($search_banner)}
+			<img src="{$search_banner}" />
+			{else}
+			<img src="http://icon.hotyq.com/v2/search_banner/search_banner_common.jpg" />
+			{/if}
+			<div class="search-words-con">
+				<span>红演圈&nbsp;&gt;&nbsp;找到与</span><p class="search-words">“{$q}”</p><span>相关的信息共</span><span class="Rd">{$search_total_num}</span><span>条</span>
+			</div>
+            <div class="cl"></div>
+			<div class="search-top-gray">
+
+			</div>
+			<!-- 选项卡 -->
+			<ul class="hyq-tabs-search">
+				<li class="hyq-tab-search active">
+					<a href="#" class="first">&nbsp;红人<small>({$search_user_num})</small></a>
+					<i class="hyq-ic ic-staring"></i>
+					<i class="hyq-ic ic-staring-wt"></i>
+					
+					<span></span>
+				</li>
+				<li class="hyq-tab-search">
+					<a href="/search/org?q={$tr_q}">机构<small>({$search_org_num})</small></a>
+					<i class="hyq-ic ic-tower"></i>
+					<i class="hyq-ic ic-tower-wt"></i>
+					
+					<span></span>
+				</li>
+				<li class="hyq-tab-search">
+					<a href="/search/recruit?q={$tr_q}" class="last">招募<small>({$search_recruit_num})</small></a>
+					<i class="hyq-ic ic-bell-x-bell" style="margin:18px 105px 5px 0px;"></i>
+					<i class="hyq-ic ic-bell-x-bell-wt" style="margin:18px 105px 5px 0px;"></i>
+					
+				</li>
+
+			</ul>
+			<!-- 关联内容-->
+			<div>
+				<div>
+					<!--红人对应内容-->
+						{foreach from=$search_user_list item=user_info key=key name=show}
+						<div class="hotman-list-1 {if $smarty.foreach.show.iteration %5 eq 0} end-of-line {/if}">
+							<a class="hot-man-a" href="/user/{$key}" target="_blank">
+								<img src="{if $user_info['icon_url']}{$user_info['icon_url']}!f180 {else}http://icon.hotyq.com/v2/default/150x150.png {/if}"">
+								<div class="list-bottom">
+									<ul class="list-li">
+										<li class="fixed-li">
+											<span alt="{$user_info['nickname']}" title="{$user_info['nickname']}">{$user_info['nickname']}</span>
+										</li>
+										<li class="li">
+											<i class="hyq-ic ic-person"></i><span class="f12 Gray6">{$user_info['role_str']}</span>
+										</li>
+									</ul>
+									<div class="reds-list-bottom-bar">
+											<i class="hyq-ic {if $user_info['identity_card_status'] eq 'yes'} ic-pinfo-sm" alt="身份证已验证" title="身份证已验证" {else} ic-pinfo-sm-muted" alt="身份证未验证" title="身份证未验证" {/if}></i>
+										
+											<i class="hyq-ic {if $user_info['mobile_status'] eq 'yes'} ic-mobile-sn" alt="手机已验证" title="手机已验证" {else} ic-mobile-sn-muted" alt="手机未验证" title="手机未验证" {/if}"></i>
+										
+										<span class="reds-state" alt="{$user_info['address']}" title="{$user_info['address']}"><em>{$user_info['address']}</em></span>
+									</div>
+								</div>
+							</a>
+						</div>
+						{foreachelse}
+						<br>
+						哎呀！没找到符合的红人
+						<br>
+						{/foreach}
+				</div>
+			</div>
+			<div class="cl"></div>
+			{if isset($page_list)}
+                                        {if $page_status == 'true' }
+                                        <div class="cutpage-con">
+                                             <div class="cutpage2" >
+                                            <!-- <a href="{$page_first_url}" class="p-right-10">首页</a> -->
+                                            {if isset($page_pre_url)}<a href="{$page_pre_url}" class="page-pre">上一页</a>{/if}
+                                            {foreach from=$page_list item=page_info}
+                                                {if $page_info.current == "yes"}
+                                                <span class="current">{$page_info.no}</span>
+                                                {elseif $page_info.position == "begin"}
+                                                <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                                                <span >...</span>
+                                                {elseif $page_info.position == "end"}
+                                                <span >...</span>
+                                                <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                                                {else}
+                                                <a href="{$page_info.url}" class="page-num"><span>{$page_info.no}</span></a>
+                                                {/if}
+                                            {/foreach}
+                                            {if isset($page_next_url)}<a href="{$page_next_url}" class="page-pre">下一页</a>{/if}
+                                        </div>
+                                    </div>
+                                    {/if}
+                               {/if}
+		</div>
+		<!-- 主内容栏结束 -->
+	
+		{include "common/footer.html"}
+		{literal}<script type="text/javascript">
+					 $(document).ready(function() {
+          $(".down-expend-btn,.down-foldup-btn,.read-more-info-zk-1").click(function() {
+            $(".down-expend-btn,.down-foldup-btn").toggle();
+            if ($("#reds-details").is(":hidden")) {
+              $("#reds-details").fadeIn();
+            } else {
+              $("#reds-details").fadeOut();
+            }
+          });
+
+                    $(".more-filter-zk-js,.more-filter-zk-js-1").click(function(){
+                        $(".more-filter-zk-js,.more-filter-zk-js-1").hide();
+                        $(this).parent().parent().find(".info-detail-filter-js").fadeIn();  
+                    });
+        
+                    $(".more-filter-sq-js").click(function(){
+                        $(this).parent().hide();
+                        $(this).parent().parent().find(".more-filter-zk-js,.more-filter-zk-js-1").fadeIn();
+                    });
+        });
+		
+		{/literal}{if isset($page_list)}{literal}
+		//分页  go 跳转页面
+		$('#go_btn').click(function(){
+			var sum_page = {/literal}{$sum_page}{literal};
+			var page = Number($("#turnTo").val());
+			if(isNaN(page) || page < 1 || page > sum_page){
+				return false;
+			}
+			location.href = '{/literal}{$goto_url}{literal}'+page;
+		});
+		{/literal}{/if}{literal}		
+		{/literal}</script>
+
+	</body>
+</html>

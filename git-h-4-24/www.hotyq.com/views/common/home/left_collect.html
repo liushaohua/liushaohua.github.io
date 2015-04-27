@@ -1,0 +1,12 @@
+<div class="left-col-200">
+  <div class="right-bar-menu-box">
+    <div class="lead-title-bar">
+       <a href="/home/collect_user">我的收藏</a>
+    </div>
+    <ul class="gray-menu-group">
+      <li{if $collect_type eq 'user'} class="active"{/if}><a href="/home/collect_user">红人</a></li>
+      <li{if $collect_type eq 'org'} class="active"{/if}><a href="/home/collect_org">机构与团体</a></li>
+      <li class="{if $collect_type eq 'recruit'} active{/if}"><a href="/home/collect_recruit">招募</a></li>
+    </ul>
+  </div>
+</div>

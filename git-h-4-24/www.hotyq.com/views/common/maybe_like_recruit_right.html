@@ -1,0 +1,63 @@
+	<!--与你相关new是招募的处理-->           
+		   <div class="relate-group">
+            	<p class="relate-title">
+                    <span class="pull-left">与你相关</span> 
+                   <!--  <a href="javascript:void(null)" class="hyq-btn-refresh pull-right"><i></i><label>换一组</label></a> -->
+				</p>
+                <div class="cl"></div>
+				<ul class="relate-list" id="recruit-list-right">   
+					<!--
+					{foreach name=recruit_r_list from=$recruit_r_list item=v key=key }
+                    <li>
+                        <a href="/recruit/{$v.rid}" class="relateList-link">
+                            <img src="{$v.cover_server_url}{$v.cover_path_url}!50" title="{$v.u_name}" alt="{$v.u_name}">
+                            <span class="txt-con">
+                                <p>{$v.name}</p>
+                                <p><span>截止时间：</span><em>{$v.interview_end_time}</em></p>
+                            </span>
+                            <div class="cl"></div>
+                            <div class="dash-spliter-2"></div>
+                        </a>
+                    </li>
+					{/foreach}
+					-->
+				</ul>
+			</div>	
+{literal}
+	<script>
+
+	$(function(){
+		//与你相关-----  默认按招募排序
+		if(typeof($.cookie('hyq_user_info')) == 'undefined' || $.cookie('hyq_user_info').split('|')[0] < 1){
+			//alert('没登陆');   
+			var uid = '';
+			var action = 'nologin_recruit_status';	
+		}else{
+			//alert('登录了');
+			var uid = $.cookie('hyq_user_info').split('|')[0];
+			var action = 'login_recruit_status';
+		}
+			$.post("/ajax/ajax_relate_recruit_list_by_service.php",{uid:uid,action:action},function(data){
+				//console.log(data);
+				 
+				var list = eval("("+data+")");
+				//console.log(list);
+				var str = '';
+				$.each(list,function(i,v){
+					str += '<li><a href="/recruit/'+v.rid+'" class="relateList-link">';					
+					if(v.cover_server_url ==''){
+						str +='<div class="dash-spliter-2"></div><img src="http://icon.hotyq.com/v2/default/150x150.png" title="'+v.u_name+'" alt="'+v.u_name+'">';
+					}else{
+						str +='<div class="dash-spliter-2"></div><img src="'+v.cover_server_url+v.cover_path_url+'!f50" title="'+v.u_name+'" alt="'+v.u_name+'">';
+					}					
+					str +='<span class="txt-con"><p>'+v.name+'</p><p><span>截止时间：</span><em>'+v.interview_end_time+'</em></p></span></a></li>';
+				});					
+				//console.log(about_html);
+				$('#recruit-list-right').html(str);				 
+			});	
+
+	});
+
+	</script>
+	{/literal}
+    
