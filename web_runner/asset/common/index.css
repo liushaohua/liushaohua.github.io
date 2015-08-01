@@ -1,0 +1,80 @@
+/**
+global
+  */
+document,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote{margin:0;padding:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:normal;}
+ul,ol,dl,li,dt,dd{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;line-height:1;}
+a {text-decoration:none;outline: none;}
+a:hover { text-decoration:none;}
+html {_filter:expression(document.execCommand("BackgroundImageCache", false, true));_background-image: url(about:blank); _background-attachment: fixed;/* prevent screen flash in IE6 */  }
+.clear{clear:both;height: 0;overflow: hidden;font-size: 0;content: "";  }
+.fixed{position: fixed;}
+.rel{position: relative;}
+.abs{position: absolute;}
+.fl{float:left;}
+.fr{float:right;}
+.wid980{width:980px;}
+.marLRAuto{margin-left:auto;margin-right: auto;}
+.disNone{display: none;}
+.disBlock{display:block;}
+
+/*index-page*/
+html, body { height: 100%;}
+.wrap { width: 100%; height: 100%; }
+.left_bar {position:fixed;width: 223px; height: 100%;background:#3f67bf;}
+.left_bar a.active{background:#3598db;}
+.left_bar .nav{padding-left:13px;}
+.right_content { float: left; width: 100%; height: 100%;}
+#main { margin-left: 223px;height: 100%;}
+.logo{padding-top:5px;padding-left:15px;}
+/*nav-list*/
+.nav_list>li{margin-top:2px;}
+.nav_list li a{color:#FFF;cursor:pointer;border-radius:5px;width:158px;height:39px;display:block;line-height:39px;text-align:center;transition:.6s all ease;}
+.nav_list li .menu_wrap{margin-top:17px;}
+.nav_list li .submenu{display:none;overflow:hidden;background:#34495e;width:167px;margin-left:9px;padding-left:11px;border-radius: 5px;}
+.nav_list li .dropdown-toggle{display:block;background:#3598db;width:182px;height:39px;line-height:39px;border:none;text-align:center;margin-left:9px;transition:none;}
+.nav_list li.active .dropdown-toggle{border-left:9px solid #ea533e;margin-left:0;}
+.nav_list li .up_arrow{width: 0px;height: 0px;border-left: 8px solid transparent;border-right: 8px solid transparent;
+    border-bottom: 17px solid #34495e;float:right;margin-right:5px;right: 28px;top: -16px;}
+.submenu{padding-top:2px;padding-bottom:4px;}
+.submenu li{margin-top:2px;}
+.submenu li.active a,.submenu li a:hover{background:#3598db;}
+
+.side_btn{position:relative;height:25px;margin-top:40px;margin-bottom:25px;}
+.side_btn a{display:inline-block;width:26px;height:26px;background:red;}
+.side_show{left:0;position:absolute;}
+.side_hide{right:26px;position:absolute;}
+
+/*.right_nav*/
+.right_nav{width:100%;height:50px;}
+.right_nav_wrap{float:right;width:500px;height:50px;border-radius:8px;padding-left:24px;position:relative;}
+.right_nav .nav_bar{position:absolute;top:3px;left:24px;width:90px;height:38px;background:#3498db;border-radius:3px;}
+.right_nav .right_gap{position:absolute;width:24px;height:21px;right:6%;top:30%;background-position:-59px 0;}
+.right_nav ul{overflow:hidden;position:absolute;}
+.right_nav li{height:38px;float:left;margin-right:35px;margin-top:2%;border-radius:4px;}
+.right_nav li.active a{background:#3498db;}
+.right_nav li a{padding-left:17px;padding-right:17px;height:100%;display:inline-block;line-height:38px;
+    font-size:14px;color:#fff;border-radius:3px;background:transparent;transition:.5s all ease;}
+.right_nav li a:hover{background:#3498db;}
+
+/*home*/
+html{background:#342b6c;}
+.home-container{width:1024px;margin: 0 auto;}
+.home-container,.home-container a{color:#fff;}
+.home-container h4{font-size:22px;margin-top:30px;}
+.home-container .date_query{padding-left:27px;margin-bottom:4px;}
+.home-container .date_query a{display:inline-block;width:85px;height:43px;line-height:43px;font-size:19px;text-align:center;
+font-family:"Microsoft YaHei ", Helvetica, Arial, sans-serif;font-weight:bold;}
+.home-container .date_query a.active{border-bottom:3px solid #12aaeb;color:#12aaeb;}
+.home-container .query_wrap,.home-container .query_wrap a{border:1px solid #8e8f93;}
+.home-container .query_wrap{padding:20px 20px 0px 20px;margin-left:16px;margin-bottom:-2px;}
+.home-container .query_wrap li{margin-bottom:22px;}
+.home-container .query_wrap a{width:134px;height:35px;margin-right:30px;text-align:center;display:inline-block;line-height:35px;}
+.home-container .query_wrap a.c-span-last{margin-right:0;}
+.query_channel {text-align:center;}
+.query_channel a{display:inline-block;width:30px;}
+.query_channel a.active{border-bottom:1px solid blue;}
+/*echars*/
+#main_wrap{margin:40px auto 0;}

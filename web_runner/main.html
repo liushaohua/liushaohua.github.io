@@ -1,0 +1,91 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>测试用例</title>
+    <link rel="stylesheet" href="asset/common/index.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="right_content">
+        <div class="right_nav clear">
+            <div class="right_nav_wrap">
+                <ul>
+                    <li><a href="javascript:;">文档中心</a></li>
+                    <li><a href="javascript:;">我要吐槽</a></li>
+                    <li><a href="javascript:;">关于我们</a></li>
+                </ul>
+                <div class="right_gap"></div>
+            </div>
+        </div>
+        <div id="main"><!-- templace --></div>
+    </div>
+    <div class="left_bar">
+        <div class="logo">
+            <img src="asset/common/images/logo.png" width="198" height="104"/>
+        </div>
+        <div class="side_btn">
+            <a class="side_show" href="javascript:;"></a>
+            <a class="side_hide" href="javascript:;"></a>
+        </div>
+        <div class="nav">
+            <ul class="nav_list">
+                <li class="active">
+                    <a class="dropdown-toggle" href="javascript:;">页面详细分析</a>
+                    <div class="rel menu_wrap">
+                        <div class="up_arrow abs"></div>
+                        <ul class="submenu" style="display:block;">
+                            <li>
+                                <a href="#/home/">PV&nbsp;UV</a>
+                            </li>
+                            <li>
+                                <a href="#/tool/">工具页</a>
+                            </li>
+                            <li>
+                                <a href="#/info/">详情页面</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="dropdown-toggle" href="javascript:;">用户构成</a>
+                    <div>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#/home/">首页</a>
+                            </li>
+                            <li>
+                                <a href="#/tool/">工具页</a>
+                            </li>
+                            <li>
+                                <a href="#/info/">详情页面</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<script src="dep/requirejs/require.js"></script>
+<script>
+require.config({
+    baseUrl: 'asset',
+    paths : {
+        text: '../dep/requirejs-text/text',
+        router: '../dep/router/router',
+        echarts: '../dep/echarts-2.2.4/build/dist',
+        jQuery: '../dep/jquery/dist/jquery.min',
+        common: '../asset/common'
+    },
+    pachages: []
+});
+
+require(['main']);
+    
+</script>
+</html>

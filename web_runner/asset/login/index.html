@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>登录页</title>
+    <style>
+    div.ace_gutter-cell{padding-left:13px;}
+    *{margin:0;padding:0;list-style:none;}
+    a{text-decoration:none;}
+    html{height:100%;}
+    body{overflow:hidden;background: #000002;}
+    .wrap{width:100%:height:100%;}
+    #imgbg.source-image { width: 100%;position: absolute;top: 0;left: 0;}
+    .right_gap,.login_wrap .pass-text-input .c_icon{background:url(images/icon.png) no-repeat}
+    .right_nav{position:absolute;right:0;width:500px;background:#2d3e4f;height:50px;border-radius:8px;padding-left:24px;}
+    .right_nav .nav_bar{position:absolute;top:3px;left:24px;width:90px;height:38px;background:#3498db;border-radius:3px;}
+    .right_nav .right_gap{position:absolute;width:24px;height:21px;right:6%;top:30%;background-position:-59px 0;}
+    .right_nav ul{overflow:hidden;position:absolute;}
+    .right_nav li{height:38px;float:left;margin-right:35px;margin-top:2%;border-radius:4px;}
+    .right_nav li.active a{background:#3498db;}
+    .right_nav li a{padding-left:17px;padding-right:17px;height:100%;display:inline-block;line-height:38px;
+    font-size:14px;color:#fff;border-radius:3px;background:transparent;transition:.5s all ease;}
+    .right_nav li a:hover{background:#3498db;}
+    .login_wrap{width:276px;position:absolute;top:39%;left:50%;margin-left:-139px;}
+    .login_wrap ul li{height:42px;overflow:hidden;margin-bottom:32px;position:relative;border-radius:11px;}
+    .login_wrap .login_btn{margin-bottom:23px;height:45px;}
+    .login_wrap .login_btn input{height:100%;background:#3498db;width:100%;border:none;font-size: 21px;color: #fff;cursor:pointer;}
+    .login_wrap .pass-text-input input{display: block;position: relative;height: 12px;padding: 12px 40px 12px 10px;border: 3px solid #3498db;font-size: 14px;
+        border-radius:11px;width:220px;color: #666;}
+    .login_wrap .pass-text-input .c_icon{display:block;position:absolute;top:12px;right:10px;width:24px;height:20px;z-index:1;}
+    .login_wrap .pass-text-input .login_password{background-position:-28px -0;}
+    .login_wrap .pass-text-input .c_tip{position:absolute;z-index:1;left:12px;top:13px;font-size:14px;color:#666;}
+    .service{clear:both;}
+    .service a{display:inline-block;padding-left:15px;padding-right:15px;height:38px;background-color:transparent;
+    line-height:38px;color:#fff;font-size:19px;transition:.5s all ease;border-radius:5px;}
+    .service a:hover{background:#5dade2;}
+    .fr{float:right;}
+    </style>
+    <script src="../../dep/jquery/dist/jquery.min.js"></script>
+    <script src="js/login.js"></script>
+</head>
+<body>
+    <img id="imgbg" class='source-image' src="images/bg2.jpg"/>
+    <div class="wrap">
+        <div class="right_nav">
+            <ul>
+                <li><a href="javascript:;">文档中心</a></li>
+                <li><a href="javascript:;">我要吐槽</a></li>
+                <li><a href="javascript:;">关于我们</a></li>
+            </ul>
+            <div class="right_gap"></div>
+        </div>
+
+        <div class="login_wrap">
+            <ul>
+                <li class="pass-text-input">
+                    <label for="name" class="login_name c_icon"></label>
+                    <label for="name" class="c_tip">请输入用户名</label>
+                    <input type="text" id="name" place>
+                </li>
+                <li class="pass-text-input">
+                    <label for="password" class="login_password c_icon"></label>
+                    <label for="password" class="c_tip">请输入密码</label>
+                    <input type="password" id="password" place>
+                </li>
+                <li class="login_btn">
+                    <input type="button" value="Login">
+                </li>
+            </ul>
+            <div class="service">
+                <a href="javascript:;" class="fr">我要开通</a>
+                <a href="javascript:;">我要试用</a>
+            </div>
+        </div>
+    </div>
+</body>
